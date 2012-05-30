@@ -21,7 +21,7 @@ class PlivoError(Exception):
 def validate_signature(uri, post_params, signature, auth_token):
     for k, v in sorted(post_params.items()):
         uri += k + v
-    return base64.encodestring(hmac.new(self.auth_token, s, sha1).digest()).strip() == signature 
+    return base64.encodestring(hmac.new(auth_token, uri, sha1).digest()).strip() == signature 
 
 
 class RestAPI(object):
