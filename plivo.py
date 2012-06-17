@@ -129,7 +129,7 @@ class RestAPI(object):
 
     def rent_number(self, params={}):
         number = params.pop("number")
-        return self._request('POST', '/AvailableNumber/%s/' % number)
+        return self._request('POST', '/AvailableNumber/%s/' % number, data=params)
 
     def unrent_number(self, params={}):
         number = params.pop("number")
