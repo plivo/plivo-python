@@ -549,7 +549,7 @@ class Conference(Element):
 class Record(Element):
     nestables = ()
     valid_attributes = ('action', 'method', 'timeout','finishOnKey',
-                        'maxLength', 'playBeep', 'recordSession'
+                        'maxLength', 'playBeep', 'recordSession',
                         'startOnDialAnswer', 'redirect', 'fileFormat')
 
     def __init__(self, **attributes):
