@@ -496,7 +496,7 @@ class GetDigits(Element):
     nestables = ('Speak', 'Play', 'Wait')
     valid_attributes = ('action', 'method', 'timeout', 'finishOnKey',
                         'numDigits', 'retries', 'invalidDigitsSound',
-                        'validDigits', 'playBeep')
+                        'validDigits', 'playBeep', 'redirect')
 
     def __init__(self, **attributes):
         Element.__init__(self, body='', **attributes)
