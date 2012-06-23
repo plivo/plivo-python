@@ -434,10 +434,12 @@ class Element(object):
     def addMessage(self, body, **kwargs):
         return self.add(Message(body, **kwargs))
 
+    def addDTMF(self, body, **kwargs):
+        return self.add(DTMF(body, **kwargs))
 
 class Response(Element):
     nestables = ('Speak', 'Play', 'GetDigits', 'Record', 'Dial', 'Message',
-                 'Redirect', 'Wait', 'Hangup', 'PreAnswer', 'Conference')
+                 'Redirect', 'Wait', 'Hangup', 'PreAnswer', 'Conference', 'DTMF')
     valid_attributes = ()
 
     def __init__(self):
@@ -557,7 +559,7 @@ class Record(Element):
 
 
 class PreAnswer(Element):
-    nestables = ('Play', 'Speak', 'GetDigits', 'Wait', 'Redirect', 'Message')
+    nestables = ('Play', 'Speak', 'GetDigits', 'Wait', 'Redirect', 'Message', 'DTMF')
     valid_attributes = ()
 
     def __init__(self, **attributes):
@@ -571,6 +573,16 @@ class Message(Element):
     def __init__(self, body, **attributes):
         if not body:
             raise PlivoError('No text set for %s' % self.name)
+        Element.__init__(self, body, **attributes)
+
+
+class DTMF(Element):
+    nestables = ()
+    valid_attributes = ()
+        
+    def __init__(self, body, **attributes):
+        if not body:
+            raise PlivoError('No digits set for %s' % self.name)
         Element.__init__(self, body, **attributes)
 
 
