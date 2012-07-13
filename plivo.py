@@ -514,7 +514,7 @@ class Number(Element):
 
 class User(Element):
     nestables = ()
-    valid_attributes = ('sendDigits', 'sendOnPreanswer')
+    valid_attributes = ('sendDigits', 'sendOnPreanswer', 'sipHeaders')
 
     def __init__(self, body, **attributes):
         if not body:
@@ -527,7 +527,8 @@ class Dial(Element):
     valid_attributes = ('action','method','timeout','hangupOnStar',
                         'timeLimit','callerId', 'callerName', 'confirmSound',
                         'dialMusic', 'confirmKey', 'redirect',
-                        'callbackUrl', 'callbackMethod', 'digitsMatch')
+                        'callbackUrl', 'callbackMethod', 'digitsMatch',
+                        'sipHeaders')
 
     def __init__(self, **attributes):
         Element.__init__(self, body='', **attributes)
