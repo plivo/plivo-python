@@ -356,7 +356,7 @@ class Element(object):
     def __init__(self, body='', **attributes):
         self.attributes = {}
         self.name = self.__class__.__name__
-        self.body = body
+        self.body = unicode(body).encode('ascii', 'xmlcharrefreplace')
         self.node = None
         for k, v in attributes.iteritems():
             if not k in self.valid_attributes:
@@ -468,7 +468,7 @@ class Play(Element):
 
 class Wait(Element):
     nestables = ()
-    valid_attributes = ('length')
+    valid_attributes = ('length', 'silence')
         
     def __init__(self, **attributes):
         Element.__init__(self, body='', **attributes)
@@ -496,7 +496,7 @@ class GetDigits(Element):
     nestables = ('Speak', 'Play', 'Wait')
     valid_attributes = ('action', 'method', 'timeout', 'finishOnKey',
                         'numDigits', 'retries', 'invalidDigitsSound',
-                        'validDigits', 'playBeep', 'redirect')
+                        'validDigits', 'playBeep', 'redirect', 'digitTimeout')
 
     def __init__(self, **attributes):
         Element.__init__(self, body='', **attributes)
@@ -553,7 +553,8 @@ class Record(Element):
     nestables = ()
     valid_attributes = ('action', 'method', 'timeout','finishOnKey',
                         'maxLength', 'playBeep', 'recordSession',
-                        'startOnDialAnswer', 'redirect', 'fileFormat')
+                        'startOnDialAnswer', 'redirect', 'fileFormat',
+                        'callbackUrl', 'callbackMethod')
 
     def __init__(self, **attributes):
         Element.__init__(self, body='', **attributes)
