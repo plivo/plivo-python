@@ -95,7 +95,7 @@ class RestAPI(object):
 
     def delete_subaccount(self, params={}):
         subauth_id = params.pop("subauth_id")
-        return self._request('DELETE', '/Subaccount/%s/' % subauth_id)
+        return self._request('DELETE', '/Subaccount/%s/' % subauth_id, data=params)
 
     ## Applications ##
     def get_applications(self, params={}):
@@ -114,7 +114,7 @@ class RestAPI(object):
 
     def delete_application(self, params={}):
         app_id = params.pop("app_id")
-        return self._request('DELETE', '/Application/%s/' % app_id)
+        return self._request('DELETE', '/Application/%s/' % app_id, data=params)
 
     ## Numbers ##
     def get_numbers(self, params={}):
@@ -133,7 +133,7 @@ class RestAPI(object):
 
     def unrent_number(self, params={}):
         number = params.pop("number")
-        return self._request('DELETE', '/Number/%s/' % number)
+        return self._request('DELETE', '/Number/%s/' % number, data=params)
 
     def link_application_number(self, params={}):
         number = params.pop("number")
@@ -154,14 +154,6 @@ class RestAPI(object):
     def rent_from_number_group(self, params={}):
         group_id = params.pop('group_id')
         return self._request('POST', '/AvailableNumberGroup/%s/' % group_id, data=params)
-
-    ## Schedule ##
-    def get_scheduled_tasks(self, params={}):
-        return self._request('GET', '/Schedule/', data=params)
-
-    def cancel_scheduled_task(self, params={}):
-        task_id = params.pop("task_id")
-        return self._request('DELETE', '/Schedule/%s/' % task_id)
 
     ## Calls ##
     def get_cdrs(self, params={}):
@@ -184,7 +176,7 @@ class RestAPI(object):
         return self._request('POST', '/Call/', data=params)
 
     def hangup_all_calls(self, params={}):
-        return self._request('DELETE', '/Call/')
+        return self._request('DELETE', '/Call/', data=params)
 
     def transfer_call(self, params={}):
         call_uuid = params.pop('call_uuid')
@@ -192,7 +184,7 @@ class RestAPI(object):
 
     def hangup_call(self, params={}):
         call_uuid = params.pop('call_uuid')
-        return self._request('DELETE', '/Call/%s/' % call_uuid)
+        return self._request('DELETE', '/Call/%s/' % call_uuid, data=params)
 
     def record(self, params={}):
         call_uuid = params.pop('call_uuid')
@@ -200,7 +192,7 @@ class RestAPI(object):
         
     def stop_record(self, params={}):
         call_uuid = params.pop('call_uuid')
-        return self._request('DELETE', '/Call/%s/Record/' % call_uuid)
+        return self._request('DELETE', '/Call/%s/Record/' % call_uuid, data=params)
 
     def play(self, params={}):
         call_uuid = params.pop('call_uuid')
@@ -208,7 +200,7 @@ class RestAPI(object):
         
     def stop_play(self, params={}):
         call_uuid = params.pop('call_uuid')
-        return self._request('DELETE', '/Call/%s/Play/' % call_uuid)
+        return self._request('DELETE', '/Call/%s/Play/' % call_uuid, data=params)
 
     def speak(self, params={}):
         call_uuid = params.pop('call_uuid')
@@ -221,14 +213,14 @@ class RestAPI(object):
     ## Calls requests ##
     def hangup_request(self, params={}):
         request_uuid = params.pop('request_uuid')
-        return self._request('DELETE', '/Request/%s/' % request_uuid)
+        return self._request('DELETE', '/Request/%s/' % request_uuid, data=params)
 
     ## Conferences ##
     def get_live_conferences(self, params={}):
         return self._request('GET', '/Conference/', data=params)
 
     def hangup_all_conferences(self, params={}):
-        return self._request('DELETE', '/Conference/')
+        return self._request('DELETE', '/Conference/', data=params)
 
     def get_live_conference(self, params={}):
         conference_name = params.pop('conference_name')
@@ -236,12 +228,12 @@ class RestAPI(object):
 
     def hangup_conference(self, params={}):
         conference_name = params.pop('conference_name')
-        return self._request('DELETE', '/Conference/%s/' % conference_name)
+        return self._request('DELETE', '/Conference/%s/' % conference_name, data=params)
 
     def hangup_member(self, params={}):
         conference_name = params.pop('conference_name')
         member_id = params.pop('member_id')
-        return self._request('DELETE', '/Conference/%s/Member/%s/' % (conference_name, member_id))
+        return self._request('DELETE', '/Conference/%s/Member/%s/' % (conference_name, member_id), data=params)
 
     def play_member(self, params={}):
         conference_name = params.pop('conference_name')
@@ -251,7 +243,7 @@ class RestAPI(object):
     def stop_play_member(self, params={}):
         conference_name = params.pop('conference_name')
         member_id = params.pop('member_id')
-        return self._request('DELETE', '/Conference/%s/Member/%s/Play/' % (conference_name, member_id))
+        return self._request('DELETE', '/Conference/%s/Member/%s/Play/' % (conference_name, member_id), data=params)
 
     def speak_member(self, params={}):
         conference_name = params.pop('conference_name')
@@ -266,7 +258,7 @@ class RestAPI(object):
     def undeaf_member(self, params={}):
         conference_name = params.pop('conference_name')
         member_id = params.pop('member_id')
-        return self._request('DELETE', '/Conference/%s/Member/%s/Deaf/' % (conference_name, member_id))
+        return self._request('DELETE', '/Conference/%s/Member/%s/Deaf/' % (conference_name, member_id), data=params)
 
     def mute_member(self, params={}):
         conference_name = params.pop('conference_name')
@@ -276,7 +268,7 @@ class RestAPI(object):
     def unmute_member(self, params={}):
         conference_name = params.pop('conference_name')
         member_id = params.pop('member_id')
-        return self._request('DELETE', '/Conference/%s/Member/%s/Mute/' % (conference_name, member_id))
+        return self._request('DELETE', '/Conference/%s/Member/%s/Mute/' % (conference_name, member_id), data=params)
 
     def kick_member(self, params={}):
         conference_name = params.pop('conference_name')
@@ -289,7 +281,7 @@ class RestAPI(object):
 
     def stop_record_conference(self, params={}): 
         conference_name = params.pop('conference_name')
-        return self._request('DELETE', '/Conference/%s/Record/' % conference_name)
+        return self._request('DELETE', '/Conference/%s/Record/' % conference_name, data=params)
 
     ## Recordings ##
     def get_recordings(self, params={}):
@@ -316,7 +308,7 @@ class RestAPI(object):
 
     def delete_endpoint(self, params={}):
         endpoint_id = params.pop('endpoint_id')
-        return self._request('DELETE', '/Endpoint/%s/' % endpoint_id)
+        return self._request('DELETE', '/Endpoint/%s/' % endpoint_id, data=params)
 
     ## Carriers ##
     def get_carriers(self, params={}):
@@ -335,7 +327,7 @@ class RestAPI(object):
 
     def delete_carrier(self, params={}):
         carrier_id = params.pop('carrier_id')
-        return self._request('DELETE', '/Carrier/%s/' % carrier_id)
+        return self._request('DELETE', '/Carrier/%s/' % carrier_id, data=params)
 
     ## Carrier Routings ##
     def get_carrier_routings(self, params={}):
@@ -354,7 +346,7 @@ class RestAPI(object):
 
     def delete_carrier_routing(self, params={}):
         routing_id = params.pop('routing_id')
-        return self._request('DELETE', '/CarrierRouting/%s/' % routing_id)
+        return self._request('DELETE', '/CarrierRouting/%s/' % routing_id, data=params)
 
     ## Message ##
     def send_message(self, params={}):
