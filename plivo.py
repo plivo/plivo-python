@@ -352,7 +352,12 @@ class RestAPI(object):
     def send_message(self, params={}):
         return self._request('POST', '/Message/', data=params)
 
+    def get_messages(self, params={}):
+        return self._request('GET', '/Message/', data=params)
 
+    def get_message(self, params={}):
+        record_id = params.pop('record_id')
+        return self._request('GET', '/Message/%s/' % record_id, data=params)
 
 class Element(object):
     nestables = ()
