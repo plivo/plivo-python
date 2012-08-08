@@ -99,7 +99,7 @@ class RestAPI(object):
 
     ## Applications ##
     def get_applications(self, params={}):
-        return self._request('GET', '/Application/', data=params, data=params)
+        return self._request('GET', '/Application/', data=params)
 
     def create_application(self, params={}):
         return self._request('POST', '/Application/', data=params)
