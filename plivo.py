@@ -144,6 +144,17 @@ class RestAPI(object):
         params = {'app_id':''}
         return self._request('POST', '/Number/%s/' % number, data=params)
 
+    def get_number_group(self, params={}):
+        return self._request('GET', '/AvailableNumberGroup/', data=params)
+
+    def get_number_group_details(self, params={}):
+        group_id = params.pop('group_id')
+        return self._request('GET', '/AvailableNumberGroup/%s/' % group_id, data=params)
+
+    def rent_from_number_group(self, params={}):
+        group_id = params.pop('group_id')
+        return self._request('POST', '/AvailableNumberGroup/%s/' % group_id, data=params)
+
     ## Schedule ##
     def get_scheduled_tasks(self, params={}):
         return self._request('GET', '/Schedule/', data=params)
