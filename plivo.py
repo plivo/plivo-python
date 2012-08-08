@@ -74,20 +74,20 @@ class RestAPI(object):
                 
     ## Accounts ##
     def get_account(self, params={}):
-        return self._request('GET', '')
+        return self._request('GET', '', data=params)
 
     def modify_account(self, params={}):
         return self._request('POST', '', data=params)
 
     def get_subaccounts(self, params={}):
-        return self._request('GET', '/Subaccount/')
+        return self._request('GET', '/Subaccount/', data=params)
 
     def create_subaccount(self, params={}):
         return self._request('POST', '/Subaccount/', data=params)
 
     def get_subaccount(self, params={}):
         subauth_id = params.pop("subauth_id")
-        return self._request('GET', '/Subaccount/%s/' % subauth_id)
+        return self._request('GET', '/Subaccount/%s/' % subauth_id, data=params)
 
     def modify_subaccount(self, params={}):
         subauth_id = params.pop("subauth_id")
@@ -99,14 +99,14 @@ class RestAPI(object):
 
     ## Applications ##
     def get_applications(self, params={}):
-        return self._request('GET', '/Application/', data=params)
+        return self._request('GET', '/Application/', data=params, data=params)
 
     def create_application(self, params={}):
         return self._request('POST', '/Application/', data=params)
 
     def get_application(self, params={}):
         app_id = params.pop("app_id")
-        return self._request('GET', '/Application/%s/' % app_id)
+        return self._request('GET', '/Application/%s/' % app_id, data=params)
 
     def modify_application(self, params={}):
         app_id = params.pop("app_id")
@@ -125,7 +125,7 @@ class RestAPI(object):
 
     def get_number(self, params={}):
         number = params.pop("number")
-        return self._request('GET', '/Number/%s/' % number)
+        return self._request('GET', '/Number/%s/' % number, data=params)
 
     def rent_number(self, params={}):
         number = params.pop("number")
@@ -146,7 +146,7 @@ class RestAPI(object):
 
     ## Schedule ##
     def get_scheduled_tasks(self, params={}):
-        return self._request('GET', '/Schedule/')
+        return self._request('GET', '/Schedule/', data=params)
 
     def cancel_scheduled_task(self, params={}):
         task_id = params.pop("task_id")
@@ -158,14 +158,16 @@ class RestAPI(object):
 
     def get_cdr(self, params={}):
         record_id = params.pop('record_id')
-        return self._request('GET', '/Call/%s/' % record_id)
+        return self._request('GET', '/Call/%s/' % record_id, data=params)
 
     def get_live_calls(self, params={}):
-        return self._request('GET', '/Call/', data={'status':'live'})
+        params['status'] = 'live'
+        return self._request('GET', '/Call/', data=params)
 
     def get_live_call(self, params={}):
         call_uuid = params.pop('call_uuid')
-        return self._request('GET', '/Call/%s/' % call_uuid, data={'status':'live'})
+        params['status'] = 'live'
+        return self._request('GET', '/Call/%s/' % call_uuid, data=params)
 
     def make_call(self, params={}):
         return self._request('POST', '/Call/', data=params)
@@ -284,7 +286,7 @@ class RestAPI(object):
 
     def get_recording(self, params={}):
         recording_id = params.pop('recording_id')
-        return self._request('GET', '/Recording/%s/' % recording_id)
+        return self._request('GET', '/Recording/%s/' % recording_id, data=params)
 
     ## Endpoints ##
     def get_endpoints(self, params={}):
@@ -295,7 +297,7 @@ class RestAPI(object):
 
     def get_endpoint(self, params={}):
         endpoint_id = params.pop('endpoint_id')
-        return self._request('GET', '/Endpoint/%s/' % endpoint_id)
+        return self._request('GET', '/Endpoint/%s/' % endpoint_id, data=params)
 
     def modify_endpoint(self, params={}):
         endpoint_id = params.pop('endpoint_id')
@@ -314,7 +316,7 @@ class RestAPI(object):
 
     def get_carrier(self, params={}):
         carrier_id = params.pop('carrier_id')
-        return self._request('GET', '/Carrier/%s/' % carrier_id)
+        return self._request('GET', '/Carrier/%s/' % carrier_id, data=params)
 
     def modify_carrier(self, params={}):
         carrier_id = params.pop('carrier_id')
@@ -333,7 +335,7 @@ class RestAPI(object):
 
     def get_carrier_routing(self, params={}):
         routing_id = params.pop('routing_id')
-        return self._request('GET', '/CarrierRouting/%s/' % routing_id)
+        return self._request('GET', '/CarrierRouting/%s/' % routing_id, data=params)
 
     def modify_carrier_routing(self, params={}):
         routing_id = params.pop('routing_id')
