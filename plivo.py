@@ -253,7 +253,7 @@ class RestAPI(object):
     def deaf_member(self, params={}):
         conference_name = params.pop('conference_name')
         member_id = params.pop('member_id')
-        return self._request('POST', '/Conference/%s/Member/%s/Deaf/' % (conference_name, member_id))
+        return self._request('POST', '/Conference/%s/Member/%s/Deaf/' % (conference_name, member_id), data=params)
 
     def undeaf_member(self, params={}):
         conference_name = params.pop('conference_name')
@@ -263,7 +263,7 @@ class RestAPI(object):
     def mute_member(self, params={}):
         conference_name = params.pop('conference_name')
         member_id = params.pop('member_id')
-        return self._request('POST', '/Conference/%s/Member/%s/Mute/' % (conference_name, member_id))
+        return self._request('POST', '/Conference/%s/Member/%s/Mute/' % (conference_name, member_id), data=params)
 
     def unmute_member(self, params={}):
         conference_name = params.pop('conference_name')
@@ -273,11 +273,11 @@ class RestAPI(object):
     def kick_member(self, params={}):
         conference_name = params.pop('conference_name')
         member_id = params.pop('member_id')
-        return self._request('POST', '/Conference/%s/Member/%s/Kick/' % (conference_name, member_id))
+        return self._request('POST', '/Conference/%s/Member/%s/Kick/' % (conference_name, member_id), data=params)
 
     def record_conference(self, params={}): 
         conference_name = params.pop('conference_name')
-        return self._request('POST', '/Conference/%s/Record/' % conference_name, params)
+        return self._request('POST', '/Conference/%s/Record/' % conference_name, data=params)
 
     def stop_record_conference(self, params={}): 
         conference_name = params.pop('conference_name')
