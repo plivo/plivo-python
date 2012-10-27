@@ -1,7 +1,7 @@
 from setuptools import setup
 import sys
 
-requires = ['requests>=0.10.8,<0.11']
+requires = ['requests>=0.10.8']
 if sys.version_info < (2, 6):
     requires.append('simplejson')
 
