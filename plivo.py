@@ -524,7 +524,7 @@ class Number(Element):
 
 class User(Element):
     nestables = ()
-    valid_attributes = ('sendDigits', 'sendOnPreanswer', 'sipHeaders'; 'webrtc')
+    valid_attributes = ('sendDigits', 'sendOnPreanswer', 'sipHeaders', 'webrtc')
 
     def __init__(self, body, **attributes):
         if not body:
