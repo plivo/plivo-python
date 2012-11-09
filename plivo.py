@@ -504,9 +504,9 @@ class Hangup(Element):
 
 class GetDigits(Element):
     nestables = ('Speak', 'Play', 'Wait')
-    valid_attributes = ('action', 'method', 'timeout', 'finishOnKey',
-                        'numDigits', 'retries', 'invalidDigitsSound',
-                        'validDigits', 'playBeep', 'redirect', 'digitTimeout')
+    valid_attributes = ('action', 'method', 'timeout', 'digitTimeout', 'finishOnKey',
+                        'numDigits', 'retries', 'invalidDigitsSound', 'validDigits', 
+                        'playBeep', 'redirect', 'digitTimeout')
 
     def __init__(self, **attributes):
         Element.__init__(self, body='', **attributes)
