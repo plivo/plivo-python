@@ -552,7 +552,8 @@ class Conference(Element):
                         'timeLimit', 'hangupOnStar', 'maxMembers',
                         'record', 'recordFileFormat', 'action', 'method', 'redirect',
                         'digitsMatch', 'callbackUrl', 'callbackMethod',
-                        'stayAlone', 'floorEvent')
+                        'stayAlone', 'floorEvent', 'transcriptionType', 'transcriptionUrl',
+                        'transcriptionMethod')
 
     def __init__(self, body, **attributes):
         if not body:
@@ -565,7 +566,8 @@ class Record(Element):
     valid_attributes = ('action', 'method', 'timeout','finishOnKey',
                         'maxLength', 'playBeep', 'recordSession',
                         'startOnDialAnswer', 'redirect', 'fileFormat',
-                        'callbackUrl', 'callbackMethod')
+                        'callbackUrl', 'callbackMethod', 'transcriptionType', 
+                        'transcriptionUrl', 'transcriptionMethod')
 
     def __init__(self, **attributes):
         Element.__init__(self, body='', **attributes)
