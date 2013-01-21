@@ -21,7 +21,7 @@ class PlivoError(Exception):
 def validate_signature(uri, post_params, signature, auth_token):
     for k, v in sorted(post_params.items()):
         uri += k + v
-    return base64.encodestring(hmac.new(auth_token, uri, sha1).digest()).strip() == signature 
+    return base64.encodestring(hmac.new(auth_token, uri, sha1).digest()).strip() == signature
 
 
 class RestAPI(object):
@@ -38,27 +38,27 @@ class RestAPI(object):
         if method == 'POST':
             headers = {'content-type': 'application/json'}
             headers.update(self.headers)
-            r = requests.post(self._api + path, headers=headers, 
+            r = requests.post(self._api + path, headers=headers,
                               auth=(self.auth_id, self.auth_token),
                               data=json.dumps(data))
         elif method == 'GET':
-            r = requests.get(self._api + path, headers=self.headers, 
+            r = requests.get(self._api + path, headers=self.headers,
                              auth=(self.auth_id, self.auth_token),
                              params=data)
         elif method == 'DELETE':
-            r = requests.delete(self._api + path, headers=self.headers, 
+            r = requests.delete(self._api + path, headers=self.headers,
                                 auth=(self.auth_id, self.auth_token),
                                 params=data)
         elif method == 'PUT':
             headers = {'content-type': 'application/json'}
             headers.update(self.headers)
-            r = requests.put(self._api + path, headers=headers, 
+            r = requests.put(self._api + path, headers=headers,
                              auth=(self.auth_id, self.auth_token),
                              data=json.dumps(data))
         content = r.content
         if content:
             try:
-                response = json.loads(content) 
+                response = json.loads(content)
             except ValueError:
                 response = content
         else:
@@ -71,7 +71,7 @@ class RestAPI(object):
             return params[key]
         except KeyError:
             raise PlivoException("missing mandatory parameter %s" % key)
-                
+
     ## Accounts ##
     def get_account(self, params={}):
         return self._request('GET', '', data=params)
@@ -128,7 +128,7 @@ class RestAPI(object):
         return self._request('GET', '/Number/%s/' % number, data=params)
 
     def modify_number(self, params={}):
-	number = params.pop("number")
+        number = params.pop("number")
         return self._request('POST', '/Number/%s/' % number, data=params)
 
     def rent_number(self, params={}):
@@ -193,7 +193,7 @@ class RestAPI(object):
     def record(self, params={}):
         call_uuid = params.pop('call_uuid')
         return self._request('POST', '/Call/%s/Record/' % call_uuid, data=params)
-        
+
     def stop_record(self, params={}):
         call_uuid = params.pop('call_uuid')
         return self._request('DELETE', '/Call/%s/Record/' % call_uuid, data=params)
@@ -201,7 +201,7 @@ class RestAPI(object):
     def play(self, params={}):
         call_uuid = params.pop('call_uuid')
         return self._request('POST', '/Call/%s/Play/' % call_uuid, data=params)
-        
+
     def stop_play(self, params={}):
         call_uuid = params.pop('call_uuid')
         return self._request('DELETE', '/Call/%s/Play/' % call_uuid, data=params)
@@ -209,7 +209,7 @@ class RestAPI(object):
     def speak(self, params={}):
         call_uuid = params.pop('call_uuid')
         return self._request('POST', '/Call/%s/Speak/' % call_uuid, data=params)
-        
+
     def send_digits(self, params={}):
         call_uuid = params.pop('call_uuid')
         return self._request('POST', '/Call/%s/DTMF/' % call_uuid, data=params)
@@ -243,7 +243,7 @@ class RestAPI(object):
         conference_name = params.pop('conference_name')
         member_id = params.pop('member_id')
         return self._request('POST', '/Conference/%s/Member/%s/Play/' % (conference_name, member_id), data=params)
-        
+
     def stop_play_member(self, params={}):
         conference_name = params.pop('conference_name')
         member_id = params.pop('member_id')
@@ -279,11 +279,11 @@ class RestAPI(object):
         member_id = params.pop('member_id')
         return self._request('POST', '/Conference/%s/Member/%s/Kick/' % (conference_name, member_id), data=params)
 
-    def record_conference(self, params={}): 
+    def record_conference(self, params={}):
         conference_name = params.pop('conference_name')
         return self._request('POST', '/Conference/%s/Record/' % conference_name, data=params)
 
-    def stop_record_conference(self, params={}): 
+    def stop_record_conference(self, params={}):
         conference_name = params.pop('conference_name')
         return self._request('DELETE', '/Conference/%s/Record/' % conference_name, data=params)
 
@@ -463,7 +463,7 @@ class Response(Element):
 class Speak(Element):
     nestables = ()
     valid_attributes = ('voice', 'language', 'loop')
-        
+
     def __init__(self, body, **attributes):
         if not body:
             raise PlivoError('No text set for %s' % self.name)
@@ -473,7 +473,7 @@ class Speak(Element):
 class Play(Element):
     nestables = ()
     valid_attributes = ('loop')
-        
+
     def __init__(self, body, **attributes):
         if not body:
             raise PlivoError('No url set for %s' % self.name)
@@ -483,7 +483,7 @@ class Play(Element):
 class Wait(Element):
     nestables = ()
     valid_attributes = ('length', 'silence')
-        
+
     def __init__(self, **attributes):
         Element.__init__(self, body='', **attributes)
 
@@ -491,7 +491,7 @@ class Wait(Element):
 class Redirect(Element):
     nestables = ()
     valid_attributes = ('method')
-        
+
     def __init__(self, body, **attributes):
         if not body:
             raise PlivoError('No url set for %s' % self.name)
@@ -501,7 +501,7 @@ class Redirect(Element):
 class Hangup(Element):
     nestables = ()
     valid_attributes = ('schedule', 'reason')
-        
+
     def __init__(self, **attributes):
         Element.__init__(self, body='', **attributes)
 
@@ -509,7 +509,7 @@ class Hangup(Element):
 class GetDigits(Element):
     nestables = ('Speak', 'Play', 'Wait')
     valid_attributes = ('action', 'method', 'timeout', 'digitTimeout', 'finishOnKey',
-                        'numDigits', 'retries', 'invalidDigitsSound', 'validDigits', 
+                        'numDigits', 'retries', 'invalidDigitsSound', 'validDigits',
                         'playBeep', 'redirect', 'digitTimeout')
 
     def __init__(self, **attributes):
@@ -524,11 +524,11 @@ class Number(Element):
         if not body:
             raise PlivoError('No number set for %s' % self.name)
         Element.__init__(self, body, **attributes)
-        
+
 
 class User(Element):
     nestables = ()
-    valid_attributes = ('sendDigits', 'sendOnPreanswer', 'sipHeaders', 
+    valid_attributes = ('sendDigits', 'sendOnPreanswer', 'sipHeaders',
                         'webrtc')
 
     def __init__(self, body, **attributes):
@@ -570,7 +570,7 @@ class Record(Element):
     valid_attributes = ('action', 'method', 'timeout','finishOnKey',
                         'maxLength', 'playBeep', 'recordSession',
                         'startOnDialAnswer', 'redirect', 'fileFormat',
-                        'callbackUrl', 'callbackMethod', 'transcriptionType', 
+                        'callbackUrl', 'callbackMethod', 'transcriptionType',
                         'transcriptionUrl', 'transcriptionMethod')
 
     def __init__(self, **attributes):
@@ -588,7 +588,7 @@ class PreAnswer(Element):
 class Message(Element):
     nestables = ()
     valid_attributes = ('src', 'dst', 'type', 'callbackUrl', 'callbackMethod')
-        
+
     def __init__(self, body, **attributes):
         if not body:
             raise PlivoError('No text set for %s' % self.name)
@@ -598,7 +598,7 @@ class Message(Element):
 class DTMF(Element):
     nestables = ()
     valid_attributes = ()
-        
+
     def __init__(self, body, **attributes):
         if not body:
             raise PlivoError('No digits set for %s' % self.name)
