@@ -514,7 +514,7 @@ class GetDigits(Element):
 
 class Number(Element):
     nestables = ()
-    valid_attributes = ('sendDigits', 'sendOnPreanswer')
+    valid_attributes = ('sendDigits', 'sendOnPreanswer', 'sendDigitsMode')
 
     def __init__(self, body, **attributes):
         if not body:
