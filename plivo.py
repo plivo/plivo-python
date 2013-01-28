@@ -311,23 +311,23 @@ class RestAPI(object):
         return self._request('DELETE', '/Endpoint/%s/' % endpoint_id, data=params)
 
     ## Carriers ##
-    def get_carriers(self, params={}):
-        return self._request('GET', '/Carrier/', data=params)
+    def get_incoming_carriers(self, params={}):
+        return self._request('GET', '/IncomingCarrier/', data=params)
 
-    def create_carrier(self, params={}):
-        return self._request('POST', '/Carrier/', data=params)
+    def create_incoming_carrier(self, params={}):
+        return self._request('POST', '/IncomingCarrier/', data=params)
 
-    def get_carrier(self, params={}):
+    def get_incoming_carrier(self, params={}):
         carrier_id = params.pop('carrier_id')
-        return self._request('GET', '/Carrier/%s/' % carrier_id, data=params)
+        return self._request('GET', '/IncomingCarrier/%s/' % carrier_id, data=params)
 
-    def modify_carrier(self, params={}):
+    def modify_incoming_carrier(self, params={}):
         carrier_id = params.pop('carrier_id')
-        return self._request('POST', '/Carrier/%s/' % carrier_id, data=params)
+        return self._request('POST', '/IncomingCarrier/%s/' % carrier_id, data=params)
 
-    def delete_carrier(self, params={}):
+    def delete_incoming_carrier(self, params={}):
         carrier_id = params.pop('carrier_id')
-        return self._request('DELETE', '/Carrier/%s/' % carrier_id, data=params)
+        return self._request('DELETE', '/IncomingCarrier/%s/' % carrier_id, data=params)
 
     ## Carrier Routings ##
     def get_carrier_routings(self, params={}):
@@ -347,7 +347,11 @@ class RestAPI(object):
     def delete_carrier_routing(self, params={}):
         routing_id = params.pop('routing_id')
         return self._request('DELETE', '/CarrierRouting/%s/' % routing_id, data=params)
-
+        
+    ## Outgoing Carriers ##
+        
+    ## To be added here ##
+    
     ## Message ##
     def send_message(self, params={}):
         return self._request('POST', '/Message/', data=params)
