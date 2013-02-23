@@ -347,6 +347,10 @@ class RestAPI(object):
     def delete_carrier_routing(self, params={}):
         routing_id = params.pop('routing_id')
         return self._request('DELETE', '/CarrierRouting/%s/' % routing_id, data=params)
+
+    ## Pricing ##
+    def pricing(self, params={}):
+        return self._request('GET', '/Pricing/', data=params)
         
     ## Outgoing Carriers ##
         
