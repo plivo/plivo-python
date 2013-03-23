@@ -135,6 +135,13 @@ class RestAPI(object):
         number = params.pop("number")
         return self._request('DELETE', '/Number/%s/' % number, data=params)
 
+    def add_carrier_number(self, params={}):
+        return self._request('POST', '/Number/', data=params)
+
+    def modify_number(self, params={}):
+        number = params.pop("number")
+        return self._request('POST', '/Number/%s/' % number, data=params)
+
     def link_application_number(self, params={}):
         number = params.pop("number")
         return self._request('POST', '/Number/%s/' % number, data=params)
