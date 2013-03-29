@@ -250,6 +250,11 @@ class RestAPI(object):
         call_uuid = params.pop('call_uuid')
         return self._request('POST', '/Call/%s/Speak/' % call_uuid, data=params)
         
+    def stop_speak(self, params=None):
+        if not params: params = {}
+        call_uuid = params.pop('call_uuid')
+        return self._request('DELETE', '/Call/%s/Speak/' % call_uuid, data=params)
+        
     def send_digits(self, params=None):
         if not params: params = {}
         call_uuid = params.pop('call_uuid')
