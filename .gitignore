@@ -1,4 +1,5 @@
 *.py[co]
+auth_secrets.py
 
 # Packages
 *.egg
