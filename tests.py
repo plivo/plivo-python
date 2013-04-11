@@ -23,5 +23,13 @@ class TestAccounts(unittest.TestCase):
         for key in valid_keys:
             self.assertTrue(key in json_response)
 
+    def test_get_subaccount(self):
+        response = self.client.get_subaccounts()
+        self.assertEqual(200, response[0])
+        valid_keys = ["meta", "api_id", "objects"]
+        json_response = response[1]
+        for key in valid_keys:
+            self.assertTrue(key in json_response)
+
 if __name__ == "__main__":
     unittest.main()
