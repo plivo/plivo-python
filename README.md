@@ -22,3 +22,10 @@ Example code to make a call
     }
 
     response = p.make_call(params)
+
+
+Running Tests
+-----------------------
+
+Create a file named auth_secrets.py and give it your `AUTH_ID` and `AUTH_TOKEN`.
+Run `python tests.py`
