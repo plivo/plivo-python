@@ -1,18 +1,23 @@
 import unittest
-import plivo
+import os
 import random
 import string
 
+import plivo
+
 try:
-    import auth_secrets
+    from auth_secrets import AUTH_ID, AUTH_TOKEN
 except ImportError:
-    raise Exception("Create a auth_secrets.py file")
+    AUTH_ID, AUTH_TOKEN = os.getenv("AUTH_ID"), os.getenv("AUTH_TOKEN")
+    if not (AUTH_ID and AUTH_TOKEN):
+        raise Exception("Create a auth_secrets.py file or set AUTH_ID "
+                        "and AUTH_TOKEN as environ values.")
 
 
 class TestAccounts(unittest.TestCase):
     def setUp(self):
-        auth_id = auth_secrets.AUTH_ID
-        auth_token = auth_secrets.AUTH_TOKEN
+        auth_id = AUTH_ID
+        auth_token = AUTH_TOKEN
 
         self.client = plivo.RestAPI(auth_id, auth_token)
 
@@ -52,8 +57,8 @@ class TestAccounts(unittest.TestCase):
 
 class TestApplication(unittest.TestCase):
     def setUp(self):
-        auth_id = auth_secrets.AUTH_ID
-        auth_token = auth_secrets.AUTH_TOKEN
+        auth_id = AUTH_ID
+        auth_token = AUTH_TOKEN
         self.client = plivo.RestAPI(auth_id, auth_token)
 
     def test_get_applications(self):

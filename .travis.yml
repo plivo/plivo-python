@@ -1,0 +1,13 @@
+--- 
+language: python
+python: 
+- "2.6"
+- "2.7"
+env: 
+  global: 
+  - secure: |-
+      KcMJOPNdX0Xhc6xSB4uGC54PWhMXk3ZouIrhrKA6PLOmycOB9RRNYqHhB7xk
+      o6cRkQ9H1Y3+OR/eFNCA0RdWjAEJxdvdSlkXw3R9d1Zt5voo8+dzRo2oLbyB
+      e805nFyWLgyCPpqlx2b0P7+GSKShNqeP2qmQq3Ph8kmLQq3KYFE=
+install: pip install -r requirements.txt --use-mirrors
+script: python tests.py
