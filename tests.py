@@ -50,5 +50,19 @@ class TestAccounts(unittest.TestCase):
         self.assertEqual(204, response[0])
 
 
+class TestApplication(unittest.TestCase):
+    def setUp(self):
+        auth_id = auth_secrets.AUTH_ID
+        auth_token = auth_secrets.AUTH_TOKEN
+        self.client = plivo.RestAPI(auth_id, auth_token)
+
+    def test_get_applications(self):
+        response = self.client.get_applications()
+        self.assertEqual(200, response[0])
+        valid_keys = ["objects", "api_id", "meta"]
+        json_response = response[1]
+        for key in valid_keys:
+            self.assertTrue(key in json_response)
+
 if __name__ == "__main__":
     unittest.main()
