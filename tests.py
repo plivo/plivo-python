@@ -1,5 +1,7 @@
 import unittest
 import plivo
+import random
+import string
 
 try:
     import auth_secrets
@@ -23,13 +25,30 @@ class TestAccounts(unittest.TestCase):
         for key in valid_keys:
             self.assertTrue(key in json_response)
 
-    def test_get_subaccount(self):
+    def test_get_subaccounts(self):
         response = self.client.get_subaccounts()
         self.assertEqual(200, response[0])
         valid_keys = ["meta", "api_id", "objects"]
         json_response = response[1]
         for key in valid_keys:
             self.assertTrue(key in json_response)
+
+    def test_subaccount_crud(self):
+        random_letter = lambda: random.choice(string.ascii_letters)
+        random_name = ''.join(random_letter() for i in range(8))
+        response = self.client.create_subaccount(dict(name=random_name,
+                                                 enabled=True))
+        self.assertEqual(201, response[0])
+        valid_keys = ["auth_id", "api_id", "auth_token"]
+        json_response = response[1]
+        for key in valid_keys:
+            self.assertTrue(key in json_response)
+        auth_id = json_response["auth_id"]
+        response = self.client.get_subaccount(dict(subauth_id=auth_id))
+        self.assertEqual(200, response[0])
+        response = self.client.delete_subaccount(dict(subauth_id=auth_id))
+        self.assertEqual(204, response[0])
+
 
 if __name__ == "__main__":
     unittest.main()
