@@ -2,6 +2,8 @@
 Plivo Python Helper
 ===========
 
+[![Build Status](https://travis-ci.org/agiliq/plivo-python.png?branch=master)](https://travis-ci.org/agiliq/plivo-python)
+
 Example code to make a call
 ---------------------------
 
