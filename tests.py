@@ -89,6 +89,14 @@ class TestNumbers(PlivoTestCase):
         for key in valid_keys:
             self.assertTrue(key in json_response)
 
+    def test_search_numbers(self):
+        response = self.client.search_numbers(dict(country_code="004"))
+        self.assertEqual(200, response[0])
+        valid_keys = ["meta", "api_id", "objects"]
+        json_response = response[1]
+        for key in valid_keys:
+            self.assertTrue(key in json_response)
+
 
 if __name__ == "__main__":
     unittest.main()
