@@ -17,13 +17,13 @@ except ImportError:
                         "and AUTH_TOKEN as environ values.")
 
 
-class TestAccounts(unittest.TestCase):
+class PlivoTestCase(unittest.TestCase):
     def setUp(self):
-        auth_id = AUTH_ID
-        auth_token = AUTH_TOKEN
-
+        auth_id, auth_token = AUTH_ID, AUTH_TOKEN
         self.client = plivo.RestAPI(auth_id, auth_token)
 
+
+class TestAccounts(PlivoTestCase):
     def test_get_account(self):
         response = self.client.get_account()
         self.assertEqual(200, response[0])
@@ -57,12 +57,7 @@ class TestAccounts(unittest.TestCase):
         self.assertEqual(204, response[0])
 
 
-class TestApplication(unittest.TestCase):
-    def setUp(self):
-        auth_id = AUTH_ID
-        auth_token = AUTH_TOKEN
-        self.client = plivo.RestAPI(auth_id, auth_token)
-
+class TestApplication(PlivoTestCase):
     def test_get_applications(self):
         response = self.client.get_applications()
         self.assertEqual(200, response[0])
@@ -83,6 +78,16 @@ class TestApplication(unittest.TestCase):
         self.assertEqual(name, response[1]["app_name"])
         response = self.client.delete_application(dict(app_id=app_id))
         self.assertEqual(204, response[0])
+
+
+class TestNumbers(PlivoTestCase):
+    def test_get_numbers(self):
+        response = self.client.get_numbers()
+        self.assertEqual(200, response[0])
+        valid_keys = ["meta", "api_id", "objects"]
+        json_response = response[1]
+        for key in valid_keys:
+            self.assertTrue(key in json_response)
 
 
 if __name__ == "__main__":
