@@ -5,6 +5,9 @@ import string
 
 import plivo
 
+random_letter = lambda: random.choice(string.ascii_letters)
+random_name = lambda: ''.join(random_letter() for i in range(8))
+
 try:
     from auth_secrets import AUTH_ID, AUTH_TOKEN
 except ImportError:
@@ -39,9 +42,8 @@ class TestAccounts(unittest.TestCase):
             self.assertTrue(key in json_response)
 
     def test_subaccount_crud(self):
-        random_letter = lambda: random.choice(string.ascii_letters)
-        random_name = ''.join(random_letter() for i in range(8))
-        response = self.client.create_subaccount(dict(name=random_name,
+
+        response = self.client.create_subaccount(dict(name=random_name(),
                                                  enabled=True))
         self.assertEqual(201, response[0])
         valid_keys = ["auth_id", "api_id", "auth_token"]
@@ -68,6 +70,20 @@ class TestApplication(unittest.TestCase):
         json_response = response[1]
         for key in valid_keys:
             self.assertTrue(key in json_response)
+
+    def test_application_crud(self):
+        name = random_name()
+        params = dict(answer_url="http://plivo.com/",
+                      app_name=name)
+        response = self.client.create_application(params)
+        self.assertEqual(201, response[0])
+        app_id = response[1]['app_id']
+        response = self.client.get_application({"app_id": app_id})
+        self.assertEqual(200, response[0])
+        self.assertEqual(name, response[1]["app_name"])
+        response = self.client.delete_application(dict(app_id=app_id))
+        self.assertEqual(204, response[0])
+
 
 if __name__ == "__main__":
     unittest.main()
