@@ -70,7 +70,7 @@ class RestAPI(object):
         try:
             return params[key]
         except KeyError:
-            raise PlivoException("missing mandatory parameter %s" % key)
+            raise PlivoError("missing mandatory parameter %s" % key)
 
     ## Accounts ##
     def get_account(self, params=None):
