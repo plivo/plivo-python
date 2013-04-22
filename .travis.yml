@@ -1,17 +1,16 @@
---- 
-script: python tests.py
-language: python
-python: 
+---
+python:
 - "2.6"
-- "2.7"
+env:
+  global:
+  - secure: |-
+      NFCsuN/bUok5P42i1vRedIqg/K1xpYHbml5rX5fUQIqcNyBrrpJUjgWyDLFy
+      RlRvIzBOuA8KodgTIzOFl3zm4XhML7ZgWFzpnMLZp2MqYDFewdZhEXp4dyJK
+      vAGr0zZOZDz1qWNHNVm1Wd+3OJjeNjcXQbzSbR8VcBMA8IM15cs=
+  - secure: |-
+      bzMVc8UaXRu8tEq9SV0IBEb/i8JPnFyEXPUBeNFgMUKMvX2/lla5BSOlP30C
+      /YaltxZwinSwepAeXIfetuYOu12Spz6U5aqBC1WhPsA64qwiok0UMYBHyMcC
+      IndtEoty+iJVZd2fQF2oq4ov0xjidF7xeFquPrhpJIuz+zp8oSk=
+script: python tests.py
 install: pip install -r requirements.txt --use-mirrors
-env: 
-  global: 
-  - secure: |-
-      ahgWHHRdu65OLx9QGXBve21/kzn1SG5kkMT041+cq+WL3H0A/Ne4DLof1vft
-      j1fRxx79k4+FAASZCBIKbNJ+5j/IpUynzPiNNzZp8aRQbWeaypTpxb4ZWyNh
-      rk4EZVLG2R7Wd9zEcA31RqtIvZWtSwVilFhUF7jJPB0yh0tNKmA=
-  - secure: |-
-      b+bvdHf6wkevs2yvgOectxeuHA4NVaUkXrhp7eI1poMHjw6/5XL7OuEIitKH
-      4P7x5h7DxBcLb/l5vBN6JjYAUI64pO8bYQKjo8wmCSBnXyBOCMyNmlPVM4Ys
-      x/jKllM57JuXU9l4BRYU9oU1q0amIDu0Pwppkzne6uy5cZHyxqs=
+language: python
