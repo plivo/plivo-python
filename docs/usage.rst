@@ -41,7 +41,7 @@ Similarly for call endpoint we have::
     call = client.Call.get() #Returns a Call object
     list_of_calls = client.Call.get_all() #Returns a list of call objects
 
-Now you can interact with the ``call`` object as such.
+Now you can interact with the ``call`` object as such.::
 
     call.hang()#Will call the RestApi.hangup_call under the hood.
     call.transfer()#Will call transfer_call under the hood.
