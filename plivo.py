@@ -1,4 +1,3 @@
-import xml.etree.ElementTree as etree
 import base64
 import hmac
 from hashlib import sha1
@@ -32,6 +31,16 @@ class RestAPI(object):
         self.auth_token = auth_token
         self._api = self.url + '/Account/%s' % self.auth_id
         self.headers = {'User-Agent':'PythonPlivo'}
+        self.Call = Call(self)
+        self.Number = Number(self)
+        self.Account = Account(self)
+        self.SubAccount = SubAccount(self)
+        self.Application = Application(self)
+        self.Carrier = Carrier(self)
+        self.Message = Message(self)
+        self.Pricing = Pricing(self)
+        self.EndPoint = EndPoint(self)
+        self.Recording = Recording(self)
 
     def _request(self, method, path, data={}):
         path = path.rstrip('/') + '/'
@@ -197,8 +206,8 @@ class RestAPI(object):
 
     def get_cdr(self, params=None):
         if not params: params = {}
-        record_id = params.pop('record_id')
-        return self._request('GET', '/Call/%s/' % record_id, data=params)
+        call_uuid = params.pop('call_uuid')
+        return self._request('GET', '/Call/%s/' % call_uuid, data=params)
 
     def get_live_calls(self, params=None):
         if not params: params = {}
@@ -458,245 +467,429 @@ class RestAPI(object):
         record_id = params.pop('record_id')
         return self._request('GET', '/Message/%s/' % record_id, data=params)
 
-class Element(object):
-    nestables = ()
-    valid_attributes = ()
 
-    def __init__(self, body='', **attributes):
-        self.attributes = {}
-        self.name = self.__class__.__name__
-        self.body = unicode(body).encode('ascii', 'xmlcharrefreplace')
-        self.node = None
-        for k, v in attributes.iteritems():
-            if not k in self.valid_attributes:
-                raise PlivoError('invalid attribute %s for %s' % (k, self.name))
-            self.attributes[k] = self._convert_value(v)
-        self.node = etree.Element(self.name, attrib=self.attributes)
-        if self.body:
-            self.node.text = self.body
+class PlivoResponse(object):
+    def __init__(self, rest_api=None, response=None):
+        "Create a response class from json and httpresponse"
+        if response:
+            self.status_code = response[0]
+            self.json_data = response[1]
+        if rest_api:
+            self.rest_api = rest_api
 
-    @staticmethod
-    def _convert_value(v):
-        if v is True:
-            return u'true'
-        elif v is False:
-            return u'false'
-        elif v is None:
-            return u'none'
-        elif v == 'get':
-            return u'GET'
-        elif v == 'post':
-            return u'POST'
-        return unicode(v)
+    @classmethod
+    def get_objects_from_response(cls, rest_api=None, response=None):
+        objects = response[1]['objects']
+        return_objects = []
+        for obj in objects:
+           response_tuple = (response[0], obj)
+           return_objects.append(cls(response=response_tuple, rest_api=rest_api))
+        return return_objects
 
-    def add(self, element):
-        if element.name in self.nestables:
-            self.node.append(element.node)
-            return element
-        raise PlivoError('%s not nestable in %s' % (element.name, self.name))
-
-    def to_xml(self):
-        return etree.tostring(self.node, encoding="utf-8")
-
-    def __str__(self):
-        return self.to_xml()
+    def __getattr__(self, k):
+        if k in self.json_data:
+            return self.json_data[k]
+        else:
+            raise AttributeError(k)
 
     def __repr__(self):
-        return self.to_xml()
-
-    def addSpeak(self, body, **kwargs):
-        return self.add(Speak(body, **kwargs))
-
-    def addPlay(self, body, **kwargs):
-        return self.add(Play(body, **kwargs))
-
-    def addGetDigits(self, **kwargs):
-        return self.add(GetDigits(**kwargs))
-
-    def addRecord(self, **kwargs):
-        return self.add(Record(**kwargs))
-
-    def addDial(self, **kwargs):
-        return self.add(Dial(**kwargs))
-
-    def addNumber(self, body, **kwargs):
-        return self.add(Number(body, **kwargs))
-
-    def addUser(self, body, **kwargs):
-        return self.add(User(body, **kwargs))
-
-    def addRedirect(self, body, **kwargs):
-        return self.add(Redirect(body, **kwargs))
-
-    def addWait(self, **kwargs):
-        return self.add(Wait(**kwargs))
-
-    def addHangup(self, **kwargs):
-        return self.add(Hangup(**kwargs))
-
-    def addPreAnswer(self, **kwargs):
-        return self.add(PreAnswer(**kwargs))
-
-    def addConference(self, body, **kwargs):
-        return self.add(Conference(body, **kwargs))
-
-    def addMessage(self, body, **kwargs):
-        return self.add(Message(body, **kwargs))
-
-    def addDTMF(self, body, **kwargs):
-        return self.add(DTMF(body, **kwargs))
-
-class Response(Element):
-    nestables = ('Speak', 'Play', 'GetDigits', 'Record', 'Dial', 'Message',
-                 'Redirect', 'Wait', 'Hangup', 'PreAnswer', 'Conference', 'DTMF')
-    valid_attributes = ()
-
-    def __init__(self):
-        Element.__init__(self, body='')
+        return "Status: %s \nData: %s"%(self.status_code, self.json_data)
 
 
-class Speak(Element):
-    nestables = ()
-    valid_attributes = ('voice', 'language', 'loop')
+class Call(PlivoResponse):
 
-    def __init__(self, body, **attributes):
-        if not body:
-            raise PlivoError('No text set for %s' % self.name)
-        Element.__init__(self, body, **attributes)
+    def get(self, call_uuid, status=None, **optional_params):
+        if not optional_params: optional_params = {}
+        if status == 'live':
+            optional_params['status'] = 'live'
+        optional_params['call_uuid'] = call_uuid
+        return Call(response=self.rest_api.get_cdr(optional_params),
+                    rest_api=self.rest_api) 
 
+    def get_all(self, status=None, **optional_params):
+        if not optional_params: optional_params = {}
+        if status == 'live':
+            optional_params['status'] = 'live'
+        return Call.get_objects_from_response(
+            response=self.rest_api.get_cdrs(optional_params),
+            rest_api=self.rest_api
+        )
 
-class Play(Element):
-    nestables = ()
-    valid_attributes = ('loop')
+    def send(self, src, to, answer_url, **optional_params):
+        if not optional_params: optional_params = {}
+        optional_params.update({
+            'from': src,
+            'to': to,
+            'answer_url': answer_url,
+        })
+        return Call(response=self.rest_api.make_call(optional_params),
+                    rest_api=self.rest_api)
 
-    def __init__(self, body, **attributes):
-        if not body:
-            raise PlivoError('No url set for %s' % self.name)
-        Element.__init__(self, body, **attributes)
+    def hang(self, call_uuid=None):
+        if not call_uuid:
+            call_uuid = self.call_uuid
+        optional_params = {}
+        if not call_uuid:
+            call_uuid = self.call_uuid
+        optional_params['call_uuid'] = call_uuid
+        return Call(response=self.rest_api.hangup_call(optional_params),
+                    rest_api=self.rest_api)
 
-
-class Wait(Element):
-    nestables = ()
-    valid_attributes = ('length', 'silence', 'min_silence')
-
-    def __init__(self, **attributes):
-        Element.__init__(self, body='', **attributes)
-
-
-class Redirect(Element):
-    nestables = ()
-    valid_attributes = ('method')
-
-    def __init__(self, body, **attributes):
-        if not body:
-            raise PlivoError('No url set for %s' % self.name)
-        Element.__init__(self, body, **attributes)
-
-
-class Hangup(Element):
-    nestables = ()
-    valid_attributes = ('schedule', 'reason')
-
-    def __init__(self, **attributes):
-        Element.__init__(self, body='', **attributes)
-
-
-class GetDigits(Element):
-    nestables = ('Speak', 'Play', 'Wait')
-    valid_attributes = ('action', 'method', 'timeout', 'digitTimeout', 'finishOnKey',
-                        'numDigits', 'retries', 'invalidDigitsSound', 'validDigits',
-                        'playBeep', 'redirect', 'digitTimeout')
-
-    def __init__(self, **attributes):
-        Element.__init__(self, body='', **attributes)
+    def transfer(self, call_uuid, **optional_params):
+        if not call_uuid:
+            call_uuid = self.call_uuid
+        if not optional_params: optional_params = {}
+        optional_params['call_uuid'] = call_uuid
+        return Call(response=self.rest_api.transfer_call(optional_params),
+                    rest_api=self.rest_api)
 
 
-class Number(Element):
-    nestables = ()
-    valid_attributes = ('sendDigits', 'sendOnPreanswer', 'sendDigitsMode')
+class Number(PlivoResponse):
 
-    def __init__(self, body, **attributes):
-        if not body:
-            raise PlivoError('No number set for %s' % self.name)
-        Element.__init__(self, body, **attributes)
+    def get(self, number, **optional_params):
+        ''' Get Details of a number '''
+        if not optional_params: optional_params = {}
+        optional_params['number'] = number
+        return Number(response=self.rest_api.get_number(optional_params),
+                      rest_api=self.rest_api)
 
+    def get_all(self, **optional_params):
+        ''' Get details of all numbers '''
+        return Number.get_objects_from_response(
+            response=self.rest_api.get_numbers(optional_params),
+            rest_api=self.rest_api
+        )
 
-class User(Element):
-    nestables = ()
-    valid_attributes = ('sendDigits', 'sendOnPreanswer', 'sipHeaders',
-                        'webrtc')
+    def search(self, **optional_params):
+        ''' Search numbers '''
+        return Number(response=self.rest_api.search_numbers(optional_params),
+                      rest_api=self.rest_api)
 
-    def __init__(self, body, **attributes):
-        if not body:
-            raise PlivoError('No user set for %s' % self.name)
-        Element.__init__(self, body, **attributes)
-
-
-class Dial(Element):
-    nestables = ('Number', 'User')
-    valid_attributes = ('action','method','timeout','hangupOnStar',
-                        'timeLimit','callerId', 'callerName', 'confirmSound',
-                        'dialMusic', 'confirmKey', 'redirect',
-                        'callbackUrl', 'callbackMethod', 'digitsMatch',
-                        'sipHeaders')
-
-    def __init__(self, **attributes):
-        Element.__init__(self, body='', **attributes)
+    def rent(self, number, **optional_params):
+        ''' Rent Number '''
+        return Number(response=self.rest_api.rent_number(optional_params),
+                      rest_api=self.rest_api)
 
 
-class Conference(Element):
-    nestables = ()
-    valid_attributes = ('muted','beep','startConferenceOnEnter',
-                        'endConferenceOnExit','waitSound','enterSound', 'exitSound',
-                        'timeLimit', 'hangupOnStar', 'maxMembers',
-                        'record', 'recordFileFormat', 'action', 'method', 'redirect',
-                        'digitsMatch', 'callbackUrl', 'callbackMethod',
-                        'stayAlone', 'floorEvent', 'transcriptionType', 'transcriptionUrl',
-                        'transcriptionMethod')
+class Account(PlivoResponse):
 
-    def __init__(self, body, **attributes):
-        if not body:
-            raise PlivoError('No conference name set for %s' % self.name)
-        Element.__init__(self, body, **attributes)
+    def get(self, **optional_params):
+        return Account(response=self.rest_api.get_account(optional_params),
+                       rest_api=self.rest_api)
+
+    def modify(self, **optional_params):
+        return Account(response=self.rest_api.modify_account(optional_params),
+                       rest_api=self.rest_api)
 
 
-class Record(Element):
-    nestables = ()
-    valid_attributes = ('action', 'method', 'timeout','finishOnKey',
-                        'maxLength', 'playBeep', 'recordSession',
-                        'startOnDialAnswer', 'redirect', 'fileFormat',
-                        'callbackUrl', 'callbackMethod', 'transcriptionType',
-                        'transcriptionUrl', 'transcriptionMethod')
+class SubAccount(PlivoResponse):
 
-    def __init__(self, **attributes):
-        Element.__init__(self, body='', **attributes)
+    def create(self, name, enabled, **optional_params):
+        optional_params['name'] = name
+        optional_params['enabled'] = enabled
+        return SubAccount(response=self.rest_api.create_subaccount(optional_params),
+                       rest_api=self.rest_api)
+
+    def get(self, subauth_id, **optional_params):
+        optional_params['subauth_id'] = subauth_id
+        return SubAccount(response=self.rest_api.get_subaccount(optional_params),
+                       rest_api=self.rest_api)
+
+    def get_all(self, **optional_params):
+        return SubAccount(response=self.rest_api.get_subaccounts(optional_params),
+                       rest_api=self.rest_api)
+
+    def modify(self, subauth_id, enabled, *optional_params):
+        optional_params['subauth_id'] = subauth_id
+        optional_params['enabled'] = enabled
+        return SubAccount(response=self.rest_api.modify_subaccount(optional_params),
+                       rest_api=self.rest_api)
+
+    def delete(self, subauth_id, **optional_params):
+        optional_params['subauth_id'] = subauth_id
+        return SubAccount(response=self.rest_api.delete_subaccount(optional_params),
+                       rest_api=self.rest_api)
 
 
-class PreAnswer(Element):
-    nestables = ('Play', 'Speak', 'GetDigits', 'Wait', 'Redirect', 'Message', 'DTMF')
-    valid_attributes = ()
+class Application(PlivoResponse):
 
-    def __init__(self, **attributes):
-        Element.__init__(self, body='', **attributes)
+    def create(self, app_name, answer_url, **optional_params):
+        '''create an application'''
+        optional_params.update({
+            'app_name': app_name,
+            'answer_url': answer_url,
+        })
+        return Application(response=self.rest_api.create_application(optional_params),
+                           rest_api=self.rest_api)
+
+    def get(self, app_id, **optional_params):
+        ''' get details of an application'''
+        optional_params['app_id'] = app_id
+        return Application(response=self.rest_api.get_application(optional_params),
+                           rest_api=self.rest_api)
+
+    def get_all(self, **optional_params):
+        ''' get details of all applications '''
+        return Application(response=self.rest_api.get_applications(optional_params),
+                           rest_api=self.rest_api)
+
+    def modify(self, **optional_params):
+        ''' Modify an application '''
+        return Application(response=self.rest_api.modify_application(optional_params),
+                           rest_api=self.rest_api)
+
+    def delete(self, app_id, **optional_params):
+        ''' Delete an application '''
+        optional_params['app_id'] = app_id
+        return Application(response=self.rest_api.delete_application(optional_params),
+                           rest_api=self.rest_api)
 
 
-class Message(Element):
-    nestables = ()
-    valid_attributes = ('src', 'dst', 'type', 'callbackUrl', 'callbackMethod')
+class Carrier(PlivoResponse):
 
-    def __init__(self, body, **attributes):
-        if not body:
-            raise PlivoError('No text set for %s' % self.name)
-        Element.__init__(self, body, **attributes)
+    def create(self, **optional_params):
+        return Carrier(response=self.rest_api.create_incoming_carrier(optional_params),
+                       rest_api=self.rest_api)
+
+    def get(self, carrier_id, **optional_params):
+        optional_params['carrier_id'] = carrier_id
+        return Carrier(response=self.rest_api.get_incoming_carrier(optional_params),
+                       rest_api=self.rest_api)
+
+    def get_all(self, **optional_params):
+        return Carrier(response=self.rest_api.get_incoming_carriers(optional_params),
+                       rest_api=self.rest_api)
+
+    def modify(self, carrier_id, **optional_params):
+        optional_params['carrier_id'] = carrier_id
+        return Carrier(response=self.rest_api.modify_incoming_carrier(optional_params),
+                       rest_api=self.rest_api)
+
+    def delete(self, carrier_id, **optional_params):
+        optional_params['carrier_id'] = carrier_id
+        return Carrier(response=self.rest_api.delete_incoming_carrier(optional_params),
+                       rest_api=self.rest_api)
 
 
-class DTMF(Element):
-    nestables = ()
-    valid_attributes = ()
+class Message(PlivoResponse):
 
-    def __init__(self, body, **attributes):
-        if not body:
-            raise PlivoError('No digits set for %s' % self.name)
-        Element.__init__(self, body, **attributes)
+    def send(self, src, dst, text, url, message_type="sms", method="POST", **optional_params):
+        optional_params.update({
+                'src': src,
+                'dst': dst,
+                'text': text,
+                'type': message_type,
+                'url': url,
+                'method': method,
+            })
+        return Message(response=self.rest_api.send_message(optional_params),
+                       rest_api=self.rest_api)
+
+    def get(self, record_id, **optional_params):
+        '''
+        NOTE: Plivo API takes message_uuid but rest_api method takes record_id
+        '''
+        optional_params['record_id'] = record_id
+        return Message(response=self.rest_api.get_message(optional_params),
+                       rest_api=self.rest_api)
+
+    def get_all(self, **optional_params):
+        return Message(response=self.rest_api.get_messages(optional_params),
+                       rest_api=self.rest_api)
+
+
+class Pricing(PlivoResponse):
+
+    def get(self, country_iso, **optional_params):
+        optional_params['country_iso'] = country_iso
+        return Pricing(response=self.rest_api.pricing(optional_params),
+                       rest_api=self.rest_api)
+
+
+class EndPoint(PlivoResponse):
+
+    def create(self, username, password, alias, **optional_params):
+        optional_params.update({
+            'username': username,
+            'password': password,
+            'alias': alias
+        })
+        return EndPoint(response=self.rest_api.create_endpoint(optional_params),
+                        rest_api=self.rest_api)
+
+    def get(self, endpoint_id, **optional_params):
+        optional_params['endpoint_id'] = endpoint_id
+        return EndPoint(response=self.rest_api.get_endpoint(optional_params),
+                        rest_api=self.rest_api)
+
+    def get_all(self, **optional_params):
+        return EndPoint(response=self.rest_api.get_endpoints(optional_params),
+                        rest_api=self.rest_api)
+
+    def modify(self, endpoint_id, **optional_params):
+        optional_params['endpoint_id'] = endpoint_id
+        return EndPoint(response=self.rest_api.modify_account(optional_params),
+                        rest_api=self.rest_api)
+
+    def delete(self, endpoint_id, **optional_params):
+        optional_params['endpoint_id'] = endpoint_id
+        return EndPoint(response=self.rest_api.delete_endpoint(optional_params),
+                        rest_api=self.rest_api)
+
+
+class Recording(PlivoResponse):
+
+    def get(self, recording_id, **optional_params):
+        optional_params['recording_id'] = recording_id
+        return Recording(response=self.rest_api.get_recording(optional_params),
+                         rest_api=self.rest_api)
+
+    def get_all(self, **optional_params):
+        return Recording(response=self.rest_api.get_recordings(optional_params),
+                         rest_api=self.rest_api)
+
+
+class Conference(PlivoResponse):
+
+    def get_all(self, **optional_params):
+        return Conference(
+            response=self.rest_api.get_live_conferences(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def get(self, conference_name, **optional_params):
+        optional_params['conference_name'] = conference_name
+        return Conference(
+            response=self.rest_api.get_live_conference(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def hang_all(self, **optional_params):
+        return Conference(
+            response=self.rest_api.hangup_all_conferences(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def hang(self, conference_name, **optional_params):
+        optional_params['conference_name'] = conference_name
+        return Conference(
+            response=self.rest_api.hangup_conference(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def record(self, conference_name, **optional_params):
+        optional_params.update({
+            'conference_name': conference_name,
+        })
+        return Conference(
+            response=self.rest_api.record_conference(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def stop_record(self, conference_name, **optional_params):
+        optional_params.update({
+            'conference_name': conference_name,
+        })
+        return Conference(
+            response=self.rest_api.stop_record_conference(optional_params),
+            rest_api=self.rest_api
+        )
+
+
+class ConferenceMember(PlivoResponse):
+    def hang(self, conference_name, member_id, **optional_params):
+        optional_params.update({
+            'conference_name': conference_name,
+            'member_id': member_id,
+        })
+        return ConferenceMember(
+            response=self.rest_api.hang_member(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def kick(self, conference_name, member_id, **optional_params):
+        optional_params.update({
+            'conference_name': conference_name,
+            'member_id': member_id,
+        })
+        return ConferenceMember(
+            response=self.rest_api.kick_member(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def mute(self, conference_name, member_id, **optional_params):
+        optional_params.update({
+            'conference_name': conference_name,
+            'member_id': member_id,
+        })
+        return ConferenceMember(
+            response=self.rest_api.mute_member(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def unmute(self, conference_name, member_id, **optional_params):
+        optional_params.update({
+            'conference_name': conference_name,
+            'member_id': member_id,
+        })
+        return ConferenceMember(
+            response=self.rest_api.unmute_member(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def deaf(self, conference_name, member_id, **optional_params):
+        optional_params.update({
+            'conference_name': conference_name,
+            'member_id': member_id,
+        })
+        return ConferenceMember(
+            response=self.rest_api.deaf_member(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def undeaf(self, conference_name, member_id, **optional_params):
+        optional_params.update({
+            'conference_name': conference_name,
+            'member_id': member_id,
+        })
+        return ConferenceMember(
+            response=self.rest_api.undeaf_member(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def speak(self, conference_name, member_id, call_uuid, text, **optional_params):
+        optional_params.update({
+            'conference_name': conference_name,
+            'member_id': member_id,
+            'call_uuid': call_uuid,
+            'text': text,
+        })
+        return ConferenceMember(
+            response=self.rest_api.speak_member(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def play(self, conference_name, member_id, url, **optional_params):
+        ''' Start playing sound to member(s) '''
+        optional_params.update({
+            'conference_name': conference_name,
+            'member_id': member_id,
+            'url': url,
+        })
+        return ConferenceMember(
+            response=self.rest_api.play_member(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def stop_play(self, conference_name, member_id, **optional_params):
+        ''' Stop stop_playing sound to member(s) '''
+        optional_params.update({
+            'conference_name': conference_name,
+            'member_id': member_id,
+        })
+        return ConferenceMember(
+            response=self.rest_api.stop_play_member(optional_params),
+            rest_api=self.rest_api
+        )
 
 

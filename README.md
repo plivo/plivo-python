@@ -31,3 +31,17 @@ Running Tests
 
 Create a file named auth_secrets.py and give it your `AUTH_ID` and `AUTH_TOKEN`.
 Run `python tests.py`
+
+Installation
+-------------------
+
+    pip install plivo
+
+
+Building docs
+-----------------------
+
+    cd docs
+    make html
+
+(You should have sphinx installed.)

@@ -38,8 +38,13 @@ class PlivoTest(unittest.TestCase):
         for key in valid_keys:
             self.assertTrue(key in json_response)
 
+    def check_keys(self, keys, obj):
+        keys.append("status_code")
+        for key in keys:
+            self.assertTrue(hasattr(obj, key))
 
-class TestAccounts(PlivoTest):
+
+class TestAccountsRestApi(PlivoTest):
     def test_get_account(self):
         response = self.client.get_account()
         self.assertEqual(200, response[0])
@@ -170,7 +175,7 @@ class TestAccounts(PlivoTest):
         self.assertEqual(response['error'], 'not found')
 
 
-class TestApplication(PlivoTest):
+class TestApplicationRestApi(PlivoTest):
     def test_get_applications(self):
         response = self.client.get_applications()
         valid_keys = ["objects", "api_id", "meta"]
@@ -205,7 +210,7 @@ class TestApplication(PlivoTest):
         self.assertEqual('not found', response[1]['error'])
 
 
-class TestCall(PlivoTest):
+class TestCallRestApi(PlivoTest):
     def setUp(self):
         super(TestCall, self).setUp()
         self.call_params = {'from': DEFAULT_FROM_NUMBER,
@@ -233,7 +238,7 @@ class TestCall(PlivoTest):
         response = self.client.get_cdrs()
         if len(response[1]['objects']) > 0:
             call_uuid = response[1]['objects'][0]['call_uuid']
-            response = self.client.get_cdr({"record_id": call_uuid})
+            response = self.client.get_cdr({"call_uuid": call_uuid})
             valid_keys = ['call_duration', 'billed_duration', 'total_amount',
                           'parent_call_uuid', 'call_direction', 'to_number',
                           'total_rate', 'api_id', 'from_number', 'end_time',
@@ -249,7 +254,7 @@ class TestCall(PlivoTest):
         self.assertEqual(204, response[0])
 
 
-class TestEndpoint(PlivoTest):
+class TestEndpointRestApi(PlivoTest):
     def test_get_endpoints(self):
         response = self.client.get_endpoints()
         valid_keys = ["objects", "api_id", "meta"]
@@ -288,7 +293,7 @@ class TestEndpoint(PlivoTest):
         self.assertEqual(response[1]['error'], 'not found')
 
 
-class TestPricing(PlivoTest):
+class TestPricingRestApi(PlivoTest):
     def test_pricing(self):
         response = self.client.pricing({'country_iso': 'US'})
         valid_keys = ["country", "api_id", 'country_code', 'country_iso',
@@ -300,7 +305,7 @@ class TestPricing(PlivoTest):
         self.assertTrue("error" in response[1])
 
 
-class TestRecording(PlivoTest):
+class TestRecordingRestApi(PlivoTest):
     def test_get_all_recordings(self):
         response = self.client.get_recordings()
         valid_keys = ['meta', 'objects', 'api_id']
@@ -319,7 +324,7 @@ class TestRecording(PlivoTest):
 
 
 
-class TestNumber(PlivoTest):
+class TestNumberRestApi(PlivoTest):
     def test_get_numbers(self):
         response = self.client.get_numbers()
         valid_keys = ['meta', 'objects', 'api_id']
@@ -344,7 +349,16 @@ class TestNumber(PlivoTest):
         response = self.client.unrent_number({"number": number})
 
 
-class TestCarrier(PlivoTest):
+class TestCarrierRestApi(PlivoTest):
+    def setUp(self):
+        super(TestCarrier, self).setUp()
+        response = self.client.get_incoming_carriers()
+        carriers = response[1]
+        for carrier in carriers['objects']:
+            self.client.delete_incoming_carrier({
+                'carrier_id': carrier['carrier_id']
+            })
+
     def test_incoming_carriers(self):
         response = self.client.get_incoming_carriers()
         valid_keys = ['meta', 'objects', 'api_id']
@@ -387,7 +401,7 @@ class TestCarrier(PlivoTest):
         self.assertTrue("error" in response[1])
 
 
-class TestConference(PlivoTest):
+class TestConferenceRestApi(PlivoTest):
     def setUp(self):
         super(TestConference, self).setUp()
         self.call_params = {'from': DEFAULT_FROM_NUMBER,
@@ -786,8 +800,7 @@ class TestConference(PlivoTest):
         self.assertEqual(204, response[0])
 
 
-
-class TestMessage(PlivoTest):
+class TestMessageRestApi(PlivoTest):
     def test_get_messages(self):
         response = self.client.get_messages()
         valid_keys = ['meta', 'objects', 'api_id']
@@ -801,6 +814,53 @@ class TestMessage(PlivoTest):
         self.check_status_and_keys(202, valid_keys, response)
         message_uuid = response[1]["message_uuid"][0]
         self.client.get_message({"record_id": message_uuid})
+
+
+class TestCall(PlivoTest):
+    def setUp(self):
+        super(TestCall, self).setUp()
+        self.src = DEFAULT_FROM_NUMBER,
+        self.to = DEFAULT_TO_NUMBER,
+        self.answer_url = 'http://localhost'
+        self.client.Call.send(src=self.src, to=self.to,
+                              answer_url=self.answer_url)
+        self.one_call_uuid = self.client.Call.get_all()[0].call_uuid
+
+    def test_get_all(self):
+        response = self.client.Call.get_all()
+        self.assertEqual(200, response[0].status_code)
+        self.assertEqual(type(response), list)
+        self.assertEqual(type(response[0]), plivo.Call)
+
+        valid_keys = [
+            'call_duration', 'billed_duration', 'total_amount',
+            'parent_call_uuid', 'call_direction', 'to_number',
+            'total_rate', 'from_number', 'end_time', 'call_uuid',
+            'resource_uri'
+        ]
+        self.check_keys(valid_keys, response[0])
+
+    def test_get(self):
+        response = self.client.Call.get(self.one_call_uuid)
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(type(response), plivo.Call)
+
+        valid_keys = [
+            'call_duration', 'billed_duration', 'total_amount',
+            'parent_call_uuid', 'call_direction', 'to_number',
+            'total_rate', 'from_number', 'end_time', 'call_uuid',
+            'resource_uri'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_send(self):
+        response = self.client.Call.send(
+            src=self.src, to=self.to, answer_url=self.answer_url
+        )
+        self.assertEqual(201, response.status_code)
+
+
+
 
 
 def get_client(AUTH_ID, AUTH_TOKEN):
