@@ -212,7 +212,7 @@ class TestApplicationRestApi(PlivoTest):
 
 class TestCallRestApi(PlivoTest):
     def setUp(self):
-        super(TestCall, self).setUp()
+        super(TestCallRestApi, self).setUp()
         self.call_params = {'from': DEFAULT_FROM_NUMBER,
                             'to': DEFAULT_TO_NUMBER,
                             'answer_url':
@@ -351,7 +351,7 @@ class TestNumberRestApi(PlivoTest):
 
 class TestCarrierRestApi(PlivoTest):
     def setUp(self):
-        super(TestCarrier, self).setUp()
+        super(TestCarrierRestApi, self).setUp()
         response = self.client.get_incoming_carriers()
         carriers = response[1]
         for carrier in carriers['objects']:
@@ -403,7 +403,7 @@ class TestCarrierRestApi(PlivoTest):
 
 class TestConferenceRestApi(PlivoTest):
     def setUp(self):
-        super(TestConference, self).setUp()
+        super(TestConferenceRestApi, self).setUp()
         self.call_params = {'from': DEFAULT_FROM_NUMBER,
                             'to': DEFAULT_TO_NUMBER,
                             'answer_url':
