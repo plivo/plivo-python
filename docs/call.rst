@@ -13,6 +13,17 @@ Provides these methods
     4. hang
     5. transfer
 
-``.get`` and ``get_all`` return an object(s) of type Call.
-You can use ``hang`` and ``transfer`` on a Call object.
+``.get`` returns object of type ``Call``.
+``.get_all`` returns a list of ``Call`` objects.
+
+You can use ``hang`` and ``transfer`` on a Call object.::
+
+
+    call = client.Call.get(..)
+    call.hang()
+
+Alternatively this is valid too::
+
+    client.Call.hang(call.call_uuid)
+
 

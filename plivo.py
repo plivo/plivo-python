@@ -41,6 +41,8 @@ class RestAPI(object):
         self.Pricing = Pricing(self)
         self.EndPoint = EndPoint(self)
         self.Recording = Recording(self)
+        self.Conference = Conference(self)
+        self.ConferenceMember = ConferenceMember(self)
 
     def _request(self, method, path, data={}):
         path = path.rstrip('/') + '/'
@@ -464,8 +466,8 @@ class RestAPI(object):
 
     def get_message(self, params=None):
         if not params: params = {}
-        record_id = params.pop('record_id')
-        return self._request('GET', '/Message/%s/' % record_id, data=params)
+        message_uuid = params.pop('message_uuid')
+        return self._request('GET', '/Message/%s/' % message_uuid, data=params)
 
 
 class PlivoResponse(object):
@@ -498,6 +500,16 @@ class PlivoResponse(object):
 
 class Call(PlivoResponse):
 
+    def send(self, src, to, answer_url, **optional_params):
+        if not optional_params: optional_params = {}
+        optional_params.update({
+            'from': src,
+            'to': to,
+            'answer_url': answer_url,
+        })
+        return Call(response=self.rest_api.make_call(optional_params),
+                    rest_api=self.rest_api)
+
     def get(self, call_uuid, status=None, **optional_params):
         if not optional_params: optional_params = {}
         if status == 'live':
@@ -515,15 +527,7 @@ class Call(PlivoResponse):
             rest_api=self.rest_api
         )
 
-    def send(self, src, to, answer_url, **optional_params):
-        if not optional_params: optional_params = {}
-        optional_params.update({
-            'from': src,
-            'to': to,
-            'answer_url': answer_url,
-        })
-        return Call(response=self.rest_api.make_call(optional_params),
-                    rest_api=self.rest_api)
+
 
     def hang(self, call_uuid=None):
         if not call_uuid:
@@ -546,6 +550,24 @@ class Call(PlivoResponse):
 
 class Number(PlivoResponse):
 
+    def add(self, numbers, carrier, region, **optional_params):
+        optional_params.update({
+            'numbers': numbers,
+            'carrier': carrier,
+            'region': region
+        })
+        return Number(
+            response=self.rest_api.add_carrier_number(optional_params),
+            rest_api=self.rest_api,    
+        )
+
+    def edit(self, number, **optional_params):
+        optional_params.update({
+            'number': number,
+        })
+        return Number(response=self.rest_api.modify_number(optional_params),
+                      rest_api=self.rest_api)
+
     def get(self, number, **optional_params):
         ''' Get Details of a number '''
         if not optional_params: optional_params = {}
@@ -560,15 +582,21 @@ class Number(PlivoResponse):
             rest_api=self.rest_api
         )
 
-    def search(self, **optional_params):
+    def search(self, country_iso, **optional_params):
         ''' Search numbers '''
-        return Number(response=self.rest_api.search_numbers(optional_params),
-                      rest_api=self.rest_api)
+        optional_params['country_iso'] = country_iso
+        return Number.get_objects_from_response(
+            response=self.rest_api.get_number_group(optional_params),
+            rest_api=self.rest_api
+        )
 
-    def rent(self, number, **optional_params):
+    def rent(self, group_id, **optional_params):
         ''' Rent Number '''
-        return Number(response=self.rest_api.rent_number(optional_params),
-                      rest_api=self.rest_api)
+        optional_params['group_id'] = group_id
+        return Number(
+            response=self.rest_api.rent_from_number_group(optional_params),
+            rest_api=self.rest_api
+        )
 
 
 class Account(PlivoResponse):
@@ -590,22 +618,30 @@ class SubAccount(PlivoResponse):
         return SubAccount(response=self.rest_api.create_subaccount(optional_params),
                        rest_api=self.rest_api)
 
-    def get(self, subauth_id, **optional_params):
+    def get(self, subauth_id=None, **optional_params):
+        if not subauth_id:
+            subauth_id = self.auth_id
         optional_params['subauth_id'] = subauth_id
         return SubAccount(response=self.rest_api.get_subaccount(optional_params),
                        rest_api=self.rest_api)
 
     def get_all(self, **optional_params):
-        return SubAccount(response=self.rest_api.get_subaccounts(optional_params),
-                       rest_api=self.rest_api)
+        return SubAccount.get_objects_from_response(
+            response=self.rest_api.get_subaccounts(optional_params),
+            rest_api=self.rest_api
+        )
 
-    def modify(self, subauth_id, enabled, *optional_params):
+    def modify(self, enabled, subauth_id=None, **optional_params):
+        if not subauth_id:
+            subauth_id = self.auth_id
         optional_params['subauth_id'] = subauth_id
         optional_params['enabled'] = enabled
         return SubAccount(response=self.rest_api.modify_subaccount(optional_params),
                        rest_api=self.rest_api)
 
-    def delete(self, subauth_id, **optional_params):
+    def delete(self, subauth_id=None, **optional_params):
+        if not subauth_id:
+            subauth_id = self.auth_id
         optional_params['subauth_id'] = subauth_id
         return SubAccount(response=self.rest_api.delete_subaccount(optional_params),
                        rest_api=self.rest_api)
@@ -622,24 +658,33 @@ class Application(PlivoResponse):
         return Application(response=self.rest_api.create_application(optional_params),
                            rest_api=self.rest_api)
 
-    def get(self, app_id, **optional_params):
+    def get(self, app_id=None, **optional_params):
         ''' get details of an application'''
+        if not app_id:
+            app_id = self.app_id
         optional_params['app_id'] = app_id
         return Application(response=self.rest_api.get_application(optional_params),
                            rest_api=self.rest_api)
 
     def get_all(self, **optional_params):
         ''' get details of all applications '''
-        return Application(response=self.rest_api.get_applications(optional_params),
-                           rest_api=self.rest_api)
+        return Application.get_objects_from_response(
+            response=self.rest_api.get_applications(optional_params),
+                rest_api=self.rest_api
+            )
 
-    def modify(self, **optional_params):
+    def modify(self, app_id=None, **optional_params):
         ''' Modify an application '''
+        if not app_id:
+            app_id = self.app_id
+        optional_params['app_id'] = app_id
         return Application(response=self.rest_api.modify_application(optional_params),
                            rest_api=self.rest_api)
 
-    def delete(self, app_id, **optional_params):
+    def delete(self, app_id=None, **optional_params):
         ''' Delete an application '''
+        if not app_id:
+            app_id = self.app_id
         optional_params['app_id'] = app_id
         return Application(response=self.rest_api.delete_application(optional_params),
                            rest_api=self.rest_api)
@@ -647,25 +692,37 @@ class Application(PlivoResponse):
 
 class Carrier(PlivoResponse):
 
-    def create(self, **optional_params):
+    def create(self, name, ip_set, **optional_params):
+        optional_params.update({
+            'name': name,
+            'ip_set': ip_set
+        })
         return Carrier(response=self.rest_api.create_incoming_carrier(optional_params),
                        rest_api=self.rest_api)
 
-    def get(self, carrier_id, **optional_params):
+    def get(self, carrier_id=None, **optional_params):
+        if not carrier_id:
+            carrier_id = self.carrier_id
         optional_params['carrier_id'] = carrier_id
         return Carrier(response=self.rest_api.get_incoming_carrier(optional_params),
                        rest_api=self.rest_api)
 
     def get_all(self, **optional_params):
-        return Carrier(response=self.rest_api.get_incoming_carriers(optional_params),
-                       rest_api=self.rest_api)
+        return Carrier.get_objects_from_response(
+            response=self.rest_api.get_incoming_carriers(optional_params),
+            rest_api=self.rest_api
+        )
 
-    def modify(self, carrier_id, **optional_params):
+    def modify(self, carrier_id=None, **optional_params):
+        if not carrier_id:
+            carrier_id = self.carrier_id
         optional_params['carrier_id'] = carrier_id
         return Carrier(response=self.rest_api.modify_incoming_carrier(optional_params),
                        rest_api=self.rest_api)
 
-    def delete(self, carrier_id, **optional_params):
+    def delete(self, carrier_id=None, **optional_params):
+        if not carrier_id:
+            carrier_id = self.carrier_id
         optional_params['carrier_id'] = carrier_id
         return Carrier(response=self.rest_api.delete_incoming_carrier(optional_params),
                        rest_api=self.rest_api)
@@ -685,17 +742,22 @@ class Message(PlivoResponse):
         return Message(response=self.rest_api.send_message(optional_params),
                        rest_api=self.rest_api)
 
-    def get(self, record_id, **optional_params):
-        '''
-        NOTE: Plivo API takes message_uuid but rest_api method takes record_id
-        '''
-        optional_params['record_id'] = record_id
+    def get(self, message_uuid=None, **optional_params):
+        if not message_uuid:
+            if type(self.message_uuid) == list:
+                message_uuid = self.message_uuid[0]
+            else:
+                message_uuid = self.message_uuid
+
+        optional_params['message_uuid'] = message_uuid
         return Message(response=self.rest_api.get_message(optional_params),
                        rest_api=self.rest_api)
 
     def get_all(self, **optional_params):
-        return Message(response=self.rest_api.get_messages(optional_params),
-                       rest_api=self.rest_api)
+        return Message.get_objects_from_response(
+            response=self.rest_api.get_messages(optional_params),
+            rest_api=self.rest_api
+        )
 
 
 class Pricing(PlivoResponse):
@@ -717,21 +779,29 @@ class EndPoint(PlivoResponse):
         return EndPoint(response=self.rest_api.create_endpoint(optional_params),
                         rest_api=self.rest_api)
 
-    def get(self, endpoint_id, **optional_params):
+    def get(self, endpoint_id=None, **optional_params):
+        if not endpoint_id:
+            endpoint_id = self.endpoint_id
         optional_params['endpoint_id'] = endpoint_id
         return EndPoint(response=self.rest_api.get_endpoint(optional_params),
                         rest_api=self.rest_api)
 
     def get_all(self, **optional_params):
-        return EndPoint(response=self.rest_api.get_endpoints(optional_params),
-                        rest_api=self.rest_api)
+        return EndPoint.get_objects_from_response(
+            response=self.rest_api.get_endpoints(optional_params),
+            rest_api=self.rest_api
+        )
 
-    def modify(self, endpoint_id, **optional_params):
+    def modify(self, endpoint_id=None, **optional_params):
+        if not endpoint_id:
+            endpoint_id = self.endpoint_id
         optional_params['endpoint_id'] = endpoint_id
         return EndPoint(response=self.rest_api.modify_account(optional_params),
                         rest_api=self.rest_api)
 
-    def delete(self, endpoint_id, **optional_params):
+    def delete(self, endpoint_id=None, **optional_params):
+        if not endpoint_id:
+            endpoint_id = self.endpoint_id
         optional_params['endpoint_id'] = endpoint_id
         return EndPoint(response=self.rest_api.delete_endpoint(optional_params),
                         rest_api=self.rest_api)
@@ -745,19 +815,44 @@ class Recording(PlivoResponse):
                          rest_api=self.rest_api)
 
     def get_all(self, **optional_params):
-        return Recording(response=self.rest_api.get_recordings(optional_params),
-                         rest_api=self.rest_api)
+        return Recording.get_objects_from_response(
+            response=self.rest_api.get_recordings(optional_params),
+            rest_api=self.rest_api
+        )
 
 
 class Conference(PlivoResponse):
 
+    @classmethod
+    def get_conference_objects_from_response(cls, rest_api=None, response=None):
+        objects = response[1]['conferences']
+        return_objects = []
+        for conference_name in objects:
+            response_tuple = (response[0],
+                {'conference_name': conference_name}
+            )
+            return_objects.append(cls(response=response_tuple, rest_api=rest_api))
+        return return_objects
+
+    def create(self, src, to, answer_url, **optional_params):
+        if not optional_params: optional_params = {}
+        optional_params.update({
+            'from': src,
+            'to': to,
+            'answer_url': answer_url,
+        })
+        return Conference(response=self.rest_api.make_call(optional_params),
+                    rest_api=self.rest_api)
+
     def get_all(self, **optional_params):
-        return Conference(
+        return Conference.get_conference_objects_from_response(
             response=self.rest_api.get_live_conferences(optional_params),
             rest_api=self.rest_api
         )
 
-    def get(self, conference_name, **optional_params):
+    def get(self, conference_name=None, **optional_params):
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params['conference_name'] = conference_name
         return Conference(
             response=self.rest_api.get_live_conference(optional_params),
@@ -770,14 +865,18 @@ class Conference(PlivoResponse):
             rest_api=self.rest_api
         )
 
-    def hang(self, conference_name, **optional_params):
+    def hang(self, conference_name=None, **optional_params):
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params['conference_name'] = conference_name
         return Conference(
             response=self.rest_api.hangup_conference(optional_params),
             rest_api=self.rest_api
         )
 
-    def record(self, conference_name, **optional_params):
+    def record(self, conference_name=None, **optional_params):
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params.update({
             'conference_name': conference_name,
         })
@@ -786,7 +885,9 @@ class Conference(PlivoResponse):
             rest_api=self.rest_api
         )
 
-    def stop_record(self, conference_name, **optional_params):
+    def stop_record(self, conference_name=None, **optional_params):
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params.update({
             'conference_name': conference_name,
         })
@@ -797,17 +898,44 @@ class Conference(PlivoResponse):
 
 
 class ConferenceMember(PlivoResponse):
-    def hang(self, conference_name, member_id, **optional_params):
+
+    def get(self, conference_name=None, **optional_params):
+        if not conference_name:
+            conference_name = self.conference_name
+        optional_params['conference_name'] = conference_name
+        return ConferenceMember(
+            response=self.rest_api.get_live_conference(optional_params),
+            rest_api=self.rest_api
+        )
+
+    def create(self, src, to, answer_url, **optional_params):
+        if not optional_params: optional_params = {}
+        optional_params.update({
+            'from': src,
+            'to': to,
+            'answer_url': answer_url,
+        })
+        return ConferenceMember(
+            response=self.rest_api.make_call(optional_params),
+            rest_api=self.rest_api
+        )
+
+
+    def hangup(self, member_id, conference_name=None, **optional_params):
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params.update({
             'conference_name': conference_name,
             'member_id': member_id,
         })
         return ConferenceMember(
-            response=self.rest_api.hang_member(optional_params),
+            response=self.rest_api.hangup_member(optional_params),
             rest_api=self.rest_api
         )
 
-    def kick(self, conference_name, member_id, **optional_params):
+    def kick(self, member_id, conference_name=None, **optional_params):
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params.update({
             'conference_name': conference_name,
             'member_id': member_id,
@@ -817,7 +945,9 @@ class ConferenceMember(PlivoResponse):
             rest_api=self.rest_api
         )
 
-    def mute(self, conference_name, member_id, **optional_params):
+    def mute(self, member_id, conference_name=None, **optional_params):
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params.update({
             'conference_name': conference_name,
             'member_id': member_id,
@@ -827,7 +957,9 @@ class ConferenceMember(PlivoResponse):
             rest_api=self.rest_api
         )
 
-    def unmute(self, conference_name, member_id, **optional_params):
+    def unmute(self, member_id, conference_name=None, **optional_params):
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params.update({
             'conference_name': conference_name,
             'member_id': member_id,
@@ -837,7 +969,9 @@ class ConferenceMember(PlivoResponse):
             rest_api=self.rest_api
         )
 
-    def deaf(self, conference_name, member_id, **optional_params):
+    def deaf(self, member_id, conference_name=None, **optional_params):
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params.update({
             'conference_name': conference_name,
             'member_id': member_id,
@@ -847,7 +981,9 @@ class ConferenceMember(PlivoResponse):
             rest_api=self.rest_api
         )
 
-    def undeaf(self, conference_name, member_id, **optional_params):
+    def undeaf(self, member_id, conference_name=None, **optional_params):
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params.update({
             'conference_name': conference_name,
             'member_id': member_id,
@@ -857,7 +993,10 @@ class ConferenceMember(PlivoResponse):
             rest_api=self.rest_api
         )
 
-    def speak(self, conference_name, member_id, call_uuid, text, **optional_params):
+    def speak(self, call_uuid, text, member_id,
+              conference_name=None, **optional_params):
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params.update({
             'conference_name': conference_name,
             'member_id': member_id,
@@ -869,8 +1008,10 @@ class ConferenceMember(PlivoResponse):
             rest_api=self.rest_api
         )
 
-    def play(self, conference_name, member_id, url, **optional_params):
+    def play(self, url, member_id, conference_name=None, **optional_params):
         ''' Start playing sound to member(s) '''
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params.update({
             'conference_name': conference_name,
             'member_id': member_id,
@@ -881,8 +1022,10 @@ class ConferenceMember(PlivoResponse):
             rest_api=self.rest_api
         )
 
-    def stop_play(self, conference_name, member_id, **optional_params):
+    def stop_play(self, member_id, conference_name=None, **optional_params):
         ''' Stop stop_playing sound to member(s) '''
+        if not conference_name:
+            conference_name = self.conference_name
         optional_params.update({
             'conference_name': conference_name,
             'member_id': member_id,

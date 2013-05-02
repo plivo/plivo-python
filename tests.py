@@ -183,7 +183,7 @@ class TestApplicationRestApi(PlivoTest):
 
     def test_applications_crud(self):
         params = {'answer_url': 'http://localhost.com',
-                  'app_name': 'testappname'}
+                  'app_name': random_string(20)}
         response = self.client.create_application(params)
         self.assertEqual(201, response[0])
 
@@ -321,7 +321,6 @@ class TestRecordingRestApi(PlivoTest):
                           'recording_type', 'recording_format', 'call_uuid',
                           'recording_url', 'resource_uri', 'add_time']
             self.check_status_and_keys(200, valid_keys, response)
-
 
 
 class TestNumberRestApi(PlivoTest):
@@ -813,7 +812,7 @@ class TestMessageRestApi(PlivoTest):
         valid_keys = ["message", "message_uuid", "api_id"]
         self.check_status_and_keys(202, valid_keys, response)
         message_uuid = response[1]["message_uuid"][0]
-        self.client.get_message({"record_id": message_uuid})
+        self.client.get_message({"message_uuid": message_uuid})
 
 
 class TestCall(PlivoTest):
@@ -860,7 +859,723 @@ class TestCall(PlivoTest):
         self.assertEqual(201, response.status_code)
 
 
+class TestNumber(PlivoTest):
+    
+    def setUp(self):
+        super(TestNumber, self).setUp()
+        self.search_response = self.client.Number.search('US')
+        self.group_id = self.search_response[0].group_id
 
+    def test_search(self):
+        self.assertEqual(200, self.search_response[0].status_code)
+        valid_keys = [
+            'group_id', 'number_type', 'prefix', 'region', 'rental_rate',
+            'resource_uri', 'setup_rate', 'sms_enabled','sms_rate', 'stock',
+            'voice_enabled', 'voice_rate'
+        ]
+        
+        self.check_keys(valid_keys, self.search_response[0])
+
+    def test_all(self):
+        #Rent
+        response = self.client.Number.rent(self.group_id)
+        self.assertEqual(201, response.status_code)
+        valid_keys = ['numbers', 'status', 'api_id']
+        self.check_keys(valid_keys, response)
+        number = response.numbers[0]['number']
+
+        #Get
+        response = response.get(number)
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'voice_enabled', 'sms_enabled',
+            'region', 'fax_enabled', 'carrier', 'sms_rate', 'sub_account',
+            'number', 'api_id', 'application', 'number_type', 'added_on',
+            'resource_uri'
+        ]
+                
+        self.check_keys(valid_keys, response)
+
+        #Edit
+        response = response.edit(number)
+        self.assertEqual(202, response.status_code)
+        valid_keys = ['message', 'api_id']
+        self.check_keys(valid_keys, response)
+
+
+    def test_get_all(self):
+        response = self.client.Number.get_all()
+        self.assertEqual(200, response[0].status_code)
+        valid_keys = [
+            'voice_enabled', 'sms_enabled',
+            'region', 'fax_enabled', 'carrier', 'sms_rate', 'sub_account',
+            'number', 'application', 'number_type', 'added_on',
+            'resource_uri'
+        ]
+        self.check_keys(valid_keys, response[0])
+
+
+
+
+
+
+
+
+class TestAccount(PlivoTest):
+    def test_get(self):
+        response = self.client.Account.get()
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'account_type', 'address', 'auth_id', 'auto_recharge',
+            'cash_credits', 'city', 'created', 'enabled', 'modified',
+            'name', 'resource_uri', 'state', 'timezone'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_modify(self):
+        response = self.client.Account.modify()
+        self.assertEqual(202, response.status_code)
+        valid_keys = [
+            'message', 'api_id',
+        ]
+        self.check_keys(valid_keys, response)
+
+
+class TestSubAccount(PlivoTest):
+    def setUp(self):
+        super(TestSubAccount, self).setUp()
+        random_name = random_string(10)
+        self.response = self.client.SubAccount.create(name=random_name,
+                                                 enabled=True)
+
+    def test_create(self):
+        self.assertEqual(201, self.response.status_code)
+        valid_keys = [
+            'auth_token', 'message', 'api_id', 'auth_id'
+        ]
+        self.check_keys(valid_keys, self.response)
+
+    def test_get_without_params(self):
+        response = self.response.get()
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'account', 'name', 'created', 'auth_token',
+            'enabled', 'modified', 'api_id', 'auth_id', 'resource_uri'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_get(self):
+        response = self.client.SubAccount.get(
+            subauth_id=self.response.auth_id
+        )
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'account', 'name', 'created', 'auth_token',
+            'enabled', 'modified', 'api_id', 'auth_id', 'resource_uri'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_get_all(self):
+        response = self.client.SubAccount.get_all()
+        self.assertEqual(200, response[0].status_code)
+        valid_keys = [
+            'account', 'name', 'created', 
+            'enabled', 'modified', 'auth_id', 'resource_uri'
+        ]
+        self.check_keys(valid_keys, response[0])
+
+    def test_modify_without_params(self):
+        response = self.response.modify(True)
+        self.assertEqual(202, response.status_code)
+
+    def test_modify(self):
+        response = self.response.modify(
+            enabled=True, subauth_id=self.response.auth_id
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_delete_without_params(self):
+        response = self.response.delete()
+        self.assertEqual(204, response.status_code)
+
+        response = self.response.get()
+        self.assertEqual(404, response.status_code)
+
+    def test_delete(self):
+        response = self.response.delete(
+            subauth_id=self.response.auth_id
+        )
+        self.assertEqual(204, response.status_code)
+
+        response = self.response.get()
+        self.assertEqual(404, response.status_code)
+
+
+class TestApplication(PlivoTest):
+    def setUp(self):
+        super(TestApplication, self).setUp()
+        app_name = random_string(10)
+        answer_url = 'http://localhost.com'
+        self.create_response = self.client.Application.create(
+            app_name=app_name, answer_url=answer_url
+        )
+
+    def test_create(self):
+        self.assertEqual(201, self.create_response.status_code)
+        valid_keys = [
+            'message', 'app_id', 'api_id'
+        ]
+        self.check_keys(valid_keys, self.create_response)
+
+    def test_get_without_params(self):
+        response = self.create_response.get()
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'fallback_method', 'default_app', 'app_name',
+            'production_app', 'app_id', 'hangup_url', 'answer_url',
+            'message_url', 'resource_uri', 'hangup_method', 'message_method',
+            'fallback_answer_url', 'answer_method'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_get(self):
+        response = self.client.Application.get(
+            app_id=self.create_response.app_id
+        )
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'fallback_method', 'default_app', 'app_name',
+            'production_app', 'app_id', 'hangup_url', 'answer_url',
+            'message_url', 'resource_uri', 'hangup_method', 'message_method',
+            'fallback_answer_url', 'answer_method'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_get_all(self):
+        response = self.client.Application.get_all()
+        self.assertEqual(200, response[0].status_code)
+        valid_keys = [
+            'fallback_method', 'default_app', 'app_name',
+            'production_app', 'app_id', 'hangup_url', 'answer_url',
+            'message_url', 'resource_uri', 'hangup_method', 'message_method',
+            'fallback_answer_url', 'answer_method', 'enabled', 'public_uri',
+            'sip_uri', 'sub_account'
+        ]
+        self.check_keys(valid_keys, response[0])
+
+    def test_modify_without_params(self):
+        response = self.create_response.modify()
+        self.assertEqual(202, response.status_code)
+
+    def test_modify(self):
+        response = self.create_response.modify(
+            app_id=self.create_response.app_id
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_delete_without_params(self):
+        response = self.create_response.delete()
+        self.assertEqual(204, response.status_code)
+
+        response = self.create_response.get()
+        self.assertEqual(404, response.status_code)
+
+    def test_delete(self):
+        response = self.create_response.delete(
+            app_id=self.create_response.app_id
+        )
+        self.assertEqual(204, response.status_code)
+
+        response = self.create_response.get()
+        self.assertEqual(404, response.status_code)
+
+
+class TestCarrier(PlivoTest):
+    def setUp(self):
+        super(TestCarrier, self).setUp()
+        #Delete all carriers first
+        carriers = self.client.Carrier.get_all()
+        for carrier in carriers:
+            carrier.delete()
+
+        #Create a new one
+        name = random_string(10)
+        ip_set = '192.168.13.24'
+        self.create_response = self.client.Carrier.create(
+            name=name, ip_set=ip_set,
+        )
+
+    def test_create(self):
+        self.assertEqual(201, self.create_response.status_code)
+        valid_keys = [
+            'message', 'carrier_id', 'api_id'
+        ]
+        self.check_keys(valid_keys, self.create_response)
+
+
+    def test_get_without_params(self):
+        response = self.create_response.get()
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'carrier_id', 'ip_set', 'name', 'resource_uri', 'sms', 'voice'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_get(self):
+        response = self.client.Carrier.get(
+            carrier_id=self.create_response.carrier_id
+        )
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'carrier_id', 'ip_set', 'name', 'resource_uri', 'sms', 'voice'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_get_all(self):
+        response = self.client.Carrier.get_all()
+        self.assertEqual(200, response[0].status_code)
+        valid_keys = [
+            'carrier_id', 'ip_set', 'name', 'resource_uri', 'sms', 'voice'
+        ]
+        self.check_keys(valid_keys, response[0])
+
+    def test_modify_without_params(self):
+        response = self.create_response.modify()
+        self.assertEqual(202, response.status_code)
+
+    def test_modify(self):
+        response = self.create_response.modify(
+            carrier_id=self.create_response.carrier_id
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_delete_without_params(self):
+        response = self.create_response.delete()
+        self.assertEqual(204, response.status_code)
+
+        response = self.create_response.get()
+        self.assertEqual(404, response.status_code)
+
+    def test_delete(self):
+        response = self.create_response.delete(
+            carrier_id=self.create_response.carrier_id
+        )
+        self.assertEqual(204, response.status_code)
+
+        response = self.create_response.get()
+        self.assertEqual(404, response.status_code)
+
+        
+class TestMessage(PlivoTest):
+    def setUp(self):
+        super(TestMessage, self).setUp()
+        self.send_response = self.client.Message.send(
+            src=DEFAULT_FROM_NUMBER,
+            dst=DEFAULT_TO_NUMBER,
+            text=random_string(30),
+            url='http://localhost.com',
+        )
+
+    def test_send(self):
+        self.assertEqual(202, self.send_response.status_code)
+        valid_keys = [
+            'message', 'message_uuid', 'api_id'
+        ]
+        self.check_keys(valid_keys, self.send_response)
+
+    def test_get(self):
+        response = self.client.Message.get(
+            message_uuid = self.send_response.message_uuid[0]
+        )
+
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'meta', 'api_id', 'objects'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_get_without_params(self):
+        response = self.send_response.get()
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'meta', 'api_id', 'objects'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_get_all(self):
+        response = self.client.Message.get_all()
+        self.assertEqual(200, response[0].status_code)
+
+        valid_keys = [
+            'message_direction', 'to_number', 'message_state',
+            'total_amount', 'total_rate', 'from_number', 'message_uuid',
+            'message_time', 'resource_uri', 'message_type'
+        ]
+        self.check_keys(valid_keys, response[0])
+
+
+class TestPricing(PlivoTest):
+    def test_pricing(self):
+        response = self.client.Pricing.get(country_iso='US')
+        valid_keys = ["country", "api_id", 'country_code', 'country_iso',
+                      'phone_numbers', 'voice', 'message']
+        self.assertEqual(200, response.status_code)
+        self.check_keys(valid_keys, response)
+
+    def test_invalid_country(self):
+        response = self.client.Pricing.get(country_iso='ajskfd')
+        self.assertEqual(200, response.status_code)
+        self.assertTrue(hasattr(response, "error"))
+        
+
+class TestEndPoint(PlivoTest):
+    def setUp(self):
+        super(TestEndPoint, self).setUp()
+        #Create a new one
+        username = random_string(10)
+        password = username
+        alias = "%shdf" % username
+        self.create_response = self.client.EndPoint.create(
+                username=username, password=password, alias=alias
+        )
+
+    def test_create(self):
+        self.assertEqual(201, self.create_response.status_code)
+        valid_keys = [
+            'message', 'endpoint_id', 'api_id'
+        ]
+        self.check_keys(valid_keys, self.create_response)
+        #Delete
+        self.create_response.delete()
+
+
+    def test_get_without_params(self):
+        response = self.create_response.get()
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'endpoint_id', 'resource_uri', 'alias', 'password',
+            'username', 'sip_uri'
+        ]
+        self.check_keys(valid_keys, response)
+        #Delete
+        self.create_response.delete()
+
+    def test_get(self):
+        response = self.client.EndPoint.get(
+            endpoint_id=self.create_response.endpoint_id
+        )
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'endpoint_id', 'resource_uri', 'alias', 'password',
+            'username', 'sip_uri'
+        ]
+        self.check_keys(valid_keys, response)
+        #Delete
+        self.create_response.delete()
+
+    def test_get_all(self):
+        response = self.client.EndPoint.get_all()
+        self.assertEqual(200, response[0].status_code)
+        valid_keys = [
+            'endpoint_id', 'resource_uri', 'alias', 'password',
+            'username', 'sip_uri'
+        ]
+        self.check_keys(valid_keys, response[0])
+        #Delete
+        self.create_response.delete()
+
+    def test_modify_without_params(self):
+        response = self.create_response.modify()
+        self.assertEqual(202, response.status_code)
+
+        #Delete
+        self.create_response.delete()
+
+    def test_modify(self):
+        response = self.create_response.modify(
+            endpoint_id=self.create_response.endpoint_id
+        )
+        self.assertEqual(202, response.status_code)
+
+        #Delete
+        self.create_response.delete()
+
+    def test_delete_without_params(self):
+        response = self.create_response.delete()
+        self.assertEqual(204, response.status_code)
+
+        response = self.create_response.get()
+        self.assertEqual(404, response.status_code)
+
+    def test_delete(self):
+        response = self.create_response.delete(
+            endpoint_id=self.create_response.endpoint_id
+        )
+        self.assertEqual(204, response.status_code)
+
+        response = self.create_response.get()
+        self.assertEqual(404, response.status_code)
+
+
+class TestRecording(PlivoTest):
+    def setUp(self):
+        super(TestRecording, self).setUp()
+        self.all_response = self.client.Recording.get_all()
+        if len(self.all_response) > 0:
+            self.recording_id = self.all_response[0].recording_id
+
+    def test_get_all(self):
+        self.assertEqual(200, self.all_response[0].status_code)
+        valid_keys = [
+            'call_uuid', 'recording_id', 'recording_type', 'recording_format',
+            'conference_name', 'recording_url', 'resource_uri', 'add_time'
+        ]
+        self.check_keys(valid_keys, self.all_response[0])
+
+    def test_get(self):
+        if not self.recording_id:
+            return
+        response = self.client.Recording.get(self.recording_id)
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'call_uuid', 'recording_id', 'recording_type', 'recording_format',
+            'conference_name', 'recording_url', 'resource_uri', 'add_time'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_get_without_params(self):
+        if not self.recording_id:
+            return
+        response = self.all_response[0].get(self.recording_id)
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'call_uuid', 'recording_id', 'recording_type', 'recording_format',
+            'conference_name', 'recording_url', 'resource_uri', 'add_time'
+        ]
+        self.check_keys(valid_keys, response)
+
+
+
+class TestConference(PlivoTest):
+    def setUp(self):
+        super(TestConference, self).setUp()
+        #Create a new one
+        self.src = DEFAULT_FROM_NUMBER
+        self.to = DEFAULT_TO_NUMBER
+        self.answer_url = 'https://guarded-island.herokuapp.com/conference/'
+        self.create_response = self.client.Conference.create(
+            src=self.src, to=self.to, answer_url=self.answer_url,
+            time_limit= 80
+        )
+        time.sleep(8)
+
+        self.get_response = self.client.Conference.get(
+            conference_name="plivo"
+        )
+
+    def test_create(self):
+        self.assertEqual(201, self.create_response.status_code)
+
+    def test_get_without_params(self):
+        response = self.get_response.get()
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'conference_name', 'conference_run_time', 'members',
+            'conference_member_count', 'api_id'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_get(self):
+        response = self.client.Conference.get(
+            conference_name=self.get_response.conference_name
+        )
+        self.assertEqual(200, response.status_code)
+        valid_keys = [
+            'conference_name', 'conference_run_time', 'members',
+            'conference_member_count', 'api_id'
+        ]
+        self.check_keys(valid_keys, response)
+
+    def test_get_all(self):
+        response = self.client.Conference.get_all()
+        self.assertEqual(200, response[0].status_code)
+        valid_keys = [
+            'conference_name', 
+        ]
+        self.check_keys(valid_keys, response[0])
+
+    def test_hang_without_params(self):
+        response = self.get_response.hang()
+        self.assertEqual(204, response.status_code)
+
+    def test_hang(self):
+        response = self.get_response.hang(
+            conference_name=self.get_response.conference_name
+        )
+        self.assertEqual(204, response.status_code)
+
+    def test_record_without_params(self):
+        response = self.get_response.record()
+        self.assertEqual(202, response.status_code)
+
+    def test_record(self):
+        response = self.get_response.record(
+            conference_name=self.get_response.conference_name
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_stop_record_without_params(self):
+        response = self.get_response.stop_record()
+        self.assertEqual(204, response.status_code)
+
+    def test_stop_record(self):
+        response = self.get_response.stop_record(
+            conference_name=self.get_response.conference_name
+        )
+        self.assertEqual(204, response.status_code)
+
+
+class TestConferenceMember(PlivoTest):
+    def setUp(self):
+        super(TestConferenceMember, self).setUp()
+        #Create a new one
+        self.src = DEFAULT_FROM_NUMBER
+        self.to = DEFAULT_TO_NUMBER
+        self.answer_url = 'https://guarded-island.herokuapp.com/conference/'
+        self.create_response = self.client.ConferenceMember.create(
+            src=self.src, to=self.to, answer_url=self.answer_url,
+            time_limit= 80
+        )
+        time.sleep(8)
+
+        self.get_response = self.client.ConferenceMember.get(
+            conference_name="plivo"
+        )
+        self.sound_url = \
+            "https://guarded-island.herokuapp.com/static/client_on_hold_music.mp3"
+
+    def test_hangup(self):
+        response = self.client.ConferenceMember.hangup(
+                member_id=self.get_response.members[0]['member_id'],
+                conference_name="plivo"
+        )
+        self.assertEqual(204, response.status_code)
+
+    def test_hangup_without_params(self):
+        response = self.get_response.hangup(
+                member_id=self.get_response.members[0]['member_id'],
+        )
+        self.assertEqual(204, response.status_code)
+
+    def test_kick(self):
+        response = self.client.ConferenceMember.kick(
+                member_id=self.get_response.members[0]['member_id'],
+                conference_name="plivo"
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_kick_without_params(self):
+        response = self.get_response.kick(
+                member_id=self.get_response.members[0]['member_id'],
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_mute(self):
+        response = self.client.ConferenceMember.mute(
+                member_id=self.get_response.members[0]['member_id'],
+                conference_name="plivo"
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_mute_without_params(self):
+        response = self.get_response.mute(
+                member_id=self.get_response.members[0]['member_id'],
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_unmute(self):
+        response = self.client.ConferenceMember.unmute(
+                member_id=self.get_response.members[0]['member_id'],
+                conference_name="plivo"
+        )
+        self.assertEqual(204, response.status_code)
+
+    def test_unmute_without_params(self):
+        response = self.get_response.unmute(
+                member_id=self.get_response.members[0]['member_id'],
+        )
+        self.assertEqual(204, response.status_code)
+
+    def test_deaf(self):
+        response = self.client.ConferenceMember.deaf(
+                member_id=self.get_response.members[0]['member_id'],
+                conference_name="plivo"
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_deaf_without_params(self):
+        response = self.get_response.deaf(
+                member_id=self.get_response.members[0]['member_id'],
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_undeaf(self):
+        response = self.client.ConferenceMember.undeaf(
+                member_id=self.get_response.members[0]['member_id'],
+                conference_name="plivo"
+        )
+        self.assertEqual(204, response.status_code)
+
+    def test_undeaf_without_params(self):
+        response = self.get_response.undeaf(
+                member_id=self.get_response.members[0]['member_id'],
+        )
+        self.assertEqual(204, response.status_code)
+
+    def test_speak(self):
+        response = self.client.ConferenceMember.speak(
+                self.get_response.members[0]['call_uuid'],
+                'Hello',
+                member_id=self.get_response.members[0]['member_id'],
+                conference_name="plivo"
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_speak_without_params(self):
+        response = self.get_response.speak(
+                self.get_response.members[0]['call_uuid'],
+                'Hello',
+                member_id=self.get_response.members[0]['member_id'],
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_play(self):
+        response = self.client.ConferenceMember.play(
+                self.sound_url,
+                member_id=self.get_response.members[0]['member_id'],
+                conference_name="plivo"
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_play_without_params(self):
+        response = self.get_response.play(
+                self.sound_url,
+                member_id=self.get_response.members[0]['member_id'],
+        )
+        self.assertEqual(202, response.status_code)
+
+    def test_stop_play(self):
+        response = self.client.ConferenceMember.stop_play(
+                member_id=self.get_response.members[0]['member_id'],
+                conference_name="plivo"
+        )
+        self.assertEqual(204, response.status_code)
+
+    def test_stop_play_without_params(self):
+        response = self.get_response.stop_play(
+                member_id=self.get_response.members[0]['member_id'],
+        )
+        self.assertEqual(204, response.status_code)
 
 
 def get_client(AUTH_ID, AUTH_TOKEN):

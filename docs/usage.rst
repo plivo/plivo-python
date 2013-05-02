@@ -38,7 +38,7 @@ You can use ``response`` like this.::
 
 Similarly for call endpoint we have::
 
-    call = client.Call.get() #Returns a Call object
+    call = client.Call.get(call_uuid="the_uuid") #Returns a Call object
     list_of_calls = client.Call.get_all() #Returns a list of call objects
 
 Now you can interact with the ``call`` object as such.::
@@ -48,13 +48,9 @@ Now you can interact with the ``call`` object as such.::
 
 While you can use the methods directly on the ``RestApi`` using the endpoint specific classes is the simpler and recommended method.
 
+All the endpoints follow this pattern.
 
-
-
-
-
-
-
-
-
+``get``, ``create`` and similar singual methods would create an object (of the correct subclass of PlivoResponse)
+``get_all``, ``search`` and similar would create a list of objects (of the correct subclass of PlivoResponse)
+object specific methods such as ``hang`` can be called directly on the object.
 
