@@ -4,6 +4,9 @@ from hashlib import sha1
 
 import requests
 
+import plivoxml as XML
+
+
 try:
     import json
 except ImportError:
@@ -21,6 +24,9 @@ def validate_signature(uri, post_params, signature, auth_token):
     for k, v in sorted(post_params.items()):
         uri += k + v
     return base64.encodestring(hmac.new(auth_token, uri, sha1).digest()).strip() == signature
+
+
+
 
 
 class RestAPI(object):
@@ -516,7 +522,7 @@ class Call(PlivoResponse):
             optional_params['status'] = 'live'
         optional_params['call_uuid'] = call_uuid
         return Call(response=self.rest_api.get_cdr(optional_params),
-                    rest_api=self.rest_api) 
+                    rest_api=self.rest_api)
 
     def get_all(self, status=None, **optional_params):
         if not optional_params: optional_params = {}
@@ -558,7 +564,7 @@ class Number(PlivoResponse):
         })
         return Number(
             response=self.rest_api.add_carrier_number(optional_params),
-            rest_api=self.rest_api,    
+            rest_api=self.rest_api,
         )
 
     def edit(self, number, **optional_params):

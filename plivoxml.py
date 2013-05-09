@@ -1,6 +1,8 @@
 import xml.etree.ElementTree as etree
 
-from plivo import PlivoError
+class PlivoError(Exception):
+    pass
+
 
 class Element(object):
     nestables = ()
@@ -244,3 +246,6 @@ class DTMF(Element):
         Element.__init__(self, body, **attributes)
 
 
+ALL_CLASSES = [Element, Response, Speak, Play, Wait, Redirect, Hangup,
+               GetDigits, Number, User, Dial, Conference, Record, PreAnswer,
+               Message, DTMF]

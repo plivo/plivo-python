@@ -860,7 +860,7 @@ class TestCall(PlivoTest):
 
 
 class TestNumber(PlivoTest):
-    
+
     def setUp(self):
         super(TestNumber, self).setUp()
         self.search_response = self.client.Number.search('US')
@@ -873,7 +873,7 @@ class TestNumber(PlivoTest):
             'resource_uri', 'setup_rate', 'sms_enabled','sms_rate', 'stock',
             'voice_enabled', 'voice_rate'
         ]
-        
+
         self.check_keys(valid_keys, self.search_response[0])
 
     def test_all(self):
@@ -893,7 +893,7 @@ class TestNumber(PlivoTest):
             'number', 'api_id', 'application', 'number_type', 'added_on',
             'resource_uri'
         ]
-                
+
         self.check_keys(valid_keys, response)
 
         #Edit
@@ -979,7 +979,7 @@ class TestSubAccount(PlivoTest):
         response = self.client.SubAccount.get_all()
         self.assertEqual(200, response[0].status_code)
         valid_keys = [
-            'account', 'name', 'created', 
+            'account', 'name', 'created',
             'enabled', 'modified', 'auth_id', 'resource_uri'
         ]
         self.check_keys(valid_keys, response[0])
@@ -1165,7 +1165,7 @@ class TestCarrier(PlivoTest):
         response = self.create_response.get()
         self.assertEqual(404, response.status_code)
 
-        
+
 class TestMessage(PlivoTest):
     def setUp(self):
         super(TestMessage, self).setUp()
@@ -1226,7 +1226,7 @@ class TestPricing(PlivoTest):
         response = self.client.Pricing.get(country_iso='ajskfd')
         self.assertEqual(200, response.status_code)
         self.assertTrue(hasattr(response, "error"))
-        
+
 
 class TestEndPoint(PlivoTest):
     def setUp(self):
@@ -1400,7 +1400,7 @@ class TestConference(PlivoTest):
         response = self.client.Conference.get_all()
         self.assertEqual(200, response[0].status_code)
         valid_keys = [
-            'conference_name', 
+            'conference_name',
         ]
         self.check_keys(valid_keys, response[0])
 
@@ -1577,6 +1577,19 @@ class TestConferenceMember(PlivoTest):
         )
         self.assertEqual(204, response.status_code)
 
+class TestXML(unittest.TestCase):
+    def test_attributes(self):
+        self.assertTrue(hasattr(plivo.XML, "Message"))
+        self.assertTrue(hasattr(plivo.XML, "Response"))
+        self.assertTrue(hasattr(plivo.XML, "Message"))
+
+    def test_response(self):
+        r = plivo.XML.Response()
+        file_name = "https://s3.amazonaws.com/plivocloud/Trumpet.mp3"
+        p = r.addPlay(file_name)
+        r.addHangup()
+        self.assertTrue(file_name in r.to_xml())
+        self.assertTrue("<Hangup />" in r.to_xml())
 
 def get_client(AUTH_ID, AUTH_TOKEN):
     return plivo.RestAPI(AUTH_ID, AUTH_TOKEN)
