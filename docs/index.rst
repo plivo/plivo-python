@@ -29,6 +29,7 @@ Contents:
    number
    pricing
    recording
+   xml
 
 
 

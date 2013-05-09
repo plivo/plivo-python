@@ -245,7 +245,3 @@ class DTMF(Element):
             raise PlivoError('No digits set for %s' % self.name)
         Element.__init__(self, body, **attributes)
 
-
-ALL_CLASSES = [Element, Response, Speak, Play, Wait, Redirect, Hangup,
-               GetDigits, Number, User, Dial, Conference, Record, PreAnswer,
-               Message, DTMF]
