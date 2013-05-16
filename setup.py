@@ -7,8 +7,8 @@ if sys.version_info < (2, 6):
 
 setup(
     name = "plivo",
-    py_modules = ['plivo'],
-    version = "0.4.1",
+    py_modules = ['plivo', "plivoxml"],
+    version = "0.9",
     description = "Plivo Python library",
     author = "Plivo Team",
     author_email = "hello@plivo.com",
