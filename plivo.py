@@ -404,7 +404,7 @@ class RestAPI(object):
         endpoint_id = params.pop('endpoint_id')
         return self._request('DELETE', '/Endpoint/%s/' % endpoint_id, data=params)
 
-    ## Carriers ##
+    ## Incoming Carriers ##
     def get_incoming_carriers(self, params=None):
         if not params: params = {}
         return self._request('GET', '/IncomingCarrier/', data=params)
@@ -428,29 +428,53 @@ class RestAPI(object):
         carrier_id = params.pop('carrier_id')
         return self._request('DELETE', '/IncomingCarrier/%s/' % carrier_id, data=params)
 
+    ## Outgoing Carriers ##
+    def get_outgoing_carriers(self, params=None):
+        if not params: params = {}
+        return self._request('GET', '/OutgoingCarrier/', data=params)
+
+    def create_outgoing_carrier(self, params=None):
+        if not params: params = {}
+        return self._request('POST', '/OutgoingCarrier/', data=params)
+
+    def get_outgoing_carrier(self, params=None):
+        if not params: params = {}
+        carrier_id = params.pop('carrier_id')
+        return self._request('GET', '/OutgoingCarrier/%s/' % carrier_id, data=params)
+
+    def modify_outgoing_carrier(self, params=None):
+        if not params: params = {}
+        carrier_id = params.pop('carrier_id')
+        return self._request('POST', '/OutgoingCarrier/%s/' % carrier_id, data=params)
+
+    def delete_outgoing_carrier(self, params=None):
+        if not params: params = {}
+        carrier_id = params.pop('carrier_id')
+        return self._request('DELETE', '/OutgoingCarrier/%s/' % carrier_id, data=params)
+
     ## Carrier Routings ##
-    def get_carrier_routings(self, params=None):
+    def get_outgoing_carrier_routings(self, params=None):
         if not params: params = {}
-        return self._request('GET', '/CarrierRouting/', data=params)
+        return self._request('GET', '/OutgoingCarrierRouting/', data=params)
 
-    def create_carrier_routing(self, params=None):
+    def add_outgoing_carrier_routings(self, params=None):
         if not params: params = {}
-        return self._request('POST', '/CarrierRouting/', data=params)
+        return self._request('POST', '/OutgoingCarrierRouting/', data=params)
 
-    def get_carrier_routing(self, params=None):
+    def get_outgoing_carrier_routing(self, params=None):
         if not params: params = {}
         routing_id = params.pop('routing_id')
-        return self._request('GET', '/CarrierRouting/%s/' % routing_id, data=params)
+        return self._request('GET', '/OutgoingCarrierRouting/%s/' % routing_id, data=params)
 
-    def modify_carrier_routing(self, params=None):
+    def modify_outgoing_carrier_routing(self, params=None):
         if not params: params = {}
         routing_id = params.pop('routing_id')
-        return self._request('POST', '/CarrierRouting/%s/' % routing_id, data=params)
+        return self._request('POST', '/OutgoingCarrierRouting/%s/' % routing_id, data=params)
 
-    def delete_carrier_routing(self, params=None):
+    def delete_outgoing_carrier_routing(self, params=None):
         if not params: params = {}
         routing_id = params.pop('routing_id')
-        return self._request('DELETE', '/CarrierRouting/%s/' % routing_id, data=params)
+        return self._request('DELETE', '/OutgoingCarrierRouting/%s/' % routing_id, data=params)
 
     ## Pricing ##
     def pricing(self, params=None):
