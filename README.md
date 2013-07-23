@@ -1,10 +1,9 @@
-===========
 Plivo Python Helper
-===========
-
+-------------------
+[![PyPI version](https://badge.fury.io/py/plivo.png)](http://badge.fury.io/py/plivo)
 
 Example code to make a call
----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     #!/usr/bin/env python
 
@@ -24,21 +23,21 @@ Example code to make a call
 
     response = p.make_call(params)
 
-
+~~~~~~~~~~~~~~~~~~
 Running Tests
------------------------
+~~~~~~~~~~~~~~~~~~
 
 Create a file named auth_secrets.py and give it your `AUTH_ID` and `AUTH_TOKEN`.
 Run `python tests.py`
-
+~~~~~~~~~~~~~~~~~~~~
 Installation
--------------------
+~~~~~~~~~~~~~~~~~~~~
 
     pip install plivo
 
-
+~~~~~~~~~~~~~~~~
 Building docs
------------------------
+~~~~~~~~~~~~~~~~
 
     cd docs
     make html
