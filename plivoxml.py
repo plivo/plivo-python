@@ -196,7 +196,7 @@ class Conference(Element):
                         'endConferenceOnExit','waitSound','enterSound', 'exitSound',
                         'timeLimit', 'hangupOnStar', 'maxMembers',
                         'record', 'recordFileFormat','recordWhenAlone', 'action', 'method', 'redirect',
-                        'digitsMatch', 'callbackUrl', 'callbackMethod',
+                        'digitsMatch', 'callbackUrl', 'callbackMethod', 'relayDTMF',
                         'stayAlone', 'floorEvent', 'transcriptionType', 'transcriptionUrl',
                         'transcriptionMethod')
 
@@ -238,7 +238,7 @@ class Message(Element):
 
 class DTMF(Element):
     nestables = ()
-    valid_attributes = ()
+    valid_attributes = ('async')
 
     def __init__(self, body, **attributes):
         if not body:
