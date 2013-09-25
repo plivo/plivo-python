@@ -238,7 +238,7 @@ class Message(Element):
 
 class DTMF(Element):
     nestables = ()
-    valid_attributes = ('async')
+    valid_attributes = ('async',)
 
     def __init__(self, body, **attributes):
         if not body:
