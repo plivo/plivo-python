@@ -123,7 +123,7 @@ class Play(Element):
 
 class Wait(Element):
     nestables = ()
-    valid_attributes = ('length', 'silence', 'min_silence')
+    valid_attributes = ('length', 'silence', 'min_silence', 'minSilence')
 
     def __init__(self, **attributes):
         Element.__init__(self, body='', **attributes)
