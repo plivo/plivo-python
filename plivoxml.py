@@ -1,4 +1,8 @@
+import sys
 import xml.etree.ElementTree as etree
+
+PYTHON3 = True if sys.version_info.major > 2 else False
+
 
 class PlivoError(Exception):
     pass
@@ -11,9 +15,13 @@ class Element(object):
     def __init__(self, body='', **attributes):
         self.attributes = {}
         self.name = self.__class__.__name__
-        self.body = unicode(body).encode('ascii', 'xmlcharrefreplace')
+        if PYTHON3:
+            self.body = str(body)
+        else:
+            self.body = unicode(body).encode('ascii', 'xmlcharrefreplace')
+
         self.node = None
-        for k, v in attributes.iteritems():
+        for k, v in attributes.items() if PYTHON3 else attributes.iteritems():
             if not k in self.valid_attributes:
                 raise PlivoError('invalid attribute %s for %s' % (k, self.name))
             self.attributes[k] = self._convert_value(v)
@@ -33,7 +41,7 @@ class Element(object):
             return u'GET'
         elif v == 'post':
             return u'POST'
-        return unicode(v)
+        return str(v) if PYTHON3 else unicode(v)
 
     def add(self, element):
         if element.name in self.nestables:
@@ -42,6 +50,8 @@ class Element(object):
         raise PlivoError('%s not nestable in %s' % (element.name, self.name))
 
     def to_xml(self):
+        if PYTHON3:
+            return etree.tostring(self.node, encoding="unicode")
         return etree.tostring(self.node, encoding="utf-8")
 
     def __str__(self):
