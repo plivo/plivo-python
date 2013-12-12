@@ -1,3 +1,4 @@
+import sys
 import base64
 import hmac
 from hashlib import sha1
@@ -6,6 +7,7 @@ import requests
 
 import plivoxml as XML
 
+PYTHON3 = True if sys.version_info.major > 2 else False
 
 try:
     import json
@@ -72,7 +74,7 @@ class RestAPI(object):
             r = requests.put(self._api + path, headers=headers,
                              auth=(self.auth_id, self.auth_token),
                              data=json.dumps(data))
-        content = r.content
+        content = r.text if PYTHON3 else r.content
         if content:
             try:
                 response = json.loads(content)
