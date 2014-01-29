@@ -380,6 +380,11 @@ class RestAPI(object):
         recording_id = params.pop('recording_id')
         return self._request('GET', '/Recording/%s/' % recording_id, data=params)
 
+    def delete_recording(self, params=None):
+        if not params: params = {}
+        recording_id = params.pop('recording_id')
+        return self._request('DELETE', '/Recording/%s/' % recording_id, data=params)
+
     ## Endpoints ##
     def get_endpoints(self, params=None):
         if not params: params = {}
