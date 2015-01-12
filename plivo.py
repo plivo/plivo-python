@@ -156,6 +156,10 @@ class RestAPI(object):
         if not params: params = {}
         return self._request('GET', '/AvailableNumber/', data=params)
 
+    def search_phone_numbers(self, params=None):
+        if not params: params = {}
+        return self._request('GET', '/PhoneNumber/', data=params)
+
     def get_number(self, params=None):
         if not params: params = {}
         number = params.pop("number")
@@ -167,6 +171,11 @@ class RestAPI(object):
         if not params: params = {}
         number = params.pop("number")
         return self._request('POST', '/AvailableNumber/%s/' % number, data=params)
+
+    def buy_phone_number(self, params=None):
+        if not params: params = {}
+        number = params.pop("number")
+        return self._request('POST', '/PhoneNumber/%s/' % number, data=params)
 
     def unrent_number(self, params=None):
         if not params: params = {}
@@ -1069,5 +1078,3 @@ class ConferenceMember(PlivoResponse):
             response=self.rest_api.stop_play_member(optional_params),
             rest_api=self.rest_api
         )
-
-
