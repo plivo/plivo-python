@@ -123,7 +123,7 @@ class Play(Element):
 
 class Wait(Element):
     nestables = ()
-    valid_attributes = ('length', 'silence', 'min_silence', 'minSilence')
+    valid_attributes = ('length', 'silence', 'min_silence', 'minSilence', 'beep')
 
     def __init__(self, **attributes):
         Element.__init__(self, body='', **attributes)
@@ -244,4 +244,3 @@ class DTMF(Element):
         if not body:
             raise PlivoError('No digits set for %s' % self.name)
         Element.__init__(self, body, **attributes)
-
