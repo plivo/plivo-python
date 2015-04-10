@@ -212,7 +212,7 @@ class Record(Element):
                         'maxLength', 'playBeep', 'recordSession',
                         'startOnDialAnswer', 'redirect', 'fileFormat',
                         'callbackUrl', 'callbackMethod', 'transcriptionType',
-                        'transcriptionUrl', 'transcriptionMethod')
+                        'transcriptionUrl', 'transcriptionMethod', 'bothLegs')
 
     def __init__(self, **attributes):
         Element.__init__(self, body='', **attributes)
