@@ -75,6 +75,8 @@ class RestAPI(object):
         content = r.content
         if content:
             try:
+                if isinstance(content, bytes):
+                    content = content.decode()
                 response = json.loads(content)
             except ValueError:
                 response = content
