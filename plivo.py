@@ -75,7 +75,7 @@ class RestAPI(object):
         content = r.content
         if content:
             try:
-                response = json.loads(content)
+                response = json.loads(content.decode("utf-8"))
             except ValueError:
                 response = content
         else:
