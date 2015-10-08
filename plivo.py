@@ -343,6 +343,12 @@ class RestAPI(object):
         member_id = params.pop('member_id')
         return self._request('POST', '/Conference/%s/Member/%s/Speak/' % (conference_name, member_id), data=params)
 
+    def stop_speak_member(self, params=None):
+        if not params: params = {}
+        conference_name = params.pop('conference_name')
+        member_id = params.pop('member_id')
+        return self._request('DELETE', '/Conference/%s/Member/%s/Speak/' % (conference_name, member_id), data=params)
+
     def deaf_member(self, params=None):
         if not params: params = {}
         conference_name = params.pop('conference_name')
