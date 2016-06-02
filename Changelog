@@ -1,3 +1,4 @@
+2014-06-02 Adds digitsMatchBLeg parameter to Dial XML
 2014-01-14 Adds support for PhoneNumber API & Adds beep parameter for Wait element
 2013-09-25 Missing minSilence for <Wait>
 2013-09-25 Added relayDTMF to <Conference> and async to <DTMF>
