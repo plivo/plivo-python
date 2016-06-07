@@ -1,4 +1,6 @@
 import xml.etree.ElementTree as etree
+import six
+import sys
 
 class PlivoError(Exception):
     pass
@@ -11,15 +13,15 @@ class Element(object):
     def __init__(self, body='', **attributes):
         self.attributes = {}
         self.name = self.__class__.__name__
-        self.body = unicode(body).encode('ascii', 'xmlcharrefreplace')
+        self.body = six.text_type(body).encode('ascii', 'xmlcharrefreplace')
         self.node = None
-        for k, v in attributes.iteritems():
+        for k, v in six.iteritems(attributes):
             if not k in self.valid_attributes:
                 raise PlivoError('invalid attribute %s for %s' % (k, self.name))
             self.attributes[k] = self._convert_value(v)
         self.node = etree.Element(self.name, attrib=self.attributes)
         if self.body:
-            self.node.text = self.body
+            self.node.text = six.text_type(self.body)
 
     @staticmethod
     def _convert_value(v):
@@ -33,7 +35,7 @@ class Element(object):
             return u'GET'
         elif v == 'post':
             return u'POST'
-        return unicode(v)
+        return six.text_type(v)
 
     def add(self, element):
         if element.name in self.nestables:
