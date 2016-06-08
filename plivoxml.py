@@ -21,7 +21,7 @@ class Element(object):
             self.attributes[k] = self._convert_value(v)
         self.node = etree.Element(self.name, attrib=self.attributes)
         if self.body:
-            self.node.text = six.text_type(self.body)
+            self.node.text = self.body.decode()
 
     @staticmethod
     def _convert_value(v):
