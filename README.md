@@ -17,7 +17,7 @@ Example code to make a call
 
     params = {'to': '121212121212',
     'from': '1212121212',
-    'ring_url': 'http://example.com/ring_url'
+    'ring_url': 'http://example.com/ring_url',
     'answer_url': 'http://example.com/answer_url',
     'hangup_url': 'http://example.com/hangup_url'
     }
