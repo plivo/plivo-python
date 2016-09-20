@@ -30,7 +30,7 @@ def validate_signature(uri, post_params, signature, auth_token):
 
 
 class RestAPI(object):
-    def __init__(self, auth_id, auth_token, url='https://api.plivo.com', version=PLIVO_VERSION):
+    def __init__(self, auth_id, auth_token, url='https://api.plivo.com', version=PLIVO_VERSION, timeout=None):
         self.version = version
         self.url = url.rstrip('/') + '/' + self.version
         self.auth_id = auth_id
@@ -49,6 +49,7 @@ class RestAPI(object):
         self.Recording = Recording(self)
         self.Conference = Conference(self)
         self.ConferenceMember = ConferenceMember(self)
+        self.timeout = timeout
 
     def _request(self, method, path, data={}):
         path = path.rstrip('/') + '/'
@@ -57,21 +58,25 @@ class RestAPI(object):
             headers.update(self.headers)
             r = requests.post(self._api + path, headers=headers,
                               auth=(self.auth_id, self.auth_token),
-                              data=json.dumps(data))
+                              data=json.dumps(data),
+                              timeout=self.timeout)
         elif method == 'GET':
             r = requests.get(self._api + path, headers=self.headers,
                              auth=(self.auth_id, self.auth_token),
-                             params=data)
+                             params=data,
+                             timeout=self.timeout)
         elif method == 'DELETE':
             r = requests.delete(self._api + path, headers=self.headers,
                                 auth=(self.auth_id, self.auth_token),
-                                params=data)
+                                params=data,
+                                timeout=self.timeout)
         elif method == 'PUT':
             headers = {'content-type': 'application/json'}
             headers.update(self.headers)
             r = requests.put(self._api + path, headers=headers,
                              auth=(self.auth_id, self.auth_token),
-                             data=json.dumps(data))
+                             data=json.dumps(data),
+                             timeout=self.timeout)
         content = r.content
         if content:
             try:
