@@ -1,6 +1,8 @@
 import base64
 import hmac
 from hashlib import sha1
+from urlparse import urlparse, parse_qsl
+from urllib import urlencode
 
 import requests
 
@@ -20,12 +22,25 @@ class PlivoError(Exception):
     pass
 
 
-def validate_signature(uri, post_params, signature, auth_token):
-    for k, v in sorted(post_params.items()):
+def validate_signature(uri, params, signature, auth_token):
+    qs = urlparse(uri).query
+    if qs:
+        params_from_qs = dict(parse_qsl(qs))
+        params_from_qs.update(params)
+        params = params_from_qs.copy()
+    s = uri.encode('utf-8')
+    for k, v in sorted(params.items()):
+        k = k.encode('utf-8')
         uri += k + v
+        if v is None:
+            x = ''
+        elif isinstance(v, basestring):
+            x = v.encode('utf-8')
+        else:
+            x = str(v)
+        params[k] = x
+        s += k + x
     return base64.encodestring(hmac.new(auth_token, uri, sha1).digest()).strip() == signature
-
-
 
 
 
