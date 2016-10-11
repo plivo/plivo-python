@@ -20,13 +20,25 @@ class PlivoError(Exception):
     pass
 
 
-def validate_signature(uri, post_params, signature, auth_token):
-    for k, v in sorted(post_params.items()):
-        uri += k + v
-    return base64.encodestring(hmac.new(auth_token, uri, sha1).digest()).strip() == signature
-
-
-
+def validate_signature(uri, params, auth_token, signature):
+    """
+    For a given URI and POST data, validate that the signature based on
+    the passed auth token is equal to the signature received from plivo.
+    Signature validation details are covered at
+    https://www.plivo.com/docs/xml/request/#validation.
+    """
+    s = uri.encode('utf-8')
+    for k, v in sorted(params.items()):
+        k = k.encode('utf-8')
+        if v is None:
+            x = ''
+        elif isinstance(v, basestring):
+            x = v.encode('utf-8')
+        else:
+            x = str(v)
+        params[k] = x
+        s += k + x
+    return base64.encodestring(hmac.new(auth_token, s, sha1).digest()).strip() == signature
 
 
 class RestAPI(object):
