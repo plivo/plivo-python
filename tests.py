@@ -1591,13 +1591,6 @@ class TestXML(unittest.TestCase):
 
 
 class TestValidateRequestSignature(unittest.TestCase):
-    def setUp(self):
-        super(TestValidateRequestSignature, self).setUp()
-        self.uri = 'http://example.url/'
-        self.params = {'param1': 'testStr', 'param2': 12345}
-        self.auth_token = 'TestAuthToken'
-
-    # Doesn't work
     def test_get_request(self):
         # Get request
         s = 'http://requestb.in/1nlmo4p1?Direction=inbound&From=Anonymous&CallerName=Anonymous' \
@@ -1605,7 +1598,7 @@ class TestValidateRequestSignature(unittest.TestCase):
             'CallStatus=ringing&Event=StartApp'
         is_valid = plivo.validate_request_signature(s, 'oBIJyrEAl4sWArfNdV02JIrb97o=',
                                                     'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', None)
-        # self.assertTrue(is_valid)
+        self.assertTrue(is_valid)
 
     def test_vanilla_post_request(self):
         # normal post request
@@ -1624,17 +1617,15 @@ class TestValidateRequestSignature(unittest.TestCase):
               'Event': 'StartApp'}
         is_valid = plivo.validate_request_signature(uri, '1LgGIfdeOix9Hp6c1f46NHc++gc=',
                                                     'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', p2)
-        self.assertTrue(is_valid)
-
-    # with UTF-8 in query params. Doesn't work
-    def test_unicode_query_params(self):
-        uri = 'http://requestb.in/1nlmo4p1?meow=cat'
-        p2 = {'Direction': 'inbound', 'From': 'Anonymous', 'CallerName': 'Anonymous', 'meow': 'cat', 'BillRate': 0.0085,
-              'To': 14154830338, 'CallUUID': '5b34b9f6-eec8-43c1-a6d1-d41bf5db622c', 'CallStatus': 'ringing',
-              'Event': 'StartApp'}
-        is_valid = plivo.validate_request_signature(uri, '1LgGIfdeOix9Hp6c1f46NHc++gc=',
-                                                    'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', p2)
         #self.assertTrue(is_valid)
+
+    # with UTF-8 in query params.
+    def test_unicode_query_params(self):
+        uri = 'http://requestb.in/1nlmo4p1?To=14154830338&From=14087289654&TotalRate=0&' \
+              'Units=1&Text=Hello+%C3%BCml%C3%A6t&TotalAmount=0&Type=sms&MessageUUID=0a8a8b25-9ba6-11e6-a746-06ab0bf64327'
+        is_valid = plivo.validate_request_signature(uri, 'umQLyAvUVQ1SJTl0tC5/J0xUsGQ=',
+                                                    'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', None)
+        self.assertTrue(is_valid)
 
     # with empty POST params
     def test_empty_post_params(self):
