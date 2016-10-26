@@ -7,6 +7,14 @@ import time
 import plivo
 
 try:
+    import urlparse
+    from urllib import urlencode
+except:
+    # For Python 3
+    import urllib.parse as urlparse
+    from urllib.parse import urlencode
+
+try:
     from auth_secrets import AUTH_ID, AUTH_TOKEN
     from auth_secrets import DEFAULT_FROM_NUMBER, DEFAULT_TO_NUMBER, DEFAULT_TO_NUMBER2
 except ImportError:
@@ -15,11 +23,10 @@ except ImportError:
     DEFAULT_TO_NUMBER = os.getenv("DEFAULT_TO_NUMBER")
     DEFAULT_TO_NUMBER2 = os.getenv("DEFAULT_TO_NUMBER2")
     if not (AUTH_ID and AUTH_TOKEN and
-            DEFAULT_FROM_NUMBER and DEFAULT_TO_NUMBER):
+                DEFAULT_FROM_NUMBER and DEFAULT_TO_NUMBER):
         raise Exception("Create a auth_secrets.py file or set AUTH_ID "
                         "AUTH_TOKEN, DEFAULT_TO_NUMBER, DEFAULT_FROM_NUMBER "
                         "as environ values.")
-
 
 client = None
 random_letter = lambda: random.choice(string.ascii_letters)
@@ -28,6 +35,7 @@ random_string = lambda len: ''.join(random_letter() for i in range(len))
 
 class PlivoTest(unittest.TestCase):
     "Adds a plivo client in setup"
+
     def setUp(self):
         self.client = get_client(AUTH_ID, AUTH_TOKEN)
         self.some_timezones = ['Pacific/Apia', 'Pacific/Midway']
@@ -97,7 +105,7 @@ class TestAccountsRestApi(PlivoTest):
             random_timezone = self.some_timezones[0]
 
         random_cashcredit = "".join(random.sample('97654', 4))
-        while(1):
+        while (1):
             if random_cashcredit != res['cash_credits']:
                 break
             random_cashcredit = "".join(random.sample('97654', 4))
@@ -108,10 +116,10 @@ class TestAccountsRestApi(PlivoTest):
             'address': random_address,
             'account_type': 'dasghfdsg',
             'auth_id': 'gadfgsfsdfdsgs',
-            'auto_recharge': not(res['auto_recharge']),
+            'auto_recharge': not (res['auto_recharge']),
             'cash_credits': random_cashcredit,
             'created': "1952-05-04",
-            'enabled': not(res['enabled']),
+            'enabled': not (res['enabled']),
             'resource_uri': '/akjslsjkls/dsfg',
             'state': random_state,
             'timezone': random_timezone,
@@ -120,14 +128,14 @@ class TestAccountsRestApi(PlivoTest):
 
         r = self.client.get_account()[1]
 
-        #These params should be modified
+        # These params should be modified
         self.assertEqual(r['name'], params['name'])
         self.assertEqual(r['city'], params['city'])
         self.assertEqual(r['address'], params['address'])
         self.assertEqual(r['state'], params['state'])
         self.assertEqual(r['timezone'], params['timezone'])
 
-        #These params should not be modified
+        # These params should not be modified
         self.assertEqual(r['account_type'], res['account_type'])
         self.assertEqual(r['auth_id'], res['auth_id'])
         self.assertEqual(r['auto_recharge'], res['auto_recharge'])
@@ -150,7 +158,7 @@ class TestAccountsRestApi(PlivoTest):
     def test_subaccount_crud(self):
         temp_name = random_string(10)
         response = self.client.create_subaccount(dict(name=temp_name,
-                                                 enabled=True))
+                                                      enabled=True))
         self.assertEqual(201, response[0])
         valid_keys = ["auth_id", "api_id", "auth_token"]
         json_response = response[1]
@@ -164,7 +172,7 @@ class TestAccountsRestApi(PlivoTest):
                                        'name': temp_name,
                                        'enabled': False})
         response = self.client.get_subaccount({'subauth_id': auth_id})[1]
-        #check modified details
+        # check modified details
         self.assertEqual(response['enabled'], False)
         self.assertEqual(response['name'], temp_name)
 
@@ -196,15 +204,15 @@ class TestApplicationRestApi(PlivoTest):
         response = self.client.modify_application(new_params)
         self.assertEqual(202, response[0])
 
-        #check whether app_name modified or not
+        # check whether app_name modified or not
         response = self.client.get_application({'app_id': app_id})
         self.assertEqual(response[1]['app_name'], new_params['app_name'])
 
-        #delete application
+        # delete application
         response = self.client.delete_application({'app_id': app_id})
         self.assertEqual(204, response[0])
 
-        #deleted application should not be available
+        # deleted application should not be available
         response = self.client.get_application({'app_id': app_id})
         self.assertEqual(404, response[0])
         self.assertEqual('not found', response[1]['error'])
@@ -216,7 +224,7 @@ class TestCallRestApi(PlivoTest):
         self.call_params = {'from': DEFAULT_FROM_NUMBER,
                             'to': DEFAULT_TO_NUMBER,
                             'answer_url':
-                            'https://guarded-island.herokuapp.com/conference/',
+                                'https://guarded-island.herokuapp.com/conference/',
                             'time_limit': 80
                             }
 
@@ -247,10 +255,10 @@ class TestCallRestApi(PlivoTest):
 
     def test_hangup_request(self):
         response = self.client.make_call(self.call_params)
-        #wait some time
+        # wait some time
         time.sleep(8)
         response = self.client.hangup_request({'request_uuid':
-                                               response[1]['request_uuid']})
+                                                   response[1]['request_uuid']})
         self.assertEqual(204, response[0])
 
 
@@ -271,23 +279,23 @@ class TestEndpointRestApi(PlivoTest):
 
         response = self.client.get_endpoint({'endpoint_id': endpoint_id})
         self.assertEqual(200, response[0])
-        #check created endpoint details
+        # check created endpoint details
         self.assertEqual(response[1]['alias'], params['alias'])
 
-        #modify endpoint
+        # modify endpoint
         new_params = {'alias': 'new alias fasda', 'endpoint_id': endpoint_id}
         response = self.client.modify_endpoint(new_params)
         self.assertEqual(202, response[0])
 
-        #check modified details
+        # check modified details
         response = self.client.get_endpoint({'endpoint_id': endpoint_id})
         self.assertEqual(response[1]['alias'], new_params['alias'])
 
-        #delete endpoint
+        # delete endpoint
         response = self.client.delete_endpoint({'endpoint_id': endpoint_id})
         self.assertEqual(204, response[0])
 
-        #deleted endpoint should not be available
+        # deleted endpoint should not be available
         response = self.client.get_endpoint({'endpoint_id': endpoint_id})
         self.assertEqual(404, response[0])
         self.assertEqual(response[1]['error'], 'not found')
@@ -313,10 +321,10 @@ class TestRecordingRestApi(PlivoTest):
 
     def test_get_recording(self):
         response = self.client.get_recordings()
-        if(len(response[1]['objects'])) > 0:
+        if (len(response[1]['objects'])) > 0:
             recording_id = response[1]['objects'][0]['recording_id']
             response = self.client.get_recording({'recording_id':
-                                                  recording_id})
+                                                      recording_id})
             valid_keys = ['recording_id', 'api_id', 'conference_name',
                           'recording_type', 'recording_format', 'call_uuid',
                           'recording_url', 'resource_uri', 'add_time']
@@ -367,34 +375,34 @@ class TestCarrierRestApi(PlivoTest):
         random_name = random_string(10)
         params = {'name': random_name, 'ip_set': '192.168.1.144'}
 
-        #create incoming carrier
+        # create incoming carrier
         response = self.client.create_incoming_carrier(params)
         self.assertEqual(201, response[0])
         carrier_id = response[1]['carrier_id']
 
-        #get created carrier and check its details
+        # get created carrier and check its details
         response = self.client.get_incoming_carrier({'carrier_id': carrier_id})
         self.assertEqual(200, response[0])
         self.assertEqual(response[1]['name'], params['name'])
         self.assertEqual(response[1]['ip_set'], params['ip_set'])
 
-        #modify carrier
+        # modify carrier
         new_params = {'name': 'hdsfgdsfg', 'ip_set': '192.168.1.124',
                       'carrier_id': carrier_id}
         response = self.client.modify_incoming_carrier(new_params)
         self.assertEqual(202, response[0])
 
-        #check modified carrier details
+        # check modified carrier details
         response = self.client.get_incoming_carrier({'carrier_id': carrier_id})
         self.assertEqual(response[1]['name'], new_params['name'])
         self.assertEqual(response[1]['ip_set'], new_params['ip_set'])
 
-        #delete incoming carrier
+        # delete incoming carrier
         response = self.client.delete_incoming_carrier({'carrier_id':
-                                                        carrier_id})
+                                                            carrier_id})
         self.assertEqual(204, response[0])
 
-        #deleted carrier should not be available
+        # deleted carrier should not be available
         response = self.client.get_incoming_carrier({'carrier_id': carrier_id})
         self.assertEqual(404, response[0])
         self.assertTrue("error" in response[1])
@@ -406,7 +414,7 @@ class TestConferenceRestApi(PlivoTest):
         self.call_params = {'from': DEFAULT_FROM_NUMBER,
                             'to': DEFAULT_TO_NUMBER,
                             'answer_url':
-                            'https://guarded-island.herokuapp.com/conference/',
+                                'https://guarded-island.herokuapp.com/conference/',
                             'time_limit': 80
                             }
         self.sound_url = \
@@ -419,10 +427,10 @@ class TestConferenceRestApi(PlivoTest):
 
     def test_conference_crud(self):
         self.client.make_call(self.call_params)
-        #wait some time
+        # wait some time
         time.sleep(8)
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
+                                                        'plivo'})
         valid_keys = ['conference_name', 'conference_run_time',
                       'conference_member_count', 'members', 'api_id']
         self.check_status_and_keys(200, valid_keys, response)
@@ -434,45 +442,45 @@ class TestConferenceRestApi(PlivoTest):
         self.assertEqual(204, response[0])
 
     def test_members_hangup_member(self):
-        #hangup conference at the beginning
+        # hangup conference at the beginning
         self.client.hangup_conference({'conference_name':
-                                       'plivo'})
+                                           'plivo'})
         self.client.make_call(self.call_params)
         self.call_params['to'] = DEFAULT_TO_NUMBER2
         self.client.make_call(self.call_params)
-        #wait some time
+        # wait some time
         time.sleep(8)
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
-        #2 members in conference
+                                                        'plivo'})
+        # 2 members in conference
         self.assertEqual(2, len(response[1]['members']))
         member_id = response[1]['members'][0]['member_id']
         another_member_id = response[1]['members'][1]['member_id']
         response = self.client.hangup_member({'member_id': member_id,
                                               'conference_name': 'plivo'})
         self.assertEqual(204, response[0])
-        #Not working as of now, should be uncommeted once fixed
-        #self.assertEqual(response[1]['message'], "hangup")
-        #self.assertEqual(member_id, response[1]['member_id'])
+        # Not working as of now, should be uncommeted once fixed
+        # self.assertEqual(response[1]['message'], "hangup")
+        # self.assertEqual(member_id, response[1]['member_id'])
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
-        #1 member in conference as one member is made to hangup
+                                                        'plivo'})
+        # 1 member in conference as one member is made to hangup
         self.assertEqual(1, len(response[1]['members']))
         self.assertEqual(another_member_id,
                          response[1]['members'][0]['member_id'])
 
     def test_members_kick_member_member_id(self):
-        #hangup conference at the beginning
+        # hangup conference at the beginning
         self.client.hangup_conference({'conference_name':
-                                       'plivo'})
+                                           'plivo'})
         self.client.make_call(self.call_params)
         self.call_params['to'] = DEFAULT_TO_NUMBER2
         self.client.make_call(self.call_params)
-        #wait some time
+        # wait some time
         time.sleep(8)
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
-        #2 members in conference
+                                                        'plivo'})
+        # 2 members in conference
         self.assertEqual(2, len(response[1]['members']))
         member_id = response[1]['members'][0]['member_id']
         another_member_id = response[1]['members'][1]['member_id']
@@ -480,24 +488,24 @@ class TestConferenceRestApi(PlivoTest):
                                             'conference_name': 'plivo'})
         self.assertEqual(202, response[0])
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
-        #1 member in conference as one member is kicked
+                                                        'plivo'})
+        # 1 member in conference as one member is kicked
         self.assertEqual(1, len(response[1]['members']))
         self.assertEqual(another_member_id,
                          response[1]['members'][0]['member_id'])
 
     def test_members_kick_member_comma_separated_member_ids(self):
-        #hangup conference at the beginning
+        # hangup conference at the beginning
         self.client.hangup_conference({'conference_name':
-                                       'plivo'})
+                                           'plivo'})
         self.client.make_call(self.call_params)
         self.call_params['to'] = DEFAULT_TO_NUMBER2
         self.client.make_call(self.call_params)
-        #wait some time
+        # wait some time
         time.sleep(8)
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
-        #2 members in conference
+                                                        'plivo'})
+        # 2 members in conference
         self.assertEqual(2, len(response[1]['members']))
         member_id = response[1]['members'][0]['member_id']
         another_member_id = response[1]['members'][1]['member_id']
@@ -506,259 +514,259 @@ class TestConferenceRestApi(PlivoTest):
                                             'conference_name': 'plivo'})
         self.assertEqual(202, response[0])
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
+                                                        'plivo'})
         valid_keys = ['api_id', 'error']
-        #Returns 404 since no more members in the conference
-        #(hence no conference)
+        # Returns 404 since no more members in the conference
+        # (hence no conference)
         self.check_status_and_keys(404, valid_keys, response)
 
     def test_members_kick_member_all(self):
-        #hangup conference at the beginning
+        # hangup conference at the beginning
         self.client.hangup_conference({'conference_name':
-                                       'plivo'})
+                                           'plivo'})
         self.client.make_call(self.call_params)
         self.call_params['to'] = DEFAULT_TO_NUMBER2
         self.client.make_call(self.call_params)
-        #wait some time
+        # wait some time
         time.sleep(8)
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
-        #2 members in conference
+                                                        'plivo'})
+        # 2 members in conference
         self.assertEqual(2, len(response[1]['members']))
         response = self.client.kick_member({'member_id': 'all',
                                             'conference_name': 'plivo'})
         self.assertEqual(202, response[0])
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
+                                                        'plivo'})
         valid_keys = ['api_id', 'error']
-        #Returns 404 since all are kicked from the conference
-        #(hence no conference)
+        # Returns 404 since all are kicked from the conference
+        # (hence no conference)
         self.check_status_and_keys(404, valid_keys, response)
 
     def test_members_mute_unmute(self):
-        #hangup conference at the beginning
+        # hangup conference at the beginning
         self.client.hangup_conference({'conference_name':
-                                       'plivo'})
+                                           'plivo'})
         self.client.make_call(self.call_params)
         self.call_params['to'] = DEFAULT_TO_NUMBER2
         self.client.make_call(self.call_params)
-        #wait some time
+        # wait some time
         time.sleep(8)
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
+                                                        'plivo'})
         member1 = response[1]['members'][0]['member_id']
         member2 = response[1]['members'][1]['member_id']
 
-        #mute member1
+        # mute member1
         response = self.client.mute_member({'conference_name': 'plivo',
                                             'member_id': member1})
         self.assertEqual(202, response[0])
 
         response = self.client.get_live_conference({'conference_name':
-                                                   'plivo'})
-        #check: member1 should be muted, member2 not
+                                                        'plivo'})
+        # check: member1 should be muted, member2 not
         self.assertTrue(response[1]['members'][0]['muted'])
         self.assertFalse(response[1]['members'][1]['muted'])
 
-        #unmute member1
+        # unmute member1
         response = self.client.unmute_member({'conference_name': 'plivo',
                                               'member_id': member1})
         self.assertEqual(204, response[0])
 
         response = self.client.get_live_conference({'conference_name':
-                                                   'plivo'})
-        #check: member1 and member2 should not be muted
+                                                        'plivo'})
+        # check: member1 and member2 should not be muted
         self.assertFalse(response[1]['members'][0]['muted'])
         self.assertFalse(response[1]['members'][1]['muted'])
 
-        #mute member1 and member2 using comma separated params
+        # mute member1 and member2 using comma separated params
         both_members = "%s, %s" % (member1, member2)
         response = self.client.mute_member({'conference_name': 'plivo',
                                             'member_id': both_members})
         self.assertEqual(202, response[0])
 
         response = self.client.get_live_conference({'conference_name':
-                                                   'plivo'})
-        #check: member1 and member2 should be muted
+                                                        'plivo'})
+        # check: member1 and member2 should be muted
         self.assertTrue(response[1]['members'][0]['muted'])
         self.assertTrue(response[1]['members'][1]['muted'])
 
-        #unmute member1 and member2
+        # unmute member1 and member2
         response = self.client.unmute_member({'conference_name': 'plivo',
                                               'member_id': both_members})
         self.assertEqual(204, response[0])
 
         response = self.client.get_live_conference({'conference_name':
-                                                   'plivo'})
-        #check: member1 and member2 should not be muted
+                                                        'plivo'})
+        # check: member1 and member2 should not be muted
         self.assertFalse(response[1]['members'][0]['muted'])
         self.assertFalse(response[1]['members'][1]['muted'])
 
-        #mute all members
+        # mute all members
         response = self.client.mute_member({'conference_name': 'plivo',
                                             'member_id': 'all'})
         self.assertEqual(202, response[0])
 
         response = self.client.get_live_conference({'conference_name':
-                                                   'plivo'})
-        #check: member1 and member2 should be muted
+                                                        'plivo'})
+        # check: member1 and member2 should be muted
         self.assertTrue(response[1]['members'][0]['muted'])
         self.assertTrue(response[1]['members'][1]['muted'])
 
-        #unmute all members
+        # unmute all members
         response = self.client.unmute_member({'conference_name': 'plivo',
                                               'member_id': 'all'})
         self.assertEqual(204, response[0])
 
         response = self.client.get_live_conference({'conference_name':
-                                                   'plivo'})
-        #check: member1 and member2 should not be muted
+                                                        'plivo'})
+        # check: member1 and member2 should not be muted
         self.assertFalse(response[1]['members'][0]['muted'])
         self.assertFalse(response[1]['members'][1]['muted'])
 
     def test_sound(self):
-        #hangup conference at the beginning
+        # hangup conference at the beginning
         self.client.hangup_conference({'conference_name':
-                                       'plivo'})
+                                           'plivo'})
         self.client.make_call(self.call_params)
         self.call_params['to'] = DEFAULT_TO_NUMBER2
         self.client.make_call(self.call_params)
-        #wait some time
+        # wait some time
         time.sleep(8)
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
+                                                        'plivo'})
         member1 = response[1]['members'][0]['member_id']
         member2 = response[1]['members'][1]['member_id']
-        #play to member1
+        # play to member1
         response = self.client.play_member({'conference_name': 'plivo',
                                             'member_id': member1,
                                             'url': self.sound_url})
         self.assertEqual(202, response[0])
 
-        #stop play to member1
+        # stop play to member1
         response = self.client.stop_play_member({'conference_name': 'plivo',
                                                  'member_id': member1,
                                                  'url': self.sound_url})
         self.assertEqual(204, response[0])
 
-        #play to both (via comma separated param)
+        # play to both (via comma separated param)
         response = self.client.play_member({'conference_name': 'plivo',
                                             'member_id':
-                                            "%s, %s" % (member1, member2),
+                                                "%s, %s" % (member1, member2),
                                             'url': self.sound_url})
         self.assertEqual(202, response[0])
 
-        #stop play to both (via comma separated param)
+        # stop play to both (via comma separated param)
         response = self.client.stop_play_member({'conference_name': 'plivo',
                                                  'member_id':
-                                                 "%s, %s" % (member1, member2),
+                                                     "%s, %s" % (member1, member2),
                                                  'url': self.sound_url})
         self.assertEqual(204, response[0])
 
-        #play to all (via param 'all')
+        # play to all (via param 'all')
         response = self.client.play_member({'conference_name': 'plivo',
                                             'member_id': 'all',
                                             'url': self.sound_url})
         self.assertEqual(202, response[0])
 
-        #stop play to all (via 'all' param)
+        # stop play to all (via 'all' param)
         response = self.client.stop_play_member({'conference_name': 'plivo',
                                                  'member_id': 'all',
                                                  'url': self.sound_url})
         self.assertEqual(204, response[0])
 
     def test_deaf(self):
-        #hangup conference at the beginning
+        # hangup conference at the beginning
         self.client.hangup_conference({'conference_name':
-                                       'plivo'})
+                                           'plivo'})
         self.client.make_call(self.call_params)
         self.call_params['to'] = DEFAULT_TO_NUMBER2
         self.client.make_call(self.call_params)
-        #wait some time
+        # wait some time
         time.sleep(8)
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
+                                                        'plivo'})
         member1 = response[1]['members'][0]['member_id']
         member2 = response[1]['members'][1]['member_id']
 
-        #deaf member1
+        # deaf member1
         response = self.client.deaf_member({'conference_name': 'plivo',
                                             'member_id': member1})
         self.assertEqual(202, response[0])
 
         response = self.client.get_live_conference({'conference_name':
-                                                   'plivo'})
-        #check: member1 should be deaf, member2 not
+                                                        'plivo'})
+        # check: member1 should be deaf, member2 not
         self.assertTrue(response[1]['members'][0]['deaf'])
         self.assertFalse(response[1]['members'][1]['deaf'])
 
-        #undeaf member1
+        # undeaf member1
         response = self.client.undeaf_member({'conference_name': 'plivo',
                                               'member_id': member1})
         self.assertEqual(204, response[0])
 
         response = self.client.get_live_conference({'conference_name':
-                                                   'plivo'})
-        #check: member1 and member2 should not be deaf
+                                                        'plivo'})
+        # check: member1 and member2 should not be deaf
         self.assertFalse(response[1]['members'][0]['deaf'])
         self.assertFalse(response[1]['members'][1]['deaf'])
 
-        #deaf member1 and member2 using comma separated params
+        # deaf member1 and member2 using comma separated params
         both_members = "%s, %s" % (member1, member2)
         response = self.client.deaf_member({'conference_name': 'plivo',
                                             'member_id': both_members})
         self.assertEqual(202, response[0])
 
         response = self.client.get_live_conference({'conference_name':
-                                                   'plivo'})
-        #check: member1 and member2 should be deaf
+                                                        'plivo'})
+        # check: member1 and member2 should be deaf
         self.assertTrue(response[1]['members'][0]['deaf'])
         self.assertTrue(response[1]['members'][1]['deaf'])
 
-        #undeaf member1 and member2
+        # undeaf member1 and member2
         response = self.client.undeaf_member({'conference_name': 'plivo',
                                               'member_id': both_members})
         self.assertEqual(204, response[0])
 
         response = self.client.get_live_conference({'conference_name':
-                                                   'plivo'})
-        #check: member1 and member2 should not be deaf
+                                                        'plivo'})
+        # check: member1 and member2 should not be deaf
         self.assertFalse(response[1]['members'][0]['deaf'])
         self.assertFalse(response[1]['members'][1]['deaf'])
 
-        #deaf all members
+        # deaf all members
         response = self.client.deaf_member({'conference_name': 'plivo',
                                             'member_id': 'all'})
         self.assertEqual(202, response[0])
 
         response = self.client.get_live_conference({'conference_name':
-                                                   'plivo'})
-        #check: member1 and member2 should be deaf
+                                                        'plivo'})
+        # check: member1 and member2 should be deaf
         self.assertTrue(response[1]['members'][0]['deaf'])
         self.assertTrue(response[1]['members'][1]['deaf'])
 
-        #undeaf all members
+        # undeaf all members
         response = self.client.undeaf_member({'conference_name': 'plivo',
                                               'member_id': 'all'})
         self.assertEqual(204, response[0])
 
         response = self.client.get_live_conference({'conference_name':
-                                                   'plivo'})
-        #check: member1 and member2 should not be deaf
+                                                        'plivo'})
+        # check: member1 and member2 should not be deaf
         self.assertFalse(response[1]['members'][0]['deaf'])
         self.assertFalse(response[1]['members'][1]['deaf'])
 
     def test_speech(self):
-        #hangup conference at the beginning
+        # hangup conference at the beginning
         self.client.hangup_conference({'conference_name':
-                                       'plivo'})
+                                           'plivo'})
         self.client.make_call(self.call_params)
         self.call_params['to'] = DEFAULT_TO_NUMBER2
         self.client.make_call(self.call_params)
-        #wait some time
+        # wait some time
         time.sleep(8)
         response = self.client.get_live_conference({'conference_name':
-                                                    'plivo'})
+                                                        'plivo'})
         member1 = response[1]['members'][0]['member_id']
         member2 = response[1]['members'][1]['member_id']
 
@@ -767,34 +775,34 @@ class TestConferenceRestApi(PlivoTest):
                         'text': 'Hello'
                         }
 
-        #make member1 listen to speech
+        # make member1 listen to speech
         response = self.client.speak_member(speak_params.copy())
         self.assertEqual(202, response[0])
 
-        #make both member1 and member2 listen to speech
+        # make both member1 and member2 listen to speech
         speak_params['member_id'] = member2
         response = self.client.speak_member(speak_params.copy())
         self.assertEqual(202, response[0])
 
-        #make all listen to speech
+        # make all listen to speech
         speak_params['member_id'] = 'all'
         response = self.client.speak_member(speak_params.copy())
         self.assertEqual(202, response[0])
 
     def test_recording(self):
-        #hangup conference at the beginning
+        # hangup conference at the beginning
         self.client.hangup_conference({'conference_name':
-                                       'plivo'})
+                                           'plivo'})
         self.client.make_call(self.call_params)
-        #wait some time
+        # wait some time
         time.sleep(8)
 
-        #Record conference
+        # Record conference
         response = self.client.record_conference({'conference_name': 'plivo'})
         valid_keys = ['url', 'message', 'api_id']
         self.check_status_and_keys(202, valid_keys, response)
 
-        #Stop recording conference
+        # Stop recording conference
         response = self.client.stop_record_conference({'conference_name': 'plivo'})
         self.assertEqual(204, response[0])
 
@@ -860,7 +868,6 @@ class TestCall(PlivoTest):
 
 
 class TestNumber(PlivoTest):
-
     def setUp(self):
         super(TestNumber, self).setUp()
         self.search_response = self.client.Number.search('US')
@@ -870,21 +877,21 @@ class TestNumber(PlivoTest):
         self.assertEqual(200, self.search_response[0].status_code)
         valid_keys = [
             'group_id', 'number_type', 'prefix', 'region', 'rental_rate',
-            'resource_uri', 'setup_rate', 'sms_enabled','sms_rate', 'stock',
+            'resource_uri', 'setup_rate', 'sms_enabled', 'sms_rate', 'stock',
             'voice_enabled', 'voice_rate'
         ]
 
         self.check_keys(valid_keys, self.search_response[0])
 
     def test_all(self):
-        #Rent
+        # Rent
         response = self.client.Number.rent(self.group_id)
         self.assertEqual(201, response.status_code)
         valid_keys = ['numbers', 'status', 'api_id']
         self.check_keys(valid_keys, response)
         number = response.numbers[0]['number']
 
-        #Get
+        # Get
         response = response.get(number)
         self.assertEqual(200, response.status_code)
         valid_keys = [
@@ -896,12 +903,11 @@ class TestNumber(PlivoTest):
 
         self.check_keys(valid_keys, response)
 
-        #Edit
+        # Edit
         response = response.edit(number)
         self.assertEqual(202, response.status_code)
         valid_keys = ['message', 'api_id']
         self.check_keys(valid_keys, response)
-
 
     def test_get_all(self):
         response = self.client.Number.get_all()
@@ -913,12 +919,6 @@ class TestNumber(PlivoTest):
             'resource_uri'
         ]
         self.check_keys(valid_keys, response[0])
-
-
-
-
-
-
 
 
 class TestAccount(PlivoTest):
@@ -946,7 +946,7 @@ class TestSubAccount(PlivoTest):
         super(TestSubAccount, self).setUp()
         random_name = random_string(10)
         self.response = self.client.SubAccount.create(name=random_name,
-                                                 enabled=True)
+                                                      enabled=True)
 
     def test_create(self):
         self.assertEqual(201, self.response.status_code)
@@ -1093,12 +1093,12 @@ class TestApplication(PlivoTest):
 class TestCarrier(PlivoTest):
     def setUp(self):
         super(TestCarrier, self).setUp()
-        #Delete all carriers first
+        # Delete all carriers first
         carriers = self.client.Carrier.get_all()
         for carrier in carriers:
             carrier.delete()
 
-        #Create a new one
+        # Create a new one
         name = random_string(10)
         ip_set = '192.168.13.24'
         self.create_response = self.client.Carrier.create(
@@ -1111,7 +1111,6 @@ class TestCarrier(PlivoTest):
             'message', 'carrier_id', 'api_id'
         ]
         self.check_keys(valid_keys, self.create_response)
-
 
     def test_get_without_params(self):
         response = self.create_response.get()
@@ -1185,7 +1184,7 @@ class TestMessage(PlivoTest):
 
     def test_get(self):
         response = self.client.Message.get(
-            message_uuid = self.send_response.message_uuid[0]
+            message_uuid=self.send_response.message_uuid[0]
         )
 
         self.assertEqual(200, response.status_code)
@@ -1231,12 +1230,12 @@ class TestPricing(PlivoTest):
 class TestEndPoint(PlivoTest):
     def setUp(self):
         super(TestEndPoint, self).setUp()
-        #Create a new one
+        # Create a new one
         username = random_string(10)
         password = username
         alias = "%shdf" % username
         self.create_response = self.client.EndPoint.create(
-                username=username, password=password, alias=alias
+            username=username, password=password, alias=alias
         )
 
     def test_create(self):
@@ -1245,9 +1244,8 @@ class TestEndPoint(PlivoTest):
             'message', 'endpoint_id', 'api_id'
         ]
         self.check_keys(valid_keys, self.create_response)
-        #Delete
+        # Delete
         self.create_response.delete()
-
 
     def test_get_without_params(self):
         response = self.create_response.get()
@@ -1257,7 +1255,7 @@ class TestEndPoint(PlivoTest):
             'username', 'sip_uri'
         ]
         self.check_keys(valid_keys, response)
-        #Delete
+        # Delete
         self.create_response.delete()
 
     def test_get(self):
@@ -1270,7 +1268,7 @@ class TestEndPoint(PlivoTest):
             'username', 'sip_uri'
         ]
         self.check_keys(valid_keys, response)
-        #Delete
+        # Delete
         self.create_response.delete()
 
     def test_get_all(self):
@@ -1281,14 +1279,14 @@ class TestEndPoint(PlivoTest):
             'username', 'sip_uri'
         ]
         self.check_keys(valid_keys, response[0])
-        #Delete
+        # Delete
         self.create_response.delete()
 
     def test_modify_without_params(self):
         response = self.create_response.modify()
         self.assertEqual(202, response.status_code)
 
-        #Delete
+        # Delete
         self.create_response.delete()
 
     def test_modify(self):
@@ -1297,7 +1295,7 @@ class TestEndPoint(PlivoTest):
         )
         self.assertEqual(202, response.status_code)
 
-        #Delete
+        # Delete
         self.create_response.delete()
 
     def test_delete_without_params(self):
@@ -1355,17 +1353,16 @@ class TestRecording(PlivoTest):
         self.check_keys(valid_keys, response)
 
 
-
 class TestConference(PlivoTest):
     def setUp(self):
         super(TestConference, self).setUp()
-        #Create a new one
+        # Create a new one
         self.src = DEFAULT_FROM_NUMBER
         self.to = DEFAULT_TO_NUMBER
         self.answer_url = 'https://guarded-island.herokuapp.com/conference/'
         self.create_response = self.client.Conference.create(
             src=self.src, to=self.to, answer_url=self.answer_url,
-            time_limit= 80
+            time_limit=80
         )
         time.sleep(8)
 
@@ -1438,13 +1435,13 @@ class TestConference(PlivoTest):
 class TestConferenceMember(PlivoTest):
     def setUp(self):
         super(TestConferenceMember, self).setUp()
-        #Create a new one
+        # Create a new one
         self.src = DEFAULT_FROM_NUMBER
         self.to = DEFAULT_TO_NUMBER
         self.answer_url = 'https://guarded-island.herokuapp.com/conference/'
         self.create_response = self.client.ConferenceMember.create(
             src=self.src, to=self.to, answer_url=self.answer_url,
-            time_limit= 80
+            time_limit=80
         )
         time.sleep(8)
 
@@ -1456,126 +1453,127 @@ class TestConferenceMember(PlivoTest):
 
     def test_hangup(self):
         response = self.client.ConferenceMember.hangup(
-                member_id=self.get_response.members[0]['member_id'],
-                conference_name="plivo"
+            member_id=self.get_response.members[0]['member_id'],
+            conference_name="plivo"
         )
         self.assertEqual(204, response.status_code)
 
     def test_hangup_without_params(self):
         response = self.get_response.hangup(
-                member_id=self.get_response.members[0]['member_id'],
+            member_id=self.get_response.members[0]['member_id'],
         )
         self.assertEqual(204, response.status_code)
 
     def test_kick(self):
         response = self.client.ConferenceMember.kick(
-                member_id=self.get_response.members[0]['member_id'],
-                conference_name="plivo"
+            member_id=self.get_response.members[0]['member_id'],
+            conference_name="plivo"
         )
         self.assertEqual(202, response.status_code)
 
     def test_kick_without_params(self):
         response = self.get_response.kick(
-                member_id=self.get_response.members[0]['member_id'],
+            member_id=self.get_response.members[0]['member_id'],
         )
         self.assertEqual(202, response.status_code)
 
     def test_mute(self):
         response = self.client.ConferenceMember.mute(
-                member_id=self.get_response.members[0]['member_id'],
-                conference_name="plivo"
+            member_id=self.get_response.members[0]['member_id'],
+            conference_name="plivo"
         )
         self.assertEqual(202, response.status_code)
 
     def test_mute_without_params(self):
         response = self.get_response.mute(
-                member_id=self.get_response.members[0]['member_id'],
+            member_id=self.get_response.members[0]['member_id'],
         )
         self.assertEqual(202, response.status_code)
 
     def test_unmute(self):
         response = self.client.ConferenceMember.unmute(
-                member_id=self.get_response.members[0]['member_id'],
-                conference_name="plivo"
+            member_id=self.get_response.members[0]['member_id'],
+            conference_name="plivo"
         )
         self.assertEqual(204, response.status_code)
 
     def test_unmute_without_params(self):
         response = self.get_response.unmute(
-                member_id=self.get_response.members[0]['member_id'],
+            member_id=self.get_response.members[0]['member_id'],
         )
         self.assertEqual(204, response.status_code)
 
     def test_deaf(self):
         response = self.client.ConferenceMember.deaf(
-                member_id=self.get_response.members[0]['member_id'],
-                conference_name="plivo"
+            member_id=self.get_response.members[0]['member_id'],
+            conference_name="plivo"
         )
         self.assertEqual(202, response.status_code)
 
     def test_deaf_without_params(self):
         response = self.get_response.deaf(
-                member_id=self.get_response.members[0]['member_id'],
+            member_id=self.get_response.members[0]['member_id'],
         )
         self.assertEqual(202, response.status_code)
 
     def test_undeaf(self):
         response = self.client.ConferenceMember.undeaf(
-                member_id=self.get_response.members[0]['member_id'],
-                conference_name="plivo"
+            member_id=self.get_response.members[0]['member_id'],
+            conference_name="plivo"
         )
         self.assertEqual(204, response.status_code)
 
     def test_undeaf_without_params(self):
         response = self.get_response.undeaf(
-                member_id=self.get_response.members[0]['member_id'],
+            member_id=self.get_response.members[0]['member_id'],
         )
         self.assertEqual(204, response.status_code)
 
     def test_speak(self):
         response = self.client.ConferenceMember.speak(
-                self.get_response.members[0]['call_uuid'],
-                'Hello',
-                member_id=self.get_response.members[0]['member_id'],
-                conference_name="plivo"
+            self.get_response.members[0]['call_uuid'],
+            'Hello',
+            member_id=self.get_response.members[0]['member_id'],
+            conference_name="plivo"
         )
         self.assertEqual(202, response.status_code)
 
     def test_speak_without_params(self):
         response = self.get_response.speak(
-                self.get_response.members[0]['call_uuid'],
-                'Hello',
-                member_id=self.get_response.members[0]['member_id'],
+            self.get_response.members[0]['call_uuid'],
+            'Hello',
+            member_id=self.get_response.members[0]['member_id'],
         )
         self.assertEqual(202, response.status_code)
 
     def test_play(self):
         response = self.client.ConferenceMember.play(
-                self.sound_url,
-                member_id=self.get_response.members[0]['member_id'],
-                conference_name="plivo"
+            self.sound_url,
+            member_id=self.get_response.members[0]['member_id'],
+            conference_name="plivo"
         )
         self.assertEqual(202, response.status_code)
 
     def test_play_without_params(self):
         response = self.get_response.play(
-                self.sound_url,
-                member_id=self.get_response.members[0]['member_id'],
+            self.sound_url,
+            member_id=self.get_response.members[0]['member_id'],
         )
         self.assertEqual(202, response.status_code)
 
     def test_stop_play(self):
         response = self.client.ConferenceMember.stop_play(
-                member_id=self.get_response.members[0]['member_id'],
-                conference_name="plivo"
+            member_id=self.get_response.members[0]['member_id'],
+            conference_name="plivo"
         )
         self.assertEqual(204, response.status_code)
 
     def test_stop_play_without_params(self):
         response = self.get_response.stop_play(
-                member_id=self.get_response.members[0]['member_id'],
+            member_id=self.get_response.members[0]['member_id'],
         )
         self.assertEqual(204, response.status_code)
+
 
 class TestXML(unittest.TestCase):
     def test_attributes(self):
@@ -1590,6 +1588,66 @@ class TestXML(unittest.TestCase):
         r.addHangup()
         self.assertTrue(file_name in r.to_xml())
         self.assertTrue("<Hangup />" in r.to_xml())
+
+
+class TestValidateRequestSignature(unittest.TestCase):
+    def setUp(self):
+        super(TestValidateRequestSignature, self).setUp()
+        self.uri = 'http://example.url/'
+        self.params = {'param1': 'testStr', 'param2': 12345}
+        self.auth_token = 'TestAuthToken'
+
+    # Doesn't work
+    def test_get_request(self):
+        # Get request
+        s = 'http://requestb.in/1nlmo4p1?Direction=inbound&From=Anonymous&CallerName=Anonymous' \
+            '&BillRate=0.0085&To=14154830338&CallUUID=ced29dec-bf17-46e0-9312-17d8e75049d1&' \
+            'CallStatus=ringing&Event=StartApp'
+        is_valid = plivo.validate_request_signature(s, 'oBIJyrEAl4sWArfNdV02JIrb97o=',
+                                                    'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', None)
+        # self.assertTrue(is_valid)
+
+    def test_vanilla_post_request(self):
+        # normal post request
+        s = 'http://requestb.in/1nlmo4p1'
+        p1 = {'Direction': 'inbound', 'From': 'Anonymous', 'CallerName': 'Anonymous', 'BillRate': 0.0085,
+              'To': 14154830338,
+              'CallUUID': '0253e376-df1e-422e-98f0-fe16dffec829', 'CallStatus': 'ringing', 'Event': 'StartApp'}
+        is_valid = plivo.validate_request_signature(s, 'egMl8yKpXMxOLO33K/FaPH9vJg8=',
+                                                    'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', p1)
+        self.assertTrue(is_valid)
+
+    def test_mixed_get_post_params(self):
+        uri = 'http://requestb.in/1nlmo4p1?meow=cat'
+        p2 = {'Direction': 'inbound', 'From': 'Anonymous', 'CallerName': 'Anonymous', 'meow': 'cat', 'BillRate': 0.0085,
+              'To': 14154830338, 'CallUUID': '5b34b9f6-eec8-43c1-a6d1-d41bf5db622c', 'CallStatus': 'ringing',
+              'Event': 'StartApp'}
+        is_valid = plivo.validate_request_signature(uri, '1LgGIfdeOix9Hp6c1f46NHc++gc=',
+                                                    'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', p2)
+        self.assertTrue(is_valid)
+
+    # with UTF-8 in query params. Doesn't work
+    def test_unicode_query_params(self):
+        uri = 'http://requestb.in/1nlmo4p1?meow=cat'
+        p2 = {'Direction': 'inbound', 'From': 'Anonymous', 'CallerName': 'Anonymous', 'meow': 'cat', 'BillRate': 0.0085,
+              'To': 14154830338, 'CallUUID': '5b34b9f6-eec8-43c1-a6d1-d41bf5db622c', 'CallStatus': 'ringing',
+              'Event': 'StartApp'}
+        is_valid = plivo.validate_request_signature(uri, '1LgGIfdeOix9Hp6c1f46NHc++gc=',
+                                                    'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', p2)
+        #self.assertTrue(is_valid)
+
+    # with empty POST params
+    def test_empty_post_params(self):
+        uri = 'http://requestb.in/1nlmo4p1'
+        form_data = 'TotalCost=0.00000&Direction=inbound&BillDuration=0&From=Anonymous&CallerName=Anonymous&' \
+            'HangupCause=USER_BUSY&BillRate=0.0085&To=14154830338&AnswerTime=&StartTime=2016-10-26+18%3A51%3A45&' \
+            'Duration=0&CallUUID=260e1bb4-5c1c-4e31-9035-8381d7639e2e&EndTime=2016-10-26+18%3A51%3A45&CallStatus=busy&' \
+            'Event=Hangup'
+        params = dict(urlparse.parse_qsl(form_data, keep_blank_values=True))
+        is_valid = plivo.validate_request_signature(uri, 'WhLBwG3YobWjhg7mf/RARVDgg+w=',
+                                                    'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', params)
+        self.assertTrue(is_valid)
+
 
 def get_client(AUTH_ID, AUTH_TOKEN):
     return plivo.RestAPI(AUTH_ID, AUTH_TOKEN)

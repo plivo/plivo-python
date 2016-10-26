@@ -2,7 +2,6 @@ import base64
 import hmac
 from hashlib import sha1
 from urlparse import urlparse, parse_qsl
-from urllib import urlencode
 
 import requests
 
@@ -22,25 +21,34 @@ class PlivoError(Exception):
     pass
 
 
-def validate_signature(uri, params, signature, auth_token):
+def validate_request_signature(uri, signature, auth_token, params=None):
+    """
+    Validates requests made by Plivo to your servers.
+    See https://www.plivo.com/docs/xml/request/#validation
+
+    :param uri: Your server URL
+    :param params: POST Parameters passed to your URL, in case of POST
+    :param signature: X-Plivo-Signature header
+    :param auth_token: Plivo Auth token
+    :return: True if the request matches signature, False otherwise
+    """
+    all_params = params.copy() if params else dict()
     qs = urlparse(uri).query
     if qs:
+        # get params from query string
         params_from_qs = dict(parse_qsl(qs))
-        params_from_qs.update(params)
-        params = params_from_qs.copy()
-    s = uri.encode('utf-8')
-    for k, v in sorted(params.items()):
-        k = k.encode('utf-8')
-        uri += k + v
-        if v is None:
-            x = ''
-        elif isinstance(v, basestring):
-            x = v.encode('utf-8')
-        else:
-            x = str(v)
-        params[k] = x
-        s += k + x
-    return base64.encodestring(hmac.new(auth_token, uri, sha1).digest()).strip() == signature
+        all_params.update(params_from_qs)
+    encoded_request = uri.encode('utf-8')
+    for k, v in sorted(all_params.items()):
+        encoded_key = k.encode('utf-8')
+        encoded_val = ''
+        if isinstance(v, basestring):
+            encoded_val = v.encode('utf-8')
+        elif v:
+            encoded_val = str(v)
+        encoded_request += encoded_key + encoded_val
+
+    return base64.encodestring(hmac.new(auth_token, encoded_request, sha1).digest()).strip() == signature
 
 
 
