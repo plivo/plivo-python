@@ -1,6 +1,7 @@
 import base64
 import hmac
 from hashlib import sha1
+from urlparse import urlparse, parse_qsl, urljoin
 
 import requests
 
@@ -20,12 +21,37 @@ class PlivoError(Exception):
     pass
 
 
-def validate_signature(uri, post_params, signature, auth_token):
-    for k, v in sorted(post_params.items()):
-        uri += k + v
-    return base64.encodestring(hmac.new(auth_token, uri, sha1).digest()).strip() == signature
+def validate_request_signature(uri, signature, auth_token, params=None):
+    """
+    Validates requests made by Plivo to your servers.
+    See https://www.plivo.com/docs/xml/request/#validation
 
+    :param uri: Your server URL
+    :param params: POST Parameters passed to your URL, in case of POST request. Will be ignored if URL contains a query
+    string
+    :param signature: X-Plivo-Signature header
+    :param auth_token: Plivo Auth token
+    :return: True if the request matches signature, False otherwise
+    """
+    parsed_uri = urlparse(uri.encode('utf-8'))
+    qs = parsed_uri.query
+    if qs:
+        # get params from query string
+        all_params = dict(parse_qsl(qs, keep_blank_values=True))
+        # remove parameters from query string
+        encoded_request = urljoin(uri, parsed_uri.path).encode('utf-8')
+    else:
+        all_params = params or {}
+        encoded_request = uri.encode('utf-8')
+    for k, v in sorted(all_params.items()):
+        encoded_key = k.encode('utf-8')
+        if isinstance(v, basestring):
+            encoded_val = v
+        else:
+            encoded_val = '' if v is None else str(v)
+        encoded_request += encoded_key + encoded_val
 
+    return base64.encodestring(hmac.new(auth_token, encoded_request, sha1).digest()).strip() == signature
 
 
 
