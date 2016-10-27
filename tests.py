@@ -1591,40 +1591,34 @@ class TestXML(unittest.TestCase):
 
 
 class TestValidateRequestSignature(unittest.TestCase):
+    def setUp(self):
+        super(TestValidateRequestSignature, self).setUp()
+        self.test_auth_token = 'MySuperCoolSekritAuthToken'
+
     def test_get_request(self):
         # Get request
-        s = 'http://requestb.in/1nlmo4p1?Direction=inbound&From=Anonymous&CallerName=Anonymous' \
-            '&BillRate=0.0085&To=14154830338&CallUUID=ced29dec-bf17-46e0-9312-17d8e75049d1&' \
-            'CallStatus=ringing&Event=StartApp'
-        is_valid = plivo.validate_request_signature(s, 'oBIJyrEAl4sWArfNdV02JIrb97o=',
-                                                    'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', None)
+        uri = 'http://requestb.in/1gzeupi1?Direction=inbound&From=Anonymous&CallerName=Anonymous&BillRate=0.0085&' \
+              'To=14154830338&CallUUID=c490f944-013f-4baa-b0eb-af87113bc8f7&CallStatus=ringing&Event=StartApp'
+        expected_signature = 'iIzksJrgZggVf4VK54n9HWPm8SU='
+        is_valid = plivo.validate_request_signature(uri, expected_signature, self.test_auth_token, None)
         self.assertTrue(is_valid)
 
-    def test_vanilla_post_request(self):
+    def test_post_request(self):
         # normal post request
-        s = 'http://requestb.in/1nlmo4p1'
-        p1 = {'Direction': 'inbound', 'From': 'Anonymous', 'CallerName': 'Anonymous', 'BillRate': 0.0085,
-              'To': 14154830338,
-              'CallUUID': '0253e376-df1e-422e-98f0-fe16dffec829', 'CallStatus': 'ringing', 'Event': 'StartApp'}
-        is_valid = plivo.validate_request_signature(s, 'egMl8yKpXMxOLO33K/FaPH9vJg8=',
-                                                    'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', p1)
+        uri = 'http://requestb.in/1gzeupi1'
+        form_data = 'Direction=inbound&From=Anonymous&CallerName=Anonymous&BillRate=0.0085&To=14154830338&' \
+                    'CallUUID=69ffdb0d-27b6-424e-8e85-e733ddbd9e6a&CallStatus=ringing&Event=StartApp'
+        expected_signature = '8SYmxFaaIfQvvfdxjYJobpI57wg='
+        params = dict(urlparse.parse_qsl(form_data, keep_blank_values=True))
+        is_valid = plivo.validate_request_signature(uri, expected_signature, self.test_auth_token, params=params)
         self.assertTrue(is_valid)
-
-    def test_mixed_get_post_params(self):
-        uri = 'http://requestb.in/1nlmo4p1?meow=cat'
-        p2 = {'Direction': 'inbound', 'From': 'Anonymous', 'CallerName': 'Anonymous', 'meow': 'cat', 'BillRate': 0.0085,
-              'To': 14154830338, 'CallUUID': '5b34b9f6-eec8-43c1-a6d1-d41bf5db622c', 'CallStatus': 'ringing',
-              'Event': 'StartApp'}
-        is_valid = plivo.validate_request_signature(uri, '1LgGIfdeOix9Hp6c1f46NHc++gc=',
-                                                    'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', p2)
-        #self.assertTrue(is_valid)
 
     # with UTF-8 in query params.
     def test_unicode_query_params(self):
-        uri = 'http://requestb.in/1nlmo4p1?To=14154830338&From=14087289654&TotalRate=0&' \
-              'Units=1&Text=Hello+%C3%BCml%C3%A6t&TotalAmount=0&Type=sms&MessageUUID=0a8a8b25-9ba6-11e6-a746-06ab0bf64327'
-        is_valid = plivo.validate_request_signature(uri, 'umQLyAvUVQ1SJTl0tC5/J0xUsGQ=',
-                                                    'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', None)
+        uri = 'http://requestb.in/1gzeupi1?To=14154830338&From=14087289654&TotalRate=0&Units=1&' \
+              'Text=Hello+%C3%BCml%C3%A6t&TotalAmount=0&Type=sms&MessageUUID=2d47019a-9c66-11e6-8c60-02daa5941325'
+        expected_signature = 'p4r7pkCIbkExPJYZnT6Rahni5vA='
+        is_valid = plivo.validate_request_signature(uri, expected_signature, self.test_auth_token, None)
         self.assertTrue(is_valid)
 
     # with empty POST params
@@ -1635,7 +1629,8 @@ class TestValidateRequestSignature(unittest.TestCase):
             'Duration=0&CallUUID=260e1bb4-5c1c-4e31-9035-8381d7639e2e&EndTime=2016-10-26+18%3A51%3A45&CallStatus=busy&' \
             'Event=Hangup'
         params = dict(urlparse.parse_qsl(form_data, keep_blank_values=True))
-        is_valid = plivo.validate_request_signature(uri, 'WhLBwG3YobWjhg7mf/RARVDgg+w=',
+        expected_signature = 'WhLBwG3YobWjhg7mf/RARVDgg+w='
+        is_valid = plivo.validate_request_signature(uri, expected_signature,
                                                     'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', params)
         self.assertTrue(is_valid)
 
