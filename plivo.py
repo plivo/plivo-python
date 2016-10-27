@@ -41,7 +41,7 @@ def validate_request_signature(uri, signature, auth_token, params=None):
         # remove parameters from query string
         encoded_request = urljoin(uri, parsed_uri.path).encode('utf-8')
     else:
-        all_params = params.copy() if params else dict()
+        all_params = params or {}
         encoded_request = uri.encode('utf-8')
     for k, v in sorted(all_params.items()):
         encoded_key = k.encode('utf-8')
