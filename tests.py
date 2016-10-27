@@ -105,7 +105,7 @@ class TestAccountsRestApi(PlivoTest):
             random_timezone = self.some_timezones[0]
 
         random_cashcredit = "".join(random.sample('97654', 4))
-        while (1):
+        while True:
             if random_cashcredit != res['cash_credits']:
                 break
             random_cashcredit = "".join(random.sample('97654', 4))
@@ -116,10 +116,10 @@ class TestAccountsRestApi(PlivoTest):
             'address': random_address,
             'account_type': 'dasghfdsg',
             'auth_id': 'gadfgsfsdfdsgs',
-            'auto_recharge': not (res['auto_recharge']),
+            'auto_recharge': not res['auto_recharge'],
             'cash_credits': random_cashcredit,
             'created': "1952-05-04",
-            'enabled': not (res['enabled']),
+            'enabled': not res['enabled'],
             'resource_uri': '/akjslsjkls/dsfg',
             'state': random_state,
             'timezone': random_timezone,
@@ -157,15 +157,14 @@ class TestAccountsRestApi(PlivoTest):
 
     def test_subaccount_crud(self):
         temp_name = random_string(10)
-        response = self.client.create_subaccount(dict(name=temp_name,
-                                                      enabled=True))
+        response = self.client.create_subaccount({'name': temp_name, 'enabled': True})
         self.assertEqual(201, response[0])
         valid_keys = ["auth_id", "api_id", "auth_token"]
         json_response = response[1]
         for key in valid_keys:
             self.assertTrue(key in json_response)
         auth_id = json_response["auth_id"]
-        response = self.client.get_subaccount(dict(subauth_id=auth_id))
+        response = self.client.get_subaccount({'subauth_id': auth_id})
         self.assertEqual(200, response[0])
 
         self.client.modify_subaccount({'subauth_id': auth_id,
@@ -176,7 +175,7 @@ class TestAccountsRestApi(PlivoTest):
         self.assertEqual(response['enabled'], False)
         self.assertEqual(response['name'], temp_name)
 
-        response = self.client.delete_subaccount(dict(subauth_id=auth_id))
+        response = self.client.delete_subaccount({'subauth_id': auth_id})
         self.assertEqual(204, response[0])
         # Deleted sub account should not exist
         response = self.client.get_subaccount({'subauth_id': auth_id})[1]
@@ -1625,9 +1624,9 @@ class TestValidateRequestSignature(unittest.TestCase):
     def test_empty_post_params(self):
         uri = 'http://requestb.in/1nlmo4p1'
         form_data = 'TotalCost=0.00000&Direction=inbound&BillDuration=0&From=Anonymous&CallerName=Anonymous&' \
-            'HangupCause=USER_BUSY&BillRate=0.0085&To=14154830338&AnswerTime=&StartTime=2016-10-26+18%3A51%3A45&' \
-            'Duration=0&CallUUID=260e1bb4-5c1c-4e31-9035-8381d7639e2e&EndTime=2016-10-26+18%3A51%3A45&CallStatus=busy&' \
-            'Event=Hangup'
+                    'HangupCause=USER_BUSY&BillRate=0.0085&To=14154830338&AnswerTime=&StartTime=2016-10-26+18%3A51%3A45&' \
+                    'Duration=0&CallUUID=260e1bb4-5c1c-4e31-9035-8381d7639e2e&EndTime=2016-10-26+18%3A51%3A45&CallStatus=busy&' \
+                    'Event=Hangup'
         params = dict(urlparse.parse_qsl(form_data, keep_blank_values=True))
         expected_signature = 'WhLBwG3YobWjhg7mf/RARVDgg+w='
         is_valid = plivo.validate_request_signature(uri, expected_signature,
@@ -1637,6 +1636,7 @@ class TestValidateRequestSignature(unittest.TestCase):
 
 def get_client(AUTH_ID, AUTH_TOKEN):
     return plivo.RestAPI(AUTH_ID, AUTH_TOKEN)
+
 
 if __name__ == "__main__":
     unittest.main()

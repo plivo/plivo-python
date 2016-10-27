@@ -47,8 +47,8 @@ def validate_request_signature(uri, signature, auth_token, params=None):
         encoded_key = k.encode('utf-8')
         if isinstance(v, basestring):
             encoded_val = v
-        elif v:
-            encoded_val = str(v)
+        else:
+            encoded_val = '' if v is None else str(v)
         encoded_request += encoded_key + encoded_val
 
     return base64.encodestring(hmac.new(auth_token, encoded_request, sha1).digest()).strip() == signature
