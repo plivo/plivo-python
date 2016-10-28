@@ -1,2 +1,2 @@
 requests>=0.10.8
-Sphinx#For generating the docs
+Sphinx #For generating the docs
