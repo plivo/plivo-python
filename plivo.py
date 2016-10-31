@@ -45,8 +45,8 @@ def validate_request_signature(uri, signature, auth_token, params=None):
         encoded_request = uri.encode('utf-8')
     for k, v in sorted(all_params.items()):
         encoded_key = k.encode('utf-8')
-        if isinstance(v, basestring):
-            encoded_val = v
+        if isinstance(v, unicode):
+            encoded_val = v.encode('utf-8')
         else:
             encoded_val = '' if v is None else str(v)
         encoded_request += encoded_key + encoded_val

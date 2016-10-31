@@ -14,19 +14,19 @@ except:
     import urllib.parse as urlparse
     from urllib.parse import urlencode
 
-try:
-    from auth_secrets import AUTH_ID, AUTH_TOKEN
-    from auth_secrets import DEFAULT_FROM_NUMBER, DEFAULT_TO_NUMBER, DEFAULT_TO_NUMBER2
-except ImportError:
-    AUTH_ID, AUTH_TOKEN = os.getenv("AUTH_ID"), os.getenv("AUTH_TOKEN")
-    DEFAULT_FROM_NUMBER = os.getenv("DEFAULT_FROM_NUMBER")
-    DEFAULT_TO_NUMBER = os.getenv("DEFAULT_TO_NUMBER")
-    DEFAULT_TO_NUMBER2 = os.getenv("DEFAULT_TO_NUMBER2")
-    if not (AUTH_ID and AUTH_TOKEN and
-                DEFAULT_FROM_NUMBER and DEFAULT_TO_NUMBER):
-        raise Exception("Create a auth_secrets.py file or set AUTH_ID "
-                        "AUTH_TOKEN, DEFAULT_TO_NUMBER, DEFAULT_FROM_NUMBER "
-                        "as environ values.")
+#try:
+#    from auth_secrets import AUTH_ID, AUTH_TOKEN
+#    from auth_secrets import DEFAULT_FROM_NUMBER, DEFAULT_TO_NUMBER, DEFAULT_TO_NUMBER2
+#except ImportError:
+#    AUTH_ID, AUTH_TOKEN = os.getenv("AUTH_ID"), os.getenv("AUTH_TOKEN")
+#    DEFAULT_FROM_NUMBER = os.getenv("DEFAULT_FROM_NUMBER")
+#    DEFAULT_TO_NUMBER = os.getenv("DEFAULT_TO_NUMBER")
+#    DEFAULT_TO_NUMBER2 = os.getenv("DEFAULT_TO_NUMBER2")
+#    if not (AUTH_ID and AUTH_TOKEN and
+#                DEFAULT_FROM_NUMBER and DEFAULT_TO_NUMBER):
+#        raise Exception("Create a auth_secrets.py file or set AUTH_ID "
+#                        "AUTH_TOKEN, DEFAULT_TO_NUMBER, DEFAULT_FROM_NUMBER "
+#                        "as environ values.")
 
 client = None
 random_letter = lambda: random.choice(string.ascii_letters)
@@ -1618,6 +1618,23 @@ class TestValidateRequestSignature(unittest.TestCase):
               'Text=Hello+%C3%BCml%C3%A6t&TotalAmount=0&Type=sms&MessageUUID=2d47019a-9c66-11e6-8c60-02daa5941325'
         expected_signature = 'p4r7pkCIbkExPJYZnT6Rahni5vA='
         is_valid = plivo.validate_request_signature(uri, expected_signature, self.test_auth_token, None)
+        self.assertTrue(is_valid)
+
+    # with UTF-8 in post params
+    def test_unicode_post_params(self):
+        uri = 'http://requestb.in/1gzeupi1'
+        params = {
+            'From': '14087289654',
+            'To': '14154830338',
+            'Text': u'Hello \xfcml\xe6t',
+            'TotalRate': '0',
+            'Units': '1',
+            'TotalAmount': '0',
+            'Type': 'sms',
+            'MessageUUID': '2d47019a-9c66-11e6-8c60-02daa5941325'
+        }
+        expected_signature = 'p4r7pkCIbkExPJYZnT6Rahni5vA='
+        is_valid = plivo.validate_request_signature(uri, expected_signature, self.test_auth_token, params=params)
         self.assertTrue(is_valid)
 
     # with empty POST params
