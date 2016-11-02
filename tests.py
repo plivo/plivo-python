@@ -1620,6 +1620,23 @@ class TestValidateRequestSignature(unittest.TestCase):
         is_valid = plivo.validate_request_signature(uri, expected_signature, self.test_auth_token, None)
         self.assertTrue(is_valid)
 
+    # with UTF-8 in post params
+    def test_unicode_post_params(self):
+        uri = 'http://requestb.in/1gzeupi1'
+        params = {
+            'From': '14087289654',
+            'To': '14154830338',
+            'Text': u'Hello \xfcml\xe6t',
+            'TotalRate': '0',
+            'Units': '1',
+            'TotalAmount': '0',
+            'Type': 'sms',
+            'MessageUUID': '2d47019a-9c66-11e6-8c60-02daa5941325'
+        }
+        expected_signature = 'p4r7pkCIbkExPJYZnT6Rahni5vA='
+        is_valid = plivo.validate_request_signature(uri, expected_signature, self.test_auth_token, params=params)
+        self.assertTrue(is_valid)
+
     # with empty POST params
     def test_empty_post_params(self):
         uri = 'http://requestb.in/1nlmo4p1'
