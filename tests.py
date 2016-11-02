@@ -1599,7 +1599,7 @@ class TestValidateRequestSignature(unittest.TestCase):
         uri = 'http://requestb.in/1gzeupi1?Direction=inbound&From=Anonymous&CallerName=Anonymous&BillRate=0.0085&' \
               'To=14154830338&CallUUID=c490f944-013f-4baa-b0eb-af87113bc8f7&CallStatus=ringing&Event=StartApp'
         expected_signature = 'iIzksJrgZggVf4VK54n9HWPm8SU='
-        is_valid = plivo.validate_request_signature(uri, expected_signature, self.test_auth_token, None)
+        is_valid = plivo.validate_signature(uri, None, expected_signature, self.test_auth_token)
         self.assertTrue(is_valid)
 
     def test_post_request(self):
@@ -1609,7 +1609,7 @@ class TestValidateRequestSignature(unittest.TestCase):
                     'CallUUID=69ffdb0d-27b6-424e-8e85-e733ddbd9e6a&CallStatus=ringing&Event=StartApp'
         expected_signature = '8SYmxFaaIfQvvfdxjYJobpI57wg='
         params = dict(urlparse.parse_qsl(form_data, keep_blank_values=True))
-        is_valid = plivo.validate_request_signature(uri, expected_signature, self.test_auth_token, params=params)
+        is_valid = plivo.validate_signature(uri, params, expected_signature, self.test_auth_token)
         self.assertTrue(is_valid)
 
     # with UTF-8 in query params.
@@ -1617,7 +1617,7 @@ class TestValidateRequestSignature(unittest.TestCase):
         uri = 'http://requestb.in/1gzeupi1?To=14154830338&From=14087289654&TotalRate=0&Units=1&' \
               'Text=Hello+%C3%BCml%C3%A6t&TotalAmount=0&Type=sms&MessageUUID=2d47019a-9c66-11e6-8c60-02daa5941325'
         expected_signature = 'p4r7pkCIbkExPJYZnT6Rahni5vA='
-        is_valid = plivo.validate_request_signature(uri, expected_signature, self.test_auth_token, None)
+        is_valid = plivo.validate_signature(uri, None, expected_signature, self.test_auth_token)
         self.assertTrue(is_valid)
 
     # with UTF-8 in post params
@@ -1634,7 +1634,7 @@ class TestValidateRequestSignature(unittest.TestCase):
             'MessageUUID': '2d47019a-9c66-11e6-8c60-02daa5941325'
         }
         expected_signature = 'p4r7pkCIbkExPJYZnT6Rahni5vA='
-        is_valid = plivo.validate_request_signature(uri, expected_signature, self.test_auth_token, params=params)
+        is_valid = plivo.validate_signature(uri, params, expected_signature, self.test_auth_token)
         self.assertTrue(is_valid)
 
     # with empty POST params
@@ -1646,8 +1646,7 @@ class TestValidateRequestSignature(unittest.TestCase):
                     'Event=Hangup'
         params = dict(urlparse.parse_qsl(form_data, keep_blank_values=True))
         expected_signature = 'WhLBwG3YobWjhg7mf/RARVDgg+w='
-        is_valid = plivo.validate_request_signature(uri, expected_signature,
-                                                    'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj', params)
+        is_valid = plivo.validate_signature(uri, params, expected_signature, 'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj')
         self.assertTrue(is_valid)
 
 
