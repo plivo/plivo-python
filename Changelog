@@ -1,3 +1,4 @@
+2016-11-02 Fixes backward compatibility issue and a minor bug
 2016-10-28 Adds support for verifying X-Plivo-Signature header
 2014-06-02 Adds digitsMatchBLeg parameter to Dial XML
 2014-01-14 Adds support for PhoneNumber API & Adds beep parameter for Wait element
