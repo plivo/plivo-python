@@ -182,7 +182,7 @@ class Dial(Element):
     nestables = ('Number', 'User')
     valid_attributes = ('action','method','timeout','hangupOnStar',
                         'timeLimit','callerId', 'callerName', 'confirmSound',
-                        'dialMusic', 'confirmKey', 'redirect',
+                        'dialMusic', 'confirmKey', 'redirect', 'dialMusic',
                         'callbackUrl', 'callbackMethod', 'digitsMatch', 'digitsMatchBLeg',
                         'sipHeaders')
 
