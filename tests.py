@@ -3,6 +3,9 @@ import os
 import random
 import string
 import time
+import json
+import requests
+import mock
 
 import plivo
 
@@ -1648,6 +1651,109 @@ class TestValidateRequestSignature(unittest.TestCase):
         expected_signature = 'WhLBwG3YobWjhg7mf/RARVDgg+w='
         is_valid = plivo.validate_signature(uri, params, expected_signature, 'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj')
         self.assertTrue(is_valid)
+
+
+class DummySuccessGetCall(object):
+    """
+    Mocked success response for getting a call with status
+    """
+
+    def __init__(self):
+        self.status_code = 200
+        self.content = json.dumps({"api_id": "3957b46e-0261-11e7-8ef1-06012af29098",
+                                   "calls": ['3957b46e-0261-11e7-8ef1-06012af29se45',
+                                             '3957b46e-0261-11e7-8ef1-06012af29se46']})
+
+
+class DummyFailureGetCall(object):
+    """
+    Mocked success response for getting a call with status
+    """
+
+    def __init__(self):
+        self.status_code = 200
+        self.content = json.dumps({"api_id": "3957b46e-0261-11e7-8ef1-069812af29098", "calls": []})
+
+
+class TestCancelCallFeature(unittest.TestCase):
+    """
+    Test cases for get_ringing_calls,get_in_progress_calls,get_queued_calls
+    """
+
+    def setUp(self):
+        self.pclient = plivo.RestAPI("test_auth_id", "test_auth_token")
+
+    def test_get_ringing_calls(self):
+        """
+        tests ringing calls when we get some calls
+        """
+        requests.get = mock.MagicMock(return_value=DummySuccessGetCall())
+        response = self.pclient.get_ringing_calls()
+        self.assertTrue(response[0] == 200)
+        self.assertTrue(isinstance(response[1], dict))
+        self.assertTrue("api_id" in response[1])
+        self.assertTrue("calls" in response[1])
+        self.assertTrue(len(response[1].get('calls', [])) > 0)
+
+    def test_get_ringing_calls_no_ringing_calls(self):
+        """
+        tests ringing calls when we don't get any calls
+        """
+        requests.get = mock.MagicMock(return_value=DummyFailureGetCall())
+        response = self.pclient.get_ringing_calls()
+        self.assertTrue(response[0] == 200)
+        self.assertTrue(isinstance(response[1], dict))
+        self.assertTrue("api_id" in response[1])
+        self.assertTrue("calls" in response[1])
+        self.assertTrue(len(response[1].get('calls', [])) == 0)
+
+    def test_get_in_progress_calls(self):
+        """
+        tests in-progress calls when we get some calls
+        """
+        requests.get = mock.MagicMock(return_value=DummySuccessGetCall())
+        response = self.pclient.get_in_progress_calls()
+        self.assertTrue(response[0] == 200)
+        self.assertTrue(isinstance(response[1], dict))
+        self.assertTrue("api_id" in response[1])
+        self.assertTrue("calls" in response[1])
+        self.assertTrue(len(response[1].get('calls', [])) > 0)
+
+    def test_get_in_progress_calls_no_in_progress_calls(self):
+        """
+        tests in-progress calls when we don't get any calls
+        """
+        requests.get = mock.MagicMock(return_value=DummyFailureGetCall())
+        response = self.pclient.get_in_progress_calls()
+        self.assertTrue(response[0] == 200)
+        self.assertTrue(isinstance(response[1], dict))
+        self.assertTrue("api_id" in response[1])
+        self.assertTrue("calls" in response[1])
+        self.assertTrue(len(response[1].get('calls', [])) == 0)
+
+    def test_get_get_queued_calls(self):
+        """
+        tests queued calls when we get some calls
+        """
+        requests.get = mock.MagicMock(return_value=DummySuccessGetCall())
+        response = self.pclient.get_queued_calls()
+        self.assertTrue(response[0] == 200)
+        self.assertTrue(isinstance(response[1], dict))
+        self.assertTrue("api_id" in response[1])
+        self.assertTrue("calls" in response[1])
+        self.assertTrue(len(response[1].get('calls', [])) > 0)
+
+    def test_get_queued_calls_no_queued_calls(self):
+        """
+        tests queued calls when we don't get any calls
+        """
+        requests.get = mock.MagicMock(return_value=DummyFailureGetCall())
+        response = self.pclient.get_queued_calls()
+        self.assertTrue(response[0] == 200)
+        self.assertTrue(isinstance(response[1], dict))
+        self.assertTrue("api_id" in response[1])
+        self.assertTrue("calls" in response[1])
+        self.assertTrue(len(response[1].get('calls', [])) == 0)
 
 
 def get_client(AUTH_ID, AUTH_TOKEN):

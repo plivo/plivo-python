@@ -265,6 +265,30 @@ class RestAPI(object):
         params['status'] = 'live'
         return self._request('GET', '/Call/', data=params)
 
+    def get_ringing_calls(self, params={}):
+        """
+        :param params: optional - extra call parameters
+        :return: list of ringing calls
+        """
+        params['status'] = 'ringing'
+        return self._request('GET', '/Call/', data=params)
+
+    def get_in_progress_calls(self, params={}):
+        """
+        :param params: optional - extra call parameters
+        :return: list of in-progress calls
+        """
+        params['status'] = 'in-progress'
+        return self._request('GET', '/Call/', data=params)
+
+    def get_queued_calls(self, params={}):
+        """
+        :param params: optional - extra call parameters
+        :return: list of queued calls
+        """
+        params['status'] = 'queued'
+        return self._request('GET', '/Call/', data=params)
+
     def get_live_call(self, params=None):
         if not params: params={}
         params['status'] = 'live'
@@ -610,8 +634,6 @@ class Call(PlivoResponse):
             response=self.rest_api.get_cdrs(optional_params),
             rest_api=self.rest_api
         )
-
-
 
     def hang(self, call_uuid=None):
         if not call_uuid:
