@@ -1731,7 +1731,7 @@ class TestCancelCallFeature(unittest.TestCase):
         self.assertTrue("calls" in response[1])
         self.assertTrue(len(response[1].get('calls', [])) == 0)
 
-    def test_get_get_queued_calls(self):
+    def test_get_queued_calls(self):
         """
         tests queued calls when we get some calls
         """
