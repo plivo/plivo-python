@@ -1,3 +1,4 @@
+2017-03-08 Added new methods to get queued,ringing and in-progress calls
 2016-11-02 Fixes backward compatibility issue and a minor bug
 2016-10-28 Adds support for verifying X-Plivo-Signature header
 2014-06-02 Adds digitsMatchBLeg parameter to Dial XML
