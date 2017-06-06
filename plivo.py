@@ -31,22 +31,21 @@ def validate_signature(uri, post_params, signature, auth_token):
     See https://www.plivo.com/docs/xml/request/#validation
 
     :param uri: Your server URL
-    :param post_params: POST Parameters passed to your URL, in case of POST request. Will be ignored if URL contains a
-    query string
+    :param post_params: POST Parameters passed to your URL
     :param auth_token: Plivo Auth token
     :param signature: X-Plivo-Signature header
     :return: True if the request matches signature, False otherwise
     """
-    parsed_uri = urlparse(uri.encode('utf-8'))
-    qs = parsed_uri.query
-    if qs:
+    if post_params:
+        all_params = post_params
+        encoded_request = uri
+    else:
+        parsed_uri = urlparse(uri.encode('utf-8'))
         # get params from query string
-        all_params = dict(parse_qsl(qs, keep_blank_values=True))
+        all_params = dict(parse_qsl(parsed_uri.query, keep_blank_values=True))
         # remove parameters from query string
         encoded_request = urljoin(uri, parsed_uri.path).encode('utf-8')
-    else:
-        all_params = post_params or {}
-        encoded_request = uri.encode('utf-8')
+
     for k, v in sorted(all_params.items()):
         encoded_key = k.encode('utf-8')
         if isinstance(v, unicode):

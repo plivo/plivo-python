@@ -1649,6 +1649,16 @@ class TestValidateRequestSignature(unittest.TestCase):
         is_valid = plivo.validate_signature(uri, params, expected_signature, 'ODE1ZmJkNzI3MzIwMmNmMDBiMDFiNjkxMDhlMjZj')
         self.assertTrue(is_valid)
 
+    # POST on uri with querystring
+    def test_querystring_on_post(self):
+        uri = 'http://requestb.in/1gzeupi1?foo=bar'
+        form_data = 'Direction=inbound&From=Anonymous&CallerName=Anonymous&BillRate=0.0085&To=14154830338&' \
+                    'CallUUID=69ffdb0d-27b6-424e-8e85-e733ddbd9e6a&CallStatus=ringing&Event=StartApp'
+        expected_signature = 'BcdCaUVUvoygI7N0ZFT5MPcQv8o='
+        params = dict(urlparse.parse_qsl(form_data, keep_blank_values=True))
+        is_valid = plivo.validate_signature(uri, params, expected_signature, self.test_auth_token)
+        self.assertTrue(is_valid)
+
 
 def get_client(AUTH_ID, AUTH_TOKEN):
     return plivo.RestAPI(AUTH_ID, AUTH_TOKEN)
