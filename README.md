@@ -1,6 +1,4 @@
-===========
-Plivo Python Helper
-===========
+# Plivo Python Helper
 
 
 Example code to make a call
