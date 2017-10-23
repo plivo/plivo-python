@@ -1,5 +1,10 @@
 # Change Log
-## [4.0.0b1](https://github.com/plivo/plivo-python/tree/0.11.3) (2017-10-23)
+## [4.0.0b1](https://github.com/plivo/plivo-python/tree/v4.0-beta1) (2017-10-23)
+
+- The new SDK works with both Python 2 & 3
+- JSON serialization and deserialization is now handled by the SDK
+- The API interfaces are consistent and guessable
+- Handles pagination automatically when listing all objects of a resource
 
 ## [0.11.3](https://github.com/plivo/plivo-python/tree/0.11.3) (2016-11-02)
 
