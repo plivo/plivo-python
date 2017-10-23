@@ -1,4 +1,11 @@
 # plivo-python
+
+[![Build Status](https://travis-ci.org/plivo/plivo-python.svg?branch=4.0)](https://travis-ci.org/plivo/plivo-python)
+[![PyPI](https://img.shields.io/pypi/v/plivo.svg)](https://pypi.python.org/pypi/plivo)
+[![PyPI](https://img.shields.io/pypi/pyversions/plivo.svg)](https://pypi.python.org/pypi/plivo)
+[![PyPI](https://img.shields.io/pypi/l/plivo.svg)](https://pypi.python.org/pypi/plivo)
+
+
 The Plivo Python SDK makes it simpler to integrate communications into your Python applications using the Plivo REST API. Using the SDK, you will be able to make voice calls, send SMS and generate Plivo XML to control your call flows.
 
 ## Installation
