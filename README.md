@@ -100,7 +100,7 @@ message_created = client.messages.create(
 import plivo
 
 client = plivo.RestClient()
-message_created = client.messages.create(
+call_made = client.calls.create(
     from_='the_from_number',
     to_='the_to_number',
     answer_url='https://answer.url'
