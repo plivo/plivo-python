@@ -205,9 +205,9 @@ class GetDigitsElement(PlivoXMLElement):
     def add_speak(
             self,
             content,
-            voice,
-            language,
-            loop, ):
+            voice=None,
+            language=None,
+            loop=None, ):
         self.add(
             SpeakElement(
                 content=content,
@@ -219,7 +219,7 @@ class GetDigitsElement(PlivoXMLElement):
     def add_play(
             self,
             content,
-            loop, ):
+            loop=None, ):
         self.add(PlayElement(
             content=content,
             loop=loop, ))

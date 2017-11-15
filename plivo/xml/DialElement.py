@@ -269,9 +269,9 @@ class DialElement(PlivoXMLElement):
     def add_user(
             self,
             content,
-            send_digits,
-            send_on_preanswer,
-            sip_headers, ):
+            send_digits=None,
+            send_on_preanswer=None,
+            sip_headers=None, ):
         self.add(
             UserElement(
                 content=content,
@@ -283,8 +283,8 @@ class DialElement(PlivoXMLElement):
     def add_number(
             self,
             content,
-            send_digits,
-            send_on_preanswer, ):
+            send_digits=None,
+            send_on_preanswer=None, ):
         self.add(
             NumberElement(
                 content=content,
