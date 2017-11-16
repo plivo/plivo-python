@@ -9,6 +9,7 @@ from collections import namedtuple
 
 import requests
 
+
 from plivo.base import ResponseObject
 from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
@@ -50,7 +51,7 @@ def fetch_credentials(auth_id, auth_token):
 
 
 class Client(object):
-    def __init__(self, auth_id=None, auth_token=None):
+    def __init__(self, auth_id=None, auth_token=None, timeout=None):
         """
         The Plivo API client.
 
@@ -67,9 +68,8 @@ class Client(object):
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         })
-
         self.session.auth = fetch_credentials(auth_id, auth_token)
-
+        self.timeout = timeout
         self.account = Accounts(self)
         self.subaccounts = Subaccounts(self)
         self.applications = Applications(self)
@@ -96,6 +96,7 @@ class Client(object):
         """Processes the API response based on the status codes and method used
         to access the API
         """
+
         try:
             response_json = response.json(
                 object_hook=
@@ -171,7 +172,7 @@ class Client(object):
         return self.session.prepare_request(req)
 
     def send_request(self, request, **kwargs):
-        return self.session.send(request, **kwargs)
+        return self.session.send(request,timeout=self.timeout, **kwargs)
 
     def request(self,
                 method,
