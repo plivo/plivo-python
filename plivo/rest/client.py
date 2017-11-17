@@ -172,7 +172,7 @@ class Client(object):
         return self.session.prepare_request(req)
 
     def send_request(self, request, **kwargs):
-        return self.session.send(request,timeout=self.timeout, **kwargs)
+        return self.session.send(request, timeout=self.timeout, **kwargs)
 
     def request(self,
                 method,
