@@ -44,4 +44,5 @@ setup(
     ],
     keywords=['plivo', 'plivo xml', 'voice calls', 'sms'],
     include_package_data=True,
-    packages=find_packages(exclude=['tests', 'tests.*']), )
+    packages=find_packages(exclude=['tests', 'tests.*']),
+)
