@@ -166,7 +166,8 @@ class GetDigitsElement(PlivoXMLElement):
             play_beep=None,
             valid_digits=None,
             invalid_digits_sound=None,
-            log=None, ):
+            log=None,
+    ):
         super(GetDigitsElement, self).__init__()
 
         self.action = action
@@ -207,21 +208,24 @@ class GetDigitsElement(PlivoXMLElement):
             content,
             voice=None,
             language=None,
-            loop=None, ):
+            loop=None,
+    ):
         self.add(
             SpeakElement(
                 content=content,
                 voice=voice,
                 language=language,
-                loop=loop, ))
+                loop=loop,
+            ))
         return self
 
     def add_play(
             self,
             content,
-            loop=None, ):
+            loop=None,
+    ):
         self.add(PlayElement(
             content=content,
-            loop=loop, ))
+            loop=loop,
+        ))
         return self
-

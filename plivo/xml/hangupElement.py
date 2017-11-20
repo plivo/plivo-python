@@ -1,5 +1,7 @@
-from plivo.xml import PlivoXMLElement, map_type
 import six
+
+from plivo.xml import PlivoXMLElement, map_type
+
 
 class HangupElement(PlivoXMLElement):
     _name = 'Hangup'
@@ -47,4 +49,3 @@ class HangupElement(PlivoXMLElement):
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
         }
-

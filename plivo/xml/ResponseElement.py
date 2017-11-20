@@ -1,7 +1,8 @@
-from plivo.xml import PlivoXMLElement,ConferenceElement, DialElement, NumberElement
-from plivo.xml import GetDigitsElement, HangupElement, MessageElement, PlayElement
-from plivo.xml import DTMFElement, UserElement, PreAnswerElement, RecordElement
-from plivo.xml import WaitElement, SpeakElement, RedirectElement
+from plivo.xml import (ConferenceElement, DialElement, DTMFElement,
+                       GetDigitsElement, HangupElement, MessageElement,
+                       NumberElement, PlayElement, PlivoXMLElement,
+                       PreAnswerElement, RecordElement, RedirectElement,
+                       SpeakElement, UserElement, WaitElement)
 
 
 class ResponseElement(PlivoXMLElement):
@@ -33,7 +34,8 @@ class ResponseElement(PlivoXMLElement):
             digits_match=None,
             floor_event=None,
             redirect=None,
-            relay_dtmf=None, ):
+            relay_dtmf=None,
+    ):
         self.add(
             ConferenceElement(
                 content=content,
@@ -56,7 +58,8 @@ class ResponseElement(PlivoXMLElement):
                 digits_match=digits_match,
                 floor_event=floor_event,
                 redirect=redirect,
-                relay_dtmf=relay_dtmf, ))
+                relay_dtmf=relay_dtmf,
+            ))
         return self
 
     def add_dial(
@@ -76,7 +79,8 @@ class ResponseElement(PlivoXMLElement):
             redirect=None,
             digits_match=None,
             digits_match_b_leg=None,
-            sip_headers=None, ):
+            sip_headers=None,
+    ):
         self.add(
             DialElement(
                 action=action,
@@ -94,19 +98,22 @@ class ResponseElement(PlivoXMLElement):
                 redirect=redirect,
                 digits_match=digits_match,
                 digits_match_b_leg=digits_match_b_leg,
-                sip_headers=sip_headers, ))
+                sip_headers=sip_headers,
+            ))
         return self
 
     def add_number(
             self,
             content,
             send_digits=None,
-            send_on_preanswer=None, ):
+            send_on_preanswer=None,
+    ):
         self.add(
             NumberElement(
                 content=content,
                 send_digits=send_digits,
-                send_on_preanswer=send_on_preanswer, ))
+                send_on_preanswer=send_on_preanswer,
+            ))
         return self
 
     def add_user(
@@ -114,22 +121,26 @@ class ResponseElement(PlivoXMLElement):
             content,
             send_digits=None,
             send_on_preanswer=None,
-            sip_headers=None, ):
+            sip_headers=None,
+    ):
         self.add(
             UserElement(
                 content=content,
                 send_digits=send_digits,
                 send_on_preanswer=send_on_preanswer,
-                sip_headers=sip_headers, ))
+                sip_headers=sip_headers,
+            ))
         return self
 
     def add_dtmf(
             self,
             content,
-            async=None, ):
+            async=None,
+    ):
         self.add(DTMFElement(
             content=content,
-            async=async, ))
+            async=async,
+        ))
         return self
 
     def add_get_digits(
@@ -145,7 +156,8 @@ class ResponseElement(PlivoXMLElement):
             play_beep=None,
             valid_digits=None,
             invalid_digits_sound=None,
-            log=None, ):
+            log=None,
+    ):
         self.add(
             GetDigitsElement(
                 action=action,
@@ -159,16 +171,19 @@ class ResponseElement(PlivoXMLElement):
                 play_beep=play_beep,
                 valid_digits=valid_digits,
                 invalid_digits_sound=invalid_digits_sound,
-                log=log, ))
+                log=log,
+            ))
         return self
 
     def add_hangup(
             self,
             reason=None,
-            schedule=None, ):
+            schedule=None,
+    ):
         self.add(HangupElement(
             reason=reason,
-            schedule=schedule, ))
+            schedule=schedule,
+        ))
         return self
 
     def add_message(
@@ -178,7 +193,8 @@ class ResponseElement(PlivoXMLElement):
             dst=None,
             type=None,
             callback_url=None,
-            callback_method=None, ):
+            callback_method=None,
+    ):
         self.add(
             MessageElement(
                 content=content,
@@ -186,20 +202,22 @@ class ResponseElement(PlivoXMLElement):
                 dst=dst,
                 type=type,
                 callback_url=callback_url,
-                callback_method=callback_method, ))
+                callback_method=callback_method,
+            ))
         return self
 
     def add_play(
             self,
             content,
-            loop=None, ):
+            loop=None,
+    ):
         self.add(PlayElement(
             content=content,
-            loop=loop, ))
+            loop=loop,
+        ))
         return self
 
-    def add_pre_answer(
-            self, ):
+    def add_pre_answer(self, ):
         self.add(PreAnswerElement())
         return self
 
@@ -219,7 +237,8 @@ class ResponseElement(PlivoXMLElement):
             transcription_url=None,
             transcription_method=None,
             callback_url=None,
-            callback_method=None, ):
+            callback_method=None,
+    ):
         self.add(
             RecordElement(
                 action=action,
@@ -236,16 +255,19 @@ class ResponseElement(PlivoXMLElement):
                 transcription_url=transcription_url,
                 transcription_method=transcription_method,
                 callback_url=callback_url,
-                callback_method=callback_method, ))
+                callback_method=callback_method,
+            ))
         return self
 
     def add_redirect(
             self,
             content,
-            method=None, ):
+            method=None,
+    ):
         self.add(RedirectElement(
             content=content,
-            method=method, ))
+            method=method,
+        ))
         return self
 
     def add_speak(
@@ -253,13 +275,15 @@ class ResponseElement(PlivoXMLElement):
             content,
             voice=None,
             language=None,
-            loop=None, ):
+            loop=None,
+    ):
         self.add(
             SpeakElement(
                 content=content,
                 voice=voice,
                 language=language,
-                loop=loop, ))
+                loop=loop,
+            ))
         return self
 
     def add_wait(
@@ -267,13 +291,15 @@ class ResponseElement(PlivoXMLElement):
             length=None,
             silence=None,
             min_silence=None,
-            beep=None, ):
+            beep=None,
+    ):
         self.add(
             WaitElement(
                 length=length,
                 silence=silence,
                 min_silence=min_silence,
-                beep=beep, ))
+                beep=beep,
+            ))
         return self
 
     def to_dict(self):

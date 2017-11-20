@@ -1,6 +1,6 @@
-from plivo.xml import PlivoXMLElement, map_type
 import six
 
+from plivo.xml import PlivoXMLElement, map_type
 
 
 class RedirectElement(PlivoXMLElement):
@@ -22,7 +22,8 @@ class RedirectElement(PlivoXMLElement):
     def __init__(
             self,
             content,
-            method=None, ):
+            method=None,
+    ):
         super(RedirectElement, self).__init__()
 
         self.content = content
@@ -36,4 +37,3 @@ class RedirectElement(PlivoXMLElement):
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
         }
-

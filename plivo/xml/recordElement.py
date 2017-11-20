@@ -210,7 +210,8 @@ class RecordElement(PlivoXMLElement):
             transcription_url=None,
             transcription_method=None,
             callback_url=None,
-            callback_method=None, ):
+            callback_method=None,
+    ):
         super(RecordElement, self).__init__()
 
         self.action = action
@@ -251,4 +252,3 @@ class RecordElement(PlivoXMLElement):
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
         }
-

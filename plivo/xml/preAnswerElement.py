@@ -1,5 +1,7 @@
-from plivo.xml import PlivoXMLElement, map_type, SpeakElement, PlayElement, WaitElement
 import six
+
+from plivo.xml import (PlayElement, PlivoXMLElement, SpeakElement, WaitElement,
+                       map_type)
 
 
 class PreAnswerElement(PlivoXMLElement):
@@ -55,4 +57,3 @@ class PreAnswerElement(PlivoXMLElement):
                 min_silence=min_silence,
                 beep=beep, ))
         return self
-

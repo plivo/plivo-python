@@ -3,7 +3,8 @@
 Number & PhoneNumber classes - along with their list classes
 """
 
-from plivo.base import PlivoResource, PlivoResourceInterface, ListResponseObject
+from plivo.base import (ListResponseObject, PlivoResource,
+                        PlivoResourceInterface)
 from plivo.utils import to_param_dict
 from plivo.utils.validators import *
 
@@ -75,7 +76,8 @@ class Numbers(PlivoResourceInterface):
             ('Number', ),
             to_param_dict(self.list, locals()),
             objects_type=Number,
-            response_type=ListResponseObject, )
+            response_type=ListResponseObject,
+        )
 
     @validate_args(number=[is_phonenumber()])
     def get(self, number):

@@ -1,5 +1,6 @@
-from plivo.xml import PlivoXMLElement, map_type
 import six
+
+from plivo.xml import PlivoXMLElement, map_type
 
 
 class WaitElement(PlivoXMLElement):
@@ -59,7 +60,8 @@ class WaitElement(PlivoXMLElement):
             length=None,
             silence=None,
             min_silence=None,
-            beep=None, ):
+            beep=None,
+    ):
         super(WaitElement, self).__init__()
 
         self.length = length

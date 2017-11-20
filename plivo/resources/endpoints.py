@@ -43,7 +43,8 @@ class Endpoints(PlivoResourceInterface):
             'GET',
             ('Endpoint', ),
             objects_type=Endpoint,
-            response_type=ListResponseObject, )
+            response_type=ListResponseObject,
+        )
 
     @validate_args(
         endpoint_id=[of_type(six.text_type)],

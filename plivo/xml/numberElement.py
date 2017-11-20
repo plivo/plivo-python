@@ -1,5 +1,7 @@
-from plivo.xml import PlivoXMLElement, map_type
 import six
+
+from plivo.xml import PlivoXMLElement, map_type
+
 
 class NumberElement(PlivoXMLElement):
     _name = 'Number'
@@ -34,7 +36,8 @@ class NumberElement(PlivoXMLElement):
             self,
             content,
             send_digits=None,
-            send_on_preanswer=None, ):
+            send_on_preanswer=None,
+    ):
         super(NumberElement, self).__init__()
 
         self.content = content
@@ -50,4 +53,3 @@ class NumberElement(PlivoXMLElement):
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
         }
-

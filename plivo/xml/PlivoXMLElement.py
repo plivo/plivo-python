@@ -1,5 +1,7 @@
-from plivo.exceptions import PlivoXMLError
 from lxml import etree
+
+from plivo.exceptions import PlivoXMLError
+
 
 class PlivoXMLElement(object):
     def __init__(self):

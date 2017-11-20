@@ -71,7 +71,8 @@ class Recordings(PlivoResourceInterface):
             ('Recording', ),
             to_param_dict(self.list, locals()),
             objects_type=Recording,
-            response_type=ListResponseObject, )
+            response_type=ListResponseObject,
+        )
 
     @validate_args(recording_id=[of_type(six.text_type)])
     def get(self, recording_id):

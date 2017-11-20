@@ -1,6 +1,7 @@
 import six
 from plivo.xml import PlivoXMLElement, map_type, NumberElement, UserElement
 
+
 class DialElement(PlivoXMLElement):
     _name = 'Dial'
     _nestable = ['User', 'Number']
@@ -222,7 +223,8 @@ class DialElement(PlivoXMLElement):
             redirect=None,
             digits_match=None,
             digits_match_b_leg=None,
-            sip_headers=None, ):
+            sip_headers=None,
+    ):
         super(DialElement, self).__init__()
 
         self.action = action
@@ -271,24 +273,27 @@ class DialElement(PlivoXMLElement):
             content,
             send_digits=None,
             send_on_preanswer=None,
-            sip_headers=None, ):
+            sip_headers=None,
+    ):
         self.add(
             UserElement(
                 content=content,
                 send_digits=send_digits,
                 send_on_preanswer=send_on_preanswer,
-                sip_headers=sip_headers, ))
+                sip_headers=sip_headers,
+            ))
         return self
 
     def add_number(
             self,
             content,
             send_digits=None,
-            send_on_preanswer=None, ):
+            send_on_preanswer=None,
+    ):
         self.add(
             NumberElement(
                 content=content,
                 send_digits=send_digits,
-                send_on_preanswer=send_on_preanswer, ))
+                send_on_preanswer=send_on_preanswer,
+            ))
         return self
-

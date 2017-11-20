@@ -1,5 +1,7 @@
-from plivo.xml import PlivoXMLElement, map_type
 import six
+
+from plivo.xml import PlivoXMLElement, map_type
+
 
 class UserElement(PlivoXMLElement):
     _name = 'User'
@@ -48,7 +50,8 @@ class UserElement(PlivoXMLElement):
             content,
             send_digits=None,
             send_on_preanswer=None,
-            sip_headers=None, ):
+            sip_headers=None,
+    ):
         super(UserElement, self).__init__()
 
         self.content = content
@@ -66,4 +69,3 @@ class UserElement(PlivoXMLElement):
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
         }
-

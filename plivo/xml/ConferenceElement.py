@@ -1,6 +1,7 @@
 import six
 from plivo.xml import PlivoXMLElement, map_type
 
+
 class ConferenceElement(PlivoXMLElement):
     _name = 'Conference'
     _nestable = []
@@ -274,7 +275,8 @@ class ConferenceElement(PlivoXMLElement):
             digits_match=None,
             floor_event=None,
             redirect=None,
-            relay_dtmf=None, ):
+            relay_dtmf=None,
+    ):
         super(ConferenceElement, self).__init__()
 
         self.content = content
@@ -326,4 +328,3 @@ class ConferenceElement(PlivoXMLElement):
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
         }
-

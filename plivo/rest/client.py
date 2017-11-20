@@ -9,7 +9,6 @@ from collections import namedtuple
 
 import requests
 
-
 from plivo.base import ResponseObject
 from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
@@ -117,7 +116,7 @@ class Client(object):
             if response_json and 'error' in response_json:
                 raise ValidationError(response_json.error)
             raise ValidationError(
-                'A parameter is missing or is invalid while accessing resource '
+                'A parameter is missing or is invalid while accessing resource'
                 'at: {url}'.format(url=response.url))
 
         if response.status_code == 401:
@@ -162,13 +161,14 @@ class Client(object):
 
     def create_request(self, method, path=None, data=None):
         path = path or []
-        req = requests.Request(
-            method, '/'.join([self.base_uri, self.session.auth[0]] + list(
-                [str(p) for p in path])) + '/', **({
-                    'params': data
-                } if method == 'GET' else {
-                    'json': data
-                }))
+        req = requests.Request(method,
+                               '/'.join([self.base_uri, self.session.auth[0]] +
+                                        list([str(p) for p in path])) + '/',
+                               **({
+                                   'params': data
+                               } if method == 'GET' else {
+                                   'json': data
+                               }))
         return self.session.prepare_request(req)
 
     def send_request(self, request, **kwargs):

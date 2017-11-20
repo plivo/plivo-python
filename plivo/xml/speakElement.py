@@ -1,5 +1,6 @@
-from plivo.xml import PlivoXMLElement, map_type
 import six
+
+from plivo.xml import PlivoXMLElement, map_type
 
 
 class SpeakElement(PlivoXMLElement):
@@ -47,7 +48,8 @@ class SpeakElement(PlivoXMLElement):
             content,
             voice=None,
             language=None,
-            loop=None, ):
+            loop=None,
+    ):
         super(SpeakElement, self).__init__()
 
         self.content = content
@@ -65,4 +67,3 @@ class SpeakElement(PlivoXMLElement):
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
         }
-
