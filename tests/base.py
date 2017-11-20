@@ -2,7 +2,6 @@
 from unittest import TestCase
 
 from httmock import HTTMock, all_requests
-
 from plivo import RestClient
 
 
@@ -48,8 +47,8 @@ class PlivoResourceTestCase(TestCase):
         expected_url, actual_url = (urlparse.urlparse(x)._asdict()
                                     for x in (expected, actual))
         expected_qs, actual_qs = map(
-            lambda x: sorted(urlparse.parse_qsl(x['query'])), (expected_url,
-                                                               actual_url))
+            lambda x: sorted(urlparse.parse_qsl(x['query'])),
+            (expected_url, actual_url))
         expected_url['query'], actual_url['query'] = '', ''
         expected_url['path'], actual_url['path'] = map(
             unquote_plus, [expected_url['path'], actual_url['path']])

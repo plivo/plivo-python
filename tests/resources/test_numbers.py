@@ -58,8 +58,7 @@ class NumberTest(PlivoResourceTestCase):
     def test_create(self):
         self.client.numbers.create('1231231231', 'carrier', 'region')
         self.assertUrlEqual(self.client.current_request.url,
-                            self.get_url(
-                                'Number', ))
+                            self.get_url('Number', ))
         self.assertEqual(self.client.current_request.method, 'POST')
 
 

@@ -97,8 +97,7 @@ class Client(object):
 
         try:
             response_json = response.json(
-                object_hook=
-                lambda x: ResponseObject(x) if isinstance(x, dict) else x)
+                object_hook=lambda x: ResponseObject(x) if isinstance(x, dict) else x)
             if response_type:
                 r = response_type(self, response_json.__dict__)
                 response_json = r

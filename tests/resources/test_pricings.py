@@ -13,8 +13,7 @@ class PricingTest(PlivoResourceTestCase):
     @with_response(200)
     def test_get(self):
         us_pricing = self.client.pricing.get('US')
-        self.assertResponseMatches(
-            us_pricing, )
+        self.assertResponseMatches(us_pricing, )
 
         # Verifying the endpoint hit
         self.assertEqual(
