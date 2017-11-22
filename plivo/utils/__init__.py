@@ -29,9 +29,10 @@ def validate_signature(uri, nonce, signature, auth_token=''):
     signature = bytes(signature.encode('utf-8'))
 
     parsed_uri = urlparse(uri.encode('utf-8'))
-    base_url = urlunparse(
-        (parsed_uri.scheme.decode('utf-8'), parsed_uri.netloc.decode('utf-8'),
-         parsed_uri.path.decode('utf-8'), '', '', '')).encode('utf-8')
+    base_url = urlunparse((parsed_uri.scheme.decode('utf-8'),
+                           parsed_uri.netloc.decode('utf-8'),
+                           parsed_uri.path.decode('utf-8'), '', '',
+                           '')).encode('utf-8')
 
     return encodestring(hnew(auth_token, base_url + nonce, sha256)
                         .digest()).strip() == signature
@@ -66,7 +67,7 @@ def to_param_dict(func, vals, exclude_none=True):
     pd = {
         re.sub(r'^(.*)_+$', r'\1', key): value
         for key, value in vals.items()
-        if key != 'self' and key in arg_names and
-        (value is not None or exclude_none is False)
+        if key != 'self' and key in arg_names and (
+            value is not None or exclude_none is False)
     }
     return pd

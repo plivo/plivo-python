@@ -20,8 +20,8 @@ class Call(PlivoResource):
                aleg_method=None,
                bleg_url=None,
                bleg_method=None):
-        return self.client.calls.update(call_uuid, **to_param_dict(
-            self.update, locals()))
+        return self.client.calls.update(call_uuid,
+                                        **to_param_dict(self.update, locals()))
 
     def get(self):
         return self.client.calls.get(self.id)
@@ -34,8 +34,8 @@ class Call(PlivoResource):
                transcription_method=None,
                callback_url=None,
                callback_mathod=None):
-        return self.client.calls.record(self.id, **to_param_dict(
-            self.record, locals()))
+        return self.client.calls.record(self.id,
+                                        **to_param_dict(self.record, locals()))
 
     def start_recording(self,
                         time_limit=None,
@@ -45,19 +45,23 @@ class Call(PlivoResource):
                         transcription_method=None,
                         callback_url=None,
                         callback_mathod=None):
-        return self.client.calls.start_recording(self.id, **to_param_dict(
-            self.start_recording, locals()))
+        return self.client.calls.start_recording(self.id,
+                                                 **to_param_dict(
+                                                     self.start_recording,
+                                                     locals()))
 
     def stop_recording(self):
         return self.client.calls.stop_recording(self.id)
 
     def play(self, urls, length=None, legs=None, loop=None, mix=None):
-        return self.client.calls.play(self.id, **to_param_dict(
-            self.start_playing, locals()))
+        return self.client.calls.play(self.id,
+                                      **to_param_dict(self.start_playing,
+                                                      locals()))
 
     def start_playing(self, urls, length=None, legs=None, loop=None, mix=None):
-        return self.client.calls.play(self.id, **to_param_dict(
-            self.start_playing, locals()))
+        return self.client.calls.play(self.id,
+                                      **to_param_dict(self.start_playing,
+                                                      locals()))
 
     def stop_playing(self):
         return self.client.calls.stop_playing(self.id)
@@ -70,8 +74,9 @@ class Call(PlivoResource):
               legs=None,
               loop=None,
               mix=None):
-        return self.client.calls.speak(self.id, **to_param_dict(
-            self.start_playing, locals()))
+        return self.client.calls.speak(self.id,
+                                       **to_param_dict(self.start_playing,
+                                                       locals()))
 
     def start_speaking(self,
                        text,
@@ -80,15 +85,18 @@ class Call(PlivoResource):
                        legs=None,
                        loop=None,
                        mix=None):
-        return self.client.calls.start_speaking(self.id, **to_param_dict(
-            self.start_playing, locals()))
+        return self.client.calls.start_speaking(self.id,
+                                                **to_param_dict(
+                                                    self.start_playing,
+                                                    locals()))
 
     def stop_speaking(self):
         return self.client.calls.stop_speaking(self.id)
 
     def send_digits(self, digits, leg):
-        return self.client.calls.send_digits(self.id, **to_param_dict(
-            self.start_playing, locals()))
+        return self.client.calls.send_digits(self.id,
+                                             **to_param_dict(
+                                                 self.start_playing, locals()))
 
     def delete(self):
         return self.client.calls.delete(self.id)
@@ -117,10 +125,12 @@ class Calls(PlivoResourceInterface):
         error_if_parent_not_found=[optional(of_type_exact(bool))],
         parent_call_uuid=[optional(of_type(six.text_type))],
         ring_timeout=[
-            optional(of_type(*six.integer_types)), check(
+            optional(of_type(*six.integer_types)),
+            check(
                 lambda ring_timeout: 0 <= ring_timeout,
                 message='0 <= ring_timeout')
-        ], )
+        ],
+    )
     def create(self,
                from_,
                to_,
@@ -192,7 +202,8 @@ class Calls(PlivoResourceInterface):
             'GET',
             ('Call', ),
             to_param_dict(self.list, locals()),
-            response_type=ListResponseObject, )
+            response_type=ListResponseObject,
+        )
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def get(self, call_uuid):
@@ -200,11 +211,13 @@ class Calls(PlivoResourceInterface):
 
     @validate_args(
         call_uuid=[of_type(six.text_type)],
-        legs=[of_type(six.text_type), is_in(('aleg', 'bleg', 'both'))],
+        legs=[of_type(six.text_type),
+              is_in(('aleg', 'bleg', 'both'))],
         aleg_url=[optional(is_url())],
         aleg_method=[optional(of_type(six.text_type))],
         bleg_method=[optional(of_type(six.text_type))],
-        bleg_url=[optional(is_url())], )
+        bleg_url=[optional(is_url())],
+    )
     def update(self,
                call_uuid,
                legs=None,

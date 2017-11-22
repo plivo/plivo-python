@@ -176,18 +176,15 @@ def validate_args(**to_validate):
 
 is_valid_date = functools.partial(of_type, six.text_type)
 is_phonenumber = functools.partial(of_type, six.text_type)
-is_subaccount_id = functools.partial(all_of,
-                                     of_type(six.text_type),
+is_subaccount_id = functools.partial(all_of, of_type(six.text_type),
                                      regex(r'^SA[A-Z0-9]{18}$'))
-is_mainaccount_id = functools.partial(all_of,
-                                      of_type(six.text_type),
+is_mainaccount_id = functools.partial(all_of, of_type(six.text_type),
                                       regex(r'^MA[A-Z0-9]{18}$'))
 is_subaccount = functools.partial(
-    one_of,
-    of_type_exact('plivo.resources.accounts.Subaccount'), is_subaccount_id())
+    one_of, of_type_exact('plivo.resources.accounts.Subaccount'),
+    is_subaccount_id())
 is_url = functools.partial(
-    all_of,
-    of_type(six.text_type),
+    all_of, of_type(six.text_type),
     regex(
         r'(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+|None)'
     ))

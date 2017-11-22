@@ -67,9 +67,7 @@ class Client(object):
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         })
-
         self.session.auth = fetch_credentials(auth_id, auth_token)
-
         self.account = Accounts(self)
         self.subaccounts = Subaccounts(self)
         self.applications = Applications(self)
@@ -96,10 +94,10 @@ class Client(object):
         """Processes the API response based on the status codes and method used
         to access the API
         """
+
         try:
             response_json = response.json(
-                object_hook=
-                lambda x: ResponseObject(x) if isinstance(x, dict) else x)
+                object_hook=lambda x: ResponseObject(x) if isinstance(x, dict) else x)
             if response_type:
                 r = response_type(self, response_json.__dict__)
                 response_json = r
@@ -116,7 +114,7 @@ class Client(object):
             if response_json and 'error' in response_json:
                 raise ValidationError(response_json.error)
             raise ValidationError(
-                'A parameter is missing or is invalid while accessing resource '
+                'A parameter is missing or is invalid while accessing resource'
                 'at: {url}'.format(url=response.url))
 
         if response.status_code == 401:
@@ -161,13 +159,14 @@ class Client(object):
 
     def create_request(self, method, path=None, data=None):
         path = path or []
-        req = requests.Request(
-            method, '/'.join([self.base_uri, self.session.auth[0]] + list(
-                [str(p) for p in path])) + '/', **({
-                    'params': data
-                } if method == 'GET' else {
-                    'json': data
-                }))
+        req = requests.Request(method,
+                               '/'.join([self.base_uri, self.session.auth[0]] +
+                                        list([str(p) for p in path])) + '/',
+                               **({
+                                   'params': data
+                               } if method == 'GET' else {
+                                   'json': data
+                               }))
         return self.session.prepare_request(req)
 
     def send_request(self, request, **kwargs):

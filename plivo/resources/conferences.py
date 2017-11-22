@@ -53,9 +53,11 @@ class Conference(PlivoResource):
             self.conference_name, member_id)
 
     def member_speak(self, member_id, text, voice=None, language=None):
-        return self.client.conferences.member_speak(
-            self.conference_name, member_id, text, **to_param_dict(
-                self.member_speak, locals()))
+        return self.client.conferences.member_speak(self.conference_name,
+                                                    member_id, text,
+                                                    **to_param_dict(
+                                                        self.member_speak,
+                                                        locals()))
 
     def member_speak_stop(self, member_id):
         return self.client.conferences.member_speak_stop(
@@ -104,46 +106,55 @@ class Conferences(PlivoResourceInterface):
                      text,
                      voice=None,
                      language=None):
-        return self.client.request('POST', ('Conference', conference_name,
-                                            'Member', member_id, 'Speak'),
-                                   to_param_dict(self.member_speak, locals()))
+        return self.client.request(
+            'POST',
+            ('Conference', conference_name, 'Member', member_id, 'Speak'),
+            to_param_dict(self.member_speak, locals()))
 
     def member_play(self, conference_name, member_id, url):
-        return self.client.request('POST', ('Conference', conference_name,
-                                            'Member', member_id, 'Play'),
-                                   to_param_dict(self.member_play, locals()))
+        return self.client.request(
+            'POST',
+            ('Conference', conference_name, 'Member', member_id, 'Play'),
+            to_param_dict(self.member_play, locals()))
 
     def member_deaf(self, conference_name, member_id):
-        return self.client.request('POST', ('Conference', conference_name,
-                                            'Member', member_id, 'Deaf'))
+        return self.client.request(
+            'POST',
+            ('Conference', conference_name, 'Member', member_id, 'Deaf'))
 
     def member_mute(self, conference_name, member_id):
-        return self.client.request('POST', ('Conference', conference_name,
-                                            'Member', member_id, 'Mute'))
+        return self.client.request(
+            'POST',
+            ('Conference', conference_name, 'Member', member_id, 'Mute'))
 
     def member_speak_stop(self, conference_name, member_id):
-        return self.client.request('DELETE', ('Conference', conference_name,
-                                              'Member', member_id, 'Speak'))
+        return self.client.request(
+            'DELETE',
+            ('Conference', conference_name, 'Member', member_id, 'Speak'))
 
     def member_play_stop(self, conference_name, member_id):
-        return self.client.request('DELETE', ('Conference', conference_name,
-                                              'Member', member_id, 'Play'))
+        return self.client.request(
+            'DELETE',
+            ('Conference', conference_name, 'Member', member_id, 'Play'))
 
     def member_deaf_stop(self, conference_name, member_id):
-        return self.client.request('DELETE', ('Conference', conference_name,
-                                              'Member', member_id, 'Deaf'))
+        return self.client.request(
+            'DELETE',
+            ('Conference', conference_name, 'Member', member_id, 'Deaf'))
 
     def member_mute_stop(self, conference_name, member_id):
-        return self.client.request('DELETE', ('Conference', conference_name,
-                                              'Member', member_id, 'Mute'))
+        return self.client.request(
+            'DELETE',
+            ('Conference', conference_name, 'Member', member_id, 'Mute'))
 
     def member_kick(self, conference_name, member_id):
-        return self.client.request('POST', ('Conference', conference_name,
-                                            'Member', member_id, 'Kick'))
+        return self.client.request(
+            'POST',
+            ('Conference', conference_name, 'Member', member_id, 'Kick'))
 
     def member_hangup(self, conference_name, member_id):
-        return self.client.request('DELETE', ('Conference', conference_name,
-                                              'Member', member_id))
+        return self.client.request(
+            'DELETE', ('Conference', conference_name, 'Member', member_id))
 
     def record(self,
                conference_name,
@@ -153,9 +164,9 @@ class Conferences(PlivoResourceInterface):
                transcription_method=None,
                callback_url=None,
                callback_method=None):
-        return self.client.request('POST', ('Conference', conference_name,
-                                            'Record'))
+        return self.client.request('POST',
+                                   ('Conference', conference_name, 'Record'))
 
     def record_stop(self, conference_name):
-        return self.client.request('DELETE', ('Conference', conference_name,
-                                              'Record'))
+        return self.client.request('DELETE',
+                                   ('Conference', conference_name, 'Record'))
