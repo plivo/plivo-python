@@ -50,7 +50,11 @@ def fetch_credentials(auth_id, auth_token):
 
 
 class Client(object):
-    def __init__(self, auth_id=None, auth_token=None, proxies=None, timeout=None):
+    def __init__(self,
+                 auth_id=None,
+                 auth_token=None,
+                 proxies=None,
+                 timeout=None):
         """
         The Plivo API client.
 
@@ -99,7 +103,8 @@ class Client(object):
 
         try:
             response_json = response.json(
-                object_hook=lambda x: ResponseObject(x) if isinstance(x, dict) else x)
+                object_hook=
+                lambda x: ResponseObject(x) if isinstance(x, dict) else x)
             if response_type:
                 r = response_type(self, response_json.__dict__)
                 response_json = r
@@ -172,7 +177,8 @@ class Client(object):
         return self.session.prepare_request(req)
 
     def send_request(self, request, **kwargs):
-        return self.session.send(request, proxies=self.proxies, timeout=self.timeout, **kwargs)
+        return self.session.send(
+            request, proxies=self.proxies, timeout=self.timeout, **kwargs)
 
     def request(self,
                 method,
