@@ -11,8 +11,8 @@ def plivo_mock(url, request):
 
 
 class PlivoTestClient(RestClient):
-    def __init__(self, auth_id=None, auth_token=None):
-        super(PlivoTestClient, self).__init__(auth_id, auth_token)
+    def __init__(self, auth_id=None, auth_token=None, proxies=None, timeout=None):
+        super(PlivoTestClient, self).__init__(auth_id, auth_token, proxies, timeout)
         self.set_expected_response(500, {})
 
     def set_expected_response(self, status_code, data_to_return):
@@ -28,7 +28,6 @@ class PlivoTestClient(RestClient):
     def send_request(self, req, **kwargs):
         with HTTMock(self.mock_request):
             return super(PlivoTestClient, self).send_request(req, **kwargs)
-
 
 try:
     import urlparse
@@ -67,3 +66,26 @@ class PlivoResourceTestCase(TestCase):
                self.client.session.auth[0] + \
                '/' + '/'.join([quote_plus(arg)
                                for arg in args]) + '/?' + urlencode(kwargs)
+
+
+
+class PlivoRequestTest(TestCase):
+    def setUp(self):
+        self.timeout = 1
+        self.proxies = {
+          'http': 'http://0.0.0.0:8888',
+          'https': 'http://0.0.0.0:8080',
+        }
+        self.client = PlivoTestClient(
+            auth_id='MA' + 'X' * 18,
+            auth_token='AbcdEfghIjklMnop1234',
+            proxies= self.proxies,
+            timeout= self.timeout
+        )
+
+    def test_timeout_value(self):
+        self.assertEqual(self.client.timeout,self.timeout,'Timeout is not set properly')
+
+    def test_proxy_value(self):
+        self.assertEqual(self.client.proxies,self.proxies,'Proxy is not set properly')
+
