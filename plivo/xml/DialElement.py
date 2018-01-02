@@ -251,7 +251,7 @@ class DialElement(PlivoXMLElement):
             'hangupOnStar': self.hangup_on_star,
             'timeLimit': self.time_limit,
             'timeout': self.timeout,
-            'callerID': self.caller_id,
+            'callerId': self.caller_id,
             'callerName': self.caller_name,
             'confirmSound': self.confirm_sound,
             'confirmKey': self.confirm_key,
