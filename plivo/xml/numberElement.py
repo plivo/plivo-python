@@ -1,5 +1,4 @@
 import six
-
 from plivo.xml import PlivoXMLElement, map_type
 
 
@@ -36,11 +35,10 @@ class NumberElement(PlivoXMLElement):
             self,
             content,
             send_digits=None,
-            send_on_preanswer=None,
-    ):
+            send_on_preanswer=None, ):
         super(NumberElement, self).__init__()
 
-        self.content = content
+        self.content = str(content)
         self.send_digits = send_digits
         self.send_on_preanswer = send_on_preanswer
 
