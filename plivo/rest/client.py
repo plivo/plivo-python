@@ -8,7 +8,6 @@ import platform
 from collections import namedtuple
 
 import requests
-
 from plivo.base import ResponseObject
 from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
@@ -50,18 +49,11 @@ def fetch_credentials(auth_id, auth_token):
 
 
 class Client(object):
-    def __init__(self,
-                 auth_id=None,
-                 auth_token=None,
-                 proxies=None,
-                 timeout=None):
+    def __init__(self, auth_id=None, auth_token=None, proxies=None, timeout=5):
         """
         The Plivo API client.
 
-        Deals with all the API requests to be made. To configure a proxy,
-        set it on the Requests session. To configure a timeout, you can mount a
-        custom transport adapter (see
-        https://github.com/requests/requests/issues/2011#issuecomment-64440818)
+        Deals with all the API requests to be made.
         """
 
         self.base_uri = PLIVO_API_BASE_URI
@@ -166,14 +158,13 @@ class Client(object):
 
     def create_request(self, method, path=None, data=None):
         path = path or []
-        req = requests.Request(method,
-                               '/'.join([self.base_uri, self.session.auth[0]] +
-                                        list([str(p) for p in path])) + '/',
-                               **({
-                                   'params': data
-                               } if method == 'GET' else {
-                                   'json': data
-                               }))
+        req = requests.Request(
+            method, '/'.join([self.base_uri, self.session.auth[0]] + list(
+                [str(p) for p in path])) + '/', **({
+                    'params': data
+                } if method == 'GET' else {
+                    'json': data
+                }))
         return self.session.prepare_request(req)
 
     def send_request(self, request, **kwargs):

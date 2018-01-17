@@ -52,8 +52,8 @@ class PlivoResourceTestCase(TestCase):
         expected_url, actual_url = (urlparse.urlparse(x)._asdict()
                                     for x in (expected, actual))
         expected_qs, actual_qs = map(
-            lambda x: sorted(urlparse.parse_qsl(x['query'])),
-            (expected_url, actual_url))
+            lambda x: sorted(urlparse.parse_qsl(x['query'])), (expected_url,
+                                                               actual_url))
         expected_url['query'], actual_url['query'] = '', ''
         expected_url['path'], actual_url['path'] = map(
             unquote_plus, [expected_url['path'], actual_url['path']])
@@ -88,9 +88,7 @@ class PlivoRequestTest(TestCase):
             timeout=self.timeout)
 
     def test_timeout_value(self):
-        self.assertEqual(self.client.timeout, self.timeout,
-                         'Timeout is not set properly')
+        self.assertEqual(self.client.timeout, self.timeout)
 
     def test_proxy_value(self):
-        self.assertEqual(self.client.proxies, self.proxies,
-                         'Proxy is not set properly')
+        self.assertEqual(self.client.proxies, self.proxies)
