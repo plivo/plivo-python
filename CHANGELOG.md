@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.0.0](https://github.com/plivo/plivo-python/tree/v4.0.0) (2018-01-17)
+- Supports specifying timeouts and proxies while client initialization
+- A few bug fixes (#35, #36, #39 & #40)
+
 ## [4.0.0b1](https://github.com/plivo/plivo-python/tree/v4.0-beta1) (2017-10-23)
 - The new SDK works with both Python 2 & 3
 - JSON serialization and deserialization is now handled by the SDK

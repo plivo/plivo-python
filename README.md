@@ -11,9 +11,9 @@ The Plivo Python SDK makes it simpler to integrate communications into your Pyth
 ## Installation
 Install the SDK using [pip](http://www.pip-installer.org/en/latest/)
 
-    pip install --pre plivo
+    pip install plivo
 
-If you have the `0.11.3` version (a.k.a legacy) already installed, you will have to first uninstall it before installing the new version. `pip install --upgrade --pre plivo` might not work depending on your system status.
+If you have the `0.11.3` version (a.k.a legacy) already installed, you will have to first uninstall it before installing the new version. `pip install --upgrade plivo` might not work depending on your system status.
 
 Alternatively, you can download the source code from this repo and run
 
