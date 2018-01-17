@@ -10,7 +10,7 @@ See https://github.com/plivo/plivo-python for more information.
 
 setup(
     name='plivo',
-    version='4.0-beta1',
+    version='4.0.0',
     description=
     'A Python SDK to make voice calls & send SMS using Plivo and to generate Plivo XML',
     long_description=long_description,
@@ -19,7 +19,7 @@ setup(
     author_email='sdks@plivo.com',
     license='MIT',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Intended Audience :: Telecommunications Industry',
         'License :: OSI Approved :: MIT License',
@@ -44,5 +44,4 @@ setup(
     ],
     keywords=['plivo', 'plivo xml', 'voice calls', 'sms'],
     include_package_data=True,
-    packages=find_packages(exclude=['tests', 'tests.*']),
-)
+    packages=find_packages(exclude=['tests', 'tests.*']), )
