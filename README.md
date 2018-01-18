@@ -1,6 +1,6 @@
 # plivo-python
 
-[![Build Status](https://travis-ci.org/plivo/plivo-python.svg?branch=4.0)](https://travis-ci.org/plivo/plivo-python)
+[![Build Status](https://travis-ci.org/plivo/plivo-python.svg?branch=master)](https://travis-ci.org/plivo/plivo-python)
 [![PyPI](https://img.shields.io/pypi/v/plivo.svg)](https://pypi.python.org/pypi/plivo)
 [![PyPI](https://img.shields.io/pypi/pyversions/plivo.svg)](https://pypi.python.org/pypi/plivo)
 [![PyPI](https://img.shields.io/pypi/l/plivo.svg)](https://pypi.python.org/pypi/plivo)
@@ -24,7 +24,7 @@ We recommend that you use [virtualenv](https://virtualenv.pypa.io/en/stable/) to
 ## Getting started
 
 ### Authentication
-To make the API requests, you need create a `RestClient` and provide it with authentication credentials (which can be found at [https://manage.plivo.com/dashboard/](https://manage.plivo.com/dashboard/)).
+To make the API requests, you need to create a `RestClient` and provide it with authentication credentials (which can be found at [https://manage.plivo.com/dashboard/](https://manage.plivo.com/dashboard/)).
 
 We recommend that you store your credentials in the `PLIVO_AUTH_ID` and the `PLIVO_AUTH_TOKEN` environment variables, so as to avoid the possibility of accidentally committing them to source control. If you do this, you can initialise the client with no arguments and it will automatically fetch them from the environment variables:
 
@@ -131,4 +131,4 @@ This generates the following XML:
 Refer to the [Plivo API Reference](https://api-reference.plivo.com/latest/python/introduction/overview) for more examples. Also refer to the [guide to setting up dev environment](https://developers.plivo.com/getting-started/setting-up-dev-environment/) on [Plivo Developers Portal](https://developers.plivo.com) to setup a Flask server & use it to test out your integration in under 5 minutes. to get started with Plivo.
 
 ## Reporting issues
-Report any feedback or problems with this beta version by [opening an issue on Github](https://github.com/plivo/plivo-python/issues).
+Report any feedback or problems with this version by [opening an issue on Github](https://github.com/plivo/plivo-python/issues).

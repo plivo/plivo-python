@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.0.0](https://github.com/plivo/plivo-python/tree/v4.0.0) (2018-01-17)
+## [4.0.0](https://github.com/plivo/plivo-python/tree/v4.0.0) (2018-01-18)
 - Supports specifying timeouts and proxies while client initialization
 - A few bug fixes (#35, #36, #39 & #40)
 
