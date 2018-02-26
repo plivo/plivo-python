@@ -16,8 +16,13 @@ class Number(PlivoResource):
     def delete(self):
         return self.client.numbers.delete(self.id)
 
-    def update(self, app_id=None, subaccount=None, alias=None):
-        return self.client.numbers.update(self.id, app_id, subaccount, alias)
+    def update(self,
+               app_id=None,
+               subaccount=None,
+               alias=None,
+               verification_info=None):
+        return self.client.numbers.update(self.id, app_id, subaccount, alias,
+                                          verification_info)
 
 
 class Numbers(PlivoResourceInterface):
@@ -26,8 +31,10 @@ class Numbers(PlivoResourceInterface):
         super(Numbers, self).__init__(client)
 
     @validate_args(
-        number=[is_phonenumber()], app_id=[optional(of_type(six.text_type))])
-    def buy(self, number, app_id=None):
+        number=[is_phonenumber()],
+        app_id=[optional(of_type(six.text_type))],
+        verification_info=[optional(of_type_exact(dict))])
+    def buy(self, number, app_id=None, verification_info=None):
         return self.client.request('POST', ('PhoneNumber', number),
                                    to_param_dict(self.buy, locals()))
 
@@ -40,7 +47,8 @@ class Numbers(PlivoResourceInterface):
                lata=None,
                rate_center=None,
                limit=None,
-               offset=None):
+               offset=None,
+               eligible=None):
         return self.client.request('GET', ('PhoneNumber', ),
                                    to_param_dict(self.search, locals()))
 
@@ -76,8 +84,7 @@ class Numbers(PlivoResourceInterface):
             ('Number', ),
             to_param_dict(self.list, locals()),
             objects_type=Number,
-            response_type=ListResponseObject,
-        )
+            response_type=ListResponseObject, )
 
     @validate_args(number=[is_phonenumber()])
     def get(self, number):
@@ -105,7 +112,12 @@ class Numbers(PlivoResourceInterface):
         return self.client.request('POST', ('Number', ),
                                    to_param_dict(self.create, locals()))
 
-    def update(self, number, app_id=None, subaccount=None, alias=None):
+    def update(self,
+               number,
+               app_id=None,
+               subaccount=None,
+               alias=None,
+               verification_info=None):
         return self.client.request('POST', ('Number', number),
                                    to_param_dict(self.update, locals()))
 

@@ -24,7 +24,11 @@
       "sms_enabled": true,
       "sms_rate": "0.00800",
       "voice_enabled": true,
-      "voice_rate": "0.00500"
+      "voice_rate": "0.00500",
+      "prerequisites": [{"proof_required": true,
+        "proof_type": [ "Any" ],
+        "scope": "country",
+        "type": "address"}]
     },
     {
       "country": "UNITED STATES",

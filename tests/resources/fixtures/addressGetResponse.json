@@ -1,0 +1,29 @@
+{
+  "account": "MAXXXXXXXXXXXXXXXXXX",
+  "address_line1": "128",
+  "address_line2": "RUE DU COMMANDANT GUILBAUD",
+  "alias": "test_address",
+  "api_id": "08361d92-0b59-11e8-aa7e-02ad5072be3e",
+  "city": "PARIS",
+  "country_iso": "FR",
+  "document_details": {
+    "address_line1": "128",
+    "address_line2": "RUE DU COMMANDANT GUILBAUD",
+    "city": "PARIS",
+    "first_name": "Bruce",
+    "last_name": "Wayne",
+    "postal_code": "75016",
+    "region": "PARIS",
+    "salutation": "Mr"
+  },
+  "first_name": "Bruce",
+  "id": "20220771838737",
+  "last_name": "Wayne",
+  "postal_code": "75016",
+  "region": "PARIS",
+  "salutation": "Mr",
+  "subaccount": null,
+  "url": "https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Verification/Address/20220771838737/",
+  "validation_status": "accepted",
+  "verification_status": "pending"
+}
