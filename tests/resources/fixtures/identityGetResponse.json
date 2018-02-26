@@ -1,0 +1,25 @@
+{
+  "account": "MAXXXXXXXXXXXXXXXXXX",
+  "alias": null,
+  "api_id": "6e951a10-0b5a-11e8-a416-06f8d2f9b24c",
+  "country_iso": "FR",
+  "document_details": {
+    "first_name": "Bruce",
+    "id_number": "33522",
+    "id_type": "passport",
+    "last_name": "Wayne",
+    "nationality": "FR",
+    "salutation": "Mr"
+  },
+  "first_name": "Bruce",
+  "id": "24856289978366",
+  "id_number": "33522",
+  "id_type": "passport",
+  "last_name": "Wayne",
+  "nationality": "FR",
+  "salutation": "Mr",
+  "subaccount": null,
+  "url": "https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Verification/Identity/24856289978366/",
+  "validation_status": "pending",
+  "verification_status": "pending"
+}
