@@ -43,7 +43,8 @@ class ApplicationTest(PlivoResourceTestCase):
             'name':
             'Chewbacca',
             'resource_uri':
-            '/v1/Account/MANWVLYTK4ZWU1YTY4ZT/Subaccount/SAMTVIYJDIYWYYMZHLYZ/'
+            '/v1/Account/MANWVLYTK4ZWU1YTY4ZT/Subaccount/SAMTVIYJDIYWYYMZHLYZ/',
+            'log_incoming_message': 'false'
         }
 
         self.client.set_expected_response(
