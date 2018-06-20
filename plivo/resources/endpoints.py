@@ -29,7 +29,7 @@ class Endpoints(PlivoResourceInterface):
         username=[of_type(six.text_type)],
         password=[of_type(six.text_type)],
         alias=[of_type(six.text_type)],
-        app_id=[optional(of_type(six.text_type))])
+        app_id=[optional(of_type(six.text_type))],
         limit=[
             optional(
                 all_of(
