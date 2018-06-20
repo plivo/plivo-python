@@ -19,7 +19,7 @@ class EndpointTest(PlivoResourceTestCase):
         self.assertEqual(len(list(endpoints)), 2)
         self.assertEqual(self.client.current_request.method, 'GET')
         self.assertUrlEqual(
-            self.get_url('Endpoint'), self.client.current_request.url)
+            self.get_url('Endpoint', limit=20, offset=0), self.client.current_request.url)
 
     @with_response(200)
     def test_get(self):

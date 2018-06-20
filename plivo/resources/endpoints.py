@@ -51,7 +51,7 @@ class Endpoints(PlivoResourceInterface):
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
         ])
-    def list(self,limit=20, offset=0):
+    def list(self, limit=20, offset=0):
         return self.client.request(
             'GET',
             ('Endpoint', ),
