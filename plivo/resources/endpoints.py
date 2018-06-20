@@ -29,7 +29,16 @@ class Endpoints(PlivoResourceInterface):
         username=[of_type(six.text_type)],
         password=[of_type(six.text_type)],
         alias=[of_type(six.text_type)],
-        app_id=[optional(of_type(six.text_type))],
+        app_id=[optional(of_type(six.text_type))])
+    def create(self, username, password, alias, app_id=None):
+        return self.client.request('POST', ('Endpoint', ),
+                                   to_param_dict(self.create, locals()))
+
+    @validate_args(endpoint_id=[of_type(six.text_type)])
+    def get(self, endpoint_id):
+        return self.client.request('GET', ('Endpoint', endpoint_id))
+
+    @validate_args(
         limit=[
             optional(
                 all_of(
@@ -42,14 +51,6 @@ class Endpoints(PlivoResourceInterface):
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
         ])
-    def create(self, username, password, alias, app_id=None):
-        return self.client.request('POST', ('Endpoint', ),
-                                   to_param_dict(self.create, locals()))
-
-    @validate_args(endpoint_id=[of_type(six.text_type)])
-    def get(self, endpoint_id):
-        return self.client.request('GET', ('Endpoint', endpoint_id))
-
     def list(self,limit=20, offset=0):
         return self.client.request(
             'GET',
