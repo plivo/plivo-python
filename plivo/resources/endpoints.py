@@ -38,13 +38,26 @@ class Endpoints(PlivoResourceInterface):
     def get(self, endpoint_id):
         return self.client.request('GET', ('Endpoint', endpoint_id))
 
-    def list(self):
+    @validate_args(
+        limit=[
+            optional(
+                all_of(
+                    of_type(*six.integer_types),
+                    check(lambda limit: 0 < limit <= 20, '0 < limit <= 20')))
+                ],
+        offset=[
+            optional(
+                all_of(
+                    of_type(*six.integer_types),
+                    check(lambda offset: 0 <= offset, '0 <= offset')))
+        ])
+    def list(self, limit=20, offset=0):
         return self.client.request(
             'GET',
             ('Endpoint', ),
+            to_param_dict(self.list, locals()),
             objects_type=Endpoint,
-            response_type=ListResponseObject,
-        )
+            response_type=ListResponseObject)
 
     @validate_args(
         endpoint_id=[of_type(six.text_type)],
