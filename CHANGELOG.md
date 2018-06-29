@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.1.1](https://github.com/plivo/plivo-python/tree/v4.1.1) (2018-06-29)
+- Added limit & offset parameters to endpoint list api
+
 ## [4.1.0](https://github.com/plivo/plivo-python/tree/v4.1.0) (2018-02-26)
 - Add Address and Identity resources
 - Change a few functions in numbers.py to support the verification flows
