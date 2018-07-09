@@ -24,7 +24,7 @@ class Messages(PlivoResourceInterface):
     _resource_type = Message
 
     @validate_args(
-        src=[is_phonenumber()],
+        src=[optional(is_phonenumber())],
         dst=[is_iterable(of_type(six.text_type), '<')],
         text=[of_type(six.text_type)],
         type_=[optional(all_of(of_type(six.text_type), is_in(('sms', ))))],
@@ -32,16 +32,25 @@ class Messages(PlivoResourceInterface):
         method=[optional(of_type(six.text_type))],
         log=[optional(of_type_exact(bool))])
     def create(self,
-               src,
                dst,
                text,
+               src=None,
                type_='sms',
                url=None,
                method='POST',
-               log=True):
+               log=True,
+               powerpack_uuid=None):
         if src in dst.split('<'):
             raise ValidationError(
                 'destination number cannot be same as source number')
+        elif (src is None) and (powerpack_uuid is None):
+            raise ValidationError(
+                'Either one of powerpack uuid or source number is required to send message'
+            )
+        elif (src is not None) and (powerpack_uuid is not None):
+            raise ValidationError(
+                'Either one of powerpack uuid or source number should be specified to send message, both present'
+            )
         return self.client.request('POST', ('Message', ),
                                    to_param_dict(self.create, locals()))
 
