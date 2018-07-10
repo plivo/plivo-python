@@ -24,6 +24,8 @@ PLIVO_VERSION = "v1"
 class PlivoError(Exception):
     pass
 
+class ValidationError(Exception):
+    pass
 
 def validate_signature(uri, post_params, signature, auth_token):
     """
@@ -542,6 +544,12 @@ class RestAPI(object):
     ## Message ##
     def send_message(self, params=None):
         if not params: params = {}
+        src = params.get('src', None)
+        powerpack_uuid = params.get('powerpack_uuid', None)
+        if (src is None) and (powerpack_uuid is None):
+            raise ValidationError('Either one of source number or powerpack uuid is required, none given')
+        elif (src is not None) and (powerpack_uuid is not None):
+            raise ValidationError('Either source number or powerpack uuid is required, both given') 
         return self._request('POST', '/Message/', data=params)
 
     def get_messages(self, params=None):
