@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.2.0a2](https://github.com/plivo/plivo-python/tree/v4.2-alpha2) (2018-08-03)
+- Fix PHLO Url and component name
+
 ## [4.2.0a1](https://github.com/plivo/plivo-python/tree/v4.2-alpha1) (2018-08-03)
 - Add PHLO support in alpha release
 
