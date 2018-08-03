@@ -22,7 +22,7 @@ class Node(PlivoResource):
 
 
 class MultiPartyCall(Node):
-    _name = 'MultiPartyCallComponent'
+    _name = 'MultiPartyCall'
     _identifier_string = 'node_id'
 
     def call(self,
