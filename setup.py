@@ -40,7 +40,7 @@ setup(
         'requests >= 2, < 3',
         'six >= 1, < 2',
         'decorator >= 4, < 5',
-        'lxml >= 3, < 4',
+        'lxml >= 3, < 5',
     ],
     keywords=['plivo', 'plivo xml', 'voice calls', 'sms'],
     include_package_data=True,
