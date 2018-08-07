@@ -2,6 +2,8 @@
 """
 Phlo class
 """
+from plivo.utils import to_param_dict
+
 from plivo.resources.nodes import Node, MultiPartyCall, Member
 from plivo.base import PlivoResource, PlivoResourceInterface
 from plivo.utils.validators import *
@@ -18,8 +20,14 @@ class Phlo(PlivoResource):
 
     def multi_party_call(self, node_id):
         self.node_id = node_id
+        self.node_type = 'multi_party_call'
         return self.client.request(
-            'GET', ('phlo', self.phlo_id, 'multi_party_call', node_id), response_type=MultiPartyCall)
+            'GET', ('phlo', self.phlo_id, self.node_type, node_id), response_type=MultiPartyCall)
+
+    def run(self, **kwargs):
+        return self.client.request('POST', ('account', self.client.session.auth[0], 'phlo', self.phlo_id),
+                                   to_param_dict(self.run, locals()))
+
 
 class Phlos(PlivoResourceInterface):
     _resource_type = Phlo
