@@ -358,3 +358,9 @@ class Calls(PlivoResourceInterface):
 
     def live_call_get(self, _id):
         return self.client.live_calls.get(_id)
+
+    def queued_call_list_ids(self, limit=None, offset=None):
+        return self.client.queued_calls.list_ids(limit, offset)
+
+    def queued_call_get(self, _id):
+        return self.client.queued_calls.get(_id)
