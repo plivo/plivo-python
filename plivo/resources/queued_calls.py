@@ -3,13 +3,13 @@ from plivo.base import PlivoResource, PlivoResourceInterface
 from ..utils.validators import *
 
 
-class QueuedCalls(PlivoResource):
-    _name = 'LiveCall'
+class QueuedCall(PlivoResource):
+    _name = 'QueuedCall'
     _identifier_string = 'call_uuid'
 
 
-class LiveCalls(PlivoResourceInterface):
-    _resource_type = QueuedCalls
+class QueuedCalls(PlivoResourceInterface):
+    _resource_type = QueuedCall
     _iterable = False
 
     @validate_args(
