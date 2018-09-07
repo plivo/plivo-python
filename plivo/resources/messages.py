@@ -29,6 +29,7 @@ class Messages(PlivoResourceInterface):
         text=[of_type(six.text_type)],
         type_=[optional(all_of(of_type(six.text_type), is_in(('sms', ))))],
         url=[optional(is_url())],
+        trackable=[optional(of_type_exact(bool))],
         method=[optional(of_type(six.text_type))],
         log=[optional(of_type_exact(bool))])
     def create(self,
@@ -38,6 +39,7 @@ class Messages(PlivoResourceInterface):
                type_='sms',
                url=None,
                method='POST',
+               trackable=False,
                log=True):
         if src in dst.split('<'):
             raise ValidationError(
