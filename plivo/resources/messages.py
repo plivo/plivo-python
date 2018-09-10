@@ -39,17 +39,18 @@ class Messages(PlivoResourceInterface):
                url=None,
                method='POST',
                log=True,
+               trackable=False,
                powerpack_uuid=None):
         if src in dst.split('<'):
             raise ValidationError(
                 'destination number cannot be same as source number')
         elif (src is None) and (powerpack_uuid is None):
             raise ValidationError(
-                'Either one of powerpack uuid or source number is required to send message'
+                'Specify either powerpack_uuid or src in request params to send a message'
             )
         elif (src is not None) and (powerpack_uuid is not None):
             raise ValidationError(
-                'Either one of powerpack uuid or source number should be specified to send message, both present'
+                'Both powerpack_uuid and src cannot be specified. Specify either powerpack_uuid or src in request params to send a message.'
             )
         return self.client.request('POST', ('Message', ),
                                    to_param_dict(self.create, locals()))
