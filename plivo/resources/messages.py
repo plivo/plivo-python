@@ -30,7 +30,9 @@ class Messages(PlivoResourceInterface):
         type_=[optional(all_of(of_type(six.text_type), is_in(('sms', ))))],
         url=[optional(is_url())],
         method=[optional(of_type(six.text_type))],
-        log=[optional(of_type_exact(bool))])
+        log=[optional(of_type_exact(bool))],
+        trackable=[optional(of_type_exact(bool))],
+        powerpack_uuid=[optional(of_type(six.text_type))])
     def create(self,
                dst,
                text,
