@@ -10,7 +10,7 @@ from plivo.rest.base_client import BaseClient
 
 
 class Client(BaseClient):
-    def __init__(self, auth_id=None, auth_token=None, proxies=None, timeout=10):
+    def __init__(self, auth_id=None, auth_token=None, proxies=None, timeout=5):
         """
         The Plivo API client.
 
