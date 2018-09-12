@@ -49,7 +49,7 @@ def fetch_credentials(auth_id, auth_token):
 
 
 class Client(object):
-    def __init__(self, auth_id=None, auth_token=None, proxies=None, timeout=20):
+    def __init__(self, auth_id=None, auth_token=None, proxies=None, timeout=10):
         """
         The Plivo API client.
 
