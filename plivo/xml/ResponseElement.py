@@ -135,11 +135,11 @@ class ResponseElement(PlivoXMLElement):
     def add_dtmf(
             self,
             content,
-            async=None,
+            async_=None,
     ):
         self.add(DTMFElement(
             content=content,
-            async=async,
+            async_=async_,
         ))
         return self
 
