@@ -24,24 +24,36 @@ class Messages(PlivoResourceInterface):
     _resource_type = Message
 
     @validate_args(
-        src=[is_phonenumber()],
+        src=[optional(is_phonenumber())],
         dst=[is_iterable(of_type(six.text_type), '<')],
         text=[of_type(six.text_type)],
         type_=[optional(all_of(of_type(six.text_type), is_in(('sms', ))))],
         url=[optional(is_url())],
         method=[optional(of_type(six.text_type))],
-        log=[optional(of_type_exact(bool))])
+        log=[optional(of_type_exact(bool))],
+        trackable=[optional(of_type_exact(bool))],
+        powerpack_uuid=[optional(of_type(six.text_type))])
     def create(self,
-               src,
                dst,
                text,
+               src=None,
                type_='sms',
                url=None,
                method='POST',
-               log=True):
+               log=True,
+               trackable=False,
+               powerpack_uuid=None):
         if src in dst.split('<'):
             raise ValidationError(
                 'destination number cannot be same as source number')
+        elif (src is None) and (powerpack_uuid is None):
+            raise ValidationError(
+                'Specify either powerpack_uuid or src in request params to send a message'
+            )
+        elif (src is not None) and (powerpack_uuid is not None):
+            raise ValidationError(
+                'Both powerpack_uuid and src cannot be specified. Specify either powerpack_uuid or src in request params to send a message.'
+            )
         return self.client.request('POST', ('Message', ),
                                    to_param_dict(self.create, locals()))
 
