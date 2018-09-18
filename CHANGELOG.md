@@ -1,5 +1,12 @@
 # Change Log
 
+## [4.1.3](https://github.com/plivo/plivo-python/tree/v4.1.3) (2018-09-18)
+- Add python3.7 support
+- Add support to get queued calls
+- Add powerpack support
+- Add support for filter of parent call UUID
+- Add log_incoming_messages support
+
 ## [4.1.1](https://github.com/plivo/plivo-python/tree/v4.1.1) (2018-06-29)
 - Added limit & offset parameters to endpoint list api
 
