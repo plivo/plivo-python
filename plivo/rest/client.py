@@ -15,6 +15,7 @@ from plivo.resources import (Accounts, Addresses, Applications, Calls,
                              Conferences, Endpoints, Identities, Messages,
                              Numbers, Pricings, Recordings, Subaccounts)
 from plivo.resources.live_calls import LiveCalls
+from plivo.resources.queued_calls import QueuedCalls
 from plivo.utils import is_valid_mainaccount, is_valid_subaccount
 from plivo.version import __version__
 from requests import Request, Session
@@ -77,6 +78,7 @@ class Client(object):
         self.applications = Applications(self)
         self.calls = Calls(self)
         self.live_calls = LiveCalls(self)
+        self.queued_calls = QueuedCalls(self)
         self.conferences = Conferences(self)
         self.endpoints = Endpoints(self)
         self.messages = Messages(self)
