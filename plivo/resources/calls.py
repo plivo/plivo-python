@@ -364,4 +364,3 @@ class Calls(PlivoResourceInterface):
 
     def queued_call_get(self, _id):
         return self.client.queued_calls.get(_id)
-    
