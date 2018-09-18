@@ -28,38 +28,6 @@ class MessageTest(PlivoResourceTestCase):
             dst='1234',
             text='Abcd')
 
-    def test_send_message_with_powerpack(self):
-        expected_response = {'message_uuid': 'adsdafkjadshf123123'}
-        self.client.set_expected_response(
-            status_code=202, data_to_return=expected_response)
-
-        test_message = self.client.messages.create(
-            powerpack_uuid='1234', dst='12345', text='Abcd')
-
-        self.assertEqual(
-            self.client.current_request.url,
-            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Message/')
-        self.assertEqual(self.client.current_request.method, 'POST')
-        self.assertEqual(test_message.message_uuid,
-                         expected_response['message_uuid'])
-
-    def test_send_message_with_both_src_powerpack(self):
-        self.assertRaises(
-            exceptions.ValidationError,
-            self.client.messages.create,
-            powerpack_uuid='1234',
-            src='1234',
-            dst='1234',
-            text='Abcd')
-
-    def test_send_message_with_no_src_powerpack(self):
-        self.assertRaises(
-            exceptions.ValidationError,
-            self.client.messages.create,
-            dst='1234',
-            text='Abcd')
-
-
     @with_response(200)
     def test_get(self):
         message_uuid = 'message_uuid'

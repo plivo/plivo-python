@@ -3,4 +3,3 @@
 - [Aviral Dasgupta](http://www.aviraldg.com) ([@aviraldg](http://github.com/aviraldg))
 - [Abhishek](https://github.com/Abhishek-plivo)
 - [Dalibor Dukic](https://github.com/kicdu)
-- [Rajat Singh](https://github.com/revsi)
