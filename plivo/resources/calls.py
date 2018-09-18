@@ -167,7 +167,7 @@ class Calls(PlivoResourceInterface):
             optional(of_type(six.text_type), is_in(('inbound', 'outbound')))
         ],
         from_number=[optional(is_phonenumber())],
-        to_number=[optional(is_iterable(six.text_type, '<'))],
+        to_number=[optional(is_iterable(of_type(six.text_type), sep='<'))],
         limit=[
             optional(
                 all_of(
@@ -179,6 +179,9 @@ class Calls(PlivoResourceInterface):
                 all_of(
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
+        ],
+        parent_call_uuid=[
+            optional(of_type(six.text_type))
         ])
     def list(self,
              subaccount=None,
@@ -197,7 +200,8 @@ class Calls(PlivoResourceInterface):
              bill_duration=None,
              limit=20,
              offset=0,
-             status=None):
+             status=None,
+             parent_call_uuid=None):
         return self.client.request(
             'GET',
             ('Call', ),
@@ -358,3 +362,9 @@ class Calls(PlivoResourceInterface):
 
     def live_call_get(self, _id):
         return self.client.live_calls.get(_id)
+
+    def queued_call_list_ids(self, limit=None, offset=None):
+        return self.client.queued_calls.list_ids(limit, offset)
+
+    def queued_call_get(self, _id):
+        return self.client.queued_calls.get(_id)
