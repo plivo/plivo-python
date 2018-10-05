@@ -182,6 +182,14 @@ class Calls(PlivoResourceInterface):
         ],
         parent_call_uuid=[
             optional(of_type(six.text_type))
+        ],
+        hangup_cause_code=[
+            optional(
+                all_of(
+                    of_type(*six.integer_types)))
+        ],
+        hangup_source=[
+            optional(of_type(six.text_type))
         ])
     def list(self,
              subaccount=None,
@@ -201,7 +209,9 @@ class Calls(PlivoResourceInterface):
              limit=20,
              offset=0,
              status=None,
-             parent_call_uuid=None):
+             parent_call_uuid=None,
+             hangup_cause_code=None,
+             hangup_source=None):
         return self.client.request(
             'GET',
             ('Call', ),
