@@ -2,6 +2,7 @@
 from plivo.base import PlivoResource, PlivoResourceInterface
 
 from ..utils.validators import *
+from plivo.utils import to_param_dict
 
 
 class LiveCall(PlivoResource):
@@ -27,13 +28,23 @@ class LiveCalls(PlivoResourceInterface):
                 all_of(
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, message='0 <= offset')))
-        ])
-    def list_ids(self, limit=20, offset=0):
-        return self.client.request('GET', ('Call', ), {
-            'status': 'live',
-            'limit': limit,
-            'offset': offset,
-        })
+        ],
+        call_direction=[
+            optional(of_type(six.text_type), is_in(('inbound', 'outbound')))
+        ],
+        from_number=[optional(is_phonenumber())],
+        to_number=[optional(is_iterable(of_type(six.text_type), sep='<'))]
+    )
+    def list_ids(self,
+                 call_direction=None,
+                 from_number=None,
+                 to_number=None,
+                 limit=20,
+                 offset=0,
+                 ):
+        params = to_param_dict(self.list_ids, locals())
+        params.update({'status': 'live'})
+        return self.client.request('GET', ('Call',), params)
 
     @validate_args(_id=[of_type(six.text_type)])
     def get(self, _id):
