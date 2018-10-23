@@ -58,7 +58,7 @@ def is_valid_mainaccount(mainaccount):
     return False
 
 
-def to_param_dict(func, vals, exclude_none=True):
+def to_param_dict(func, vals, exclude_none=True, func_args_check=True):
     args, varargs, kwargs, _ = inspect.getargspec(func)
     arg_names = list(args)
     # The bit of regex magic below is for arguments that are keywords in
@@ -67,7 +67,7 @@ def to_param_dict(func, vals, exclude_none=True):
     pd = {
         re.sub(r'^(.*)_+$', r'\1', key): value
         for key, value in vals.items()
-        if key != 'self' and key in arg_names and (
+        if key != 'self' and (key in arg_names or func_args_check==False) and (
             value is not None or exclude_none is False)
     }
     return pd
