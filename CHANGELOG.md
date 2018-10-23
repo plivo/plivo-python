@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.2.0a4](https://github.com/plivo/plivo-python/tree/v4.2-alpha3) (2018-10-23)
+- Fix PHLO run params 
+
 ## [4.2.0a3](https://github.com/plivo/plivo-python/tree/v4.2-alpha3) (2018-08-08)
 - Support python3.7
 - Add PHLO run function

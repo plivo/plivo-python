@@ -26,7 +26,7 @@ class Phlo(PlivoResource):
 
     def run(self, **kwargs):
         return self.client.request('POST', ('account', self.client.session.auth[0], 'phlo', self.phlo_id),
-                                   to_param_dict(self.run, locals()))
+                                   to_param_dict(self.run, kwargs, func_args_check=False))
 
 
 class Phlos(PlivoResourceInterface):
