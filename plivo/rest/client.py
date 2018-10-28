@@ -172,9 +172,9 @@ class Client(object):
         req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
                                        list([str(p) for p in path])) + '/',
                       **({
-                          'params': data
-                      } if method == 'GET' else {
-                          'json': data
+                            'params': data
+                         } if method == 'GET' else {
+                            'json': data
                       }))
         return self.session.prepare_request(req)
 

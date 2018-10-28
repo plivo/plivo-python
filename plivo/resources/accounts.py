@@ -17,8 +17,8 @@ class Subaccount(PlivoResource):
     def update(self, name, enabled=False):
         return self.client.subaccounts.update(self.id, name, enabled)
 
-    def delete(self):
-        return self.client.subaccounts.delete(self.id)
+    def delete(self, cascade=None):
+        return self.client.subaccounts.delete(self.id, cascade)
 
 
 class Subaccounts(PlivoResourceInterface):
@@ -65,9 +65,14 @@ class Subaccounts(PlivoResourceInterface):
             response_type=ListResponseObject,
             objects_type=Subaccount)
 
-    @validate_args(auth_id=[is_subaccount_id()])
-    def delete(self, auth_id):
-        return self.client.request('DELETE', ('Subaccount', auth_id))
+    @validate_args(
+        auth_id=[is_subaccount_id()],
+        cascade=[
+            optional(of_type_exact(bool))
+        ])
+    def delete(self, auth_id, cascade=None):
+        return self.client.request('DELETE', ('Subaccount', auth_id),
+                                   to_param_dict(self.delete, locals()))
 
 
 class Account(PlivoResource):
