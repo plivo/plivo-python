@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.1.4](https://github.com/plivo/plivo-python/tree/v4.1.4) (2018-10-31)
+- Add live calls filtering by to, from numbers and call direction. 
+
 ## [4.1.3](https://github.com/plivo/plivo-python/tree/v4.1.3) (2018-09-18)
 - Add python3.7 support
 - Add support to get queued calls
