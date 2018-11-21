@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.1.5](https://github.com/plivo/plivo-python/tree/v4.1.5) (2018-10-21)
+## [4.1.5](https://github.com/plivo/plivo-python/tree/v4.1.5) (2018-11-21)
 - Add hangup party details to CDR. CDR filtering allowed by hangup_source and hangup_cause_code.
 - Add sub-account cascade delete support.
 
