@@ -2,9 +2,10 @@
 """
 Node class
 """
+from plivo.base import PlivoResource
 from plivo.utils import to_param_dict
-from plivo.base import PlivoResource, PlivoResourceInterface
 from plivo.utils.validators import *
+
 
 class Node(PlivoResource):
     _name = 'Node'
@@ -75,6 +76,12 @@ class Member(PlivoResource):
 
     def unhold(self):
         return self.update('unhold')
+
+    def mute(self):
+        return self.update('mute')
+
+    def unmute(self):
+        return self.update('unmute')
 
     def update(self,
                action):
