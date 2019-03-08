@@ -85,3 +85,44 @@ class Phlos(PlivoResourceInterface):
         }
         member = Member(self.client, data)
         return getattr(member, action)()
+
+    @validate_args(
+        phlo_id=[of_type(six.text_type)],
+        node_id=[of_type(six.text_type)],
+        action=[of_type(six.text_type)],
+        member_id=[optional(of_type(six.text_type))]
+    )
+    def multi_party_call(self, phlo_id, node_id, action,
+                        member_id=None, trigger_source=None,
+                        to=None, role=None):
+        data = {
+            'phlo_id': phlo_id,
+            'node_id': node_id,
+            'node_type': 'multi_party_call',
+        }
+
+        multi_party_call = MultiPartyCall(self.client, data)
+
+        if action == 'member':
+            if not member_id:
+                raise ValidationError(
+                    'member_id parameter is required'
+                )
+            return getattr(multi_party_call, action)(member_id)
+
+        if not trigger_source:
+            raise ValidationError(
+                'trigger_source parameter is required'
+            )
+
+        if not to:
+            raise ValidationError(
+                'to parameter is required'
+            )
+
+        if action == 'call' and not role:
+            raise ValidationError(
+                'role parameter is required'
+            )
+
+        return getattr(multi_party_call, action)(trigger_source, to, role)
