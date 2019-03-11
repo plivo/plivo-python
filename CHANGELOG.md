@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.2.0](https://github.com/plivo/plivo-python/tree/v4.2-0) (2018-03-11)
+- Add PHLO support
+- Add Multi-party call triggers
+
 ## [4.2.0b1](https://github.com/plivo/plivo-python/tree/v4.2-beta1) (2018-03-11)
 - Add PHLO support in Beta branch 
 
