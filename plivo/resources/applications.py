@@ -25,7 +25,8 @@ class Application(PlivoResource):
                message_method='POST',
                default_number_app=False,
                default_endpoint_app=False,
-               subaccount=None):
+               subaccount=None,
+               log_incoming_messages=True):
         params = to_param_dict(self.update, locals())
         self.__dict__.update(params)
         return self.client.applications.update(self.id, **params)
@@ -54,7 +55,8 @@ class Applications(PlivoResourceInterface):
         message_method=[optional(of_type(six.text_type))],
         default_number_app=[optional(of_type_exact(bool))],
         default_endpoint_app=[optional(of_type_exact(bool))],
-        subaccount=[optional(is_subaccount())])
+        subaccount=[optional(is_subaccount())],
+        log_incoming_messages = [optional(of_type_exact(bool))])
     def create(self,
                answer_url,
                app_name,
@@ -67,7 +69,8 @@ class Applications(PlivoResourceInterface):
                message_method='POST',
                default_number_app=False,
                default_endpoint_app=False,
-               subaccount=None):
+               subaccount=None,
+               log_incoming_messages=True):
 
         if subaccount:
             if isinstance(subaccount, Subaccount):
@@ -117,7 +120,8 @@ class Applications(PlivoResourceInterface):
         message_method=[optional(of_type(six.text_type))],
         default_number_app=[optional(of_type_exact(bool))],
         default_endpoint_app=[optional(of_type_exact(bool))],
-        subaccount=[optional(is_subaccount())])
+        subaccount=[optional(is_subaccount())],
+        log_incoming_messages=[optional(of_type_exact(bool))])
     def update(self,
                app_id,
                answer_url,
@@ -130,7 +134,8 @@ class Applications(PlivoResourceInterface):
                message_method='POST',
                default_number_app=False,
                default_endpoint_app=False,
-               subaccount=None):
+               subaccount=None,
+               log_incoming_messages=True):
         if subaccount:
             if isinstance(subaccount, Subaccount):
                 subaccount = subaccount.id

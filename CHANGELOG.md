@@ -20,6 +20,20 @@
 ## [4.2.0a1](https://github.com/plivo/plivo-python/tree/v4.2-alpha1) (2018-08-03)
 - Add PHLO support in alpha release
 
+## [4.1.5](https://github.com/plivo/plivo-python/tree/v4.1.5) (2018-11-21)
+- Add hangup party details to CDR. CDR filtering allowed by hangup_source and hangup_cause_code.
+- Add sub-account cascade delete support.
+
+## [4.1.4](https://github.com/plivo/plivo-python/tree/v4.1.4) (2018-10-31)
+- Add live calls filtering by to, from numbers and call direction. 
+
+## [4.1.3](https://github.com/plivo/plivo-python/tree/v4.1.3) (2018-09-18)
+- Add python3.7 support
+- Add support to get queued calls
+- Add powerpack support
+- Add support for filter of parent call UUID
+- Add log_incoming_messages support
+
 ## [4.1.1](https://github.com/plivo/plivo-python/tree/v4.1.1) (2018-06-29)
 - Added limit & offset parameters to endpoint list api
 

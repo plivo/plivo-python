@@ -6,7 +6,6 @@ from .conferences import Conferences
 from .endpoints import Endpoints
 from .messages import Messages
 from .numbers import Numbers
-from .phlos import Phlos
 from .pricings import Pricings
 from .recordings import Recordings
 from .addresses import Addresses
