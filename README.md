@@ -15,7 +15,15 @@ Install the SDK using [pip](http://www.pip-installer.org/en/latest/)
 
 If you have the `0.11.3` version (a.k.a legacy) already installed, you will have to first uninstall it before installing the new version. `pip install --upgrade plivo` might not work depending on your system status.
 
-Alternatively, you can download the source code from this repo and run
+Alternatively, you can download the source code from this repo(master branch) and run
+
+    python setup.py install
+
+For features in beta, use the beta branch:
+
+    pip install plivo==4.2.0b1
+    
+Alternatively, you can download the source code from this repo(beta branch) and run
 
     python setup.py install
 
@@ -125,6 +133,21 @@ This generates the following XML:
 <Response>
   <Speak>Hello, world!</Speak>
 </Response>
+```
+
+### Run a PHLO
+
+```python
+import plivo
+
+auth_id = 'Your AUTH ID'
+auth_token = 'Your AUTH Token'
+phlo_id = 'Your PHLO ID' # https://console.plivo.com/phlo/list/
+phlo_client = plivo.phlo.RestClient(auth_id=auth_id, auth_token=auth_token)
+phlo = phlo_client.phlo.get(phlo_id)
+response = phlo.run()
+print str(response)
+
 ```
 
 ### More examples
