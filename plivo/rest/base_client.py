@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Core client, used for all API requests.
+Base client, used for all API requests.
 """
 
 import os
@@ -11,11 +11,6 @@ from plivo.base import ResponseObject
 from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
                               ResourceNotFoundError, ValidationError)
-from plivo.resources import (Accounts, Addresses, Applications, Calls,
-                             Conferences, Endpoints, Identities, Messages,
-                             Numbers, Pricings, Recordings, Subaccounts)
-from plivo.resources.live_calls import LiveCalls
-from plivo.resources.queued_calls import QueuedCalls
 from plivo.utils import is_valid_mainaccount, is_valid_subaccount
 from plivo.version import __version__
 from requests import Request, Session
@@ -49,7 +44,7 @@ def fetch_credentials(auth_id, auth_token):
     return AuthenticationCredentials(auth_id=auth_id, auth_token=auth_token)
 
 
-class Client(object):
+class BaseClient(object):
     def __init__(self, auth_id=None, auth_token=None, proxies=None, timeout=5):
         """
         The Plivo API client.
@@ -73,20 +68,7 @@ class Client(object):
         self.multipart_session.auth = fetch_credentials(auth_id, auth_token)
         self.proxies = proxies
         self.timeout = timeout
-        self.account = Accounts(self)
-        self.subaccounts = Subaccounts(self)
-        self.applications = Applications(self)
-        self.calls = Calls(self)
-        self.live_calls = LiveCalls(self)
-        self.queued_calls = QueuedCalls(self)
-        self.conferences = Conferences(self)
-        self.endpoints = Endpoints(self)
-        self.messages = Messages(self)
-        self.numbers = Numbers(self)
-        self.pricing = Pricings(self)
-        self.recordings = Recordings(self)
-        self.addresses = Addresses(self)
-        self.identities = Identities(self)
+
 
     def __enter__(self):
         return self
@@ -172,9 +154,9 @@ class Client(object):
         req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
                                        list([str(p) for p in path])) + '/',
                       **({
-                            'params': data
-                         } if method == 'GET' else {
-                            'json': data
+                          'params': data
+                      } if method == 'GET' else {
+                          'json': data
                       }))
         return self.session.prepare_request(req)
 
