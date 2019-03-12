@@ -1,5 +1,25 @@
 # Change Log
 
+## [4.3.0](https://github.com/plivo/plivo-python/tree/v4.3-0) (2019-03-11)
+- Add PHLO support
+- Add Multi-party call triggers
+
+## [4.2.0b1](https://github.com/plivo/plivo-python/tree/v4.2-beta1) (2018-03-11)
+- Add PHLO support in Beta branch 
+
+## [4.2.0a4](https://github.com/plivo/plivo-python/tree/v4.2-alpha3) (2018-10-23)
+- Fix PHLO run params 
+
+## [4.2.0a3](https://github.com/plivo/plivo-python/tree/v4.2-alpha3) (2018-08-08)
+- Support python3.7
+- Add PHLO run function
+
+## [4.2.0a2](https://github.com/plivo/plivo-python/tree/v4.2-alpha2) (2018-08-03)
+- Fix PHLO Url and component name
+
+## [4.2.0a1](https://github.com/plivo/plivo-python/tree/v4.2-alpha1) (2018-08-03)
+- Add PHLO support in alpha release
+
 ## [4.1.5](https://github.com/plivo/plivo-python/tree/v4.1.5) (2018-11-21)
 - Add hangup party details to CDR. CDR filtering allowed by hangup_source and hangup_cause_code.
 - Add sub-account cascade delete support.
