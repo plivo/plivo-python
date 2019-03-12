@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.3.0](https://github.com/plivo/plivo-python/tree/v4.3-0) (2019-03-11)
+## [4.3.0](https://github.com/plivo/plivo-python/tree/v4.3.0) (2019-03-11)
 - Add PHLO support
 - Add Multi-party call triggers
 
