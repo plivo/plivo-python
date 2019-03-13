@@ -18,6 +18,7 @@ def with_response(status_code, method_name=None):
                 os.path.join(
                     os.path.dirname(__file__), 'resources', 'fixtures',
                     name + '.json'))
+
             try:
                 with io.open(path) as f:
                     self.expected_response = json.load(f)
