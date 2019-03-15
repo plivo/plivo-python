@@ -2,7 +2,6 @@
 """
 Pricing class - along with its list class
 """
-
 from plivo.base import PlivoResource, PlivoResourceInterface
 from plivo.utils import to_param_dict
 from plivo.utils.validators import *
@@ -22,6 +21,5 @@ class Pricings(PlivoResourceInterface):
     @validate_args(country_iso=[regex(r'^[A-Z]{2}$')])
     def get(self, country_iso):
         return self.client.request(
-            'GET', ('Pricing', ),
-            to_param_dict(self.get, locals()),
-            response_type=Pricing)
+            'GET', ('Pricing', ), to_param_dict(self.get, locals()), response_type=Pricing
+        )

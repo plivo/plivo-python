@@ -17,33 +17,54 @@ class Node(PlivoResource):
                action,
                trigger_source,
                to,
-               role):
-        return self.client.request('POST', ('phlo', self.phlo_id, self.node_type, self.node_id),
-                                   to_param_dict(self.update, locals()))
+               role
+               ):
+        return self.client.request(
+            'POST', ('phlo', self.phlo_id, self.node_type, self.node_id),
+            to_param_dict(self.update, locals())
+        )
 
 
 class MultiPartyCall(Node):
     _name = 'MultiPartyCall'
     _identifier_string = 'node_id'
 
+    @validate_args(
+        trigger_source=[of_type(six.text_type)],
+        to=[of_type(six.text_type)],
+        role=[of_type(six.text_type)]
+    )
     def call(self,
              trigger_source,
              to,
              role):
         return self.update('call', trigger_source, to, role)
 
+    @validate_args(
+        trigger_source=[of_type(six.text_type)],
+        to=[of_type(six.text_type)],
+        role=[optional(of_type(six.text_type))]
+    )
     def warm_transfer(self,
-             trigger_source,
-             to,
-             role='agent'):
+                      trigger_source,
+                      to,
+                      role='agent'):
         return self.update('warm_transfer', trigger_source, to, role)
 
+    @validate_args(
+        trigger_source=[of_type(six.text_type)],
+        to=[of_type(six.text_type)],
+        role=[optional(of_type(six.text_type))]
+    )
     def cold_transfer(self,
-             trigger_source,
-             to,
-             role='agent'):
+                      trigger_source,
+                      to,
+                      role='agent'):
         return self.update('cold_transfer', trigger_source, to, role)
 
+    @validate_args(
+        member_id=[of_type(six.text_type)],
+    )
     def member(self, member_id):
         self.member_id = member_id
         data = {
@@ -83,7 +104,11 @@ class Member(PlivoResource):
     def unmute(self):
         return self.update('unmute')
 
+    @validate_args(
+        action=[of_type(six.text_type)])
     def update(self,
                action):
-        return self.client.request('POST', ('phlo', self.phlo_id, self.node_type, self.node_id, 'members', self.member_id),
-                                   to_param_dict(self.update, locals()))
+        return self.client.request(
+            'POST', ('phlo', self.phlo_id, self.node_type, self.node_id, 'members', self.member_id),
+            to_param_dict(self.update, locals())
+        )

@@ -2,9 +2,10 @@
 """
 Phlo client, used for Phlo API requests.
 """
+from requests import Request
+
 from plivo.resources import Phlos
 from plivo.rest.base_client import BaseClient
-from requests import Request
 
 PHLO_API = 'https://phlorunner.plivo.com'
 PHLO_API_BASE_URI = '/'.join([PHLO_API, 'v1'])

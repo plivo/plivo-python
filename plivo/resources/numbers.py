@@ -2,9 +2,10 @@
 """
 Number & PhoneNumber classes - along with their list classes
 """
-
-from plivo.base import (ListResponseObject, PlivoResource,
-                        PlivoResourceInterface)
+from plivo.base import (ListResponseObject,
+                        PlivoResource,
+                        PlivoResourceInterface
+                        )
 from plivo.utils import to_param_dict
 from plivo.utils.validators import *
 
@@ -20,9 +21,11 @@ class Number(PlivoResource):
                app_id=None,
                subaccount=None,
                alias=None,
-               verification_info=None):
-        return self.client.numbers.update(self.id, app_id, subaccount, alias,
-                                          verification_info)
+               verification_info=None
+               ):
+        return self.client.numbers.update(
+            self.id, app_id, subaccount, alias, verification_info
+        )
 
 
 class Numbers(PlivoResourceInterface):
@@ -33,11 +36,52 @@ class Numbers(PlivoResourceInterface):
     @validate_args(
         number=[is_phonenumber()],
         app_id=[optional(of_type(six.text_type))],
-        verification_info=[optional(of_type_exact(dict))])
-    def buy(self, number, app_id=None, verification_info=None):
-        return self.client.request('POST', ('PhoneNumber', number),
-                                   to_param_dict(self.buy, locals()))
+        verification_info=[optional(of_type_exact(dict))]
+    )
+    def buy(self,
+            number,
+            app_id=None,
+            verification_info=None
+            ):
+        return self.client.request(
+            'POST', ('PhoneNumber', number), to_param_dict(self.buy, locals())
+        )
 
+    @validate_args(
+        country_iso=[of_type(six.text_type)],
+        type=[
+            optional(
+                all_of(
+                    of_type(six.text_type),
+                    is_in(('tollfree', 'local', 'mobile', 'national', 'fixed'))
+                )
+            )
+        ],
+        pattern=[optional(of_type(six.text_type))],
+        region=[optional(of_type(six.text_type))],
+        services=[
+            optional(
+                all_of(
+                    of_type(six.text_type),
+                    is_in(('voice', 'sms', 'voice,sms'))
+                )
+            )
+        ],
+        lata=[optional(of_type(six.text_type))],
+        rate_center=[optional(of_type(six.text_type))],
+        limit=[
+            optional(
+                all_of(
+                    of_type(*six.integer_types),
+                    check(lambda limit: 0 < limit <= 20, '0 < limit <= 20')))
+        ],
+        offset=[
+            optional(
+                all_of(
+                    of_type(*six.integer_types),
+                    check(lambda offset: 0 <= offset, '0 <= offset')))
+        ],
+    )
     def search(self,
                country_iso,
                type=None,
@@ -48,11 +92,23 @@ class Numbers(PlivoResourceInterface):
                rate_center=None,
                limit=None,
                offset=None,
-               eligible=None):
-        return self.client.request('GET', ('PhoneNumber', ),
-                                   to_param_dict(self.search, locals()))
+               eligible=None
+               ):
+        return self.client.request(
+            'GET', ('PhoneNumber', ), to_param_dict(self.search, locals())
+        )
 
     @validate_args(
+        type=[
+            optional(
+                all_of(
+                    of_type(six.text_type),
+                    is_in(('tollfree', 'local', 'mobile', 'national', 'fixed'))
+                )
+            )
+        ],
+        subaccount=[optional(is_subaccount())],
+        alias=[optional(of_type(six.text_type))],
         services=[
             optional(
                 is_iterable(
@@ -78,13 +134,12 @@ class Numbers(PlivoResourceInterface):
              alias=None,
              services=None,
              limit=20,
-             offset=0):
+             offset=0
+             ):
         return self.client.request(
-            'GET',
-            ('Number', ),
-            to_param_dict(self.list, locals()),
-            objects_type=Number,
-            response_type=ListResponseObject, )
+            'GET', ('Number', ), to_param_dict(self.list, locals()),
+            objects_type=Number, response_type=ListResponseObject,
+        )
 
     @validate_args(number=[is_phonenumber()])
     def get(self, number):
@@ -101,7 +156,8 @@ class Numbers(PlivoResourceInterface):
         region=[of_type(six.text_type)],
         number_type=[optional(of_type(six.text_type))],
         app_id=[optional(of_type(six.text_type))],
-        subaccount=[optional(is_subaccount())])
+        subaccount=[optional(is_subaccount())]
+    )
     def create(self,
                numbers,
                carrier,
@@ -109,17 +165,29 @@ class Numbers(PlivoResourceInterface):
                number_type=None,
                app_id=None,
                subaccount=None):
-        return self.client.request('POST', ('Number', ),
-                                   to_param_dict(self.create, locals()))
+        return self.client.request(
+            'POST', ('Number', ), to_param_dict(self.create, locals())
+        )
 
+    @validate_args(
+        number=[is_phonenumber()],
+        app_id=[optional(of_type(six.text_type))],
+        subaccount=[optional(is_subaccount())],
+        alias=[optional(of_type(six.text_type))],
+        verification_info=[optional(of_type_exact(dict))]
+    )
     def update(self,
                number,
                app_id=None,
                subaccount=None,
                alias=None,
-               verification_info=None):
-        return self.client.request('POST', ('Number', number),
-                                   to_param_dict(self.update, locals()))
+               verification_info=None
+               ):
+        return self.client.request(
+            'POST', ('Number', number), to_param_dict(self.update, locals())
+        )
 
     def delete(self, number):
-        return self.client.request('DELETE', ('Number', number))
+        return self.client.request(
+            'DELETE', ('Number', number)
+        )

@@ -2,7 +2,10 @@
 from plivo.utils import to_param_dict
 from plivo.utils.validators import *
 
-from ..base import ListResponseObject, PlivoResource, PlivoResourceInterface
+from ..base import (ListResponseObject,
+                    PlivoResource,
+                    PlivoResourceInterface
+                    )
 
 
 class Endpoint(PlivoResource):
@@ -29,10 +32,12 @@ class Endpoints(PlivoResourceInterface):
         username=[of_type(six.text_type)],
         password=[of_type(six.text_type)],
         alias=[of_type(six.text_type)],
-        app_id=[optional(of_type(six.text_type))])
+        app_id=[optional(of_type(six.text_type))]
+    )
     def create(self, username, password, alias, app_id=None):
-        return self.client.request('POST', ('Endpoint', ),
-                                   to_param_dict(self.create, locals()))
+        return self.client.request(
+            'POST', ('Endpoint', ), to_param_dict(self.create, locals())
+        )
 
     @validate_args(endpoint_id=[of_type(six.text_type)])
     def get(self, endpoint_id):
@@ -44,7 +49,7 @@ class Endpoints(PlivoResourceInterface):
                 all_of(
                     of_type(*six.integer_types),
                     check(lambda limit: 0 < limit <= 20, '0 < limit <= 20')))
-                ],
+        ],
         offset=[
             optional(
                 all_of(
@@ -63,11 +68,15 @@ class Endpoints(PlivoResourceInterface):
         endpoint_id=[of_type(six.text_type)],
         password=[optional(of_type(six.text_type))],
         alias=[optional(of_type(six.text_type))],
-        app_id=[optional(of_type(six.text_type))])
+        app_id=[optional(of_type(six.text_type))]
+    )
     def update(self, endpoint_id, password=None, alias=None, app_id=None):
-        return self.client.request('POST', ('Endpoint', endpoint_id),
-                                   to_param_dict(self.update, locals()))
+        return self.client.request(
+            'POST', ('Endpoint', endpoint_id), to_param_dict(self.update, locals())
+        )
 
     @validate_args(endpoint_id=[of_type(six.text_type)])
     def delete(self, endpoint_id):
-        return self.client.request('DELETE', ('Endpoint', endpoint_id))
+        return self.client.request(
+            'DELETE', ('Endpoint', endpoint_id)
+        )

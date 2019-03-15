@@ -7,18 +7,33 @@ import os
 import platform
 from collections import namedtuple
 
+from requests import Request, Session
+
 from plivo.base import ResponseObject
-from plivo.exceptions import (AuthenticationError, InvalidRequestError,
-                              PlivoRestError, PlivoServerError,
-                              ResourceNotFoundError, ValidationError)
-from plivo.resources import (Accounts, Addresses, Applications, Calls,
-                             Conferences, Endpoints, Identities, Messages,
-                             Numbers, Pricings, Recordings, Subaccounts)
+from plivo.exceptions import (AuthenticationError,
+                              InvalidRequestError,
+                              PlivoRestError,
+                              PlivoServerError,
+                              ResourceNotFoundError,
+                              ValidationError
+                              )
+from plivo.resources import (Accounts,
+                             Addresses,
+                             Applications,
+                             Calls,
+                             Conferences,
+                             Endpoints,
+                             Identities,
+                             Messages,
+                             Numbers,
+                             Pricings,
+                             Recordings,
+                             Subaccounts
+                             )
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
 from plivo.utils import is_valid_mainaccount, is_valid_subaccount
 from plivo.version import __version__
-from requests import Request, Session
 
 AuthenticationCredentials = namedtuple('AuthenticationCredentials',
                                        'auth_id auth_token')

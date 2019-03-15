@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from plivo.utils.validators import *
 
-from ..base import ListResponseObject, PlivoResource, PlivoResourceInterface
+from ..base import (ListResponseObject,
+                    PlivoResource,
+                    PlivoResourceInterface
+                    )
 from ..exceptions import *
 from ..utils import *
 
@@ -32,7 +35,8 @@ class Messages(PlivoResourceInterface):
         method=[optional(of_type(six.text_type))],
         log=[optional(of_type_exact(bool))],
         trackable=[optional(of_type_exact(bool))],
-        powerpack_uuid=[optional(of_type(six.text_type))])
+        powerpack_uuid=[optional(of_type(six.text_type))]
+    )
     def create(self,
                dst,
                text,
@@ -42,7 +46,8 @@ class Messages(PlivoResourceInterface):
                method='POST',
                log=True,
                trackable=False,
-               powerpack_uuid=None):
+               powerpack_uuid=None
+               ):
         if src in dst.split('<'):
             raise ValidationError(
                 'destination number cannot be same as source number')
@@ -60,7 +65,8 @@ class Messages(PlivoResourceInterface):
     @validate_args(message_uuid=[of_type(six.text_type)])
     def get(self, message_uuid):
         return self.client.request(
-            'GET', ('Message', message_uuid), response_type=Message)
+            'GET', ('Message', message_uuid), response_type=Message
+        )
 
     @validate_args(
         subaccount=[optional(is_subaccount())],
@@ -98,9 +104,9 @@ class Messages(PlivoResourceInterface):
              message_state=None,
              limit=None,
              offset=None,
-             error_code=None):
+             error_code=None
+             ):
         return self.client.request(
-            'GET', ('Message', ),
-            to_param_dict(self.list, locals()),
-            response_type=ListResponseObject,
-            objects_type=Message)
+            'GET', ('Message', ), to_param_dict(self.list, locals()),
+            response_type=ListResponseObject, objects_type=Message
+        )
