@@ -93,7 +93,10 @@ class IdentityTest(PlivoResourceTestCase):
             address_line2='RUE DU COMMANDANT GUILBAUD',
             city='PARIS',
             region='PARIS',
-            postal_code='75016', )
+            postal_code='75016',
+            phone_number_country='US',
+            number_type='local',
+            proof_type='passport')
         self.assertUrlEqual(self.client.current_request.url,
                             self.get_url('Verification', 'Identity'))
         self.assertEqual(self.client.current_request.method, 'POST')

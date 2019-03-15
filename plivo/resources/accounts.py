@@ -98,7 +98,8 @@ class Accounts(PlivoResourceInterface):
     @validate_args(
         name=[optional(of_type(six.text_type))],
         city=[optional(of_type(six.text_type))],
-        address=[optional(of_type(six.text_type))])
+        address=[optional(of_type(six.text_type))]
+    )
     def update(self, name=None, city=None, address=None):
         if not (name or city or address):
             raise ValidationError(

@@ -20,13 +20,13 @@ class Address(PlivoResource):
                region=None,
                postal_code=None,
                alias=None,
-               file_to_upload=None,
+               file=None,
                auto_correct_address=None,
                callback_url=None):
         return self.client.addresses.update(
             self.id, salutation, first_name, last_name, country_iso,
             address_line1, address_line2, city, region, postal_code, alias,
-            file_to_upload, auto_correct_address, callback_url)
+            file, auto_correct_address, callback_url)
 
     def delete(self):
         return self.client.addresses.delete(self.id)
@@ -45,18 +45,26 @@ class Addresses(PlivoResourceInterface):
         city=[of_type(six.text_type)],
         region=[of_type(six.text_type)],
         postal_code=[of_type(six.text_type)],
-        address_proof_type=[
+        number_type=[
             all_of(
                 of_type(six.text_type),
-                is_in(('national_id', 'passport', 'business_id', 'NIF', 'NIE',
-                       'DNI', 'others')))
+                is_in(('local', 'national', 'mobile', 'tollfree')))
         ],
+        phone_number_country=[of_type(six.text_type)],
         alias=[optional(of_type(six.text_type))],
-        file_to_upload=[optional(of_type(six.text_type))],
+        file=[optional(of_type(six.text_type))],
         auto_correct_address=[optional(of_type_exact(bool))],
         fiscal_identification_code=[optional(of_type(six.text_type))],
         street_code=[optional(of_type(six.text_type))],
-        municipal_code=[optional(of_type(six.text_type))])
+        callback_url=[optional(of_type(six.text_type))],
+        id_number=[optional(of_type(six.text_type))],
+        municipal_code=[optional(of_type(six.text_type))],
+        proof_type=[
+            optional(
+                of_type(six.text_type),
+                is_in(('national_id', 'passport', 'business_id', 'NIF', 'NIE',
+                       'DNI', 'others')))
+        ])
     def create(self,
                country_iso,
                salutation,
@@ -67,14 +75,17 @@ class Addresses(PlivoResourceInterface):
                city,
                region,
                postal_code,
-               address_proof_type,
+               proof_type,
+               number_type,
+               phone_number_country,
                alias=None,
-               file_to_upload=None,
+               file=None,
                auto_correct_address=None,
                fiscal_identification_code=None,
                street_code=None,
-               municipal_code=None,
-               callback_url=None):
+               callback_url=None,
+               id_number=None,
+               municipal_code=None):
         if country_iso == 'ES' and not fiscal_identification_code:
             raise ValidationError(
                 'The parameter fiscal_identification_code is required for Spain numbers'
@@ -85,8 +96,8 @@ class Addresses(PlivoResourceInterface):
                 'The parameters street_code and municipal_code are required for Denmark numbers'
             )
 
-        if file_to_upload:
-            file_extension = file_to_upload.strip().split('.')[-1].lower()
+        if file:
+            file_extension = file.strip().split('.')[-1].lower()
             if file_extension not in ['jpg', 'jpeg', 'png', 'pdf']:
                 raise ValidationError(
                     'File format of the file to be uploaded should be one of JPG, JPEG, PNG or PDF'
@@ -101,9 +112,16 @@ class Addresses(PlivoResourceInterface):
 
             import os
 
+            # check file should not max than 5
+            file_size_in_mb = os.stat(file).st_size / 1000000.0
+            if file_size_in_mb > 5:
+                raise ValidationError(
+                    'File max size should be less than 5 mb.'
+                )
+
             files = {
-                'file': (file_to_upload.split(os.sep)[-1], open(
-                    file_to_upload, 'rb'), content_types[file_extension])
+                'file': (file.split(os.sep)[-1], open(
+                    file, 'rb'), content_types[file_extension])
             }
         else:
             files = {'file': ''}
@@ -123,8 +141,22 @@ class Addresses(PlivoResourceInterface):
         region=[optional(of_type(six.text_type))],
         postal_code=[optional(of_type(six.text_type))],
         alias=[optional(of_type(six.text_type))],
-        file_to_upload=[optional(of_type(six.text_type))],
-        auto_correct_address=[optional(of_type_exact(bool))], )
+        file=[optional(of_type(six.text_type))],
+        auto_correct_address=[optional(of_type_exact(bool))], 
+        callback_url=[optional(of_type(six.text_type))],
+        phone_number_country=[optional(of_type(six.text_type))],
+        number_type=[
+          optional(all_of(of_type(six.text_type),
+          is_in(('local', 'national', 'mobile', 'tollfree'))))
+        ],
+        proof_type=[
+          optional(all_of(of_type(six.text_type),
+          is_in(('national_id', 'passport', 'business_id', 'NIF', 'NIE', 'DNI'))))
+        ],
+        id_number=[optional(of_type(six.text_type))],
+        fiscal_identification_code=[optional(of_type(six.text_type))],
+        street_code=[optional(of_type(six.text_type))],
+        municipal_code=[optional(of_type(six.text_type))])
     def update(self,
                address_id,
                salutation=None,
@@ -137,11 +169,19 @@ class Addresses(PlivoResourceInterface):
                region=None,
                postal_code=None,
                alias=None,
-               file_to_upload=None,
+               file=None,
                auto_correct_address=None,
-               callback_url=None):
-        if file_to_upload:
-            file_extension = file_to_upload.strip().split('.')[-1].lower()
+               callback_url=None,
+               phone_number_country=None,
+               number_type=None,
+               proof_type=None,
+               id_number=None,
+               fiscal_identification_code=None,
+               street_code=None,
+               municipal_code=None):
+
+        if file:
+            file_extension = file.strip().split('.')[-1].lower()
             if file_extension not in ['jpg', 'jpeg', 'png', 'pdf']:
                 raise ValidationError(
                     'File format of the file to be uploaded should be one of JPG, JPEG, PNG or PDF'
@@ -156,9 +196,16 @@ class Addresses(PlivoResourceInterface):
 
             import os
 
+            # check file should not max than 5
+            file_size_in_mb = os.stat(file).st_size / 1000000.0
+            if file_size_in_mb > 5:
+                raise ValidationError(
+                    'File max size should be less than 5 mb.'
+                )
+
             files = {
-                'file': (file_to_upload.split(os.sep)[-1], open(
-                    file_to_upload, 'rb'), content_types[file_extension])
+                'file': (file.split(os.sep)[-1], open(
+                    file, 'rb'), content_types[file_extension])
             }
         else:
             files = {'file': ''}

@@ -78,7 +78,9 @@ class AddressTest(PlivoResourceTestCase):
             city='PARIS',
             region='PARIS',
             postal_code='75016',
-            address_proof_type='others', )
+            proof_type='others', 
+            number_type='local',
+            phone_number_country='DE')
         self.assertUrlEqual(self.client.current_request.url,
                             self.get_url('Verification', 'Address'))
         self.assertEqual(self.client.current_request.method, 'POST')
