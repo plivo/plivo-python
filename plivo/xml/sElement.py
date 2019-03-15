@@ -6,16 +6,17 @@ from plivo.xml import (
     BreakElement,
     EmphasisElement,
     LangElement,
+    PhonemeElement,
+    ProsodyElement,
 )
 
 
-class SpeakElement(PlivoXMLElement):
-    _name = 'Speak'
+class SElement(PlivoXMLElement):
+    _name = 'S'
     _nestable = [
         'Break',
         'Emphasis',
         'Lang',
-        'P',
         'Phoneme',
         'Prosody',
         'S',
@@ -24,62 +25,16 @@ class SpeakElement(PlivoXMLElement):
         'W'
     ]
 
-    @property
-    def voice(self):
-        return self.__voice
-
-    @voice.setter
-    def voice(self, value):
-        self.__voice = six.text_type(value) if value is not None else None
-
-    def set_voice(self, value):
-        self.voice = value
-        return self
-
-    @property
-    def language(self):
-        return self.__language
-
-    @language.setter
-    def language(self, value):
-        self.__language = six.text_type(value) if value is not None else None
-
-    def set_language(self, value):
-        self.language = value
-        return self
-
-    @property
-    def loop(self):
-        return self.__loop
-
-    @loop.setter
-    def loop(self, value):
-        self.__loop = int(value) if value is not None else None
-
-    def set_loop(self, value):
-        self.loop = value
-        return self
-
     def __init__(
-            self,
-            content,
-            voice=None,
-            language=None,
-            loop=None,
+        self,
+        content=None,
     ):
-        super(SpeakElement, self).__init__()
 
+        super(SElement, self).__init__()
         self.content = content
-        self.voice = voice
-        self.language = language
-        self.loop = loop
 
     def to_dict(self):
-        d = {
-            'voice': self.voice,
-            'language': self.language,
-            'loop': self.loop,
-        }
+        d = {}
         return {
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
@@ -126,25 +81,12 @@ class SpeakElement(PlivoXMLElement):
             ))
         return self
 
-    def add_p(
-        self,
-        content,
-    ):
-        from .pElement import PElement
-
-        self.add(
-            PElement(
-                content=content,
-            ))
-        return self
-
     def add_phoneme(
         self,
         content,
         alphabet=None,
         ph=None,
     ):
-        from .phonemeElement import PhonemeElement
 
         self.add(
             PhonemeElement(
@@ -161,7 +103,6 @@ class SpeakElement(PlivoXMLElement):
         rate=None,
         pitch=None,
     ):
-        from .prosodyElement import ProsodyElement
 
         self.add(
             ProsodyElement(
@@ -169,18 +110,6 @@ class SpeakElement(PlivoXMLElement):
                 volume=volume,
                 rate=rate,
                 pitch=pitch,
-            ))
-        return self
-
-    def add_s(
-        self,
-        content,
-    ):
-        from .sElement import SElement
-
-        self.add(
-            SElement(
-                content=content,
             ))
         return self
 

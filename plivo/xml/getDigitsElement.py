@@ -1,10 +1,21 @@
-from plivo.xml import PlivoXMLElement, map_type, SpeakElement, PlayElement
 import six
+
+from plivo.xml import (
+    PlivoXMLElement,
+    map_type,
+    SpeakElement,
+    PlayElement,
+    WaitElement
+)
 
 
 class GetDigitsElement(PlivoXMLElement):
     _name = 'GetDigits'
-    _nestable = ['Speak', 'Play']
+    _nestable = [
+        'Speak',
+        'Play',
+        'Wait'
+    ]
 
     @property
     def action(self):
@@ -228,4 +239,23 @@ class GetDigitsElement(PlivoXMLElement):
             content=content,
             loop=loop,
         ))
+        return self
+
+    def add_wait(
+            self,
+            content,
+            length=None,
+            silence=None,
+            minSilence=None,
+            beep=None,
+    ):
+
+        self.add(
+            WaitElement(
+                content=content,
+                length=length,
+                silence=silence,
+                minSilence=minSilence,
+                beep=beep,
+            ))
         return self

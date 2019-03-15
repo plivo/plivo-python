@@ -1,4 +1,5 @@
 import six
+
 from plivo.xml import PlivoXMLElement, map_type
 
 
@@ -253,9 +254,74 @@ class ConferenceElement(PlivoXMLElement):
         self.relay_dtmf = value
         return self
 
+    @property
+    def send_digits(self):
+        return self.__send_digits
+
+    @send_digits.setter
+    def send_digits(self, value):
+        self.__send_digits = six.text_type(
+            value) if value is not None else None
+
+    def set_send_digits(self, value):
+        self.send_digits = value
+        return self
+
+    @property
+    def record_when_alone(self):
+        return self.__record_when_alone
+
+    @record_when_alone.setter
+    def record_when_alone(self, value):
+        self.__record_when_alone = six.text_type(
+            value) if value is not None else None
+
+    def set_record_when_alone(self, value):
+        self.record_when_alone = value
+        return self
+
+    @property
+    def transcription_type(self):
+        return self.__transcription_type
+
+    @transcription_type.setter
+    def transcription_type(self, value):
+        self.__transcription_type = six.text_type(
+            value) if value is not None else None
+
+    def set_transcription_type(self, value):
+        self.transcription_type = value
+        return self
+
+    @property
+    def transcription_url(self):
+        return self.__transcription_url
+
+    @transcription_url.setter
+    def transcription_url(self, value):
+        self.__transcription_url = six.text_type(
+            value) if value is not None else None
+
+    def set_transcription_url(self, value):
+        self.transcription_url = value
+        return self
+
+    @property
+    def transcription_method(self):
+        return self.__transcription_method
+
+    @transcription_method.setter
+    def transcription_method(self, value):
+        self.__transcription_method = six.text_type(
+            value) if value is not None else None
+
+    def set_transcription_method(self, value):
+        self.transcription_method = value
+        return self
+
     def __init__(
             self,
-            content,
+            content=None,
             muted=None,
             enter_sound=None,
             exit_sound=None,
@@ -276,6 +342,11 @@ class ConferenceElement(PlivoXMLElement):
             floor_event=None,
             redirect=None,
             relay_dtmf=None,
+            send_digits=None,
+            record_when_alone=None,
+            transcription_type=None,
+            transcription_url=None,
+            transcription_method=None,
     ):
         super(ConferenceElement, self).__init__()
 
@@ -300,6 +371,11 @@ class ConferenceElement(PlivoXMLElement):
         self.floor_event = floor_event
         self.redirect = redirect
         self.relay_dtmf = relay_dtmf
+        self.send_digits = send_digits
+        self.record_when_alone = record_when_alone
+        self.transcription_type = transcription_type
+        self.transcription_url = transcription_url
+        self.transcription_method = transcription_method
 
     def to_dict(self):
         d = {
@@ -323,6 +399,11 @@ class ConferenceElement(PlivoXMLElement):
             'floorEvent': self.floor_event,
             'redirect': self.redirect,
             'relayDTMF': self.relay_dtmf,
+            'sendDigits': self.send_digits,
+            'recordWhenAlone': self.record_when_alone,
+            'transcriptionType': self.transcription_type,
+            'transcriptionUrl': self.transcription_url,
+            'transcriptionMethod': self.transcription_method,
         }
         return {
             k: six.text_type(map_type(v))

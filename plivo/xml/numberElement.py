@@ -1,4 +1,5 @@
 import six
+
 from plivo.xml import PlivoXMLElement, map_type
 
 
@@ -31,21 +32,36 @@ class NumberElement(PlivoXMLElement):
         self.send_on_preanswer = value
         return self
 
+    @property
+    def send_digits_mode(self):
+        return self.__send_digits_mode
+
+    @send_digits_mode.setter
+    def send_digits_mode(self, value):
+        self.__send_digits_mode = six.text_type(value) if value is not None else None
+
+    def set_send_digits_mode(self, value):
+        self.send_digits_mode = value
+        return self
+
     def __init__(
             self,
             content,
             send_digits=None,
-            send_on_preanswer=None, ):
+            send_on_preanswer=None,
+            send_digits_mode=None):
         super(NumberElement, self).__init__()
 
         self.content = str(content)
         self.send_digits = send_digits
         self.send_on_preanswer = send_on_preanswer
+        self.send_digits_mode = send_digits_mode
 
     def to_dict(self):
         d = {
             'sendDigits': self.send_digits,
             'sendOnPreanswer': self.send_on_preanswer,
+            'sendDigitsMode': self.send_digits_mode,
         }
         return {
             k: six.text_type(map_type(v))
