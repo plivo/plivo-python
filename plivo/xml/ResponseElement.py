@@ -3,7 +3,7 @@ from plivo.xml import (ConferenceElement, DialElement, DTMFElement,
                        NumberElement, PlayElement, PlivoXMLElement,
                        PreAnswerElement, RecordElement, RedirectElement,
                        SpeakElement, UserElement, WaitElement,
-                       BreakElement, EmphasisElement, LangElement,
+                       BreakElement, EmphasisElement, LangElement
                        )
 
 
@@ -33,7 +33,8 @@ class ResponseElement(PlivoXMLElement):
         'SayAs',
         'S',
         'Sub',
-        'W'
+        'W',
+        'Cont'
     ]
 
     def add_conference(
@@ -405,6 +406,18 @@ class ResponseElement(PlivoXMLElement):
 
         self.add(
             SElement(
+                content=content,
+            ))
+        return self
+
+    def add_cont(
+        self,
+        content=None,
+    ):
+        from .contElement import ContElement
+
+        self.add(
+            ContElement(
                 content=content,
             ))
         return self

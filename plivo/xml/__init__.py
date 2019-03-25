@@ -25,3 +25,4 @@ from .sElement import SElement
 from .sayAsElement import SayAsElement
 from .subElement import SubElement
 from .wElement import WElement
+from .contElement import ContElement

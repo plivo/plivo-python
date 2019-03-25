@@ -16,13 +16,15 @@ class PlivoXMLElement(object):
             raise PlivoXMLError(
                 '{} is not nestable in {} (allowed: {})'.format(
                     element._name, self._name, self._nestable))
-
         self.children.append(element)
         return self
 
+    def continue_speak(self, body=None):
+        return body.replace('<Cont>', ' ').replace('</Cont>', ' ')
+
     def to_string(self):
         s = etree.tostring(self._to_element(), pretty_print=True)
-        return s.decode('utf-8')
+        return self.continue_speak(s.decode('utf-8'))
 
     def _to_element(self, parent=None):
         e = etree.SubElement(

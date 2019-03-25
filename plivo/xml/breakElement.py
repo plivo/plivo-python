@@ -1,5 +1,4 @@
-import six
-
+from plivo.utils.validators import *
 from plivo.xml import PlivoXMLElement, map_type
 
 
@@ -16,6 +15,9 @@ class BreakElement(PlivoXMLElement):
         self.__strength = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_strength(self, value):
         self.strength = value
         return self
@@ -29,6 +31,9 @@ class BreakElement(PlivoXMLElement):
         self.__time = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_time(self, value):
         self.time = value
         return self

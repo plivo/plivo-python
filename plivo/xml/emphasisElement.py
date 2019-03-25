@@ -1,10 +1,9 @@
-import six
-
 from plivo.xml import (
     PlivoXMLElement,
     map_type,
     BreakElement,
 )
+from plivo.utils.validators import *
 
 
 class EmphasisElement(PlivoXMLElement):
@@ -29,6 +28,9 @@ class EmphasisElement(PlivoXMLElement):
         self.__level = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_level(self, value):
         self.level = value
         return self

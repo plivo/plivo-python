@@ -1,5 +1,4 @@
-import six
-
+from plivo.utils.validators import *
 from plivo.xml import PlivoXMLElement, map_type
 
 
@@ -16,6 +15,9 @@ class PhonemeElement(PlivoXMLElement):
         self.__alphabet = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_alphabet(self, value):
         self.alphabet = value
         return self
@@ -29,6 +31,9 @@ class PhonemeElement(PlivoXMLElement):
         self.__ph = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_ph(self, value):
         self.ph = value
         return self

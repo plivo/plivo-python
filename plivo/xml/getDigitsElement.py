@@ -1,5 +1,3 @@
-import six
-
 from plivo.xml import (
     PlivoXMLElement,
     map_type,
@@ -7,6 +5,7 @@ from plivo.xml import (
     PlayElement,
     WaitElement
 )
+from plivo.utils.validators import *
 
 
 class GetDigitsElement(PlivoXMLElement):
@@ -25,6 +24,9 @@ class GetDigitsElement(PlivoXMLElement):
     def action(self, value):
         self.__action = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_action(self, value):
         self.action = value
         return self
@@ -37,6 +39,9 @@ class GetDigitsElement(PlivoXMLElement):
     def method(self, value):
         self.__method = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_method(self, value):
         self.method = value
         return self
@@ -49,6 +54,9 @@ class GetDigitsElement(PlivoXMLElement):
     def timeout(self, value):
         self.__timeout = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_timeout(self, value):
         self.timeout = value
         return self
@@ -61,6 +69,9 @@ class GetDigitsElement(PlivoXMLElement):
     def digit_timeout(self, value):
         self.__digit_timeout = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_digit_timeout(self, value):
         self.digit_timeout = value
         return self
@@ -74,6 +85,9 @@ class GetDigitsElement(PlivoXMLElement):
         self.__finish_on_key = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_finish_on_key(self, value):
         self.finish_on_key = value
         return self
@@ -86,6 +100,9 @@ class GetDigitsElement(PlivoXMLElement):
     def num_digits(self, value):
         self.__num_digits = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_num_digits(self, value):
         self.num_digits = value
         return self
@@ -98,6 +115,9 @@ class GetDigitsElement(PlivoXMLElement):
     def retries(self, value):
         self.__retries = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_retries(self, value):
         self.retries = value
         return self
@@ -110,6 +130,9 @@ class GetDigitsElement(PlivoXMLElement):
     def redirect(self, value):
         self.__redirect = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_redirect(self, value):
         self.redirect = value
         return self
@@ -122,6 +145,9 @@ class GetDigitsElement(PlivoXMLElement):
     def play_beep(self, value):
         self.__play_beep = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_play_beep(self, value):
         self.play_beep = value
         return self
@@ -135,6 +161,9 @@ class GetDigitsElement(PlivoXMLElement):
         self.__valid_digits = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_valid_digits(self, value):
         self.valid_digits = value
         return self
@@ -148,6 +177,9 @@ class GetDigitsElement(PlivoXMLElement):
         self.__invalid_digits_sound = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_invalid_digits_sound(self, value):
         self.invalid_digits_sound = value
         return self
@@ -160,6 +192,9 @@ class GetDigitsElement(PlivoXMLElement):
     def log(self, value):
         self.__log = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_log(self, value):
         self.log = value
         return self
@@ -243,19 +278,17 @@ class GetDigitsElement(PlivoXMLElement):
 
     def add_wait(
             self,
-            content,
             length=None,
             silence=None,
-            minSilence=None,
+            min_silence=None,
             beep=None,
     ):
 
         self.add(
             WaitElement(
-                content=content,
                 length=length,
                 silence=silence,
-                minSilence=minSilence,
+                min_silence=min_silence,
                 beep=beep,
             ))
         return self

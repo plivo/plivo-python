@@ -1,5 +1,4 @@
-import six
-
+from plivo.utils.validators import *
 from plivo.xml import (
     PlivoXMLElement,
     map_type,
@@ -32,6 +31,9 @@ class SpeakElement(PlivoXMLElement):
     def voice(self, value):
         self.__voice = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_voice(self, value):
         self.voice = value
         return self
@@ -44,6 +46,9 @@ class SpeakElement(PlivoXMLElement):
     def language(self, value):
         self.__language = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_language(self, value):
         self.language = value
         return self
@@ -56,6 +61,9 @@ class SpeakElement(PlivoXMLElement):
     def loop(self, value):
         self.__loop = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_loop(self, value):
         self.loop = value
         return self

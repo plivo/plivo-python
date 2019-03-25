@@ -1,6 +1,5 @@
-import six
-
 from plivo.xml import PlivoXMLElement, map_type
+from plivo.utils.validators import *
 
 
 class MessageElement(PlivoXMLElement):
@@ -15,6 +14,9 @@ class MessageElement(PlivoXMLElement):
     def src(self, value):
         self.__src = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_src(self, value):
         self.src = value
         return self
@@ -27,6 +29,9 @@ class MessageElement(PlivoXMLElement):
     def dst(self, value):
         self.__dst = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_dst(self, value):
         self.dst = value
         return self
@@ -39,6 +44,9 @@ class MessageElement(PlivoXMLElement):
     def type(self, value):
         self.__type = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_type(self, value):
         self.type = value
         return self
@@ -52,6 +60,9 @@ class MessageElement(PlivoXMLElement):
         self.__callback_url = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_callback_url(self, value):
         self.callback_url = value
         return self
@@ -65,6 +76,9 @@ class MessageElement(PlivoXMLElement):
         self.__callback_method = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_callback_method(self, value):
         self.callback_method = value
         return self

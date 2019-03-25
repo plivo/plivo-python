@@ -1,5 +1,4 @@
-import six
-
+from plivo.utils.validators import *
 from plivo.xml import PlivoXMLElement, map_type
 
 
@@ -16,6 +15,9 @@ class SubElement(PlivoXMLElement):
         self.__alias = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_alias(self, value):
         self.alias = value
         return self

@@ -5,7 +5,13 @@ from plivo import plivoxml
 
 class SElementTest(TestCase):
     def test_set_methods(self):
-        expected_response = '<Response><S><Break strength="strong" time="250ms">This is Test</Break><Emphasis level="strong">This is Test</Emphasis><Lang xmllang="it">This is Test</Lang><Phoneme alphabet="ipa" ph="t&amp;#x259;mei&amp;#x325;&amp;#x27E;ou&amp;#x325;">This is Test</Phoneme><Prosody pitch="low" rate="x-high" volume="+6dB">This is Test</Prosody><SayAs format="" interpret_as="spell-out">This is Test</SayAs><Sub alias="World Wide Web Consortium">This is Test</Sub><W role="claws:VV0">This is Test</W></S></Response>'
+        expected_response = '<Response><S><Break strength="strong" time="250ms">This is Test</Break>' \
+                            '<Emphasis level="strong">This is Test</Emphasis><Lang xmllang="it">This is ' \
+                            'Test</Lang><Phoneme alphabet="ipa" ph="t&amp;#x259;mei&amp;#x325;&amp;#x27E;' \
+                            'ou&amp;#x325;">This is Test</Phoneme><Prosody pitch="low" rate="x-high" ' \
+                            'volume="+6dB">This is Test</Prosody><SayAs format="" interpret_as="spell-out">' \
+                            'This is Test</SayAs><Sub alias="World Wide Web Consortium">This is Test</Sub>' \
+                            '<W role="claws:VV0">This is Test</W></S></Response>'
 
         content_break = 'This is Test'
         strength_break = 'strong'

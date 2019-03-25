@@ -5,7 +5,8 @@ from plivo import plivoxml
 
 class SayAsElementTest(TestCase):
     def test_set_methods(self):
-        expected_response = '<Response><SayAs format="application/ssml+xml" interpret_as="spell-out">This is Test</SayAs></Response>'
+        expected_response = '<Response><SayAs format="application/ssml+xml" interpret_as="spell-out">' \
+                            'This is Test</SayAs></Response>'
         interpret_as = "spell-out"
         format = "application/ssml+xml"
         content = 'This is Test'

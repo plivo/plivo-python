@@ -1,5 +1,4 @@
-import six
-
+from plivo.utils.validators import *
 from plivo.xml import PlivoXMLElement, map_type
 
 
@@ -16,6 +15,9 @@ class SayAsElement(PlivoXMLElement):
         self.__interpret_as = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_interpret_as(self, value):
         self.interpret_as = value
         return self
@@ -29,6 +31,9 @@ class SayAsElement(PlivoXMLElement):
         self.__format = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_format(self, value):
         self.format = value
         return self
