@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from plivo.base import PlivoResource, PlivoResourceInterface
-
-from ..utils.validators import *
 from plivo.utils import to_param_dict
+from ..utils.validators import *
 
 
 class LiveCall(PlivoResource):
@@ -48,4 +47,6 @@ class LiveCalls(PlivoResourceInterface):
 
     @validate_args(_id=[of_type(six.text_type)])
     def get(self, _id):
-        return self.client.request('GET', ('Call', _id), {'status': 'live'})
+        return self.client.request(
+            'GET', ('Call', _id), {'status': 'live'}
+        )

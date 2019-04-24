@@ -2,7 +2,10 @@
 from plivo.utils import to_param_dict
 from plivo.utils.validators import *
 
-from ..base import ListResponseObject, PlivoResource, PlivoResourceInterface
+from ..base import (ListResponseObject,
+                    PlivoResource,
+                    PlivoResourceInterface
+                    )
 
 
 class Address(PlivoResource):
@@ -24,9 +27,21 @@ class Address(PlivoResource):
                auto_correct_address=None,
                callback_url=None):
         return self.client.addresses.update(
-            self.id, salutation, first_name, last_name, country_iso,
-            address_line1, address_line2, city, region, postal_code, alias,
-            file_to_upload, auto_correct_address, callback_url)
+            self.id,
+            salutation,
+            first_name,
+            last_name,
+            country_iso,
+            address_line1,
+            address_line2,
+            city,
+            region,
+            postal_code,
+            alias,
+            file_to_upload,
+            auto_correct_address,
+            callback_url
+        )
 
     def delete(self):
         return self.client.addresses.delete(self.id)
@@ -56,7 +71,8 @@ class Addresses(PlivoResourceInterface):
         auto_correct_address=[optional(of_type_exact(bool))],
         fiscal_identification_code=[optional(of_type(six.text_type))],
         street_code=[optional(of_type(six.text_type))],
-        municipal_code=[optional(of_type(six.text_type))])
+        municipal_code=[optional(of_type(six.text_type))]
+    )
     def create(self,
                country_iso,
                salutation,
@@ -108,8 +124,10 @@ class Addresses(PlivoResourceInterface):
         else:
             files = {'file': ''}
         data_to_send = to_param_dict(self.create, locals())
+
         return self.client.request(
-            'POST', ('Verification', 'Address'), data_to_send, files=files)
+            'POST', ('Verification', 'Address'), data_to_send, files=files
+        )
 
     @validate_args(
         address_id=[of_type(six.text_type)],
@@ -124,7 +142,8 @@ class Addresses(PlivoResourceInterface):
         postal_code=[optional(of_type(six.text_type))],
         alias=[optional(of_type(six.text_type))],
         file_to_upload=[optional(of_type(six.text_type))],
-        auto_correct_address=[optional(of_type_exact(bool))], )
+        auto_correct_address=[optional(of_type_exact(bool))]
+    )
     def update(self,
                address_id,
                salutation=None,
@@ -165,15 +184,14 @@ class Addresses(PlivoResourceInterface):
 
         data_to_send = to_param_dict(self.create, locals())
         return self.client.request(
-            'POST', ('Verification', 'Address', address_id),
-            data_to_send,
-            files=files)
+            'POST', ('Verification', 'Address', address_id), data_to_send, files=files
+        )
 
     @validate_args(address_id=[of_type(six.text_type)])
     def get(self, address_id):
         return self.client.request(
-            'GET', ('Verification', 'Address', address_id),
-            response_type=Address)
+            'GET', ('Verification', 'Address', address_id), response_type=Address
+        )
 
     @validate_args(
         country_iso=[optional(of_type(six.text_type))],
@@ -212,12 +230,12 @@ class Addresses(PlivoResourceInterface):
              limit=20,
              offset=0):
         return self.client.request(
-            'GET', ('Verification', 'Address', ),
-            to_param_dict(self.list, locals()),
-            response_type=ListResponseObject,
-            objects_type=Address)
+            'GET', ('Verification', 'Address', ), to_param_dict(self.list, locals()),
+            response_type=ListResponseObject, objects_type=Address
+        )
 
     @validate_args(address_id=[of_type(six.text_type)])
     def delete(self, address_id):
-        return self.client.request('DELETE', ('Verification', 'Address',
-                                              address_id))
+        return self.client.request(
+            'DELETE', ('Verification', 'Address', address_id)
+        )

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from tests.base import PlivoResourceTestCase
 from tests.decorators import with_response
 
@@ -15,7 +14,8 @@ class CallTest(PlivoResourceTestCase):
             answer_url='http://www.example.com')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call'), self.client.current_request.url)
+            self.get_url('Call'), self.client.current_request.url
+        )
 
     @with_response(200)
     def test_list(self):
@@ -23,7 +23,8 @@ class CallTest(PlivoResourceTestCase):
         self.assertEqual(self.client.current_request.method, 'GET')
         self.assertUrlEqual(
             self.get_url('Call', limit=20, offset=0),
-            self.client.current_request.url)
+            self.client.current_request.url
+        )
 
     @with_response(200)
     def test_get(self):
@@ -32,7 +33,8 @@ class CallTest(PlivoResourceTestCase):
         self.assertResponseMatches(call)
         self.assertEqual(self.client.current_request.method, 'GET')
         self.assertUrlEqual(
-            self.get_url('Call', uuid), self.client.current_request.url)
+            self.get_url('Call', uuid), self.client.current_request.url
+        )
 
     @with_response(202)
     def test_update(self):
@@ -41,7 +43,8 @@ class CallTest(PlivoResourceTestCase):
             uuid, legs='aleg', aleg_url='http://www.example.com')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call', uuid), self.client.current_request.url)
+            self.get_url('Call', uuid), self.client.current_request.url
+        )
 
 
 class LiveCallTest(PlivoResourceTestCase):
@@ -50,32 +53,32 @@ class LiveCallTest(PlivoResourceTestCase):
         self.client.calls.play(uuid, 'http://test.url')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Play'),
-            self.client.current_request.url)
+            self.get_url('Call', uuid, 'Play'), self.client.current_request.url
+        )
 
     @with_response(204)
     def test_play_delete(self):
         self.client.calls.play_stop(uuid)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Play'),
-            self.client.current_request.url)
+            self.get_url('Call', uuid, 'Play'), self.client.current_request.url
+        )
 
     @with_response(202)
     def test_record_create(self):
-        self.client.calls.record(uuid, 'http://test.url')
+        self.client.calls.record(uuid,)
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Record'),
-            self.client.current_request.url)
+            self.get_url('Call', uuid, 'Record'), self.client.current_request.url
+        )
 
     @with_response(204)
     def test_record_delete(self):
         self.client.calls.record_stop(uuid)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Record'),
-            self.client.current_request.url)
+            self.get_url('Call', uuid, 'Record'), self.client.current_request.url
+        )
 
     @with_response(202)
     def test_dtmf_create(self):
@@ -90,29 +93,29 @@ class LiveCallTest(PlivoResourceTestCase):
         self.client.calls.play(uuid, 'http://test.url')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Play'),
-            self.client.current_request.url)
+            self.get_url('Call', uuid, 'Play'), self.client.current_request.url
+        )
 
     @with_response(204)
     def test_play_delete(self):
         self.client.calls.play_stop(uuid)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Play'),
-            self.client.current_request.url)
+            self.get_url('Call', uuid, 'Play'), self.client.current_request.url
+        )
 
     @with_response(202)
     def test_speak_create(self):
         self.client.calls.speak(uuid, 'http://test.url')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Speak'),
-            self.client.current_request.url)
+            self.get_url('Call', uuid, 'Speak'), self.client.current_request.url
+        )
 
     @with_response(204)
     def test_speak_delete(self):
         self.client.calls.speak_stop(uuid)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Speak'),
-            self.client.current_request.url)
+            self.get_url('Call', uuid, 'Speak'), self.client.current_request.url
+        )

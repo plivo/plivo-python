@@ -2,7 +2,10 @@
 from plivo.utils import to_param_dict
 from plivo.utils.validators import *
 
-from ..base import ListResponseObject, PlivoResource, PlivoResourceInterface
+from ..base import (ListResponseObject,
+                    PlivoResource,
+                    PlivoResourceInterface
+                    )
 
 
 class Identity(PlivoResource):
@@ -36,10 +39,24 @@ class Identity(PlivoResource):
                auto_correct_address=None,
                callback_url=None):
         return self.client.identities.update(
-            self.id, country_iso, salutation, first_name, last_name,
-            birth_place, birth_date, nationality, id_nationality,
-            id_issue_date, id_type, id_number, alias, business_name,
-            subaccount, file_to_upload, callback_url)
+            self.id,
+            country_iso,
+            salutation,
+            first_name,
+            last_name,
+            birth_place,
+            birth_date,
+            nationality,
+            id_nationality,
+            id_issue_date,
+            id_type,
+            id_number,
+            alias,
+            business_name,
+            subaccount,
+            file_to_upload,
+            callback_url
+        )
 
     def delete(self):
         return self.client.identities.delete(self.id)
@@ -223,14 +240,17 @@ class Identities(PlivoResourceInterface):
              alias=None,
              verification_status=None,
              limit=20,
-             offset=0):
+             offset=0
+             ):
         return self.client.request(
-            'GET', ('Verification', 'Identity', ),
-            to_param_dict(self.list, locals()),
-            response_type=ListResponseObject,
-            objects_type=Identity)
+            'GET', ('Verification', 'Identity', ), to_param_dict(self.list, locals()),
+            response_type=ListResponseObject, objects_type=Identity
+        )
 
-    @validate_args(identity_id=[of_type(six.text_type)])
+    @validate_args(
+        identity_id=[of_type(six.text_type)]
+    )
     def delete(self, identity_id):
-        return self.client.request('DELETE', ('Verification', 'Identity',
-                                              identity_id))
+        return self.client.request(
+            'DELETE', ('Verification', 'Identity', identity_id)
+        )

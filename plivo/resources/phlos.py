@@ -15,17 +15,21 @@ class Phlo(PlivoResource):
     def node(self, node_type, node_id):
         self.node_id = node_id
         return self.client.request(
-            'GET', ('phlo', self.phlo_id, node_type, node_id), response_type=Node)
+            'GET', ('phlo', self.phlo_id, node_type, node_id), response_type=Node
+        )
 
     def multi_party_call(self, node_id):
         self.node_id = node_id
         self.node_type = 'multi_party_call'
         return self.client.request(
-            'GET', ('phlo', self.phlo_id, self.node_type, node_id), response_type=MultiPartyCall)
+            'GET', ('phlo', self.phlo_id, self.node_type, node_id), response_type=MultiPartyCall
+        )
 
     def run(self, **kwargs):
-        return self.client.request('POST', ('account', self.client.session.auth[0], 'phlo', self.phlo_id),
-                                   to_param_dict(self.run, kwargs, func_args_check=False))
+        return self.client.request(
+            'POST', ('account', self.client.session.auth[0], 'phlo', self.phlo_id),
+            to_param_dict(self.run, kwargs, func_args_check=False)
+        )
 
     @validate_args(
         phlo_id=[of_type(six.text_type)],
@@ -59,7 +63,8 @@ class Phlos(PlivoResourceInterface):
     def get(self, phlo_id):
         self.phlo_id = phlo_id
         return self.client.request(
-            'GET', ('phlo', phlo_id), response_type=Phlo)
+            'GET', ('phlo', phlo_id), response_type=Phlo
+        )
 
     @validate_args(
         phlo_id=[of_type(six.text_type)],
@@ -92,9 +97,15 @@ class Phlos(PlivoResourceInterface):
         action=[of_type(six.text_type)],
         member_id=[optional(of_type(six.text_type))]
     )
-    def multi_party_call(self, phlo_id, node_id, action,
-                        member_id=None, trigger_source=None,
-                        to=None, role=None):
+    def multi_party_call(self,
+                         phlo_id,
+                         node_id,
+                         action,
+                         member_id=None,
+                         trigger_source=None,
+                         to=None,
+                         role=None
+                         ):
         data = {
             'phlo_id': phlo_id,
             'node_id': node_id,

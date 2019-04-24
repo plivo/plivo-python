@@ -7,16 +7,20 @@ import os
 import platform
 from collections import namedtuple
 
-from plivo.base import ResponseObject
-from plivo.exceptions import (AuthenticationError, InvalidRequestError,
-                              PlivoRestError, PlivoServerError,
-                              ResourceNotFoundError, ValidationError)
-from plivo.utils import is_valid_mainaccount, is_valid_subaccount
-from plivo.version import __version__
 from requests import Request, Session
 
-AuthenticationCredentials = namedtuple('AuthenticationCredentials',
-                                       'auth_id auth_token')
+from plivo.base import ResponseObject
+from plivo.exceptions import (AuthenticationError,
+                              InvalidRequestError,
+                              PlivoRestError,
+                              PlivoServerError,
+                              ResourceNotFoundError,
+                              ValidationError
+                              )
+from plivo.utils import is_valid_mainaccount, is_valid_subaccount
+from plivo.version import __version__
+
+AuthenticationCredentials = namedtuple('AuthenticationCredentials', 'auth_id auth_token')
 
 PLIVO_API = 'https://api.plivo.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
@@ -69,7 +73,6 @@ class BaseClient(object):
         self.proxies = proxies
         self.timeout = timeout
 
-
     def __enter__(self):
         return self
 
@@ -81,11 +84,10 @@ class BaseClient(object):
                          method,
                          response,
                          response_type=None,
-                         objects_type=None):
-        """Processes the API response based on the status codes and method used
-        to access the API
+                         objects_type=None
+                         ):
+        """Processes the API response based on the status codes and method used to access the API
         """
-
         try:
             response_json = response.json(
                 object_hook=
@@ -107,39 +109,45 @@ class BaseClient(object):
                 raise ValidationError(response_json.error)
             raise ValidationError(
                 'A parameter is missing or is invalid while accessing resource'
-                'at: {url}'.format(url=response.url))
+                'at: {url}'.format(url=response.url)
+            )
 
         if response.status_code == 401:
             if response_json and 'error' in response_json:
                 raise AuthenticationError(response_json.error)
             raise AuthenticationError(
                 'Failed to authenticate while accessing resource at: '
-                '{url}'.format(url=response.url))
+                '{url}'.format(url=response.url)
+            )
 
         if response.status_code == 404:
             if response_json and 'error' in response_json:
                 raise ResourceNotFoundError(response_json.error)
             raise ResourceNotFoundError(
-                'Resource not found at: {url}'.format(url=response.url))
+                'Resource not found at: {url}'.format(url=response.url)
+            )
 
         if response.status_code == 405:
             if response_json and 'error' in response_json:
                 raise InvalidRequestError(response_json.error)
             raise InvalidRequestError(
                 'HTTP method "{method}" not allowed to access resource at: '
-                '{url}'.format(method=method, url=response.url))
+                '{url}'.format(method=method, url=response.url)
+            )
 
         if response.status_code == 500:
             if response_json and 'error' in response_json:
                 raise PlivoServerError(response_json.error)
             raise PlivoServerError(
                 'A server error occurred while accessing resource at: '
-                '{url}'.format(url=response.url))
+                '{url}'.format(url=response.url)
+            )
 
         if method == 'DELETE':
             if response.status_code != 204:
-                raise PlivoRestError('Resource at {url} could not be '
-                                     'deleted'.format(url=response.url))
+                raise PlivoRestError(
+                    'Resource at {url} could not be deleted'.format(url=response.url)
+                )
 
         elif response.status_code not in [200, 201, 202]:
             raise PlivoRestError(
@@ -198,7 +206,8 @@ class BaseClient(object):
                 response_type=None,
                 objects_type=None,
                 files=None,
-                **kwargs):
+                **kwargs
+                ):
         if files is not None:
             req = self.create_multipart_request(method, path, data, files)
             session = self.multipart_session

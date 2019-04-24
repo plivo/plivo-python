@@ -2,9 +2,10 @@
 """
 Recording class - along with its list class
 """
-
-from plivo.base import (ListResponseObject, PlivoResource,
-                        PlivoResourceInterface)
+from plivo.base import (ListResponseObject,
+                        PlivoResource,
+                        PlivoResourceInterface
+                        )
 from plivo.resources.accounts import Subaccount
 from plivo.utils import is_valid_time_comparison, to_param_dict
 from plivo.utils.validators import *
@@ -35,7 +36,8 @@ class Recordings(PlivoResourceInterface):
                 all_of(
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
-        ])
+        ]
+    )
     def list(self,
              subaccount=None,
              call_uuid=None,
@@ -45,7 +47,8 @@ class Recordings(PlivoResourceInterface):
              add_time__lte=None,
              add_time=None,
              limit=20,
-             offset=0):
+             offset=0
+             ):
 
         if subaccount:
             if isinstance(subaccount, Subaccount):
@@ -67,18 +70,18 @@ class Recordings(PlivoResourceInterface):
             add_time = str(add_time)
 
         return self.client.request(
-            'GET',
-            ('Recording', ),
-            to_param_dict(self.list, locals()),
-            objects_type=Recording,
-            response_type=ListResponseObject,
+            'GET', ('Recording', ), to_param_dict(self.list, locals()),
+            objects_type=Recording, response_type=ListResponseObject,
         )
 
     @validate_args(recording_id=[of_type(six.text_type)])
     def get(self, recording_id):
         return self.client.request(
-            'GET', ('Recording', recording_id), response_type=Recording)
+            'GET', ('Recording', recording_id), response_type=Recording
+        )
 
     @validate_args(recording_id=[of_type(six.text_type)])
     def delete(self, recording_id):
-        return self.client.request('DELETE', ('Recording', recording_id))
+        return self.client.request(
+            'DELETE', ('Recording', recording_id)
+        )
