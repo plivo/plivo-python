@@ -2,9 +2,10 @@
 """
 Application class - along with its list class
 """
-
-from plivo.base import (ListResponseObject, PlivoResource,
-                        PlivoResourceInterface)
+from plivo.base import (ListResponseObject,
+                        PlivoResource,
+                        PlivoResourceInterface
+                        )
 from plivo.resources.accounts import Subaccount
 from plivo.utils import to_param_dict
 from plivo.utils.validators import *
@@ -56,7 +57,8 @@ class Applications(PlivoResourceInterface):
         default_number_app=[optional(of_type_exact(bool))],
         default_endpoint_app=[optional(of_type_exact(bool))],
         subaccount=[optional(is_subaccount())],
-        log_incoming_messages = [optional(of_type_exact(bool))])
+        log_incoming_messages = [optional(of_type_exact(bool))]
+    )
     def create(self,
                answer_url,
                app_name,
@@ -76,13 +78,15 @@ class Applications(PlivoResourceInterface):
             if isinstance(subaccount, Subaccount):
                 subaccount = subaccount.id
 
-        return self.client.request('POST', ('Application', ),
-                                   to_param_dict(self.create, locals()))
+        return self.client.request(
+            'POST', ('Application', ), to_param_dict(self.create, locals())
+        )
 
     @validate_args(app_id=[of_type(six.text_type)])
     def get(self, app_id):
         return self.client.request(
-            'GET', ('Application', app_id), response_type=Application)
+            'GET', ('Application', app_id), response_type=Application
+        )
 
     @validate_args(
         subaccount=[optional(is_subaccount())],
@@ -121,7 +125,8 @@ class Applications(PlivoResourceInterface):
         default_number_app=[optional(of_type_exact(bool))],
         default_endpoint_app=[optional(of_type_exact(bool))],
         subaccount=[optional(is_subaccount())],
-        log_incoming_messages=[optional(of_type_exact(bool))])
+        log_incoming_messages=[optional(of_type_exact(bool))]
+    )
     def update(self,
                app_id,
                answer_url,
@@ -139,10 +144,12 @@ class Applications(PlivoResourceInterface):
         if subaccount:
             if isinstance(subaccount, Subaccount):
                 subaccount = subaccount.id
-        return self.client.request('POST', ('Application', app_id),
-                                   to_param_dict(self.update, locals()))
+        return self.client.request(
+            'POST', ('Application', app_id), to_param_dict(self.update, locals())
+        )
 
     @validate_args(app_id=[of_type(six.text_type)])
     def delete(self, app_id):
-        return self.client.request('DELETE', ('Application', app_id),
-                                   to_param_dict(self.update, locals()))
+        return self.client.request(
+            'DELETE', ('Application', app_id), to_param_dict(self.update, locals())
+        )
