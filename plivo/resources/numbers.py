@@ -50,10 +50,10 @@ class Numbers(PlivoResourceInterface):
                offset=None,
                eligible=None):
         return self.client.request('GET', ('PhoneNumber', ),
-                                   to_param_dict(self.list, locals()), response_type=ListResponseObject)
+                                   to_param_dict(self.search, locals()))
 
     @validate_args(
-        country_iso=[is_countryiso()],
+        country_iso=[(is_countryiso())],
         services=[
             optional(
                 is_iterable(

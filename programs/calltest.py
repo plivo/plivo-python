@@ -20,7 +20,7 @@ plivo.exceptions.ValidationError: src and destination cannot overlap
 
 """
 """
-All the agrguments are correct , 
+All the agrguments are correct ,
 """
 """
 Get CDR of a call:
@@ -124,3 +124,8 @@ Response:
 plivo.exceptions.ValidationError: ['callback_url should match format
 (http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+|None) (actual value: uerigrf)']
 """
+
+response = client.calls.list(
+    limit=5,
+    offset=0, )
+print(response)

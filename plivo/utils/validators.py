@@ -175,7 +175,6 @@ def validate_args(**to_validate):
 
 
 is_valid_date = functools.partial(of_type, six.text_type)
-is_countryiso = functools.partial(regex(r'[A-Z]{2}$'))
 is_phonenumber = functools.partial(of_type, six.text_type)
 is_subaccount_id = functools.partial(all_of, of_type(six.text_type),
                                      regex(r'^SA[A-Z0-9]{18}$'))

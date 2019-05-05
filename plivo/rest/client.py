@@ -13,7 +13,7 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               ResourceNotFoundError, ValidationError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls,
                              Conferences, Endpoints, Identities, Messages,
-                             Numbers, Pricings, Recordings, Subaccounts)
+                             Numbers, Pricings, Recordings, Subaccounts,OTP)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
 from plivo.utils import is_valid_mainaccount, is_valid_subaccount
@@ -53,7 +53,6 @@ class Client(object):
     def __init__(self, auth_id=None, auth_token=None, proxies=None, timeout=5):
         """
         The Plivo API client.
-
         Deals with all the API requests to be made.
         """
 
