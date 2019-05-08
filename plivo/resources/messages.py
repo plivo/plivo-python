@@ -33,6 +33,7 @@ class Messages(PlivoResourceInterface):
         log=[optional(of_type_exact(bool))],
         trackable=[optional(of_type_exact(bool))],
         powerpack_uuid=[optional(of_type(six.text_type))])
+
     def create(self,
                dst,
                text,
@@ -86,7 +87,11 @@ class Messages(PlivoResourceInterface):
                 all_of(
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
-        ])
+        ],
+        error_code=[optional(is_in(('10','20','30','40','50','60','70','80','90',
+                    '100','110','201','1000')))]
+        ) #validating error codes. 
+
     def list(self,
              subaccount=None,
              message_direction=None,

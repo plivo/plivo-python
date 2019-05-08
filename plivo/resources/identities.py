@@ -34,7 +34,8 @@ class Identity(PlivoResource):
                subaccount=None,
                file_to_upload=None,
                auto_correct_address=None,
-               callback_url=None):
+               callback_url=None,
+               url=None,):                  #One of param which was missing.
         return self.client.identities.update(
             self.id, country_iso, salutation, first_name, last_name,
             birth_place, birth_date, nationality, id_nationality,
@@ -157,9 +158,9 @@ class Identities(PlivoResourceInterface):
                street_code=None,
                municipal_code=None,
                subaccount=None,
-               file_to_upload=None,
+               file_to_upload=None,                 # Value in doc 'file'
                auto_correct_address=None,
-               callback_url=None):
+               callback_url=None,):                   
         if file_to_upload:
             file_extension = file_to_upload.strip().split('.')[-1].lower()
             if file_extension not in ['jpg', 'jpeg', 'png', 'pdf']:

@@ -53,7 +53,6 @@ class Client(object):
     def __init__(self, auth_id=None, auth_token=None, proxies=None, timeout=5):
         """
         The Plivo API client.
-
         Deals with all the API requests to be made.
         """
 
