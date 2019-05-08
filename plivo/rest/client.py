@@ -13,7 +13,7 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               ResourceNotFoundError, ValidationError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls,
                              Conferences, Endpoints, Identities, Messages,
-                             Numbers, Pricings, Recordings, Subaccounts,OTP)
+                             Numbers, Pricings, Recordings, Subaccounts)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
 from plivo.utils import is_valid_mainaccount, is_valid_subaccount
