@@ -234,7 +234,7 @@ class Calls(PlivoResourceInterface):
     )
     def update(self,
                call_uuid,
-               legs=None,
+               legs,
                aleg_url=None,
                aleg_method=None,
                bleg_url=None,
@@ -249,6 +249,21 @@ class Calls(PlivoResourceInterface):
                  aleg_method=None,
                  bleg_url=None,
                  bleg_method=None):
+        if legs is None:
+                     raise ValidationError(
+                         'Which leg of the call should be transfered? aleg,bleg or both?')
+        elif  (legs == 'aleg' and aleg_url is None):
+                    raise ValidationError(
+                        'aleg is mentioned. Please mention aleg_url as well'
+                    )
+        elif  (legs == 'bleg' and bleg_url is None):
+                    raise ValidationError(
+                        'bleg is mentioned. Please mention bleg_url as well'
+                    )
+        elif  (legs == 'both' and (aleg_url is None and bleg_url is None)):
+                    raise ValidationError(
+                        'both legs are mentioned. Please mention both aleg_url and bleg_url'
+                    )
         return self.update(
             call_uuid,
             legs=legs,
