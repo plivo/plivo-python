@@ -1,5 +1,5 @@
+from plivo.utils.validators import *
 from plivo.xml import PlivoXMLElement, map_type
-import six
 
 
 class RecordElement(PlivoXMLElement):
@@ -14,6 +14,9 @@ class RecordElement(PlivoXMLElement):
     def action(self, value):
         self.__action = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_action(self, value):
         self.action = value
         return self
@@ -26,6 +29,9 @@ class RecordElement(PlivoXMLElement):
     def method(self, value):
         self.__method = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_method(self, value):
         self.method = value
         return self
@@ -39,6 +45,9 @@ class RecordElement(PlivoXMLElement):
         self.__file_format = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_file_format(self, value):
         self.file_format = value
         return self
@@ -51,6 +60,9 @@ class RecordElement(PlivoXMLElement):
     def redirect(self, value):
         self.__redirect = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_redirect(self, value):
         self.redirect = value
         return self
@@ -63,6 +75,9 @@ class RecordElement(PlivoXMLElement):
     def timeout(self, value):
         self.__timeout = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_timeout(self, value):
         self.timeout = value
         return self
@@ -75,6 +90,9 @@ class RecordElement(PlivoXMLElement):
     def max_length(self, value):
         self.__max_length = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_max_length(self, value):
         self.max_length = value
         return self
@@ -87,6 +105,9 @@ class RecordElement(PlivoXMLElement):
     def play_beep(self, value):
         self.__play_beep = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_play_beep(self, value):
         self.play_beep = value
         return self
@@ -100,6 +121,9 @@ class RecordElement(PlivoXMLElement):
         self.__finish_on_key = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_finish_on_key(self, value):
         self.finish_on_key = value
         return self
@@ -112,6 +136,9 @@ class RecordElement(PlivoXMLElement):
     def record_session(self, value):
         self.__record_session = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_record_session(self, value):
         self.record_session = value
         return self
@@ -125,6 +152,9 @@ class RecordElement(PlivoXMLElement):
         self.__start_on_dial_answer = bool(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_start_on_dial_answer(self, value):
         self.start_on_dial_answer = value
         return self
@@ -138,6 +168,9 @@ class RecordElement(PlivoXMLElement):
         self.__transcription_type = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_transcription_type(self, value):
         self.transcription_type = value
         return self
@@ -151,6 +184,9 @@ class RecordElement(PlivoXMLElement):
         self.__transcription_url = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_transcription_url(self, value):
         self.transcription_url = value
         return self
@@ -164,6 +200,9 @@ class RecordElement(PlivoXMLElement):
         self.__transcription_method = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_transcription_method(self, value):
         self.transcription_method = value
         return self
@@ -177,6 +216,9 @@ class RecordElement(PlivoXMLElement):
         self.__callback_url = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_callback_url(self, value):
         self.callback_url = value
         return self
@@ -190,6 +232,9 @@ class RecordElement(PlivoXMLElement):
         self.__callback_method = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_callback_method(self, value):
         self.callback_method = value
         return self

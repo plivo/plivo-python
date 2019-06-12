@@ -4,7 +4,12 @@ from plivo import plivoxml
 
 class RecordElementTest(TestCase):
     def test_set_methods(self):
-        expected_response = '<Response><Record action="https://foo.example.com" callbackMethod="GET" callbackUrl="https://foo.example.com" fileFormat="wav" finishOnKey="#" maxLength="10" method="GET" playBeep="false" recordSession="false" redirect="false" startOnDialAnswer="false" timeout="100" transcriptionMethod="GET" transcriptionType="hybrid" transcriptionUrl="https://foo.example.com"></Record></Response>'
+        expected_response = '<Response><Record action="https://foo.example.com" callbackMethod="GET" ' \
+                            'callbackUrl="https://foo.example.com" fileFormat="wav" finishOnKey="#" ' \
+                            'maxLength="10" method="GET" playBeep="false" recordSession="false" ' \
+                            'redirect="false" startOnDialAnswer="false" timeout="100" transcriptionMethod="GET" ' \
+                            'transcriptionType="hybrid" transcriptionUrl="https://foo.example.com"></Record>' \
+                            '</Response>'
         action = 'https://foo.example.com'
         method = 'GET'
         fileFormat = 'wav'

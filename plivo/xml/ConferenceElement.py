@@ -1,4 +1,4 @@
-import six
+from plivo.utils.validators import *
 from plivo.xml import PlivoXMLElement, map_type
 
 
@@ -14,6 +14,9 @@ class ConferenceElement(PlivoXMLElement):
     def muted(self, value):
         self.__muted = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_muted(self, value):
         self.muted = value
         return self
@@ -27,6 +30,9 @@ class ConferenceElement(PlivoXMLElement):
         self.__enter_sound = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_enter_sound(self, value):
         self.enter_sound = value
         return self
@@ -39,6 +45,9 @@ class ConferenceElement(PlivoXMLElement):
     def exit_sound(self, value):
         self.__exit_sound = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_exit_sound(self, value):
         self.exit_sound = value
         return self
@@ -52,6 +61,9 @@ class ConferenceElement(PlivoXMLElement):
         self.__start_conference_on_enter = bool(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_start_conference_on_enter(self, value):
         self.start_conference_on_enter = value
         return self
@@ -65,6 +77,9 @@ class ConferenceElement(PlivoXMLElement):
         self.__end_conference_on_exit = bool(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_end_conference_on_exit(self, value):
         self.end_conference_on_exit = value
         return self
@@ -77,6 +92,9 @@ class ConferenceElement(PlivoXMLElement):
     def stay_alone(self, value):
         self.__stay_alone = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_stay_alone(self, value):
         self.stay_alone = value
         return self
@@ -89,6 +107,9 @@ class ConferenceElement(PlivoXMLElement):
     def wait_sound(self, value):
         self.__wait_sound = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_wait_sound(self, value):
         self.wait_sound = value
         return self
@@ -101,6 +122,9 @@ class ConferenceElement(PlivoXMLElement):
     def max_members(self, value):
         self.__max_members = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_max_members(self, value):
         self.max_members = value
         return self
@@ -113,6 +137,9 @@ class ConferenceElement(PlivoXMLElement):
     def record(self, value):
         self.__record = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_record(self, value):
         self.record = value
         return self
@@ -126,6 +153,9 @@ class ConferenceElement(PlivoXMLElement):
         self.__record_file_format = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_record_file_format(self, value):
         self.record_file_format = value
         return self
@@ -138,6 +168,9 @@ class ConferenceElement(PlivoXMLElement):
     def time_limit(self, value):
         self.__time_limit = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_time_limit(self, value):
         self.time_limit = value
         return self
@@ -150,6 +183,9 @@ class ConferenceElement(PlivoXMLElement):
     def hangup_on_star(self, value):
         self.__hangup_on_star = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_hangup_on_star(self, value):
         self.hangup_on_star = value
         return self
@@ -162,6 +198,9 @@ class ConferenceElement(PlivoXMLElement):
     def action(self, value):
         self.__action = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_action(self, value):
         self.action = value
         return self
@@ -174,6 +213,9 @@ class ConferenceElement(PlivoXMLElement):
     def method(self, value):
         self.__method = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_method(self, value):
         self.method = value
         return self
@@ -187,6 +229,9 @@ class ConferenceElement(PlivoXMLElement):
         self.__callback_url = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_callback_url(self, value):
         self.callback_url = value
         return self
@@ -200,6 +245,9 @@ class ConferenceElement(PlivoXMLElement):
         self.__callback_method = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_callback_method(self, value):
         self.callback_method = value
         return self
@@ -213,6 +261,9 @@ class ConferenceElement(PlivoXMLElement):
         self.__digits_match = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_digits_match(self, value):
         self.digits_match = value
         return self
@@ -225,6 +276,9 @@ class ConferenceElement(PlivoXMLElement):
     def floor_event(self, value):
         self.__floor_event = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_floor_event(self, value):
         self.floor_event = value
         return self
@@ -237,6 +291,9 @@ class ConferenceElement(PlivoXMLElement):
     def redirect(self, value):
         self.__redirect = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_redirect(self, value):
         self.redirect = value
         return self
@@ -249,13 +306,96 @@ class ConferenceElement(PlivoXMLElement):
     def relay_dtmf(self, value):
         self.__relay_dtmf = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_relay_dtmf(self, value):
         self.relay_dtmf = value
         return self
 
+    @property
+    def send_digits(self):
+        return self.__send_digits
+
+    @send_digits.setter
+    def send_digits(self, value):
+        self.__send_digits = six.text_type(
+            value) if value is not None else None
+
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
+    def set_send_digits(self, value):
+        self.send_digits = value
+        return self
+
+    @property
+    def record_when_alone(self):
+        return self.__record_when_alone
+
+    @record_when_alone.setter
+    def record_when_alone(self, value):
+        self.__record_when_alone = six.text_type(
+            value) if value is not None else None
+
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
+    def set_record_when_alone(self, value):
+        self.record_when_alone = value
+        return self
+
+    @property
+    def transcription_type(self):
+        return self.__transcription_type
+
+    @transcription_type.setter
+    def transcription_type(self, value):
+        self.__transcription_type = six.text_type(
+            value) if value is not None else None
+
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
+    def set_transcription_type(self, value):
+        self.transcription_type = value
+        return self
+
+    @property
+    def transcription_url(self):
+        return self.__transcription_url
+
+    @transcription_url.setter
+    def transcription_url(self, value):
+        self.__transcription_url = six.text_type(
+            value) if value is not None else None
+
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
+    def set_transcription_url(self, value):
+        self.transcription_url = value
+        return self
+
+    @property
+    def transcription_method(self):
+        return self.__transcription_method
+
+    @transcription_method.setter
+    def transcription_method(self, value):
+        self.__transcription_method = six.text_type(
+            value) if value is not None else None
+
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
+    def set_transcription_method(self, value):
+        self.transcription_method = value
+        return self
+
     def __init__(
             self,
-            content,
+            content=None,
             muted=None,
             enter_sound=None,
             exit_sound=None,
@@ -276,6 +416,11 @@ class ConferenceElement(PlivoXMLElement):
             floor_event=None,
             redirect=None,
             relay_dtmf=None,
+            send_digits=None,
+            record_when_alone=None,
+            transcription_type=None,
+            transcription_url=None,
+            transcription_method=None,
     ):
         super(ConferenceElement, self).__init__()
 
@@ -300,6 +445,11 @@ class ConferenceElement(PlivoXMLElement):
         self.floor_event = floor_event
         self.redirect = redirect
         self.relay_dtmf = relay_dtmf
+        self.send_digits = send_digits
+        self.record_when_alone = record_when_alone
+        self.transcription_type = transcription_type
+        self.transcription_url = transcription_url
+        self.transcription_method = transcription_method
 
     def to_dict(self):
         d = {
@@ -323,6 +473,11 @@ class ConferenceElement(PlivoXMLElement):
             'floorEvent': self.floor_event,
             'redirect': self.redirect,
             'relayDTMF': self.relay_dtmf,
+            'sendDigits': self.send_digits,
+            'recordWhenAlone': self.record_when_alone,
+            'transcriptionType': self.transcription_type,
+            'transcriptionUrl': self.transcription_url,
+            'transcriptionMethod': self.transcription_method,
         }
         return {
             k: six.text_type(map_type(v))

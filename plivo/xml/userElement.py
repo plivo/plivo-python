@@ -1,5 +1,4 @@
-import six
-
+from plivo.utils.validators import *
 from plivo.xml import PlivoXMLElement, map_type
 
 
@@ -16,6 +15,9 @@ class UserElement(PlivoXMLElement):
         self.__send_digits = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_send_digits(self, value):
         self.send_digits = value
         return self
@@ -28,6 +30,9 @@ class UserElement(PlivoXMLElement):
     def send_on_preanswer(self, value):
         self.__send_on_preanswer = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_send_on_preanswer(self, value):
         self.send_on_preanswer = value
         return self
@@ -41,6 +46,9 @@ class UserElement(PlivoXMLElement):
         self.__sip_headers = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_sip_headers(self, value):
         self.sip_headers = value
         return self

@@ -1,5 +1,10 @@
-import six
-from plivo.xml import PlivoXMLElement, map_type, NumberElement, UserElement
+from plivo.utils.validators import *
+from plivo.xml import (
+    PlivoXMLElement,
+    map_type,
+    NumberElement,
+    UserElement
+)
 
 
 class DialElement(PlivoXMLElement):
@@ -14,6 +19,9 @@ class DialElement(PlivoXMLElement):
     def action(self, value):
         self.__action = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_action(self, value):
         self.action = value
         return self
@@ -26,6 +34,9 @@ class DialElement(PlivoXMLElement):
     def method(self, value):
         self.__method = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_method(self, value):
         self.method = value
         return self
@@ -38,6 +49,9 @@ class DialElement(PlivoXMLElement):
     def hangup_on_star(self, value):
         self.__hangup_on_star = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_hangup_on_star(self, value):
         self.hangup_on_star = value
         return self
@@ -50,6 +64,9 @@ class DialElement(PlivoXMLElement):
     def time_limit(self, value):
         self.__time_limit = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_time_limit(self, value):
         self.time_limit = value
         return self
@@ -62,6 +79,9 @@ class DialElement(PlivoXMLElement):
     def timeout(self, value):
         self.__timeout = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_timeout(self, value):
         self.timeout = value
         return self
@@ -74,6 +94,9 @@ class DialElement(PlivoXMLElement):
     def caller_id(self, value):
         self.__caller_id = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_caller_id(self, value):
         self.caller_id = value
         return self
@@ -87,6 +110,9 @@ class DialElement(PlivoXMLElement):
         self.__caller_name = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_caller_name(self, value):
         self.caller_name = value
         return self
@@ -100,6 +126,9 @@ class DialElement(PlivoXMLElement):
         self.__confirm_sound = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_confirm_sound(self, value):
         self.confirm_sound = value
         return self
@@ -113,6 +142,9 @@ class DialElement(PlivoXMLElement):
         self.__confirm_key = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_confirm_key(self, value):
         self.confirm_key = value
         return self
@@ -125,6 +157,9 @@ class DialElement(PlivoXMLElement):
     def dial_music(self, value):
         self.__dial_music = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_dial_music(self, value):
         self.dial_music = value
         return self
@@ -138,6 +173,9 @@ class DialElement(PlivoXMLElement):
         self.__callback_url = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_callback_url(self, value):
         self.callback_url = value
         return self
@@ -151,6 +189,9 @@ class DialElement(PlivoXMLElement):
         self.__callback_method = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_callback_method(self, value):
         self.callback_method = value
         return self
@@ -163,6 +204,9 @@ class DialElement(PlivoXMLElement):
     def redirect(self, value):
         self.__redirect = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_redirect(self, value):
         self.redirect = value
         return self
@@ -176,6 +220,9 @@ class DialElement(PlivoXMLElement):
         self.__digits_match = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_digits_match(self, value):
         self.digits_match = value
         return self
@@ -189,6 +236,9 @@ class DialElement(PlivoXMLElement):
         self.__digits_match_b_leg = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_digits_match_b_leg(self, value):
         self.digits_match_b_leg = value
         return self
@@ -202,6 +252,9 @@ class DialElement(PlivoXMLElement):
         self.__sip_headers = six.text_type(
             value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_sip_headers(self, value):
         self.sip_headers = value
         return self
@@ -266,7 +319,7 @@ class DialElement(PlivoXMLElement):
         return {
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
-        }
+            }
 
     def add_user(
             self,

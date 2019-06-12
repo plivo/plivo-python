@@ -4,7 +4,12 @@ from plivo import plivoxml
 
 class GetDigitsElementTest(TestCase):
     def test_set_methods(self):
-        expected_response = '<Response><GetDigits action="https://foo.example.com" digitTimeout="10" finishOnKey="#" invalidDigitsSound="http://foo.audio.url" log="true" method="GET" numDigits="2" playBeep="false" redirect="false" retries="1" timeout="100" validDigits="*"><Speak language="en-US" loop="2" voice="WOMAN">This is test</Speak><Play loop="2">This is test</Play></GetDigits></Response>'
+        expected_response = '<Response><GetDigits action="https://foo.example.com" digitTimeout="10"' \
+            ' finishOnKey="#" invalidDigitsSound="http://foo.audio.url" log="true" method="GET"' \
+            ' numDigits="2" playBeep="false" redirect="false" retries="1" timeout="100"' \
+            ' validDigits="*"><Speak language="en-US" loop="2" voice="WOMAN">This is test</Speak>' \
+            '<Play loop="2">This is test</Play></GetDigits></Response>'
+
         action = 'https://foo.example.com'
         method = 'GET'
         timeout = 100

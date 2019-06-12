@@ -3,9 +3,9 @@
 Account & Subaccount classes - along with their list classes
 """
 
-from plivo.base import (ListResponseObject, PlivoResource,
+from plivo.base import (ListResponseObject,
+                        PlivoResource,
                         PlivoResourceInterface)
-from plivo.exceptions import ValidationError
 from plivo.utils import to_param_dict
 from plivo.utils.validators import *
 
@@ -71,8 +71,10 @@ class Subaccounts(PlivoResourceInterface):
             optional(of_type_exact(bool))
         ])
     def delete(self, auth_id, cascade=None):
-        return self.client.request('DELETE', ('Subaccount', auth_id),
-                                   to_param_dict(self.delete, locals()))
+        return self.client.request(
+            'DELETE', ('Subaccount', auth_id),
+            to_param_dict(self.delete, locals())
+        )
 
 
 class Account(PlivoResource):

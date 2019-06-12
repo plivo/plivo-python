@@ -2,14 +2,39 @@ from plivo.xml import (ConferenceElement, DialElement, DTMFElement,
                        GetDigitsElement, HangupElement, MessageElement,
                        NumberElement, PlayElement, PlivoXMLElement,
                        PreAnswerElement, RecordElement, RedirectElement,
-                       SpeakElement, UserElement, WaitElement)
+                       SpeakElement, UserElement, WaitElement,
+                       BreakElement, EmphasisElement, LangElement
+                       )
 
 
 class ResponseElement(PlivoXMLElement):
     _name = 'Response'
     _nestable = [
-        'Conference', 'Dial', 'Number', 'User', 'DTMF', 'GetDigits', 'Hangup',
-        'Message', 'Play', 'PreAnswer', 'Record', 'Redirect', 'Speak', 'Wait'
+        'Conference',
+        'Dial',
+        'Number',
+        'User',
+        'DTMF',
+        'GetDigits',
+        'Hangup',
+        'Message',
+        'Play',
+        'PreAnswer',
+        'Record',
+        'Redirect',
+        'Speak',
+        'Wait',
+        'Break',
+        'Emphasis',
+        'Lang',
+        'P',
+        'Phoneme',
+        'Prosody',
+        'SayAs',
+        'S',
+        'Sub',
+        'W',
+        'Cont'
     ]
 
     def add_conference(
@@ -62,6 +87,21 @@ class ResponseElement(PlivoXMLElement):
             ))
         return self
 
+    def add_break(
+        self,
+        content,
+        strength=None,
+        time=None,
+    ):
+
+        self.add(
+            BreakElement(
+                content=content,
+                strength=strength,
+                time=time,
+            ))
+        return self
+
     def add_dial(
             self,
             action=None,
@@ -102,17 +142,75 @@ class ResponseElement(PlivoXMLElement):
             ))
         return self
 
+    def add_emphasis(
+        self,
+        content,
+        level=None,
+    ):
+
+        self.add(
+            EmphasisElement(
+                content=content,
+                level=level,
+            ))
+        return self
+
+    def add_lang(
+        self,
+        content=None,
+        xmllang=None,
+    ):
+
+        self.add(
+            LangElement(
+                content=content,
+                xmllang=xmllang
+            )
+        )
+        return self
+
     def add_number(
             self,
             content,
             send_digits=None,
             send_on_preanswer=None,
+            send_digits_mode=None,
     ):
+
         self.add(
             NumberElement(
                 content=content,
                 send_digits=send_digits,
                 send_on_preanswer=send_on_preanswer,
+                send_digits_mode=send_digits_mode,
+            ))
+        return self
+
+    def add_p(
+        self,
+        content=None,
+    ):
+        from .pElement import PElement
+
+        self.add(
+            PElement(
+                content=content,
+            ))
+        return self
+
+    def add_phoneme(
+        self,
+        content=None,
+        alphabet=None,
+        ph=None
+    ):
+        from .phonemeElement import PhonemeElement
+
+        self.add(
+            PhonemeElement(
+                content=content,
+                alphabet=alphabet,
+                ph=ph,
             ))
         return self
 
@@ -268,6 +366,88 @@ class ResponseElement(PlivoXMLElement):
             content=content,
             method=method,
         ))
+        return self
+
+    def add_prosody(
+            self,
+            content=None,
+            volume=None,
+            rate=None,
+            pitch=None,
+    ):
+        from .prosodyElement import ProsodyElement
+        self.add(ProsodyElement(
+            content=content,
+            volume=volume,
+            rate=rate,
+            pitch=pitch,
+        ))
+        return self
+
+    def add_say_as(
+            self,
+            content,
+            interpret_as=None,
+            format=None,
+    ):
+        from .sayAsElement import SayAsElement
+        self.add(SayAsElement(
+            content=content,
+            interpret_as=interpret_as,
+            format=format,
+        ))
+        return self
+
+    def add_s(
+        self,
+        content=None,
+    ):
+        from .sElement import SElement
+
+        self.add(
+            SElement(
+                content=content,
+            ))
+        return self
+
+    def add_cont(
+        self,
+        content=None,
+    ):
+        from .contElement import ContElement
+
+        self.add(
+            ContElement(
+                content=content,
+            ))
+        return self
+
+    def add_sub(
+        self,
+        content=None,
+        alias=None,
+    ):
+        from .subElement import SubElement
+
+        self.add(
+            SubElement(
+                content=content,
+                alias=alias
+            ))
+        return self
+
+    def add_w(
+        self,
+        content=None,
+        role=None,
+    ):
+        from .wElement import WElement
+
+        self.add(
+            WElement(
+                content=content,
+                role=role
+            ))
         return self
 
     def add_speak(

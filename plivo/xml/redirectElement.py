@@ -1,5 +1,6 @@
 import six
 
+from plivo.utils.validators import *
 from plivo.xml import PlivoXMLElement, map_type
 
 
@@ -15,6 +16,9 @@ class RedirectElement(PlivoXMLElement):
     def method(self, value):
         self.__method = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_method(self, value):
         self.method = value
         return self

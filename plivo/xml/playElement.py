@@ -1,5 +1,4 @@
-import six
-
+from plivo.utils.validators import *
 from plivo.xml import PlivoXMLElement, map_type
 
 
@@ -15,6 +14,9 @@ class PlayElement(PlivoXMLElement):
     def loop(self, value):
         self.__loop = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_loop(self, value):
         self.loop = value
         return self

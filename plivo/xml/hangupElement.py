@@ -1,6 +1,5 @@
-import six
-
 from plivo.xml import PlivoXMLElement, map_type
+from plivo.utils.validators import *
 
 
 class HangupElement(PlivoXMLElement):
@@ -15,6 +14,9 @@ class HangupElement(PlivoXMLElement):
     def reason(self, value):
         self.__reason = six.text_type(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
     def set_reason(self, value):
         self.reason = value
         return self
@@ -27,6 +29,9 @@ class HangupElement(PlivoXMLElement):
     def schedule(self, value):
         self.__schedule = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_schedule(self, value):
         self.schedule = value
         return self
@@ -34,7 +39,8 @@ class HangupElement(PlivoXMLElement):
     def __init__(
             self,
             reason=None,
-            schedule=None, ):
+            schedule=None,
+    ):
         super(HangupElement, self).__init__()
 
         self.reason = reason

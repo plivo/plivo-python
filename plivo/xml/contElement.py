@@ -1,15 +1,13 @@
-from plivo.utils.validators import *
-from plivo.xml import (
-    PlivoXMLElement,
-    map_type,
-    BreakElement,
-    EmphasisElement,
-    LangElement,
-)
+import six
+
+from plivo.xml import (PlivoXMLElement,
+                       map_type,
+                       BreakElement
+                       )
 
 
-class SpeakElement(PlivoXMLElement):
-    _name = 'Speak'
+class ContElement(PlivoXMLElement):
+    _name = 'Cont'
     _nestable = [
         'Break',
         'Emphasis',
@@ -20,86 +18,30 @@ class SpeakElement(PlivoXMLElement):
         'S',
         'SayAs',
         'Sub',
-        'W'
+        'W',
+        'Cont'
     ]
-
-    @property
-    def voice(self):
-        return self.__voice
-
-    @voice.setter
-    def voice(self, value):
-        self.__voice = six.text_type(value) if value is not None else None
-
-    @validate_args(
-        value=[of_type(six.text_type)],
-    )
-    def set_voice(self, value):
-        self.voice = value
-        return self
-
-    @property
-    def language(self):
-        return self.__language
-
-    @language.setter
-    def language(self, value):
-        self.__language = six.text_type(value) if value is not None else None
-
-    @validate_args(
-        value=[of_type(six.text_type)],
-    )
-    def set_language(self, value):
-        self.language = value
-        return self
-
-    @property
-    def loop(self):
-        return self.__loop
-
-    @loop.setter
-    def loop(self, value):
-        self.__loop = int(value) if value is not None else None
-
-    @validate_args(
-        value=[of_type(*six.integer_types)],
-    )
-    def set_loop(self, value):
-        self.loop = value
-        return self
 
     def __init__(
             self,
-            content,
-            voice=None,
-            language=None,
-            loop=None,
+            content=None,
     ):
-        super(SpeakElement, self).__init__()
-
+        super(ContElement, self).__init__()
         self.content = content
-        self.voice = voice
-        self.language = language
-        self.loop = loop
 
     def to_dict(self):
-        d = {
-            'voice': self.voice,
-            'language': self.language,
-            'loop': self.loop,
-        }
+        d = {}
         return {
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
-        }
+            }
 
     def add_break(
-        self,
-        content,
-        strength=None,
-        time=None
+            self,
+            content,
+            strength=None,
+            time=None
     ):
-
         self.add(
             BreakElement(
                 content=content,
@@ -109,10 +51,11 @@ class SpeakElement(PlivoXMLElement):
         return self
 
     def add_emphasis(
-        self,
-        content,
-        level=None,
+            self,
+            content,
+            level=None,
     ):
+        from .emphasisElement import EmphasisElement
 
         self.add(
             EmphasisElement(
@@ -122,10 +65,11 @@ class SpeakElement(PlivoXMLElement):
         return self
 
     def add_lang(
-        self,
-        content,
-        xmllang=None,
+            self,
+            content,
+            xmllang=None,
     ):
+        from .langElement import LangElement
 
         self.add(
             LangElement(
@@ -135,8 +79,8 @@ class SpeakElement(PlivoXMLElement):
         return self
 
     def add_p(
-        self,
-        content,
+            self,
+            content,
     ):
         from .pElement import PElement
 
@@ -147,10 +91,10 @@ class SpeakElement(PlivoXMLElement):
         return self
 
     def add_phoneme(
-        self,
-        content,
-        alphabet=None,
-        ph=None,
+            self,
+            content,
+            alphabet=None,
+            ph=None,
     ):
         from .phonemeElement import PhonemeElement
 
@@ -163,11 +107,11 @@ class SpeakElement(PlivoXMLElement):
         return self
 
     def add_prosody(
-        self,
-        content,
-        volume=None,
-        rate=None,
-        pitch=None,
+            self,
+            content,
+            volume=None,
+            rate=None,
+            pitch=None,
     ):
         from .prosodyElement import ProsodyElement
 
@@ -181,8 +125,8 @@ class SpeakElement(PlivoXMLElement):
         return self
 
     def add_s(
-        self,
-        content,
+            self,
+            content,
     ):
         from .sElement import SElement
 
@@ -193,10 +137,10 @@ class SpeakElement(PlivoXMLElement):
         return self
 
     def add_say_as(
-        self,
-        content,
-        interpret_as=None,
-        format=None,
+            self,
+            content,
+            interpret_as=None,
+            format=None,
     ):
         from .sayAsElement import SayAsElement
 
@@ -209,9 +153,9 @@ class SpeakElement(PlivoXMLElement):
         return self
 
     def add_sub(
-        self,
-        content,
-        alias=None,
+            self,
+            content,
+            alias=None,
     ):
         from .subElement import SubElement
 
@@ -223,9 +167,9 @@ class SpeakElement(PlivoXMLElement):
         return self
 
     def add_w(
-        self,
-        content,
-        role=None,
+            self,
+            content,
+            role=None,
     ):
         from .wElement import WElement
 
@@ -233,5 +177,16 @@ class SpeakElement(PlivoXMLElement):
             WElement(
                 content=content,
                 role=role,
+            ))
+        return self
+
+    def add_cont(
+            self,
+            content=None,
+    ):
+
+        self.add(
+            ContElement(
+                content=content,
             ))
         return self

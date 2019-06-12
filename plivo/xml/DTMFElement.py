@@ -1,6 +1,5 @@
-import six
-
 from plivo.xml import PlivoXMLElement, map_type
+from plivo.utils.validators import *
 
 
 class DTMFElement(PlivoXMLElement):
@@ -15,6 +14,9 @@ class DTMFElement(PlivoXMLElement):
     def async_(self, value):
         self.__async = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_async(self, value):
         self.async_ = value
         return self
