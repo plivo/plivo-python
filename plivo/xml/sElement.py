@@ -19,7 +19,6 @@ class SElement(PlivoXMLElement):
         'Lang',
         'Phoneme',
         'Prosody',
-        'S',
         'SayAs',
         'Sub',
         'W'

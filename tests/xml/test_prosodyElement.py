@@ -5,7 +5,7 @@ from plivo import plivoxml
 
 class ProsodyElementTest(TestCase):
     def test_set_methods(self):
-        expected_response = '<Response><Prosody pitch="low" rate="x-high" volume="+6dB"><Break ' \
+        expected_response = '<Response><Speak><Prosody pitch="low" rate="x-high" volume="+6dB"><Break ' \
                             'strength="strong" time="250ms">This is Test</Break><Emphasis level="strong">' \
                             'This is Test</Emphasis><Lang xmllang="it">This is Test</Lang><P>This is Test' \
                             '</P><Phoneme alphabet="ipa" ph="t&amp;#x259;mei&amp;#x325;&amp;#x27E;ou&amp;' \
@@ -13,7 +13,7 @@ class ProsodyElementTest(TestCase):
                             'This is Test</Prosody><S>This is Test</S><SayAs format="" ' \
                             'interpret_as="spell-out">This is Test</SayAs><Sub alias="World Wide Web ' \
                             'Consortium">This is Test</Sub><W role="claws:VV0">This is Test</W></Prosody>' \
-                            '</Response>'
+                            '</Speak></Response>'
 
         content_break = 'This is Test'
         strength_break = 'strong'
@@ -50,41 +50,43 @@ class ProsodyElementTest(TestCase):
 
         element = plivoxml.ResponseElement()
         response = element.add(
-            plivoxml.ProsodyElement().set_volume(volume_prosody).set_rate(
-                rate_prosody
-            ).set_pitch(
-                pitch_prosody
-            ).add_break(
-                content_break, strength=strength_break, time=time_break
-            ).add_emphasis(
-                content_emphasis,
-                level=level_emphasis
-            ).add_lang(
-                content_lang,
-                xmllang=xmllang_lang
-            ).add_p(
-                content_p
-            ).add_phoneme(
-                content_phoneme,
-                alphabet=alphabet_phoneme,
-                ph=ph_phoneme
-            ).add_prosody(
-                content_prosody,
-                volume=volume_prosody,
-                rate=rate_prosody,
-                pitch=pitch_prosody
-            ).add_s(
-                content_s
-            ).add_say_as(
-                content_say_as,
-                interpret_as=interpret_as_say_as,
+            plivoxml.SpeakElement("").add(
+                plivoxml.ProsodyElement().set_volume(volume_prosody).set_rate(
+                    rate_prosody
+                ).set_pitch(
+                    pitch_prosody
+                ).add_break(
+                    content_break, strength=strength_break, time=time_break
+                ).add_emphasis(
+                    content_emphasis,
+                    level=level_emphasis
+                ).add_lang(
+                    content_lang,
+                    xmllang=xmllang_lang
+                ).add_p(
+                    content_p
+                ).add_phoneme(
+                    content_phoneme,
+                    alphabet=alphabet_phoneme,
+                    ph=ph_phoneme
+                ).add_prosody(
+                    content_prosody,
+                    volume=volume_prosody,
+                    rate=rate_prosody,
+                    pitch=pitch_prosody
+                ).add_s(
+                    content_s
+                ).add_say_as(
+                    content_say_as,
+                    interpret_as=interpret_as_say_as,
                 format=format_say_as
-            ).add_sub(
-                content_sub,
-                alias=alias_sub,
-            ).add_w(
-                content_w,
-                role_w
+                ).add_sub(
+                    content_sub,
+                    alias=alias_sub,
+                ).add_w(
+                    content_w,
+                    role_w
+                )
             )
         ).to_string()
         self.assertEqual(response, expected_response + '\n')

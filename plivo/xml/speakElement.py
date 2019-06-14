@@ -12,6 +12,7 @@ class SpeakElement(PlivoXMLElement):
     _name = 'Speak'
     _nestable = [
         'Break',
+        'Cont',
         'Emphasis',
         'Lang',
         'P',
@@ -95,7 +96,7 @@ class SpeakElement(PlivoXMLElement):
 
     def add_break(
         self,
-        content,
+        content=None,
         strength=None,
         time=None
     ):
@@ -105,6 +106,17 @@ class SpeakElement(PlivoXMLElement):
                 content=content,
                 strength=strength,
                 time=time,
+            ))
+        return self
+
+    def add_cont(
+        self,
+        content
+    ):
+        from .contElement import ContElement
+        self.add(
+            ContElement(
+                content=content,
             ))
         return self
 

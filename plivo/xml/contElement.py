@@ -1,9 +1,10 @@
 import six
 
-from plivo.xml import (PlivoXMLElement,
-                       map_type,
-                       BreakElement
-                       )
+from plivo.xml import (
+    PlivoXMLElement,
+    map_type,
+    BreakElement
+)
 
 
 class ContElement(PlivoXMLElement):

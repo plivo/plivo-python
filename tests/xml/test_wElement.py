@@ -5,13 +5,13 @@ from plivo import plivoxml
 
 class WElementTest(TestCase):
     def test_set_methods(self):
-        expected_response = '<Response><W role="claws:VV0">This is Test<Break strength="strong" ' \
+        expected_response = '<Response><Speak><W role="claws:VV0">This is Test<Break strength="strong" ' \
                             'time="250ms">This is Test</Break><Emphasis level="strong">This is Test' \
                             '</Emphasis><Phoneme alphabet="ipa" ph="t&amp;#x259;mei&amp;#x325;&amp;' \
                             '#x27E;ou&amp;#x325;">This is Test</Phoneme><Prosody pitch="low" rate="x-high"' \
                             ' volume="+6dB">This is Test</Prosody><SayAs format="" interpret_as="spell-out">' \
                             'This is Test</SayAs><Sub alias="World Wide Web Consortium">This is Test</Sub>' \
-                            '</W></Response>'
+                            '</W></Speak></Response>'
 
         role = 'claws:VV0'
         content = 'This is Test'
@@ -42,6 +42,7 @@ class WElementTest(TestCase):
 
         element = plivoxml.ResponseElement()
         response = element.add(
+            plivoxml.SpeakElement("").add(
             plivoxml.WElement(content).set_role(
                 role
             ).add_break(
@@ -65,6 +66,6 @@ class WElementTest(TestCase):
             ).add_sub(
                 content_sub,
                 alias=alias_sub,
-            )
+            ))
         ).to_string()
         self.assertEqual(response, expected_response + '\n')

@@ -5,20 +5,20 @@ from plivo import plivoxml
 
 class ContElementTest(TestCase):
     def test_set_methods(self):
-        expected_response = '<Response> This is Test<Break strength="strong" time="250ms">' \
+        expected_response = '<Response><Speak loop="5" voice="WOMAN">This is ContTest<Break strength="strong" time="250ms">' \
             'This is Test</Break><Emphasis level="strong">This is Test</Emphasis><Lang xmllang="it">' \
             'This is Test</Lang><P>This is Test</P><Phoneme alphabet="ipa"' \
             ' ph="t&amp;#x259;mei&amp;#x325;&amp;#x27E;ou&amp;#x325;">This is Test</Phoneme>' \
             '<Prosody pitch="low" rate="x-high" volume="+6dB">This is Test' \
             '</Prosody><S>This is Test</S><SayAs format="" interpret_as="spell-out">' \
             'This is Test</SayAs><Sub alias="World Wide Web Consortium">' \
-            'This is Test</Sub><W role="claws:VV0">This is Test</W> This is Test  </Response>'
+            'This is Test</Sub><W role="claws:VV0">This is Test</W> This is ContTest </Speak></Response>'
 
         content_break = 'This is Test'
         strength_break = 'strong'
         time_break = '250ms'
 
-        content_cont = 'This is Test'
+        content_cont = 'This is ContTest'
 
         content_lang = 'This is Test'
         xmllang_lang = "it"
@@ -51,7 +51,11 @@ class ContElementTest(TestCase):
 
         element = plivoxml.ResponseElement()
         response = element.add(
-            plivoxml.ContElement(content_cont).add_break(
+            plivoxml.SpeakElement(
+                content_cont,
+                voice="WOMAN",
+                loop="5"
+            ).add_break(
                 content_break, strength=strength_break, time=time_break
             ).add_emphasis(
                 content_emphasis,

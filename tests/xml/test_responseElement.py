@@ -23,18 +23,6 @@ class ResponseElementTest(TestCase):
         self.assertEqual(elem,
                          '<Response><Dial timeLimit="2"></Dial></Response>\n')
 
-    def test_add_number(self):
-        content = '91789898989'
-        elem = plivoxml.ResponseElement().add_number(
-            content=content).to_string()
-        self.assertEqual(elem,
-                         '<Response><Number>91789898989</Number></Response>\n')
-
-    def test_add_user(self):
-        content = 'dummy'
-        elem = plivoxml.ResponseElement().add_user(content=content).to_string()
-        self.assertEqual(elem, '<Response><User>dummy</User></Response>\n')
-
     def test_add_dtmf(self):
         content = 'dummy'
         elem = plivoxml.ResponseElement().add_dtmf(content=content).to_string()
