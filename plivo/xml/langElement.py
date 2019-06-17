@@ -6,18 +6,18 @@ from plivo.xml import (PlivoXMLElement,
 
 
 class LangElement(PlivoXMLElement):
-    _name = 'Lang'
+    _name = 'lang'
     _nestable = [
-        "Break",
-        "Emphasis",
-        "Lang",
-        "P",
-        "Phoneme",
-        "Prosody",
-        "S",
-        "SayAs",
-        "Sub",
-        "W"
+        "break",
+        "emphasis",
+        "lang",
+        "p",
+        "phoneme",
+        "prosody",
+        "s",
+        "say-as",
+        "sub",
+        "w"
     ]
 
     @property
@@ -58,13 +58,11 @@ class LangElement(PlivoXMLElement):
 
     def add_break(
             self,
-            content,
             strength=None,
             time=None
     ):
         self.add(
             BreakElement(
-                content=content,
                 strength=strength,
                 time=time,
             ))

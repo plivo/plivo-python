@@ -11,18 +11,18 @@ from plivo.xml import (
 
 
 class ProsodyElement(PlivoXMLElement):
-    _name = 'Prosody'
+    _name = 'prosody'
     _nestable = [
-        'Break',
-        'Emphasis',
-        'Lang',
-        'P',
-        'Phoneme',
-        'Prosody',
-        'S',
-        'SayAs',
-        'Sub',
-        'W'
+        'break',
+        'emphasis',
+        'lang',
+        'p',
+        'phoneme',
+        'prosody',
+        's',
+        'say-as',
+        'sub',
+        'w'
     ]
 
     @property
@@ -100,13 +100,11 @@ class ProsodyElement(PlivoXMLElement):
 
     def add_break(
         self,
-        content,
         strength=None,
         time=None
     ):
         self.add(
             BreakElement(
-                content=content,
                 strength=strength,
                 time=time,
             ))

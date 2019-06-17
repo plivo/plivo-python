@@ -20,7 +20,7 @@ class PlivoXMLElement(object):
         return self
 
     def continue_speak(self, body=None):
-        return body.replace('<Cont>', ' ').replace('</Cont>', ' ')
+        return body.replace('<cont>', ' ').replace('</cont>', ' ')
 
     def to_string(self):
         s = etree.tostring(self._to_element(), pretty_print=True)

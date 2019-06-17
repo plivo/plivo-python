@@ -11,17 +11,17 @@ from plivo.xml import (
 class SpeakElement(PlivoXMLElement):
     _name = 'Speak'
     _nestable = [
-        'Break',
-        'Cont',
-        'Emphasis',
-        'Lang',
-        'P',
-        'Phoneme',
-        'Prosody',
-        'S',
-        'SayAs',
-        'Sub',
-        'W'
+        'break',
+        'cont',
+        'emphasis',
+        'lang',
+        'p',
+        'phoneme',
+        'prosody',
+        's',
+        'say-as',
+        'sub',
+        'w'
     ]
 
     @property

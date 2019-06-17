@@ -3,7 +3,7 @@ from plivo.xml import PlivoXMLElement, map_type
 
 
 class PhonemeElement(PlivoXMLElement):
-    _name = 'Phoneme'
+    _name = 'phoneme'
     _nestable = []
 
     @property

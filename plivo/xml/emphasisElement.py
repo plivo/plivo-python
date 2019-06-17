@@ -7,16 +7,16 @@ from plivo.utils.validators import *
 
 
 class EmphasisElement(PlivoXMLElement):
-    _name = 'Emphasis'
+    _name = 'emphasis'
     _nestable = [
-        'Break',
-        'Emphasis',
-        'Lang',
-        'Phoneme',
-        'Prosody',
-        'SayAs',
-        'Sub',
-        'W'
+        'break',
+        'emphasis',
+        'lang',
+        'phoneme',
+        'prosody',
+        'say-as',
+        'sub',
+        'w'
     ]
 
     @property
@@ -57,13 +57,11 @@ class EmphasisElement(PlivoXMLElement):
 
     def add_break(
         self,
-        content,
         strength=None,
         time=None
     ):
         self.add(
             BreakElement(
-                content=content,
                 strength=strength,
                 time=time,
             ))

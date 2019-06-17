@@ -12,14 +12,14 @@ from plivo.xml import (
 
 
 class WElement(PlivoXMLElement):
-    _name = 'W'
+    _name = 'w'
     _nestable = [
-        'Break',
-        'Emphasis',
-        'Phoneme',
-        'Prosody',
-        'SayAs',
-        'Sub'
+        'break',
+        'emphasis',
+        'phoneme',
+        'prosody',
+        'say-as',
+        'sub'
     ]
 
     @property
@@ -59,14 +59,12 @@ class WElement(PlivoXMLElement):
 
     def add_break(
         self,
-        content,
         strength=None,
         time=None
     ):
 
         self.add(
             BreakElement(
-                content=content,
                 strength=strength,
                 time=time,
             ))

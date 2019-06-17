@@ -3,7 +3,7 @@ from plivo.xml import PlivoXMLElement, map_type
 
 
 class SubElement(PlivoXMLElement):
-    _name = 'Sub'
+    _name = 'sub'
     _nestable = []
 
     @property

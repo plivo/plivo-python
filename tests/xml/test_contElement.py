@@ -5,16 +5,15 @@ from plivo import plivoxml
 
 class ContElementTest(TestCase):
     def test_set_methods(self):
-        expected_response = '<Response><Speak loop="5" voice="WOMAN">This is ContTest<Break strength="strong" time="250ms">' \
-            'This is Test</Break><Emphasis level="strong">This is Test</Emphasis><Lang xmllang="it">' \
-            'This is Test</Lang><P>This is Test</P><Phoneme alphabet="ipa"' \
-            ' ph="t&amp;#x259;mei&amp;#x325;&amp;#x27E;ou&amp;#x325;">This is Test</Phoneme>' \
-            '<Prosody pitch="low" rate="x-high" volume="+6dB">This is Test' \
-            '</Prosody><S>This is Test</S><SayAs format="" interpret_as="spell-out">' \
-            'This is Test</SayAs><Sub alias="World Wide Web Consortium">' \
-            'This is Test</Sub><W role="claws:VV0">This is Test</W> This is ContTest </Speak></Response>'
+        expected_response = '<Response><Speak loop="2" voice="Polly.Joey">This is ContTest<break strength="strong"/>' \
+            '<emphasis level="strong">This is Test</emphasis><lang xmllang="it">' \
+            'This is Test</lang><p>This is Test</p><phoneme alphabet="ipa"' \
+            ' ph="t&amp;#x259;mei&amp;#x325;&amp;#x27E;ou&amp;#x325;">This is Test</phoneme>' \
+            '<prosody pitch="low" rate="x-high" volume="+6dB">This is Test' \
+            '</prosody><s>This is Test</s><say-as format="" interpret-as="spell-out">' \
+            'This is Test</say-as><sub alias="World Wide Web Consortium">' \
+            'W3C</sub><w role="claws:VV0">This is Test</w> This is ContTest </Speak></Response>'
 
-        content_break = 'This is Test'
         strength_break = 'strong'
         time_break = '250ms'
 
@@ -43,7 +42,7 @@ class ContElementTest(TestCase):
         interpret_as_say_as = "spell-out"
         format_say_as = ""
 
-        content_sub = "This is Test"
+        content_sub = "W3C"
         alias_sub = "World Wide Web Consortium"
 
         content_w = "This is Test"
@@ -53,10 +52,10 @@ class ContElementTest(TestCase):
         response = element.add(
             plivoxml.SpeakElement(
                 content_cont,
-                voice="WOMAN",
-                loop="5"
+                voice="Polly.Joey",
+                loop="2"
             ).add_break(
-                content_break, strength=strength_break, time=time_break
+                strength=strength_break
             ).add_emphasis(
                 content_emphasis,
                 level=level_emphasis

@@ -8,19 +8,19 @@ from plivo.xml import (
 
 
 class ContElement(PlivoXMLElement):
-    _name = 'Cont'
+    _name = 'cont'
     _nestable = [
-        'Break',
-        'Emphasis',
-        'Lang',
-        'P',
-        'Phoneme',
-        'Prosody',
-        'S',
-        'SayAs',
-        'Sub',
-        'W',
-        'Cont'
+        'break',
+        'emphasis',
+        'lang',
+        'p',
+        'phoneme',
+        'prosody',
+        's',
+        'say-as',
+        'sub',
+        'w',
+        'cont'
     ]
 
     def __init__(
@@ -39,13 +39,11 @@ class ContElement(PlivoXMLElement):
 
     def add_break(
             self,
-            content,
             strength=None,
             time=None
     ):
         self.add(
             BreakElement(
-                content=content,
                 strength=strength,
                 time=time,
             ))

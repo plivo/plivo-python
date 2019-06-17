@@ -3,7 +3,7 @@ from plivo.xml import PlivoXMLElement, map_type
 
 
 class BreakElement(PlivoXMLElement):
-    _name = 'Break'
+    _name = 'break'
     _nestable = []
 
     @property

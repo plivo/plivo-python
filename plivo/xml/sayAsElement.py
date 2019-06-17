@@ -3,7 +3,7 @@ from plivo.xml import PlivoXMLElement, map_type
 
 
 class SayAsElement(PlivoXMLElement):
-    _name = 'SayAs'
+    _name = 'say-as'
     _nestable = []
 
     @property
@@ -52,7 +52,7 @@ class SayAsElement(PlivoXMLElement):
 
     def to_dict(self):
         d = {
-            'interpret_as': self.interpret_as,
+            'interpret-as': self.interpret_as,
             'format': self.format,
         }
         return {

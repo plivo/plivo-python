@@ -10,17 +10,17 @@ from plivo.xml import (
 
 
 class PElement(PlivoXMLElement):
-    _name = 'P'
+    _name = 'p'
     _nestable = [
-        'Break',
-        'Emphasis',
-        'Lang',
-        'Phoneme',
-        'Prosody',
-        'SayAs',
-        'Sub',
-        'S',
-        'W'
+        'break',
+        'emphasis',
+        'lang',
+        'phoneme',
+        'prosody',
+        'say-as',
+        'sub',
+        's',
+        'w'
     ]
 
     def __init__(
@@ -40,13 +40,11 @@ class PElement(PlivoXMLElement):
 
     def add_break(
         self,
-        content,
         strength=None,
         time=None
     ):
         self.add(
             BreakElement(
-                content=content,
                 strength=strength,
                 time=time,
             ))
