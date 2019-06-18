@@ -48,7 +48,7 @@ class LangElement(PlivoXMLElement):
 
     def to_dict(self):
         d = {
-            'xmllang': self.xmllang,
+            '{http://www.w3.org/XML/1998/namespace}lang': self.xmllang,
         }
 
         return {

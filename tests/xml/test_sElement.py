@@ -6,7 +6,7 @@ from plivo import plivoxml
 class SElementTest(TestCase):
     def test_set_methods(self):
         expected_response = '<Response><Speak><s><break strength="strong"/>' \
-                            '<emphasis level="strong">This is Test</emphasis><lang xmllang="it">This is ' \
+                            '<emphasis level="strong">This is Test</emphasis><lang xml:lang="it">This is ' \
                             'Test</lang><phoneme alphabet="ipa" ph="t&amp;#x259;mei&amp;#x325;&amp;#x27E;' \
                             'ou&amp;#x325;">This is Test</phoneme><prosody pitch="low" rate="x-high" ' \
                             'volume="+6dB">This is Test</prosody><say-as format="" interpret-as="spell-out">' \

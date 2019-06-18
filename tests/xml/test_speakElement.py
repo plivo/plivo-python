@@ -7,7 +7,7 @@ class SpeakElementTest(TestCase):
     def test_set_methods(self):
         expected_response = '<Response><Speak language="en-US" loop="1" voice="Polly.Joey">This is Test' \
                             '<break time="250ms"/><emphasis ' \
-                            'level="strong">This is Test</emphasis><lang xmllang="it">This is Test</lang>' \
+                            'level="strong">This is Test</emphasis><lang xml:lang="it">This is Test</lang>' \
                             '<p>This is Test</p><phoneme alphabet="ipa" ph="t&amp;#x259;mei&amp;#x325;' \
                             '&amp;#x27E;ou&amp;#x325;">This is Test</phoneme><prosody pitch="low" ' \
                             'rate="x-high" volume="+6dB">This is Test</prosody><s>This is Test</s>' \

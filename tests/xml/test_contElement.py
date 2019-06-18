@@ -6,7 +6,7 @@ from plivo import plivoxml
 class ContElementTest(TestCase):
     def test_set_methods(self):
         expected_response = '<Response><Speak loop="2" voice="Polly.Joey">This is ContTest<break strength="strong"/>' \
-            '<emphasis level="strong">This is Test</emphasis><lang xmllang="it">' \
+            '<emphasis level="strong">This is Test</emphasis><lang xml:lang="it">' \
             'This is Test</lang><p>This is Test</p><phoneme alphabet="ipa"' \
             ' ph="t&amp;#x259;mei&amp;#x325;&amp;#x27E;ou&amp;#x325;">This is Test</phoneme>' \
             '<prosody pitch="low" rate="x-high" volume="+6dB">This is Test' \
