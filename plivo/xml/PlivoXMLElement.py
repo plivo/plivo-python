@@ -23,8 +23,8 @@ class PlivoXMLElement(object):
         return body.replace('<cont>', ' ').replace('</cont>', ' ')
 
     def to_string(self):
-        s = etree.tostring(self._to_element(), pretty_print=True)
-        return self.continue_speak(s.decode('utf-8'))
+        s = etree.tostring(self._to_element(), pretty_print=True, encoding = "unicode")
+        return self.continue_speak(s)
 
     def _to_element(self, parent=None):
         e = etree.SubElement(
