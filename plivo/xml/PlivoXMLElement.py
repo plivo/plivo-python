@@ -22,8 +22,8 @@ class PlivoXMLElement(object):
     def continue_speak(self, body=None):
         return body.replace('<cont>', ' ').replace('</cont>', ' ')
 
-    def to_string(self):
-        s = self.continue_speak(etree.tostring(self._to_element(), pretty_print=False, encoding='unicode'))
+    def to_string(self, pretty=True):
+        s = self.continue_speak(etree.tostring(self._to_element(), pretty_print=pretty, encoding='unicode'))
 
         if not isinstance(s, str):
             s = s.encode('utf-8')

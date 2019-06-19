@@ -17,6 +17,6 @@ class SayAsElementTest(TestCase):
             plivoxml.SpeakElement("").add(
                 plivoxml.SayAsElement(content).set_interpret_as(interpret_as).set_format(format)
             )
-        ).to_string()
+        ).to_string(False)
 
-        self.assertEqual(response, expected_response + '\n')
+        self.assertEqual(response, expected_response)

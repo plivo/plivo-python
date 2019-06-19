@@ -21,5 +21,5 @@ class UserElementTest(TestCase):
                     send_on_preanswer
                 ).set_sip_headers(sip_headers)
             )
-        ).to_string()
-        self.assertEqual(response, expected_response + '\n')
+        ).to_string(False)
+        self.assertEqual(response, expected_response)

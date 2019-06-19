@@ -42,5 +42,5 @@ class GetDigitsElementTest(TestCase):
                     voice=voice_speak,
                     language=language_speak,
                     loop=loop_speak).add_play(
-                        content=content_play, loop=loop_play)).to_string()
-        self.assertEqual(response, expected_response + '\n')
+                        content=content_play, loop=loop_play)).to_string(False)
+        self.assertEqual(response, expected_response)

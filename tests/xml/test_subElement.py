@@ -13,5 +13,5 @@ class SubElementTest(TestCase):
             plivoxml.SpeakElement("substitution example ").add(
                 plivoxml.SubElement("W3C").set_alias(alias)
             )
-        ).to_string()
-        self.assertEqual(response, expected_response + '\n')
+        ).to_string(False)
+        self.assertEqual(response, expected_response)

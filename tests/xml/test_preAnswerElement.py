@@ -7,11 +7,11 @@ class PreAnswerElementTest(TestCase):
     def test_set_methods(self):
         expected_response = '<Response><PreAnswer><Speak language="en-US" loop="2" voice="WOMAN">This is test' \
                             '</Speak><Play loop="2">This is test</Play><Wait beep="true" length="1" ' \
-                            'minSilence="1" silence="true"></Wait><GetDigits ' \
+                            'minSilence="1" silence="true"/><GetDigits ' \
                             'action="http://www.foo.com/gather_pin/" digitTimeout="2" finishOnKey="#" ' \
                             'invalidDigitsSound="https://s3.amazonaws.com/Trumpet.mp3" log="true" ' \
                             'method="POST" numDigits="1" playBeep="true" redirect="true" retries="1" ' \
-                            'timeout="5" validDigits="1234567890*#"></GetDigits><Redirect method="POST">' \
+                            'timeout="5" validDigits="1234567890*#"/><Redirect method="POST">' \
                             'This is test</Redirect><Message callbackMethod="GET" ' \
                             'callbackUrl="http://foo.example.com" dst="1203443444&lt;1203443445" ' \
                             'src="1202322222" type="sms">this is test</Message><DTMF async="true">this is test' \
@@ -96,6 +96,6 @@ class PreAnswerElementTest(TestCase):
                 content=content_dtmf,
                 async_=async_dtmf,
             )
-        ).to_string()
+        ).to_string(False)
 
-        self.assertEqual(response, expected_response + '\n')
+        self.assertEqual(response, expected_response)

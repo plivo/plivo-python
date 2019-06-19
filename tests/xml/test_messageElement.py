@@ -20,5 +20,5 @@ class MessageElementTest(TestCase):
         response = element.add(
             plivoxml.MessageElement(content).set_src(src).set_dst(dst)
             .set_type(type).set_callback_url(callbackUrl).set_callback_method(
-                callbackMethod)).to_string()
-        self.assertEqual(response, expected_response + '\n')
+                callbackMethod)).to_string(False)
+        self.assertEqual(response, expected_response)

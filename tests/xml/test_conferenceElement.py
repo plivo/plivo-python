@@ -93,5 +93,5 @@ class ConferenceElementTest(TestCase):
             ).set_transcription_method(
                 transcription_method
             )
-        ).to_string()
-        self.assertEqual(response, expected_response + '\n')
+        ).to_string(False)
+        self.assertEqual(response, expected_response)

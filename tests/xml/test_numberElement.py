@@ -22,5 +22,5 @@ class NumberElementTest(TestCase):
                     send_digits_mode
                 )
             )
-        ).to_string()
-        self.assertEqual(response, expected_response + '\n')
+        ).to_string(False)
+        self.assertEqual(response, expected_response)

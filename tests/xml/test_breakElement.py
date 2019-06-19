@@ -13,5 +13,5 @@ class BreakElementTest(TestCase):
             plivoxml.SpeakElement("Break of", "Polly.Joey").add(
                 plivoxml.BreakElement().set_strength(strength).set_time(time)
             ).add_cont("one second or same as paragraph")
-        ).to_string()
-        self.assertEqual(response, expected_response + '\n')
+        ).to_string(False)
+        self.assertEqual(response, expected_response)

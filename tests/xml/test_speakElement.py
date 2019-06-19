@@ -91,5 +91,5 @@ class SpeakElementTest(TestCase):
                 content_w,
                 role_w
             )
-        ).to_string()
-        self.assertEqual(response, expected_response + '\n')
+        ).to_string(False)
+        self.assertEqual(response, expected_response)

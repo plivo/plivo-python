@@ -67,5 +67,5 @@ class WElementTest(TestCase):
                 content_sub,
                 alias=alias_sub,
             ))
-        ).to_string()
-        self.assertEqual(response, expected_response + '\n')
+        ).to_string(False)
+        self.assertEqual(response, expected_response)

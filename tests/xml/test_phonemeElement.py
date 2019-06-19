@@ -15,5 +15,5 @@ class ElementTest(TestCase):
             plivoxml.SpeakElement("").add(
                 plivoxml.PhonemeElement("Well").set_alphabet(alphabet).set_ph(ph)
             )
-        ).to_string()
-        self.assertEqual(response, expected_response + '\n')
+        ).to_string(False)
+        self.assertEqual(response, expected_response)

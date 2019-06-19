@@ -88,5 +88,5 @@ class ContElementTest(TestCase):
             ).add_cont(
                 content_cont
             )
-        ).to_string()
-        self.assertEqual(response, expected_response + '\n')
+        ).to_string(False)
+        self.assertEqual(response, expected_response)

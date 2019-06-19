@@ -13,6 +13,6 @@ class RedirectElementTest(TestCase):
         element = plivoxml.ResponseElement()
         response = element.add(
             plivoxml.RedirectElement(content).set_method(method)
-        ).to_string()
+        ).to_string(False)
 
-        self.assertEqual(response, expected_response + '\n')
+        self.assertEqual(response, expected_response)
