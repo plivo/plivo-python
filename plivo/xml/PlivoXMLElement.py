@@ -16,20 +16,29 @@ class PlivoXMLElement(object):
             raise PlivoXMLError(
                 '{} is not nestable in {} (allowed: {})'.format(
                     element._name, self._name, self._nestable))
-
         self.children.append(element)
         return self
 
-    def to_string(self):
-        s = etree.tostring(self._to_element(), pretty_print=True)
-        return s.decode('utf-8')
+    def continue_speak(self, body=None):
+        return body.replace('<cont>', ' ').replace('</cont>', ' ')
+
+    def to_string(self, pretty=True):
+        s = self.continue_speak(etree.tostring(self._to_element(), pretty_print=pretty, encoding='unicode'))
+
+        if not isinstance(s, str):
+            s = s.encode('utf-8')
+        return s
 
     def _to_element(self, parent=None):
         e = etree.SubElement(
             parent, self._name,
             **self.to_dict()) if parent is not None else etree.Element(
                 self._name, **self.to_dict())
-        e.text = self.content
+        if self.content:
+            try:
+                e.text = self.content.decode()
+            except:
+                e.text = self.content
         for child in self.children:
             child._to_element(parent=e)
         return e

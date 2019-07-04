@@ -4,7 +4,12 @@ from plivo import plivoxml
 
 class RecordElementTest(TestCase):
     def test_set_methods(self):
-        expected_response = '<Response><Record action="https://foo.example.com" callbackMethod="GET" callbackUrl="https://foo.example.com" fileFormat="wav" finishOnKey="#" maxLength="10" method="GET" playBeep="false" recordSession="false" redirect="false" startOnDialAnswer="false" timeout="100" transcriptionMethod="GET" transcriptionType="hybrid" transcriptionUrl="https://foo.example.com"></Record></Response>'
+        expected_response = '<Response><Record action="https://foo.example.com" callbackMethod="GET" ' \
+                            'callbackUrl="https://foo.example.com" fileFormat="wav" finishOnKey="#" ' \
+                            'maxLength="10" method="GET" playBeep="false" recordSession="false" ' \
+                            'redirect="false" startOnDialAnswer="false" timeout="100" transcriptionMethod="GET" ' \
+                            'transcriptionType="hybrid" transcriptionUrl="https://foo.example.com"/>' \
+                            '</Response>'
         action = 'https://foo.example.com'
         method = 'GET'
         fileFormat = 'wav'
@@ -30,5 +35,5 @@ class RecordElementTest(TestCase):
             set_start_on_dial_answer(startOnDialAnswer).set_transcription_type(
                 transcriptionType).set_transcription_url(transcriptionUrl)
             .set_transcription_method(transcriptionMethod).set_callback_url(
-                callbackUrl).set_callback_method(callbackMethod)).to_string()
-        self.assertEqual(response, expected_response + '\n')
+                callbackUrl).set_callback_method(callbackMethod)).to_string(False)
+        self.assertEqual(response, expected_response)

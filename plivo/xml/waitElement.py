@@ -1,5 +1,4 @@
-import six
-
+from plivo.utils.validators import *
 from plivo.xml import PlivoXMLElement, map_type
 
 
@@ -15,6 +14,9 @@ class WaitElement(PlivoXMLElement):
     def length(self, value):
         self.__length = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_length(self, value):
         self.length = value
         return self
@@ -27,6 +29,9 @@ class WaitElement(PlivoXMLElement):
     def silence(self, value):
         self.__silence = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_silence(self, value):
         self.silence = value
         return self
@@ -39,6 +44,9 @@ class WaitElement(PlivoXMLElement):
     def min_silence(self, value):
         self.__min_silence = int(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type(*six.integer_types)],
+    )
     def set_min_silence(self, value):
         self.min_silence = value
         return self
@@ -51,6 +59,9 @@ class WaitElement(PlivoXMLElement):
     def beep(self, value):
         self.__beep = bool(value) if value is not None else None
 
+    @validate_args(
+        value=[of_type_exact(bool)],
+    )
     def set_beep(self, value):
         self.beep = value
         return self

@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.3.2](https://github.com/plivo/plivo-python/tree/v4.3.2) (2019-07-04)
+- Add SSML support
+
 ## [4.3.1](https://github.com/plivo/plivo-python/tree/v4.3.1) (2019-03-13)
 - Fix PHLO import error
 

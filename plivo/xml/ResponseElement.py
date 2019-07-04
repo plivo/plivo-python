@@ -1,15 +1,26 @@
 from plivo.xml import (ConferenceElement, DialElement, DTMFElement,
                        GetDigitsElement, HangupElement, MessageElement,
-                       NumberElement, PlayElement, PlivoXMLElement,
-                       PreAnswerElement, RecordElement, RedirectElement,
-                       SpeakElement, UserElement, WaitElement)
+                       PlayElement, PlivoXMLElement, PreAnswerElement,
+                       RecordElement, RedirectElement, SpeakElement,
+                       WaitElement
+                       )
 
 
 class ResponseElement(PlivoXMLElement):
     _name = 'Response'
     _nestable = [
-        'Conference', 'Dial', 'Number', 'User', 'DTMF', 'GetDigits', 'Hangup',
-        'Message', 'Play', 'PreAnswer', 'Record', 'Redirect', 'Speak', 'Wait'
+        'Conference',
+        'Dial',
+        'DTMF',
+        'GetDigits',
+        'Hangup',
+        'Message',
+        'Play',
+        'PreAnswer',
+        'Record',
+        'Redirect',
+        'Speak',
+        'Wait',
     ]
 
     def add_conference(
@@ -98,36 +109,6 @@ class ResponseElement(PlivoXMLElement):
                 redirect=redirect,
                 digits_match=digits_match,
                 digits_match_b_leg=digits_match_b_leg,
-                sip_headers=sip_headers,
-            ))
-        return self
-
-    def add_number(
-            self,
-            content,
-            send_digits=None,
-            send_on_preanswer=None,
-    ):
-        self.add(
-            NumberElement(
-                content=content,
-                send_digits=send_digits,
-                send_on_preanswer=send_on_preanswer,
-            ))
-        return self
-
-    def add_user(
-            self,
-            content,
-            send_digits=None,
-            send_on_preanswer=None,
-            sip_headers=None,
-    ):
-        self.add(
-            UserElement(
-                content=content,
-                send_digits=send_digits,
-                send_on_preanswer=send_on_preanswer,
                 sip_headers=sip_headers,
             ))
         return self
