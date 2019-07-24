@@ -1,0 +1,5 @@
+---
+language: python-sdk
+build:
+  command: |
+      ./package.sh
