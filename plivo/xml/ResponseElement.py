@@ -1,8 +1,8 @@
 from plivo.xml import (ConferenceElement, DialElement, DTMFElement,
-                       GetDigitsElement, HangupElement, MessageElement,
-                       PlayElement, PlivoXMLElement, PreAnswerElement,
-                       RecordElement, RedirectElement, SpeakElement,
-                       WaitElement
+                       GetDigitsElement, GetInputElement, HangupElement, 
+                       MessageElement, PlayElement, PlivoXMLElement, 
+                       PreAnswerElement, RecordElement, RedirectElement, 
+                       SpeakElement, WaitElement
                        )
 
 
@@ -13,6 +13,7 @@ class ResponseElement(PlivoXMLElement):
         'Dial',
         'DTMF',
         'GetDigits',
+        'GetInput',
         'Hangup',
         'Message',
         'Play',
@@ -153,6 +154,44 @@ class ResponseElement(PlivoXMLElement):
                 valid_digits=valid_digits,
                 invalid_digits_sound=invalid_digits_sound,
                 log=log,
+            ))
+        return self
+
+    def add_get_input(
+            self,
+            action=None,
+            method=None,
+            input_type=None,
+            execution_timeout=None,
+            digit_end_timeout=None,
+            speech_end_timeout=None,
+            finish_on_key=None,
+            num_digits=None,
+            speech_model=None,
+            hints=None,
+            language=None,
+            interim_speech_results_callback=None,
+            interim_speech_results_callback_method=None,
+            log=None,
+            redirect=None,
+    ):
+        self.add(
+            GetInputElement(
+                action=action,
+                method=method,
+                input_type=input_type,
+                execution_timeout=execution_timeout,
+                digit_end_timeout=digit_end_timeout,
+                speech_end_timeout=speech_end_timeout,
+                finish_on_key=finish_on_key,
+                num_digits=num_digits,
+                speech_model=speech_model,
+                hints=hints,
+                language=language,
+                interim_speech_results_callback=interim_speech_results_callback,
+                interim_speech_results_callback_method=interim_speech_results_callback_method,
+                log=log,
+                redirect=redirect,
             ))
         return self
 
