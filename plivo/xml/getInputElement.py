@@ -247,6 +247,21 @@ class GetInputElement(PlivoXMLElement):
         self.redirect = value
         return self
 
+    @property
+    def profanity_filter(self):
+        return self.__profanity_filter
+
+    @profanity_filter.setter
+    def profanity_filter(self, value):
+        self.__profanity_filter = six.text_type(value) if value is not None else None
+
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
+    def set_profanity_filter(self, value):
+        self.profanity_filter = value
+        return self
+
     def __init__(
             self,
             action=None,
@@ -264,6 +279,7 @@ class GetInputElement(PlivoXMLElement):
             interim_speech_results_callback_method=None,
             log=None,
             redirect=None,
+            profanity_filter=None,
     ):
         super(GetInputElement, self).__init__()
 
@@ -282,6 +298,7 @@ class GetInputElement(PlivoXMLElement):
         self.interim_speech_results_callback_method = interim_speech_results_callback_method
         self.log = log
         self.redirect = redirect
+        self.profanity_filter = profanity_filter
 
     def to_dict(self):
         d = {
@@ -299,7 +316,8 @@ class GetInputElement(PlivoXMLElement):
             'interimSpeechResultsCallback': self.interim_speech_results_callback,
             'interimSpeechResultsCallbackMethod': self.interim_speech_results_callback_method,
             'log': self.log,
-            'redirect': self.redirect
+            'redirect': self.redirect,
+            'profanityFilter': self.profanity_filter
         }
         return {
             k: six.text_type(map_type(v))

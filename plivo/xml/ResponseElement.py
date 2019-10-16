@@ -174,6 +174,7 @@ class ResponseElement(PlivoXMLElement):
             interim_speech_results_callback_method=None,
             log=None,
             redirect=None,
+            profanity_filter=None,
     ):
         self.add(
             GetInputElement(
@@ -192,6 +193,7 @@ class ResponseElement(PlivoXMLElement):
                 interim_speech_results_callback_method=interim_speech_results_callback_method,
                 log=log,
                 redirect=redirect,
+                profanity_filter=profanity_filter,
             ))
         return self
 
