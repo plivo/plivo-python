@@ -15,6 +15,7 @@ from .langElement import LangElement
 from .emphasisElement import EmphasisElement
 from .speakElement import SpeakElement
 from .getDigitsElement import GetDigitsElement
+from .getInputElement import GetInputElement
 from .preAnswerElement import PreAnswerElement
 from .DialElement import DialElement
 from .ResponseElement import ResponseElement
