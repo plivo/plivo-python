@@ -253,10 +253,10 @@ class GetInputElement(PlivoXMLElement):
 
     @profanity_filter.setter
     def profanity_filter(self, value):
-        self.__profanity_filter = six.text_type(value) if value is not None else None
+        self.__profanity_filter = bool(value) if value is not None else None
 
     @validate_args(
-        value=[of_type(six.text_type)],
+        value=[of_type_exact(bool)],
     )
     def set_profanity_filter(self, value):
         self.profanity_filter = value
