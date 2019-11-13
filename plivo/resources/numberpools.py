@@ -160,7 +160,7 @@ class Shortcode(PlivoResource):
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
         ])
-    def list(self):
+    def list(self, limit=None, offset=None):
         return self.client.request('GET', ('NumberPool',self.number_pool_id,'Shortcode'),
             response_type=None,
             objects_type=None)
