@@ -1,0 +1,7 @@
+---
+parent: central
+serviceName: plivo-python
+language: python-sdk
+build:
+  command: |
+      ./package.sh
