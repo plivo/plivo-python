@@ -56,7 +56,7 @@ class Numbers(PlivoResourceInterface):
         services=[
             optional(
                 is_iterable(
-                    all_of(of_type(six.text_type), is_in(('sms', 'voice'))),
+                    all_of(of_type(six.text_type), is_in(('sms', 'voice', 'mms'))),
                     sep=','))
         ],
         limit=[
