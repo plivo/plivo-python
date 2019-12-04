@@ -59,7 +59,6 @@ class MessageTest(PlivoResourceTestCase):
             dst='1234',
             text='Abcd')
 
-
     @with_response(200)
     def test_get(self):
         message_uuid = 'message_uuid'
@@ -67,6 +66,25 @@ class MessageTest(PlivoResourceTestCase):
         self.assertResponseMatches(message)
         self.assertUrlEqual(self.client.current_request.url,
                             self.get_url('Message', message_uuid))
+        self.assertEqual(self.client.current_request.method, 'GET')
+
+    @with_response(200)
+    def test_listMedia(self):
+        message_uuid = 'message_uuid'
+        message = self.client.messages.get(message_uuid).listMedia()
+        self.assertResponseMatches(message)
+        self.assertUrlEqual(self.client.current_request.url,
+                            self.get_url('Message', message_uuid, 'Media'))
+        self.assertEqual(self.client.current_request.method, 'GET')
+
+    @with_response(200)
+    def test_getMedia(self):
+        message_uuid = 'message_uuid'
+        media_id = 'media_id'
+        message = self.client.messages.get(message_uuid).getMedia(media_id)
+        self.assertResponseMatches(message)
+        self.assertUrlEqual(self.client.current_request.url,
+                            self.get_url('Message', message_uuid, 'Media', media_id))
         self.assertEqual(self.client.current_request.method, 'GET')
 
     @with_response(200, method_name='get')
