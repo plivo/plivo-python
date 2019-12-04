@@ -11,3 +11,4 @@ from .pricings import Pricings
 from .recordings import Recordings
 from .addresses import Addresses
 from .identities import Identities
+from .call_feedback import CallFeedback
