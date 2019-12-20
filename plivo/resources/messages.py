@@ -27,9 +27,6 @@ class Message(PlivoResource):
         return self.client.request(
             'DELETE', ('Message', self.id, 'Media'))
 
-    def getMedia(self, media_id):
-        return self.client.request(
-            'GET', ('Message', self.id, 'Media', media_id), response_type=None)
 
 
 class Messages(PlivoResourceInterface):

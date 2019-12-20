@@ -77,15 +77,6 @@ class MessageTest(PlivoResourceTestCase):
                             self.get_url('Message', message_uuid, 'Media'))
         self.assertEqual(self.client.current_request.method, 'GET')
 
-    @with_response(200)
-    def test_getMedia(self):
-        message_uuid = 'message_uuid'
-        media_id = 'media_id'
-        message = self.client.messages.get(message_uuid).getMedia(media_id)
-        self.assertResponseMatches(message)
-        self.assertUrlEqual(self.client.current_request.url,
-                            self.get_url('Message', message_uuid, 'Media', media_id))
-        self.assertEqual(self.client.current_request.method, 'GET')
 
     @with_response(200, method_name='get')
     def test_response_has_user_agent(self):
