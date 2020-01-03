@@ -156,6 +156,13 @@ class Client(object):
                 'Conflict: '
                 '{url}'.format(url=response.url))
 
+        if response.status_code == 422:
+            if response_json and 'error' in response_json:
+                raise InvalidRequestError(response_json.error)
+            raise InvalidRequestError(
+                'Unprocessable Entity: '
+                '{url}'.format(url=response.url))
+
         if response.status_code == 500:
             if response_json and 'error' in response_json:
                 raise PlivoServerError(response_json.error)
