@@ -31,8 +31,8 @@ class Application(PlivoResource):
         self.__dict__.update(params)
         return self.client.applications.update(self.id, **params)
 
-    def delete(self):
-        return self.client.applications.delete(self.id)
+    def delete(self, cascade=None):
+        return self.client.applications.delete(self.id, cascade)
 
     def get(self):
         resp = self.client.applications.get()
@@ -142,7 +142,12 @@ class Applications(PlivoResourceInterface):
         return self.client.request('POST', ('Application', app_id),
                                    to_param_dict(self.update, locals()))
 
-    @validate_args(app_id=[of_type(six.text_type)])
-    def delete(self, app_id):
+    @validate_args(
+        app_id=[of_type(six.text_type)],
+        cascade=[
+            optional(of_type_exact(bool))
+        ]
+    )
+    def delete(self, app_id, cascade=None):
         return self.client.request('DELETE', ('Application', app_id),
-                                   to_param_dict(self.update, locals()))
+                                   to_param_dict(self.delete, locals()))
