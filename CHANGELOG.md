@@ -1,5 +1,11 @@
 # Change Log
 
+## [4.3.6](https://github.com/plivo/plivo-python/tree/v4.3.6) (2019-12-20)
+- Add Powerpack support
+
+## [4.3.5](https://github.com/plivo/plivo-python/tree/v4.3.5) (2019-12-04)
+- Add MMS support
+
 ## [4.3.4](https://github.com/plivo/plivo-python/tree/v4.3.4) (2019-11-13)
 - Add GetInput XML support
 
