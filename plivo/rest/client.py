@@ -12,7 +12,7 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
                               ResourceNotFoundError, ValidationError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls,
-                             Conferences, Endpoints, Identities, Messages, Powerpacks,
+                             Conferences, Endpoints, Identities, Messages, Powerpacks, Medias,
                              Numbers, Pricings, Recordings, Subaccounts)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
@@ -84,6 +84,7 @@ class Client(object):
         self.messages = Messages(self)
         self.numbers = Numbers(self)
         self.powerpacks = Powerpacks(self)
+        self.medias = Medias(self)
         self.pricing = Pricings(self)
         self.recordings = Recordings(self)
         self.addresses = Addresses(self)
