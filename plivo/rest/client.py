@@ -12,7 +12,7 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
                               ResourceNotFoundError, ValidationError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls,
-                             Conferences, Endpoints, Identities, Messages, Powerpacks, Medias,
+                             Conferences, Endpoints, Identities, Messages, Powerpacks, Media,
                              Numbers, Pricings, Recordings, Subaccounts)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
@@ -84,7 +84,7 @@ class Client(object):
         self.messages = Messages(self)
         self.numbers = Numbers(self)
         self.powerpacks = Powerpacks(self)
-        self.medias = Medias(self)
+        self.media = Media(self)
         self.pricing = Pricings(self)
         self.recordings = Recordings(self)
         self.addresses = Addresses(self)
@@ -108,8 +108,7 @@ class Client(object):
 
         try:
             response_json = response.json(
-                object_hook=
-                lambda x: ResponseObject(x) if isinstance(x, dict) else x)
+                object_hook=lambda x: ResponseObject(x) if isinstance(x, dict) else x)
             if response_type:
                 r = response_type(self, response_json.__dict__)
                 response_json = r
@@ -157,7 +156,7 @@ class Client(object):
                 '{url}'.format(url=response.url))
 
         if method == 'DELETE':
-            if response.status_code not in [200, 204] :
+            if response.status_code not in [200, 204]:
                 raise PlivoRestError('Resource at {url} could not be '
                                      'deleted'.format(url=response.url))
 
@@ -174,9 +173,9 @@ class Client(object):
         req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
                                        list([str(p) for p in path])) + '/',
                       **({
-                            'params': data
-                         } if method == 'GET' else {
-                            'json': data
+                          'params': data
+                      } if method == 'GET' else {
+                          'json': data
                       }))
         return self.session.prepare_request(req)
 
@@ -192,9 +191,11 @@ class Client(object):
             data_args['params'] = data
         else:
             data_args['data'] = data
-            if files and 'file' in files and files['file'] != '':
-                data_args['files'] = files
-
+            try:
+                if files and 'file' in files and files['file'] != '':
+                    data_args['files'] = files
+            except Exception as e:
+                print(e)
         req = Request(method,
                       '/'.join([self.base_uri, self.multipart_session.auth[0]]
                                + list([str(p) for p in path])) + '/', **(
@@ -207,7 +208,6 @@ class Client(object):
             del kwargs['session']
         else:
             session = self.session
-
         return session.send(
             request, proxies=self.proxies, timeout=self.timeout, **kwargs)
 

@@ -10,7 +10,6 @@ from .phlos import Phlos
 from .pricings import Pricings
 from .recordings import Recordings
 from .addresses import Addresses
+from .media import Media
 from .identities import Identities
-from .medias import Medias
 from .powerpacks import Powerpacks
-

@@ -3,7 +3,7 @@ from tests.base import PlivoResourceTestCase
 from tests.decorators import with_response
 
 
-class MMSMediaTest(PlivoResourceTestCase):
+class MediaTest(PlivoResourceTestCase):
     @with_response(200)
     def test_get_media(self):
         media_id = 'media_id'
