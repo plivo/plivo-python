@@ -10,9 +10,11 @@ class NumberPool(PlivoResource):
     _identifier_string = 'number_pool_id'
     shortcodes = None
     numbers = None
+    tollfree = None
     def __init__(self, client, number_pool_id):
         self.shortcodes = Shortcode(client, number_pool_id)
         self.numbers = Numbers(client, number_pool_id)
+        self.tollfree = Tollfree(client, number_pool_id)
     
     
 class Numbers(PlivoResource):
@@ -175,3 +177,68 @@ class Shortcode(PlivoResource):
         return self.client.request('GET', ('NumberPool',self.number_pool_id,'Shortcode', shortcode),
             response_type=None,
             objects_type=None)
+
+    @validate_args(
+    shortcode=[of_type(six.text_type)]
+    )
+    def remove(self, shortcode):
+        return self.client.request(
+            'DELETE', ('NumberPool',self.number_pool_id,'Shortcode', shortcode),
+            response_type=None,
+            objects_type=None)
+
+class Tollfree(PlivoResource):
+    _name = 'Tollfree'
+    _identifier_string = 'number_pool_id'
+
+
+    @validate_args(
+    number=[of_type(six.text_type)]
+    )
+    def add(self,  number):
+        return self.client.request(
+            'POST', ('NumberPool',self.number_pool_id,'Tollfree', number),
+            response_type=None,
+            objects_type=None)
+
+    @validate_args(
+        limit=[
+            optional(
+                all_of(
+                    of_type(*six.integer_types),
+                    check(lambda limit: 0 < limit <= 20, '0 < limit <= 20')))
+        ],
+        offset=[
+            optional(
+                all_of(
+                    of_type(*six.integer_types),
+                    check(lambda offset: 0 <= offset, '0 <= offset')))
+        ])
+    def list(self, limit=None, offset=None):
+        params = {}
+        if limit:
+            params['limit']= limit
+        if offset:
+            params['offset'] = offset
+        return self.client.request('GET', ('NumberPool',self.number_pool_id,'Tollfree'),params,
+            response_type=None,
+            objects_type=None)
+
+    @validate_args(tollfree=[of_type(six.text_type)])
+    def find(self, tollfree):
+        return self.client.request('GET', ('NumberPool',self.number_pool_id,'Tollfree', tollfree),
+            response_type=None,
+            objects_type=None)
+
+    @validate_args(
+    tollfree=[of_type(six.text_type)]
+    )
+    def remove(self, tollfree, unrent=False):
+        params = {}
+        print('fasfas', tollfree)
+        params['unrent'] = unrent
+        return self.client.request(
+            'DELETE', ('NumberPool',self.number_pool_id,'Tollfree', tollfree), params,
+            response_type=None,
+            objects_type=None)
+    

@@ -130,6 +130,19 @@ class Powerpack(PlivoResource):
             raise ResourceNotFoundError('Resource not found')
 
     @validate_args(
+    tollfree=[of_type(six.text_type)]
+    )
+    def add_number(self,  number):
+        numberpool_uuid = self.get_numberpooluuid()
+        if numberpool_uuid != "":
+            return self.client.request(
+            'POST', ('NumberPool',numberpool_uuid,'Tollfree', tollfree),
+            response_type=None,
+            objects_type=Powerpack)
+        else:
+            raise ResourceNotFoundError('Resource not found')
+
+    @validate_args(
     number=[of_type(six.text_type)]
     )
     def remove_number(self,  number, unrent=False):
@@ -139,6 +152,34 @@ class Powerpack(PlivoResource):
         if numberpool_uuid != "":
             return self.client.request(
             'DELETE', ('NumberPool',numberpool_uuid,'Number', number), params,
+            response_type=None,
+            objects_type=None)
+        else:
+            raise ResourceNotFoundError('Resource not found')
+
+    @validate_args(
+    shortcode=[of_type(six.text_type)]
+    )
+    def remove_shortcode(self,  shortcode):
+        numberpool_uuid = self.get_numberpooluuid()
+        if numberpool_uuid != "":
+            return self.client.request(
+            'DELETE', ('NumberPool',numberpool_uuid,'Shortcode', shortcode), 
+            response_type=None,
+            objects_type=None)
+        else:
+            raise ResourceNotFoundError('Resource not found')
+
+    @validate_args(
+    tollfree=[of_type(six.text_type)]
+    )
+    def remove_number(self,  tollfree, unrent=False):
+        numberpool_uuid = self.get_numberpooluuid()
+        params = {}
+        params['unrent'] = unrent
+        if numberpool_uuid != "":
+            return self.client.request(
+            'DELETE', ('NumberPool',numberpool_uuid,'Tollfree', tollfree), params,
             response_type=None,
             objects_type=None)
         else:
@@ -173,12 +214,51 @@ class Powerpack(PlivoResource):
             raise ResourceNotFoundError('Resource not found')
 
     @validate_args(
+        limit=[
+            optional(
+                all_of(
+                    of_type(*six.integer_types),
+                    check(lambda limit: 0 < limit <= 20, '0 < limit <= 20')))
+        ],
+        offset=[
+            optional(
+                all_of(
+                    of_type(*six.integer_types),
+                    check(lambda offset: 0 <= offset, '0 <= offset')))
+        ])
+    def list_tollfree(self,  limit=20, offset=0):
+        params ={}
+        params['limit'] = limit
+        params['offset'] = offset
+        numberpool_uuid = self.get_numberpooluuid()
+        if numberpool_uuid != "":
+            return self.client.request(
+            'GET', ('NumberPool',numberpool_uuid,'Tollfree'),
+            params,
+            response_type=None,
+            objects_type=None)
+        else:
+            raise ResourceNotFoundError('Resource not found')
+
+    @validate_args(
         shortcode=[of_type(six.text_type)])
     def find_shortcode(self,  shortcode):
         numberpool_uuid = self.get_numberpooluuid()
         if numberpool_uuid != "":
             return self.client.request(
             'GET', ('NumberPool',numberpool_uuid,'Shortcode', shortcode),
+            response_type=None,
+            objects_type=None)
+        else:
+            raise ResourceNotFoundError('Resource not found')
+    
+    @validate_args(
+        tollfree=[of_type(six.text_type)])
+    def find_tollfree(self,  tollfree):
+        numberpool_uuid = self.get_numberpooluuid()
+        if numberpool_uuid != "":
+            return self.client.request(
+            'GET', ('NumberPool',numberpool_uuid,'Tollfree', tollfree),
             response_type=None,
             objects_type=None)
         else:
