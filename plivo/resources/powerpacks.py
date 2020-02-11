@@ -173,7 +173,7 @@ class Powerpack(PlivoResource):
     @validate_args(
     tollfree=[of_type(six.text_type)]
     )
-    def remove_number(self,  tollfree, unrent=False):
+    def remove_tollfree(self,  tollfree, unrent=False):
         numberpool_uuid = self.get_numberpooluuid()
         params = {}
         params['unrent'] = unrent
