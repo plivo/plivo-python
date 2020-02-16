@@ -44,18 +44,7 @@ class Media(PlivoResourceInterface):
                     'file': (media_url.split(os.sep)[-1], open(
                         media_url, 'rb'), content_types[file_extension])
                 }
-            # else:
-            #     files = {'file': ''}
-        #         import os
-        #         with open(media_url) as f:
-        #             # print(f.content_type)
-        #             fileList.append(
-        #                 ('file', (f.name, f.read(), '')))
-        # else:
-        #     fileList.append(('file', ''))
-        data_to_send = {'test': 'hello'}
-        # print(fileList)
-        # print(fileList)
+        data_to_send = {}
         return self.client.request(
             'POST', ('Media', ), data_to_send, files=files)
 
