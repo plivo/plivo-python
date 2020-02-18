@@ -20,11 +20,10 @@ class Media(PlivoResourceInterface):
     @validate_args(
         media_file=[optional(of_type_exact(list))])
     def upload(self, media_file):
-        fileList = []
         if media_file:
             for media_url in media_file:
                 file_extension = media_url.strip().split('.')[-1].lower()
-                if file_extension not in ['jpeg', 'png', 'xcf', 'plain', 'pdf', 'mpeg', 'mp4']:
+                if file_extension not in ['jpeg', 'jpg', 'png', 'xcf', 'plain', 'pdf', 'mpeg', 'mp4']:
                     raise ValidationError(
                         'File format of the file to be uploaded should be one of JPG, JPEG, PNG or PDF'
                     )
@@ -44,9 +43,9 @@ class Media(PlivoResourceInterface):
                     'file': (media_url.split(os.sep)[-1], open(
                         media_url, 'rb'), content_types[file_extension])
                 }
-        data_to_send = {}
-        return self.client.request(
-            'POST', ('Media', ), data_to_send, files=files)
+            data_to_send = {}
+            return self.client.request(
+                'POST', ('Media', ), data_to_send, files=files)
 
     @validate_args(media_id=[of_type(six.text_type)])
     def get(self, media_id):
