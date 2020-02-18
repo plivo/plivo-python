@@ -144,7 +144,7 @@ class Calls(PlivoResourceInterface):
                fallback_method='POST',
                caller_name=None,
                send_digits=None,
-               send_on_preanswer=False,
+               send_on_preanswer=None,
                time_limit=None,
                hangup_on_ring=None,
                machine_detection=None,
