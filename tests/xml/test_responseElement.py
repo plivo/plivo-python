@@ -35,6 +35,13 @@ class ResponseElementTest(TestCase):
         self.assertEqual(
             elem, '<Response><GetDigits timeout="2"/></Response>')
 
+    def test_add_get_input(self):
+        content = 2
+        elem = plivoxml.ResponseElement().add_get_input(
+            execution_timeout=content).to_string(False)
+        self.assertEqual(
+            elem, '<Response><GetInput executionTimeout="2"/></Response>')
+
     def test_add_hangup(self):
         content = 'dummy'
         elem = plivoxml.ResponseElement().add_hangup(

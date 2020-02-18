@@ -12,7 +12,7 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
                               ResourceNotFoundError, ValidationError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls,
-                             Conferences, Endpoints, Identities, Messages,
+                             Conferences, Endpoints, Identities, Messages, Powerpacks,
                              Numbers, Pricings, Recordings, Subaccounts)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
@@ -83,6 +83,7 @@ class Client(object):
         self.endpoints = Endpoints(self)
         self.messages = Messages(self)
         self.numbers = Numbers(self)
+        self.powerpacks = Powerpacks(self)
         self.pricing = Pricings(self)
         self.recordings = Recordings(self)
         self.addresses = Addresses(self)
@@ -155,7 +156,7 @@ class Client(object):
                 '{url}'.format(url=response.url))
 
         if method == 'DELETE':
-            if response.status_code != 204:
+            if response.status_code not in [200, 204] :
                 raise PlivoRestError('Resource at {url} could not be '
                                      'deleted'.format(url=response.url))
 
