@@ -19,6 +19,15 @@ class Message(PlivoResource):
     def update(self):
         raise InvalidRequestError('Cannot update a Message resource')
 
+    def listMedia(self):
+        return self.client.request(
+            'GET', ('Message', self.id, 'Media'), response_type=None)
+
+    def deleteMedia(self):
+        return self.client.request(
+            'DELETE', ('Message', self.id, 'Media'))
+
+
 
 class Messages(PlivoResourceInterface):
     _resource_type = Message
@@ -26,23 +35,26 @@ class Messages(PlivoResourceInterface):
     @validate_args(
         src=[optional(is_phonenumber())],
         dst=[is_iterable(of_type(six.text_type), '<')],
-        text=[of_type(six.text_type)],
-        type_=[optional(all_of(of_type(six.text_type), is_in(('sms', ))))],
+        text=[optional(of_type(six.text_type))],
+        type_=[
+            optional(all_of(of_type(six.text_type), is_in(('sms', 'mms'))))],
         url=[optional(is_url())],
         method=[optional(of_type(six.text_type))],
         log=[optional(of_type_exact(bool))],
         trackable=[optional(of_type_exact(bool))],
-        powerpack_uuid=[optional(of_type(six.text_type))])
+        powerpack_uuid=[optional(of_type(six.text_type))],
+        media_urls=[optional(of_type_exact(list))])
     def create(self,
                dst,
-               text,
+               text=None,
                src=None,
                type_='sms',
                url=None,
                method='POST',
                log=True,
                trackable=False,
-               powerpack_uuid=None):
+               powerpack_uuid=None,
+               media_urls=None):
         if src in dst.split('<'):
             raise ValidationError(
                 'destination number cannot be same as source number')
