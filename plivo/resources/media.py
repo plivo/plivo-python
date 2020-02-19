@@ -21,6 +21,7 @@ class Media(PlivoResourceInterface):
         media_file=[optional(of_type_exact(list))])
     def upload(self, media_file):
         if media_file:
+            fileList = []
             for media_url in media_file:
                 file_extension = media_url.strip().split('.')[-1].lower()
                 if file_extension not in ['jpeg', 'jpg', 'png', 'xcf', 'plain', 'pdf', 'mpeg', 'mp4']:
@@ -39,13 +40,14 @@ class Media(PlivoResourceInterface):
                 }
                 print(media_url)
                 import os
-                files = {
-                    'file': (media_url.split(os.sep)[-1], open(
+                files = (
+                    'file', (media_url.split(os.sep)[-1], open(
                         media_url, 'rb'), content_types[file_extension])
-                }
-            data_to_send = {}
-            return self.client.request(
-                'POST', ('Media', ), data_to_send, files=files)
+                )
+                fileList.append(files)
+        data_to_send = {}
+        return self.client.request(
+            'POST', ('Media', ), data_to_send, files=fileList)
 
     @validate_args(media_id=[of_type(six.text_type)])
     def get(self, media_id):

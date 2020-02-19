@@ -192,7 +192,7 @@ class Client(object):
         else:
             data_args['data'] = data
             try:
-                if files and 'file' in files and files['file'] != '':
+                if files:
                     data_args['files'] = files
             except Exception as e:
                 print(e)
