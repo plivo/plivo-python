@@ -132,7 +132,7 @@ class Powerpack(PlivoResource):
     @validate_args(
     tollfree=[of_type(six.text_type)]
     )
-    def add_number(self,  number):
+    def add_tollfree(self,  number):
         numberpool_uuid = self.get_numberpooluuid()
         if numberpool_uuid != "":
             return self.client.request(
