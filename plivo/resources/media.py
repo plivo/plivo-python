@@ -11,7 +11,7 @@ class Media(PlivoResource):
     _identifier_string = 'media_id'
 
     def get(self):
-        return self.client.medias.get(self.id)
+        return self.client.media.get(self.id)
 
 
 class Media(PlivoResourceInterface):
