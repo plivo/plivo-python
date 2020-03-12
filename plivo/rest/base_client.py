@@ -64,11 +64,11 @@ class BaseClient(object):
         self.multipart_session.headers.update({
             'User-Agent': get_user_agent(),
             'Cache-Control': 'no-cache',
+            'Content-Type': 'multipart/form-data',
         })
         self.multipart_session.auth = fetch_credentials(auth_id, auth_token)
         self.proxies = proxies
         self.timeout = timeout
-
 
     def __enter__(self):
         return self
@@ -88,8 +88,7 @@ class BaseClient(object):
 
         try:
             response_json = response.json(
-                object_hook=
-                lambda x: ResponseObject(x) if isinstance(x, dict) else x)
+                object_hook=lambda x: ResponseObject(x) if isinstance(x, dict) else x)
             if response_type:
                 r = response_type(self, response_json.__dict__)
                 response_json = r

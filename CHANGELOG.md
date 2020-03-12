@@ -1,7 +1,10 @@
 # Change Log
 
-## [4.3.7](https://github.com/plivo/plivo-python/tree/v4.3.7) (2020-01-29)
-- Send feedback for a Call
+## [4.3.8](https://github.com/plivo/plivo-python/tree/v4.3.8) (2020-02-25)
+- Add Media support
+
+## [4.3.7](https://github.com/plivo/plivo-python/tree/v4.3.7) (2020-02-19)
+- Add city and mms filter support for Number Search API
 
 ## [4.3.6](https://github.com/plivo/plivo-python/tree/v4.3.6) (2019-12-20)
 - Add Powerpack support
