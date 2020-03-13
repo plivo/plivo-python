@@ -185,17 +185,20 @@ class Client(object):
         return response_json
 
     def create_request(self, method, path=None, data=None, **kwargs):
-        path = path or []
-        req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
-                                       list([str(p) for p in path])) + '/',
-                      **({
-                          'params': data
-                      } if method == 'GET' else {
-                          'json': data
-                      }))
+
         if 'is_callinsights_request' in kwargs:
             url = '/'.join([CALLINSIGHTS_BASE_URL, kwargs['callinsights_request_path']])
             req = Request(method, url, **({'params': data} if method == 'GET' else {'json': data}))
+        else:
+            path = path or []
+            req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
+                                           list([str(p) for p in path])) + '/',
+                          **({
+                              'params': data
+                          } if method == 'GET' else {
+                              'json': data
+                          }))
+
         return self.session.prepare_request(req)
 
     def create_multipart_request(self,
