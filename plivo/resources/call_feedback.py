@@ -10,6 +10,8 @@ class CallFeedback(PlivoResourceInterface):
     def create(self, call_uuid, rating, issues=[], notes=""):
         if len(call_uuid) == 0:
             raise ValidationError('call_uuid cannot be empty')
+        if not rating:
+            raise ValidationError('rating cannot be empty')
         request_path = FEEDBACK_API_PATH.format(call_uuid)
         params_dict = {}
         params_dict['rating'] = rating
