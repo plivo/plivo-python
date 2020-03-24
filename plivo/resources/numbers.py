@@ -48,7 +48,8 @@ class Numbers(PlivoResourceInterface):
                rate_center=None,
                limit=None,
                offset=None,
-               eligible=None):
+               eligible=None,
+               city=None):
         return self.client.request('GET', ('PhoneNumber', ),
                                    to_param_dict(self.search, locals()))
 
@@ -56,7 +57,7 @@ class Numbers(PlivoResourceInterface):
         services=[
             optional(
                 is_iterable(
-                    all_of(of_type(six.text_type), is_in(('sms', 'voice'))),
+                    all_of(of_type(six.text_type), is_in(('sms', 'voice', 'mms'))),
                     sep=','))
         ],
         limit=[
