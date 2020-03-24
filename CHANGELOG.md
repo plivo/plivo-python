@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.3.9](https://github.com/plivo/plivo-python/tree/v4.3.9) (2020-3-25)
+- Add Tollfree support for Powerpack
+
 ## [4.3.6](https://github.com/plivo/plivo-python/tree/v4.3.6) (2019-12-20)
 - Add Powerpack support
 
