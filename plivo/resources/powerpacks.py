@@ -138,7 +138,7 @@ class Powerpack(PlivoResource):
             return self.client.request(
             'POST', ('NumberPool',numberpool_uuid,'Tollfree', tollfree),
             response_type=None,
-            objects_type=Powerpack)
+            objects_type=None)
         else:
             raise ResourceNotFoundError('Resource not found')
 

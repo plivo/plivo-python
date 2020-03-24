@@ -101,21 +101,21 @@ class PowerpackTest(PlivoResourceTestCase):
         powerpack = self.client.powerpacks.get(uuid='d35f2e82-d387-427f-8594-6fa07613c43a')
         response= powerpack.remove_number( number='15799140336')
         #response= powerpack.numberpool.numbers.remove( number='15799140336')
-        self.assertEqual('DELETE', self.client.current_request.method)
+        self.assertEqual(200, self.client.current_request.status_code)
 
     @with_response(200)
     def test_remove_tollfree(self):
         powerpack = self.client.powerpacks.get(uuid='d35f2e82-d387-427f-8594-6fa07613c43a')
         response= powerpack.remove_tollfree( tollfree='18772209942')
         #response= powerpack.numberpool.tollfree.remove( number='18772209942')
-        self.assertEqual('DELETE', self.client.current_request.method)
+        self.assertEqual(200, self.client.current_request.status_code)
 
     @with_response(200)
     def test_remove_shortcode(self):
         powerpack = self.client.powerpacks.get(uuid='d35f2e82-d387-427f-8594-6fa07613c43a')
         response= powerpack.remove_shortcode( shortcode='333333')
         #response= powerpack.numberpool.shortcode.remove( number='333333')
-        self.assertEqual('DELETE', self.client.current_request.method)
+        self.assertEqual(200, self.client.current_request.status_code)
 
     @with_response(200)
     def test_list_shortcode(self):

@@ -235,7 +235,6 @@ class Tollfree(PlivoResource):
     )
     def remove(self, tollfree, unrent=False):
         params = {}
-        print('fasfas', tollfree)
         params['unrent'] = unrent
         return self.client.request(
             'DELETE', ('NumberPool',self.number_pool_id,'Tollfree', tollfree), params,
