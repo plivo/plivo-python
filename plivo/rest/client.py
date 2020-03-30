@@ -13,7 +13,7 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               ResourceNotFoundError, ValidationError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls,
                              Conferences, Endpoints, Identities, Messages, Powerpacks, Media,
-                             Numbers, Pricings, Recordings, Subaccounts)
+                             Numbers, Pricings, Recordings, Subaccounts, CallFeedback)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
 from plivo.utils import is_valid_mainaccount, is_valid_subaccount
@@ -25,6 +25,7 @@ AuthenticationCredentials = namedtuple('AuthenticationCredentials',
 
 PLIVO_API = 'https://api.plivo.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
+CALLINSIGHTS_BASE_URL = 'https://stats.plivo.com'
 
 
 def get_user_agent():
@@ -89,6 +90,7 @@ class Client(object):
         self.recordings = Recordings(self)
         self.addresses = Addresses(self)
         self.identities = Identities(self)
+        self.call_feedback = CallFeedback(self)
 
     def __enter__(self):
         return self
@@ -148,6 +150,20 @@ class Client(object):
                 'HTTP method "{method}" not allowed to access resource at: '
                 '{url}'.format(method=method, url=response.url))
 
+        if response.status_code == 409:
+            if response_json and 'error' in response_json:
+                raise InvalidRequestError(response_json.error)
+            raise InvalidRequestError(
+                'Conflict: '
+                '{url}'.format(url=response.url))
+
+        if response.status_code == 422:
+            if response_json and 'error' in response_json:
+                raise InvalidRequestError(response_json.error)
+            raise InvalidRequestError(
+                'Unprocessable Entity: '
+                '{url}'.format(url=response.url))
+
         if response.status_code == 500:
             if response_json and 'error' in response_json:
                 raise PlivoServerError(response_json.error)
@@ -168,15 +184,21 @@ class Client(object):
 
         return response_json
 
-    def create_request(self, method, path=None, data=None):
-        path = path or []
-        req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
-                                       list([str(p) for p in path])) + '/',
-                      **({
-                          'params': data
-                      } if method == 'GET' else {
-                          'json': data
-                      }))
+    def create_request(self, method, path=None, data=None, **kwargs):
+
+        if 'is_callinsights_request' in kwargs:
+            url = '/'.join([CALLINSIGHTS_BASE_URL, kwargs['callinsights_request_path']])
+            req = Request(method, url, **({'params': data} if method == 'GET' else {'json': data}))
+        else:
+            path = path or []
+            req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
+                                           list([str(p) for p in path])) + '/',
+                          **({
+                              'params': data
+                          } if method == 'GET' else {
+                              'json': data
+                          }))
+
         return self.session.prepare_request(req)
 
     def create_multipart_request(self,
@@ -223,7 +245,16 @@ class Client(object):
             req = self.create_multipart_request(method, path, data, files)
             session = self.multipart_session
         else:
-            req = self.create_request(method, path, data)
+            if 'is_callinsights_request' in data:
+                params_dict = {}
+                if 'callinsights_request_path' in data:
+                    params_dict['is_callinsights_request'] = data['is_callinsights_request']
+                    params_dict['callinsights_request_path'] = data['callinsights_request_path']
+                    del data['is_callinsights_request']
+                    del data['callinsights_request_path']
+                    req = self.create_request(method, path, data, **params_dict)
+            else:
+                req = self.create_request(method, path, data)
             session = self.session
         kwargs['session'] = session
         res = self.send_request(req, **kwargs)
