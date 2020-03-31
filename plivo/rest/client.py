@@ -245,7 +245,7 @@ class Client(object):
             req = self.create_multipart_request(method, path, data, files)
             session = self.multipart_session
         else:
-            if 'is_callinsights_request' in data:
+            if data and 'is_callinsights_request' in data:
                 params_dict = {}
                 if 'callinsights_request_path' in data:
                     params_dict['is_callinsights_request'] = data['is_callinsights_request']
