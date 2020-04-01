@@ -53,11 +53,11 @@ def get_sorted_params_string(params):
         value = params[key]
         if isinstance(value, list):
             res_params.append(
-                ''.join(['{}={}'.format(string_format(key), val) for val in sorted(string_format(value))]))
+                ''.join(['{}{}'.format(string_format(key), val) for val in sorted(string_format(value))]))
         elif isinstance(value, dict):
-            res_params.append('{}={}'.format(string_format(key), get_sorted_params_string(value)))
+            res_params.append('{}{}'.format(string_format(key), get_sorted_params_string(value)))
         else:
-            res_params.append('{}={}'.format(string_format(key), string_format(value)))
+            res_params.append('{}{}'.format(string_format(key), string_format(value)))
     return ''.join(res_params)
 
 
