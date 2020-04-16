@@ -6,11 +6,11 @@ class AccessToken:
     auth_id = ''
     auth_token = ''
     username = ''
-    valid_from = int(time.time())
+    valid_from = 0
     lifetime = 86400
     key = ''
     grants = {}
-    uid = time.time()
+    uid = 0
 
     @validate_args(
         auth_id=[is_account_id()],
@@ -39,6 +39,8 @@ class AccessToken:
         self.username = username
         if valid_from:
             self.valid_from = int(valid_from)
+        else:
+            self.valid_from = int(time.time())
         if lifetime:
             self.lifetime = int(lifetime)
             if valid_till is not None:
@@ -55,7 +57,7 @@ class AccessToken:
         if uid:
             self.uid = uid
         else:
-            self.uid = "%s-%s" % (username, self.uid)
+            self.uid = "%s-%s" % (username, time.time())
 
     @validate_args(
         incoming=[optional(of_type_exact(bool))],
