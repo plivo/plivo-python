@@ -4,7 +4,6 @@ from plivo.utils.validators import *
 
 class AccessToken:
     auth_id = ''
-    auth_token = ''
     username = ''
     valid_from = 0
     lifetime = 86400
@@ -35,7 +34,6 @@ class AccessToken:
                  valid_till=None,
                  uid=None):
         self.auth_id = auth_id
-        self.auth_token = auth_token
         self.username = username
         if valid_from:
             self.valid_from = int(valid_from)
