@@ -28,7 +28,7 @@ def string_format(value):
 
 def get_map_from_query(query):
     res_map = dict()
-    for key, value in parse_qs(query).items():
+    for key, value in parse_qs(query, keep_blank_values=True).items():
         res_map[string_format(key)] = string_format(value)
     return res_map
 
