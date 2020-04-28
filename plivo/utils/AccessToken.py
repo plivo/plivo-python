@@ -1,7 +1,9 @@
 import jwt, time
 from plivo.utils.validators import *
 
-
+"""
+Class to represent plivo token for endpoint authentication
+"""
 class AccessToken:
     auth_id = ''
     username = ''
