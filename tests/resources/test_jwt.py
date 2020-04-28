@@ -3,7 +3,7 @@
 import plivo
 import time
 from tests.base import PlivoResourceTestCase
-import plivo.utils.AccessToken as jwt
+from plivo.utils import jwt
 
 
 class AccessTokenTest(PlivoResourceTestCase):

@@ -1,4 +1,4 @@
-import plivo.utils.AccessToken as jwt
+from plivo.utils import jwt
 import time
 
 # using valid_from in epoch and lifetime in seconds
