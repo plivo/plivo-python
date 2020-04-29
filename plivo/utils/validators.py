@@ -62,13 +62,16 @@ def check(checker, message=None):
     return f
 
 
-def is_in(iterable, message=None):
+def is_in(iterable, message=None, case_sensitive=True):
     def f(name, value):
+        actual_value = value
+        if not case_sensitive:
+            value = str(value).upper()
         msg = message or '{} should be in {}'.format(name, iterable)
         if value in iterable:
             return value, []
         else:
-            return None, ['{} (actual value: {})'.format(msg, value)]
+            return None, ['{} (actual value: {})'.format(msg, actual_value)]
 
     return f
 
