@@ -87,11 +87,35 @@ class PowerpackTest(PlivoResourceTestCase):
             self.client.current_request.url)
 
     @with_response(200)
+    def test_add_tollfree(self):
+        powerpack = self.client.powerpacks.get(uuid='d35f2e82-d387-427f-8594-6fa07613c43a')
+        response = powerpack.add_number( tollfree='18772209942')
+        #response= powerpack.numberpool.numbers.add( number='18772209942')
+        self.assertEqual('POST', self.client.current_request.method)
+        self.assertUrlEqual(
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/NumberPool/ca5fd1f2-26c0-43e9-a7e4-0dc426e9dd2f/Tollfree/18772209942/',
+            self.client.current_request.url)
+
+    @with_response(200)
     def test_remove_number(self):
         powerpack = self.client.powerpacks.get(uuid='d35f2e82-d387-427f-8594-6fa07613c43a')
         response= powerpack.remove_number( number='15799140336')
         #response= powerpack.numberpool.numbers.remove( number='15799140336')
-        self.assertEqual('DELETE', self.client.current_request.method)
+        self.assertEqual(200, self.client.current_request.status_code)
+
+    @with_response(200)
+    def test_remove_tollfree(self):
+        powerpack = self.client.powerpacks.get(uuid='d35f2e82-d387-427f-8594-6fa07613c43a')
+        response= powerpack.remove_tollfree( tollfree='18772209942')
+        #response= powerpack.numberpool.tollfree.remove( number='18772209942')
+        self.assertEqual(200, self.client.current_request.status_code)
+
+    @with_response(200)
+    def test_remove_shortcode(self):
+        powerpack = self.client.powerpacks.get(uuid='d35f2e82-d387-427f-8594-6fa07613c43a')
+        response= powerpack.remove_shortcode( shortcode='333333')
+        #response= powerpack.numberpool.shortcode.remove( number='333333')
+        self.assertEqual(200, self.client.current_request.status_code)
 
     @with_response(200)
     def test_list_shortcode(self):
@@ -110,12 +134,37 @@ class PowerpackTest(PlivoResourceTestCase):
 
         # Verifying the method used
         self.assertEqual('GET', self.client.current_request.method)
+
+    @with_response(200)
+    def test_list_tollfree(self):
+        powerpack = self.client.powerpacks.get(uuid='d35f2e82-d387-427f-8594-6fa07613c43a')
+        tollfree = powerpack.list_tollfree()
+       # shortcodes = powerpack.numberpool.shortcodes.list()
+        # Test if ListResponseObject's __iter__ is working correctly
+        self.assertEqual(len(list(tollfree)), 1)
+
+        print(self.client.current_request.url)
+
+        # Verifying the endpoint hit
+        self.assertUrlEqual(
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/NumberPool/ca5fd1f2-26c0-43e9-a7e4-0dc426e9dd2f/Tollfree/',
+            self.client.current_request.url)
+
+        # Verifying the method used
+        self.assertEqual('GET', self.client.current_request.method)
     @with_response(200)
     def test_find_shortcode(self):
         powerpack = self.client.powerpacks.get(uuid='d35f2e82-d387-427f-8594-6fa07613c43a')
         # response = powerpack.numberpool.shortcodes.find( shortcode='444444')
         response = powerpack.find_shortcode( shortcode='444444')
         self.assertEqual('444444', response['shortcode'])
+
+    @with_response(200)
+    def test_find_tollfree(self):
+        powerpack = self.client.powerpacks.get(uuid='d35f2e82-d387-427f-8594-6fa07613c43a')
+        # response = powerpack.numberpool.shortcodes.find( shortcode='444444')
+        response = powerpack.find_shortcode( shortcode='18772209942')
+        self.assertEqual('18772209942', response['shortcode'])
 
     @with_response(200)
     def test_buy_and_number(self):
