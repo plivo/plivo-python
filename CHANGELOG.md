@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.7.0](https://github.com/plivo/plivo-python/tree/v4.7.0) (2020-05-04)
+- Add JWT helper functions.
+
 ## [4.6.1](https://github.com/plivo/plivo-python/tree/v4.6.1) (2020-03-31)
 - Add Nonetype check for API requests.
 
