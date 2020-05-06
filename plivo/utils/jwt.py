@@ -51,6 +51,10 @@ class AccessToken:
                 raise ValidationError(
                     "validity expires %s seconds before it starts" %
                     self.lifetime)
+            if self.lifetime < 180 or self.lifetime > 86400:
+                raise ValidationError(
+                    "validity of %s seconds is out of permitted range [180, 86400]" %
+                    self.lifetime)
 
         self.key = auth_token
 
