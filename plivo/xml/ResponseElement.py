@@ -2,7 +2,7 @@ from plivo.xml import (ConferenceElement, DialElement, DTMFElement,
                        GetDigitsElement, GetInputElement, HangupElement, 
                        MessageElement, PlayElement, PlivoXMLElement, 
                        PreAnswerElement, RecordElement, RedirectElement, 
-                       SpeakElement, WaitElement
+                       SpeakElement, WaitElement, MultiPartyCallElement
                        )
 
 
@@ -22,6 +22,7 @@ class ResponseElement(PlivoXMLElement):
         'Redirect',
         'Speak',
         'Wait',
+        'MultiPartyCall',
     ]
 
     def add_conference(
@@ -322,6 +323,74 @@ class ResponseElement(PlivoXMLElement):
                 min_silence=min_silence,
                 beep=beep,
             ))
+        return self
+
+    def add_multi_party_call(self,
+                             content,
+                             role,
+                             max_duration=14400,
+                             max_participants=10,
+                             wait_music_url=None,
+                             wait_music_method="GET",
+                             agent_hold_music_url=None,
+                             agent_hold_music_method='GET',
+                             customer_hold_music_url=None,
+                             customer_hold_music_method='GET',
+                             recording_callback_url=None,
+                             recording_callback_method='GET',
+                             status_callback_url=None,
+                             status_callback_method='GET',
+                             on_exit_action_url=None,
+                             on_exit_action_method='POST',
+                             record=False,
+                             record_file_format='mp3',
+                             status_callback_events='mpc-state-changes,participant-state-changes',
+                             stay_alone=False,
+                             coach_mode=True,
+                             mute=False,
+                             hold=False,
+                             start_mpc_on_enter=True,
+                             end_mpc_on_exit=False,
+                             relay_dtmf_inputs=False,
+                             enter_sound='beep:1',
+                             enter_sound_method='GET',
+                             exit_sound='beep:2',
+                             exit_sound_method='GET'
+                             ):
+        self.add(
+            MultiPartyCallElement(
+                content=content,
+                role=role,
+                max_duration=max_duration,
+                max_participants=max_participants,
+                wait_music_url=wait_music_url,
+                wait_music_method=wait_music_method,
+                agent_hold_music_url=agent_hold_music_url,
+                agent_hold_music_method=agent_hold_music_method,
+                customer_hold_music_url=customer_hold_music_url,
+                customer_hold_music_method=customer_hold_music_method,
+                record=record,
+                record_file_format=record_file_format,
+                recording_callback_url=recording_callback_url,
+                recording_callback_method=recording_callback_method,
+                status_callback_events=status_callback_events,
+                status_callback_url=status_callback_url,
+                status_callback_method=status_callback_method,
+                stay_alone=stay_alone,
+                coach_mode=coach_mode,
+                mute=mute,
+                hold=hold,
+                start_mpc_on_enter=start_mpc_on_enter,
+                end_mpc_on_exit=end_mpc_on_exit,
+                enter_sound=enter_sound,
+                enter_sound_method=enter_sound_method,
+                exit_sound=exit_sound,
+                exit_sound_method=exit_sound_method,
+                on_exit_action_url=on_exit_action_url,
+                on_exit_action_method=on_exit_action_method,
+                relay_dtmf_inputs=relay_dtmf_inputs,
+            )
+        )
         return self
 
     def to_dict(self):
