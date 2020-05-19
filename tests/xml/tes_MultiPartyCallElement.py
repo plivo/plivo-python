@@ -56,3 +56,20 @@ class MultiPartyCallElementTest(TestCase):
         except ValidationError as e:
             actual_error = str(e)
         self.assertEqual(expected_error, actual_error)
+
+    def test_builder_setting(self):
+
+        expected_xml = '<MultiPartyCall agentHoldMusicMethod="GET" coachMode="false" customerHoldMusicMethod="GET" ' \
+                       'customerHoldMusicUrl="http://plivo.com/voice.mp3" endMpcOnExit="true" enterSound="beep:1" ' \
+                       'enterSoundMethod="GET" exitSound="beep:2" exitSoundMethod="GET" hold="false" ' \
+                       'maxDuration="4500" maxParticipants="9" mute="false" onExitActionMethod="GET" ' \
+                       'onExitActionUrl="http://plivo.com/api.mp3" record="false" recordFileFormat="mp3" ' \
+                       'recordingCallbackMethod="POST" relayDTMFInputs="false" role="customer" ' \
+                       'startMpcOnEnter="true" statusCallbackEvents="mpc-state-changes,participant-state-changes" ' \
+                       'statusCallbackMethod="POST" stayAlone="false" waitMusicMethod="GET">Helsinki</MultiPartyCall>'
+        element = plivoxml.MultiPartyCallElement(content='Helsinki', role='customer').\
+            set_max_duration(4500).set_max_participants(9).set_end_mpc_on_exit(True).\
+            set_customer_hold_music_url('http://plivo.com/voice.mp3').set_coach_mode(False).\
+            set_on_exit_action_url('http://plivo.com/api.mp3').set_on_exit_action_method('GET')
+
+        self.assertEqual(expected_xml, element.to_string(False))
