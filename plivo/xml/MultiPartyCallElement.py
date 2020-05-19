@@ -1,5 +1,5 @@
 from plivo.utils.validators import *
-from plivo.xml import PlivoXMLElement
+from plivo.xml import PlivoXMLElement, map_type
 
 
 class MultiPartyCallElement(PlivoXMLElement):
@@ -11,17 +11,18 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__max_duration
 
     @max_duration.setter
-    def max_duration(self, value):
-        self.__max_duration = int(value) if value is not None else None
-
     @validate_args(
-        value=[
-            of_type_exact(int),
-            in_range(min_value=300, max_value=28800)
-        ],
+        max_duration=[
+            optional(
+                of_type_exact(*six.integer_types),
+                check(lambda max_duration: 300 <= max_duration <= 28800, '300 < max_duration <= 28800')
+            )]
     )
-    def set_max_duration(self, value):
-        self.__max_duration = value
+    def max_duration(self, max_duration):
+        self.__max_duration = max_duration
+
+    def set_max_duration(self, max_duration):
+        self.max_duration = max_duration
         return self
 
     @property
@@ -29,17 +30,19 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__max_participants
 
     @max_participants.setter
-    def max_participants(self, value):
-        self.__max_participants = int(value) if value is not None else None
-
     @validate_args(
-        value=[
-            of_type_exact(int),
-            in_range(min_value=2, max_value=10)
+        max_participants=[
+            optional(
+                of_type_exact(*six.integer_types),
+                check(lambda max_participants: 2 <= max_participants <= 10, '2 < max_participants <= 10')
+            )
         ],
     )
-    def set_max_participants(self, value):
-        self.__max_participants = value
+    def max_participants(self, max_participants):
+        self.__max_participants = max_participants
+
+    def set_max_participants(self, max_participants):
+        self.max_participants = max_participants
         return self
 
     @property
@@ -47,17 +50,12 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__wait_music_url
 
     @wait_music_url.setter
-    def wait_music_url(self, value):
-        self.__wait_music_url = str(value) if not None else None
+    @validate_args(wait_music_url=[optional(of_type_exact(six.text_type), is_url())])
+    def wait_music_url(self, wait_music_url):
+        self.__wait_music_url = wait_music_url
 
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_url
-        ],
-    )
-    def set_wait_music_url(self, value):
-        self.__wait_music_url = value
+    def set_wait_music_url(self, wait_music_url):
+        self.wait_music_url = wait_music_url
         return self
 
     @property
@@ -65,17 +63,13 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__wait_music_method
 
     @wait_music_method.setter
-    def wait_music_method(self, value):
-        self.__wait_music_method = str(value) if not None else None
+    @validate_args(wait_music_method=[optional(of_type_exact(six.text_type),
+                                               is_in(('GET', 'POST'), case_sensitive=False))])
+    def wait_music_method(self, wait_music_method):
+        self.__wait_music_method = wait_music_method
 
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_in(('GET', 'POST'), case_sensitive=False)
-        ]
-    )
-    def set_wait_music_method(self, value):
-        self.__wait_music_method = value
+    def set_wait_music_method(self, wait_music_method):
+        self.wait_music_method = wait_music_method
         return self
 
     @property
@@ -83,17 +77,12 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__agent_hold_music_url
 
     @agent_hold_music_url.setter
-    def agent_hold_music_url(self, value):
-        self.__agent_hold_music_url = str(value) if not None else None
+    @validate_args(agent_hold_music_url=[optional(of_type_exact(six.text_type), is_url())])
+    def agent_hold_music_url(self, agent_hold_music_url):
+        self.__agent_hold_music_url = agent_hold_music_url
 
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_url
-        ],
-    )
-    def set_agent_hold_music_url(self, value):
-        self.__agent_hold_music_url = value
+    def set_agent_hold_music_url(self, agent_hold_music_url):
+        self.agent_hold_music_url = agent_hold_music_url
         return self
 
     @property
@@ -101,17 +90,13 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__agent_hold_music_method
 
     @agent_hold_music_method.setter
-    def agent_hold_music_method(self, value):
-        self.__agent_hold_music_method = str(value) if not None else None
+    @validate_args(agent_hold_music_method=[optional(of_type_exact(six.text_type),
+                                                     is_in(('GET', 'POST'), case_sensitive=False))])
+    def agent_hold_music_method(self, agent_hold_music_method):
+        self.__agent_hold_music_method = agent_hold_music_method
 
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_in(('GET', 'POST'), case_sensitive=False)
-        ]
-    )
-    def set_agent_hold_music_method(self, value):
-        self.__agent_hold_music_method = value
+    def set_agent_hold_music_method(self, agent_hold_music_method):
+        self.agent_hold_music_method = agent_hold_music_method
         return self
 
     @property
@@ -119,17 +104,12 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__customer_hold_music_url
 
     @customer_hold_music_url.setter
-    def customer_hold_music_url(self, value):
-        self.__customer_hold_music_url = str(value) if not None else None
+    @validate_args(customer_hold_music_url=[optional(of_type_exact(six.text_type), is_url())])
+    def customer_hold_music_url(self, customer_hold_music_url):
+        self.__customer_hold_music_url = customer_hold_music_url
 
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_url
-        ],
-    )
-    def set_customer_hold_music_url(self, value):
-        self.__customer_hold_music_url = value
+    def set_customer_hold_music_url(self, customer_hold_music_url):
+        self.customer_hold_music_url = customer_hold_music_url
         return self
 
     @property
@@ -137,125 +117,13 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__customer_hold_music_method
 
     @customer_hold_music_method.setter
-    def customer_hold_music_method(self, value):
-        self.__customer_hold_music_method = str(value) if not None else None
+    @validate_args(customer_hold_music_method=[optional(of_type_exact(six.text_type),
+                                                        is_in(('GET', 'POST'), case_sensitive=False))])
+    def customer_hold_music_method(self, customer_hold_music_method):
+        self.__customer_hold_music_method = customer_hold_music_method
 
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_in(('GET', 'POST'), case_sensitive=False)
-        ]
-    )
-    def set_customer_hold_music_method(self, value):
-        self.__customer_hold_music_method = value
-        return self
-
-    @property
-    def recording_callback_url(self):
-        return self.__recording_callback_url
-
-    @recording_callback_url.setter
-    def recording_callback_url(self, value):
-        self.__recording_callback_url = str(value) if not None else None
-
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_url
-        ],
-    )
-    def set_recording_callback_url(self, value):
-        self.__recording_callback_url = value
-        return self
-
-    @property
-    def recording_callback_method(self):
-        return self.__recording_callback_method
-
-    @recording_callback_method.setter
-    def recording_callback_method(self, value):
-        self.__recording_callback_method = str(value) if not None else None
-
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_in(('GET', 'POST'), case_sensitive=False)
-        ]
-    )
-    def set_recording_callback_method(self, value):
-        self.__recording_callback_method = value
-        return self
-
-    @property
-    def status_callback_url(self):
-        return self.__status_callback_url
-
-    @status_callback_url.setter
-    def status_callback_url(self, value):
-        self.__status_callback_url = str(value) if not None else None
-
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_url
-        ],
-    )
-    def set_status_callback_url(self, value):
-        self.__status_callback_url = value
-        return self
-
-    @property
-    def status_callback_method(self):
-        return self.__status_callback_method
-
-    @status_callback_method.setter
-    def status_callback_method(self, value):
-        self.__status_callback_method = str(value) if not None else None
-
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_in(('GET', 'POST'), case_sensitive=False)
-        ]
-    )
-    def set_status_callback_method(self, value):
-        self.__status_callback_method = value
-        return self
-
-    @property
-    def on_exit_action_url(self):
-        return self.__on_exit_action_url
-
-    @on_exit_action_url.setter
-    def on_exit_action_url(self, value):
-        self.__on_exit_action_url = str(value) if not None else None
-
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_url
-        ],
-    )
-    def set_on_exit_action_url(self, value):
-        self.__on_exit_action_url = value
-        return self
-
-    @property
-    def on_exit_action_method(self):
-        return self.__on_exit_action_method
-
-    @on_exit_action_method.setter
-    def on_exit_action_method(self, value):
-        self.__on_exit_action_method = str(value) if not None else None
-
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_in(('GET', 'POST'), case_sensitive=False)
-        ]
-    )
-    def set_on_exit_action_method(self, value):
-        self.__on_exit_action_method = value
+    def set_customer_hold_music_method(self, customer_hold_music_method):
+        self.customer_hold_music_method = customer_hold_music_method
         return self
 
     @property
@@ -263,14 +131,12 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__record
 
     @record.setter
-    def record(self, value):
-        self.__record = bool(value) if not None else None
+    @validate_args(record=[optional(of_type_exact(bool))])
+    def record(self, record):
+        self.__record = record
 
-    @validate_args(
-        value=[of_type_exact(bool)]
-    )
-    def set_record(self, value):
-        self.__record = value
+    def set_record(self, record):
+        self.record = record
         return self
 
     @property
@@ -278,17 +144,46 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__record_file_format
 
     @record_file_format.setter
-    def record_file_format(self, value):
-        self.__record_file_format = str(value) if not None else None
-
     @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_in(('mp3', 'wav'), case_sensitive=False, case_type='lower')
+        record_file_format=[
+            optional(
+                of_type_exact(six.text_type),
+                is_in(('mp3', 'wav'), case_sensitive=False, case_type='lower')
+            )
         ]
     )
-    def set_record_file_format(self, value):
-        self.__record_file_format = value
+    def record_file_format(self, record_file_format):
+        self.__record_file_format = record_file_format
+
+    def set_record_file_format(self, record_file_format):
+        self.record_file_format = record_file_format
+        return self
+
+    @property
+    def recording_callback_url(self):
+        return self.__recording_callback_url
+
+    @recording_callback_url.setter
+    @validate_args(recording_callback_url=[optional(of_type_exact(six.text_type), is_url())])
+    def recording_callback_url(self, recording_callback_url):
+        self.__recording_callback_url = recording_callback_url
+
+    def set_recording_callback_url(self, recording_callback_url):
+        self.recording_callback_url = recording_callback_url
+        return self
+
+    @property
+    def recording_callback_method(self):
+        return self.__recording_callback_method
+
+    @recording_callback_method.setter
+    @validate_args(recording_callback_method=[optional(of_type_exact(six.text_type),
+                                                       is_in(('GET', 'POST'), case_sensitive=False))])
+    def recording_callback_method(self, recording_callback_method):
+        self.__recording_callback_method = recording_callback_method
+
+    def set_recording_callback_method(self, recording_callback_method):
+        self.recording_callback_method = recording_callback_method
         return self
 
     @property
@@ -296,21 +191,50 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__status_callback_events
 
     @status_callback_events.setter
-    def status_callback_events(self, value):
-        self.__status_callback_events = str(value) if not None else None
-
     @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            multi_is_in(('mpc-state-changes',
-                         'participant-state-changes',
-                         'participant-speak-events'),
-                        case_sensitive=False,
-                        make_lower_case=True)
+        status_callback_events=[
+            optional(
+                of_type_exact(six.text_type),
+                multi_is_in(('mpc-state-changes',
+                             'participant-state-changes',
+                             'participant-speak-events'),
+                            case_sensitive=False,
+                            make_lower_case=True)
+            )
         ]
     )
-    def set_status_callback_events(self, value):
-        self.__status_callback_events = value
+    def status_callback_events(self, status_callback_events):
+        self.__status_callback_events = status_callback_events
+
+    def set_status_callback_events(self, status_callback_events):
+        self.status_callback_events = status_callback_events
+        return self
+
+    @property
+    def status_callback_url(self):
+        return self.__status_callback_url
+
+    @status_callback_url.setter
+    @validate_args(status_callback_url=[optional(of_type_exact(six.text_type), is_url())])
+    def status_callback_url(self, status_callback_url):
+        self.__status_callback_url = status_callback_url
+
+    def set_status_callback_url(self, status_callback_url):
+        self.status_callback_url = status_callback_url
+        return self
+
+    @property
+    def status_callback_method(self):
+        return self.__status_callback_method
+
+    @status_callback_method.setter
+    @validate_args(status_callback_method=[optional(of_type_exact(six.text_type),
+                                                    is_in(('GET', 'POST'), case_sensitive=False))])
+    def status_callback_method(self, status_callback_method):
+        self.__status_callback_method = status_callback_method
+
+    def set_status_callback_method(self, status_callback_method):
+        self.status_callback_method = status_callback_method
         return self
 
     @property
@@ -318,16 +242,12 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__stay_alone
 
     @stay_alone.setter
-    def stay_alone(self, value):
-        self.__stay_alone = bool(value) if not None else None
+    @validate_args(stay_alone=[optional(of_type_exact(bool))])
+    def stay_alone(self, stay_alone):
+        self.__stay_alone = stay_alone
 
-    @validate_args(
-        value=[
-            of_type_exact(bool)
-        ]
-    )
-    def set_stay_alone(self, value):
-        self.__stay_alone = value
+    def set_stay_alone(self, stay_alone):
+        self.stay_alone = stay_alone
         return self
 
     @property
@@ -335,17 +255,17 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__role
 
     @role.setter
-    def role(self, value):
-        self.__role = str(value) if not None else None
-
     @validate_args(
-        value=[
+        role=[
             of_type_exact(six.text_type),
             is_in(('agent', 'supervisor', 'customer'), case_sensitive=False, case_type='lower')
         ]
     )
-    def set_role(self, value):
-        self.__role = value
+    def role(self, role):
+        self.__role = role
+
+    def set_role(self, role):
+        self.role = role
         return self
 
     @property
@@ -353,16 +273,12 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__coach_mode
 
     @coach_mode.setter
-    def coach_mode(self, value):
-        self.__coach_mode = bool(value) if not None else None
+    @validate_args(coach_mode=[optional(of_type_exact(bool))])
+    def coach_mode(self, coach_mode):
+        self.__coach_mode = coach_mode
 
-    @validate_args(
-        value=[
-            of_type_exact(bool)
-        ]
-    )
-    def set_coach_mode(self, value):
-        self.__coach_mode = value
+    def set_coach_mode(self, coach_mode):
+        self.coach_mode = coach_mode
         return self
 
     @property
@@ -370,16 +286,12 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__mute
 
     @mute.setter
-    def mute(self, value):
-        self.__mute = bool(value) if not None else None
+    @validate_args(mute=[optional(of_type_exact(bool))])
+    def mute(self, mute):
+        self.__mute = mute
 
-    @validate_args(
-        value=[
-            of_type_exact(bool)
-        ]
-    )
-    def set_mute(self, value):
-        self.__mute = value
+    def set_mute(self, mute):
+        self.mute = mute
         return self
 
     @property
@@ -387,16 +299,12 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__hold
 
     @hold.setter
-    def hold(self, value):
-        self.__hold = bool(value) if not None else None
+    @validate_args(hold=[optional(of_type_exact(bool))])
+    def hold(self, hold):
+        self.__hold = hold
 
-    @validate_args(
-        value=[
-            of_type_exact(bool)
-        ]
-    )
-    def set_hold(self, value):
-        self.__hold = value
+    def set_hold(self, hold):
+        self.hold = hold
         return self
 
     @property
@@ -404,16 +312,12 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__start_mpc_on_enter
 
     @start_mpc_on_enter.setter
-    def start_mpc_on_enter(self, value):
-        self.__start_mpc_on_enter = bool(value) if not None else None
+    @validate_args(start_mpc_on_enter=[optional(of_type_exact(bool))])
+    def start_mpc_on_enter(self, start_mpc_on_enter):
+        self.__start_mpc_on_enter = start_mpc_on_enter
 
-    @validate_args(
-        value=[
-            of_type_exact(bool)
-        ]
-    )
-    def set_start_mpc_on_enter(self, value):
-        self.__start_mpc_on_enter = value
+    def set_start_mpc_on_enter(self, start_mpc_on_enter):
+        self.start_mpc_on_enter = start_mpc_on_enter
         return self
 
     @property
@@ -421,33 +325,12 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__end_mpc_on_exit
 
     @end_mpc_on_exit.setter
-    def end_mpc_on_exit(self, value):
-        self.__end_mpc_on_exit = bool(value) if not None else None
+    @validate_args(end_mpc_on_exit=[optional(of_type_exact(bool))])
+    def end_mpc_on_exit(self, end_mpc_on_exit):
+        self.__end_mpc_on_exit = end_mpc_on_exit
 
-    @validate_args(
-        value=[
-            of_type_exact(bool)
-        ]
-    )
-    def set_end_mpc_on_exit(self, value):
-        self.__end_mpc_on_exit = value
-        return self
-
-    @property
-    def relay_dtmf_inputs(self):
-        return self.__relay_dtmf_inputs
-
-    @relay_dtmf_inputs.setter
-    def relay_dtmf_inputs(self, value):
-        self.__relay_dtmf_inputs = bool(value) if not None else None
-
-    @validate_args(
-        value=[
-            of_type_exact(bool)
-        ]
-    )
-    def set_relay_dtmf_inputs(self, value):
-        self.__relay_dtmf_inputs = value
+    def set_end_mpc_on_exit(self, end_mpc_on_exit):
+        self.end_mpc_on_exit = end_mpc_on_exit
         return self
 
     @property
@@ -455,17 +338,21 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__enter_sound
 
     @enter_sound.setter
-    def enter_sound(self, value):
-        self.__enter_sound = str(value) if not None else None
-
     @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_plivo_sound
+        enter_sound=[
+            optional(
+                all_of(
+                    of_type_exact(six.text_type),
+                    one_of(is_url(), is_in(('beep:1', 'beep:2', 'none'), case_sensitive=False, case_type='lower'))
+                )
+            )
         ]
     )
-    def set_enter_sound(self, value):
-        self.__enter_sound = value
+    def enter_sound(self, enter_sound):
+        self.__enter_sound = enter_sound
+
+    def set_enter_sound(self, enter_sound):
+        self.enter_sound = enter_sound
         return self
 
     @property
@@ -473,17 +360,13 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__enter_sound_method
 
     @enter_sound_method.setter
-    def enter_sound_method(self, value):
-        self.__enter_sound_method = str(value) if not None else None
+    @validate_args(enter_sound_method=[optional(of_type_exact(six.text_type),
+                                                is_in(('GET', 'POST'), case_sensitive=False))])
+    def enter_sound_method(self, enter_sound_method):
+        self.__enter_sound_method = enter_sound_method
 
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_in(('GET', 'POST'), case_sensitive=False)
-        ]
-    )
-    def set_enter_sound_method(self, value):
-        self.__enter_sound_method = value
+    def set_enter_sound_method(self, enter_sound_method):
+        self.enter_sound_method = enter_sound_method
         return self
 
     @property
@@ -491,17 +374,21 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__exit_sound
 
     @exit_sound.setter
-    def exit_sound(self, value):
-        self.__exit_sound = str(value) if not None else None
-
     @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_plivo_sound
+        exit_sound=[
+            optional(
+                all_of(
+                    of_type_exact(six.text_type),
+                    one_of(is_url(), is_in(('beep:1', 'beep:2', 'none'), case_sensitive=False, case_type='lower'))
+                )
+            )
         ]
     )
-    def set_exit_sound(self, value):
-        self.__exit_sound = value
+    def exit_sound(self, exit_sound):
+        self.__exit_sound = exit_sound
+
+    def set_exit_sound(self, exit_sound):
+        self.exit_sound = exit_sound
         return self
 
     @property
@@ -509,22 +396,59 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__exit_sound_method
 
     @exit_sound_method.setter
-    def exit_sound_method(self, value):
-        self.__exit_sound_method = str(value) if not None else None
+    @validate_args(exit_sound_method=[optional(of_type_exact(six.text_type),
+                                               is_in(('GET', 'POST'), case_sensitive=False))])
+    def exit_sound_method(self, exit_sound_method):
+        self.__exit_sound_method = exit_sound_method
 
-    @validate_args(
-        value=[
-            of_type_exact(six.text_type),
-            is_in(('GET', 'POST'), case_sensitive=False)
-        ]
-    )
-    def set_exit_sound_method(self, value):
-        self.__exit_sound_method = value
+    def set_exit_sound_method(self, exit_sound_method):
+        self.exit_sound_method = exit_sound_method
+        return self
+
+    @property
+    def on_exit_action_url(self):
+        return self.__on_exit_action_url
+
+    @on_exit_action_url.setter
+    @validate_args(on_exit_action_url=[optional(of_type_exact(six.text_type), is_url())])
+    def on_exit_action_url(self, on_exit_action_url):
+        self.__on_exit_action_url = on_exit_action_url
+
+    def set_on_exit_action_url(self, on_exit_action_url):
+        self.on_exit_action_url = on_exit_action_url
+        return self
+
+    @property
+    def on_exit_action_method(self):
+        return self.__on_exit_action_method
+
+    @on_exit_action_method.setter
+    @validate_args(on_exit_action_method=[optional(of_type_exact(six.text_type),
+                                                   is_in(('GET', 'POST'), case_sensitive=False))])
+    def on_exit_action_method(self, on_exit_action_method):
+        self.__on_exit_action_method = on_exit_action_method
+
+    def set_on_exit_action_method(self, on_exit_action_method):
+        self.on_exit_action_method = on_exit_action_method
+        return self
+
+    @property
+    def relay_dtmf_inputs(self):
+        return self.__relay_dtmf_inputs
+
+    @relay_dtmf_inputs.setter
+    @validate_args(relay_dtmf_inputs=[optional(of_type_exact(bool))])
+    def relay_dtmf_inputs(self, relay_dtmf_inputs):
+        self.__relay_dtmf_inputs = relay_dtmf_inputs
+
+    def set_relay_dtmf_inputs(self, relay_dtmf_inputs):
+        self.relay_dtmf_inputs = relay_dtmf_inputs
         return self
 
     def __init__(
             self,
-            content=None,
+            content,
+            role,
             max_duration=14400,
             max_participants=10,
             wait_music_url=None,
@@ -533,30 +457,30 @@ class MultiPartyCallElement(PlivoXMLElement):
             agent_hold_music_method='GET',
             customer_hold_music_url=None,
             customer_hold_music_method='GET',
-            recording_callback_url=None,
-            recording_callback_method='GET',
-            status_callback_url=None,
-            status_callback_method='GET',
-            on_exit_action_url=None,
-            on_exit_action_method='POST',
             record=False,
             record_file_format='mp3',
+            recording_callback_url=None,
+            recording_callback_method='POST',
             status_callback_events='mpc-state-changes,participant-state-changes',
+            status_callback_url=None,
+            status_callback_method='POST',
             stay_alone=False,
-            role=None,
             coach_mode=True,
             mute=False,
             hold=False,
             start_mpc_on_enter=True,
             end_mpc_on_exit=False,
-            relay_dtmf_inputs=False,
             enter_sound='beep:1',
             enter_sound_method='GET',
             exit_sound='beep:2',
-            exit_sound_method='GET'
+            exit_sound_method='GET',
+            on_exit_action_url=None,
+            on_exit_action_method='POST',
+            relay_dtmf_inputs=False,
     ):
         super(MultiPartyCallElement, self).__init__()
         self.content = content
+        self.role = role
         self.max_duration = max_duration
         self.max_participants = max_participants
         self.wait_music_url = wait_music_url
@@ -565,24 +489,60 @@ class MultiPartyCallElement(PlivoXMLElement):
         self.agent_hold_music_method = agent_hold_music_method
         self.customer_hold_music_url = customer_hold_music_url
         self.customer_hold_music_method = customer_hold_music_method
-        self.recording_callback_url = recording_callback_url
-        self.recording_callback_method = recording_callback_method
-        self.status_callback_url = status_callback_url
-        self.status_callback_method = status_callback_method
-        self.on_exit_action_url = on_exit_action_url
-        self.on_exit_action_method = on_exit_action_method
         self.record = record
         self.record_file_format = record_file_format
+        self.recording_callback_url = recording_callback_url
+        self.recording_callback_method = recording_callback_method
         self.status_callback_events = status_callback_events
+        self.status_callback_url = status_callback_url
+        self.status_callback_method = status_callback_method
         self.stay_alone = stay_alone
-        self.role = role
         self.coach_mode = coach_mode
         self.mute = mute
         self.hold = hold
         self.start_mpc_on_enter = start_mpc_on_enter
         self.end_mpc_on_exit = end_mpc_on_exit
-        self.relay_dtmf_inputs = relay_dtmf_inputs
         self.enter_sound = enter_sound
         self.enter_sound_method = enter_sound_method
         self.exit_sound = exit_sound
         self.exit_sound_method = exit_sound_method
+        self.on_exit_action_url = on_exit_action_url
+        self.on_exit_action_method = on_exit_action_method
+        self.relay_dtmf_inputs = relay_dtmf_inputs
+
+    def to_dict(self):
+        d = {
+            'role': self.role,
+            'maxDuration': self.max_duration,
+            'maxParticipants': self.max_participants,
+            'waitMusicUrl': self.wait_music_url,
+            'waitMusicMethod': self.wait_music_method,
+            'agentHoldMusicUrl': self.agent_hold_music_url,
+            'agentHoldMusicMethod': self.agent_hold_music_method,
+            'customerHoldMusicUrl': self.customer_hold_music_url,
+            'customerHoldMusicMethod': self.customer_hold_music_method,
+            'record': self.record,
+            'recordFileFormat': self.record_file_format,
+            'recordingCallbackUrl': self.recording_callback_url,
+            'recordingCallbackMethod': self.recording_callback_method,
+            'statusCallbackEvents': self.status_callback_events,
+            'statusCallbackUrl': self.status_callback_url,
+            'statusCallbackMethod': self.status_callback_method,
+            'stayAlone': self.stay_alone,
+            'coachMode': self.coach_mode,
+            'mute': self.mute,
+            'hold': self.hold,
+            'startMpcOnEnter': self.start_mpc_on_enter,
+            'endMpcOnExit': self.end_mpc_on_exit,
+            'enterSound': self.enter_sound,
+            'enterSoundMethod': self.enter_sound_method,
+            'exitSound': self.exit_sound,
+            'exitSoundMethod': self.exit_sound_method,
+            'onExitActionUrl': self.on_exit_action_url,
+            'onExitActionMethod': self.on_exit_action_method,
+            'relayDTMFInputs': self.relay_dtmf_inputs
+        }
+        return {
+            k: six.text_type(map_type(v))
+            for k, v in d.items() if v is not None
+        }
