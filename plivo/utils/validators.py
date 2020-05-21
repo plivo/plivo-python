@@ -214,5 +214,5 @@ is_url = functools.partial(
     regex(
         r'(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+|None)'
     ))
-is_proper_date_format = functools.partial(all_of, of_type_exact(six.text_type),
+is_proper_date_format = functools.partial(all_of, of_type_exact(str),
                                           regex(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}(:\d{2}(\.\d{1,6})?)?$'))
