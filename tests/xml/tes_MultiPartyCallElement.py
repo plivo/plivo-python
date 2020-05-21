@@ -47,7 +47,7 @@ class MultiPartyCallElementTest(TestCase):
         self.assertEqual(expected_error, actual_error)
 
     def test_validation_on_set(self):
-        expected_error = "['300 < max_duration <= 28800 (actual value: 255)']"
+        expected_error = "['300 <= max_duration <= 28800 (actual value: 255)']"
 
         element = plivoxml.MultiPartyCallElement(content='Denver', role='Customer')
         actual_error = ''
