@@ -14,7 +14,7 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
 from plivo.resources import (Accounts, Addresses, Applications, Calls,
                              Conferences, Endpoints, Identities,
                              Messages, Powerpacks, Media, Lookup,
-                             Numbers, Pricings, Recordings, Subaccounts, CallFeedback)
+                             Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
 from plivo.utils import is_valid_mainaccount, is_valid_subaccount
@@ -103,6 +103,7 @@ class Client(object):
         self.addresses = Addresses(self)
         self.identities = Identities(self)
         self.call_feedback = CallFeedback(self)
+        self.multi_party_calls = MultiPartyCalls(self)
         self.voice_retry_count = 0
 
     def __enter__(self):
