@@ -14,7 +14,7 @@ class MultiPartyCallElement(PlivoXMLElement):
     @validate_args(
         max_duration=[
             optional(
-                of_type_exact(*six.integer_types),
+                of_type_exact(int),
                 check(lambda max_duration: 300 <= max_duration <= 28800, '300 < max_duration <= 28800')
             )]
     )
@@ -33,7 +33,7 @@ class MultiPartyCallElement(PlivoXMLElement):
     @validate_args(
         max_participants=[
             optional(
-                of_type_exact(*six.integer_types),
+                of_type_exact(int),
                 check(lambda max_participants: 2 <= max_participants <= 10, '2 < max_participants <= 10')
             )
         ],
@@ -50,7 +50,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__wait_music_url
 
     @wait_music_url.setter
-    @validate_args(wait_music_url=[optional(of_type_exact(six.text_type), is_url())])
+    @validate_args(wait_music_url=[optional(of_type_exact(str), is_url())])
     def wait_music_url(self, wait_music_url):
         self.__wait_music_url = wait_music_url
 
@@ -63,7 +63,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__wait_music_method
 
     @wait_music_method.setter
-    @validate_args(wait_music_method=[optional(of_type_exact(six.text_type),
+    @validate_args(wait_music_method=[optional(of_type_exact(str),
                                                is_in(('GET', 'POST'), case_sensitive=False))])
     def wait_music_method(self, wait_music_method):
         self.__wait_music_method = wait_music_method
@@ -77,7 +77,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__agent_hold_music_url
 
     @agent_hold_music_url.setter
-    @validate_args(agent_hold_music_url=[optional(of_type_exact(six.text_type), is_url())])
+    @validate_args(agent_hold_music_url=[optional(of_type_exact(str), is_url())])
     def agent_hold_music_url(self, agent_hold_music_url):
         self.__agent_hold_music_url = agent_hold_music_url
 
@@ -90,7 +90,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__agent_hold_music_method
 
     @agent_hold_music_method.setter
-    @validate_args(agent_hold_music_method=[optional(of_type_exact(six.text_type),
+    @validate_args(agent_hold_music_method=[optional(of_type_exact(str),
                                                      is_in(('GET', 'POST'), case_sensitive=False))])
     def agent_hold_music_method(self, agent_hold_music_method):
         self.__agent_hold_music_method = agent_hold_music_method
@@ -104,7 +104,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__customer_hold_music_url
 
     @customer_hold_music_url.setter
-    @validate_args(customer_hold_music_url=[optional(of_type_exact(six.text_type), is_url())])
+    @validate_args(customer_hold_music_url=[optional(of_type_exact(str), is_url())])
     def customer_hold_music_url(self, customer_hold_music_url):
         self.__customer_hold_music_url = customer_hold_music_url
 
@@ -117,7 +117,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__customer_hold_music_method
 
     @customer_hold_music_method.setter
-    @validate_args(customer_hold_music_method=[optional(of_type_exact(six.text_type),
+    @validate_args(customer_hold_music_method=[optional(of_type_exact(str),
                                                         is_in(('GET', 'POST'), case_sensitive=False))])
     def customer_hold_music_method(self, customer_hold_music_method):
         self.__customer_hold_music_method = customer_hold_music_method
@@ -147,7 +147,7 @@ class MultiPartyCallElement(PlivoXMLElement):
     @validate_args(
         record_file_format=[
             optional(
-                of_type_exact(six.text_type),
+                of_type_exact(str),
                 is_in(('mp3', 'wav'), case_sensitive=False, case_type='lower')
             )
         ]
@@ -164,7 +164,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__recording_callback_url
 
     @recording_callback_url.setter
-    @validate_args(recording_callback_url=[optional(of_type_exact(six.text_type), is_url())])
+    @validate_args(recording_callback_url=[optional(of_type_exact(str), is_url())])
     def recording_callback_url(self, recording_callback_url):
         self.__recording_callback_url = recording_callback_url
 
@@ -177,7 +177,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__recording_callback_method
 
     @recording_callback_method.setter
-    @validate_args(recording_callback_method=[optional(of_type_exact(six.text_type),
+    @validate_args(recording_callback_method=[optional(of_type_exact(str),
                                                        is_in(('GET', 'POST'), case_sensitive=False))])
     def recording_callback_method(self, recording_callback_method):
         self.__recording_callback_method = recording_callback_method
@@ -194,7 +194,7 @@ class MultiPartyCallElement(PlivoXMLElement):
     @validate_args(
         status_callback_events=[
             optional(
-                of_type_exact(six.text_type),
+                of_type_exact(str),
                 multi_is_in(('mpc-state-changes',
                              'participant-state-changes',
                              'participant-speak-events'),
@@ -215,7 +215,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__status_callback_url
 
     @status_callback_url.setter
-    @validate_args(status_callback_url=[optional(of_type_exact(six.text_type), is_url())])
+    @validate_args(status_callback_url=[optional(of_type_exact(str), is_url())])
     def status_callback_url(self, status_callback_url):
         self.__status_callback_url = status_callback_url
 
@@ -228,7 +228,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__status_callback_method
 
     @status_callback_method.setter
-    @validate_args(status_callback_method=[optional(of_type_exact(six.text_type),
+    @validate_args(status_callback_method=[optional(of_type_exact(str),
                                                     is_in(('GET', 'POST'), case_sensitive=False))])
     def status_callback_method(self, status_callback_method):
         self.__status_callback_method = status_callback_method
@@ -257,7 +257,7 @@ class MultiPartyCallElement(PlivoXMLElement):
     @role.setter
     @validate_args(
         role=[
-            of_type_exact(six.text_type),
+            of_type_exact(str),
             is_in(('agent', 'supervisor', 'customer'), case_sensitive=False, case_type='lower')
         ]
     )
@@ -342,7 +342,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         enter_sound=[
             optional(
                 all_of(
-                    of_type_exact(six.text_type),
+                    of_type_exact(str),
                     one_of(is_url(), is_in(('beep:1', 'beep:2', 'none'), case_sensitive=False, case_type='lower'))
                 )
             )
@@ -360,7 +360,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__enter_sound_method
 
     @enter_sound_method.setter
-    @validate_args(enter_sound_method=[optional(of_type_exact(six.text_type),
+    @validate_args(enter_sound_method=[optional(of_type_exact(str),
                                                 is_in(('GET', 'POST'), case_sensitive=False))])
     def enter_sound_method(self, enter_sound_method):
         self.__enter_sound_method = enter_sound_method
@@ -378,7 +378,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         exit_sound=[
             optional(
                 all_of(
-                    of_type_exact(six.text_type),
+                    of_type_exact(str),
                     one_of(is_url(), is_in(('beep:1', 'beep:2', 'none'), case_sensitive=False, case_type='lower'))
                 )
             )
@@ -396,7 +396,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__exit_sound_method
 
     @exit_sound_method.setter
-    @validate_args(exit_sound_method=[optional(of_type_exact(six.text_type),
+    @validate_args(exit_sound_method=[optional(of_type_exact(str),
                                                is_in(('GET', 'POST'), case_sensitive=False))])
     def exit_sound_method(self, exit_sound_method):
         self.__exit_sound_method = exit_sound_method
@@ -410,7 +410,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__on_exit_action_url
 
     @on_exit_action_url.setter
-    @validate_args(on_exit_action_url=[optional(of_type_exact(six.text_type), is_url())])
+    @validate_args(on_exit_action_url=[optional(of_type_exact(str), is_url())])
     def on_exit_action_url(self, on_exit_action_url):
         self.__on_exit_action_url = on_exit_action_url
 
@@ -423,7 +423,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__on_exit_action_method
 
     @on_exit_action_method.setter
-    @validate_args(on_exit_action_method=[optional(of_type_exact(six.text_type),
+    @validate_args(on_exit_action_method=[optional(of_type_exact(str),
                                                    is_in(('GET', 'POST'), case_sensitive=False))])
     def on_exit_action_method(self, on_exit_action_method):
         self.__on_exit_action_method = on_exit_action_method
