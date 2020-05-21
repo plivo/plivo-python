@@ -1,0 +1,8 @@
+{
+  "api_id": "6cbdc5b1-9aa9-11ea-ad7f-0242ac110005",
+  "message": {
+    "coach_mode": "MPC: %s coach_mode enable/disable succeeded",
+    "mute": "MPC: %s mute/unmute member(s) succeeded"
+  },
+  "request_uuid": "75fecf73-7f77-404f-adc6-7d4a73d9a40d"
+}

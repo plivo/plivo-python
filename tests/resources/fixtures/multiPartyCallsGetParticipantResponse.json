@@ -1,0 +1,18 @@
+{
+    "api_id": "4cef1272-9b03-11ea-bd46-1094bbeb5c2c",
+    "billed_amount": 0.03,
+    "billed_duration": 60,
+    "call_uuid": "b5f23171-ea7f-40e5-9131-d68bf7867020",
+    "coach_mode": null,
+    "duration": 19800,
+    "end_on_exit": false,
+    "exit_time": "2020-05-19 03:32:51+05:30",
+    "hold": null,
+    "join_time": "2020-05-18 22:02:51+05:30",
+    "member_id": "12",
+    "mpc_uuid": "9aad6d16-ed2c-4433-9313-26f8cfc4d99c",
+    "mute": null,
+    "resource_uri": "/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/uuid_9aad6d16-ed2c-4433-9313-26f8cfc4d99c/Participant/12/",
+    "role": "agent",
+    "start_on_enter": false
+}
