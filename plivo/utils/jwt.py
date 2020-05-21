@@ -16,7 +16,10 @@ class AccessToken:
     @validate_args(
         auth_id=[is_account_id()],
         auth_token=[optional(of_type(six.text_type))],
-        username=[optional(of_type(six.text_type))],
+        username=[all_of(
+            of_type(six.text_type),
+            check(lambda username: len(username) > 0, 'empty username')
+        )],
         valid_from=[optional(of_type(*six.integer_types))],
         lifetime=[
             optional(
