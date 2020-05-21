@@ -15,7 +15,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         max_duration=[
             optional(
                 of_type_exact(int),
-                check(lambda max_duration: 300 <= max_duration <= 28800, '300 < max_duration <= 28800')
+                check(lambda max_duration: 300 <= max_duration <= 28800, '300 <= max_duration <= 28800')
             )]
     )
     def max_duration(self, max_duration):
@@ -34,7 +34,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         max_participants=[
             optional(
                 of_type_exact(int),
-                check(lambda max_participants: 2 <= max_participants <= 10, '2 < max_participants <= 10')
+                check(lambda max_participants: 2 <= max_participants <= 10, '2 <= max_participants <= 10')
             )
         ],
     )
