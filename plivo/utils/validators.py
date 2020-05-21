@@ -70,9 +70,8 @@ def is_in(iterable, message=None, case_sensitive=True, case_type='upper'):
                 value = str(value).upper()
             elif case_type == 'lower':
                 value = str(value).lower()
-            elif case_type == 'first_capital':
-                value = str(value).lower()
-                value = value[0].upper() + value[1:]
+            elif case_type == 'title':
+                value = str(value).title()
 
         msg = message or '{} should be in {}'.format(name, iterable)
         if value in iterable:
