@@ -75,9 +75,9 @@ class Applications(PlivoResourceInterface):
         if subaccount:
             if isinstance(subaccount, Subaccount):
                 subaccount = subaccount.id
-
-        return self.client.request('POST', ('Application', ),
-                                   to_param_dict(self.create, locals()))
+        param_dict = to_param_dict(self.create, locals())
+        param_dict["is_voice_request"] = True
+        return self.client.request('POST', ('Application', ), param_dict)
 
     @validate_args(app_id=[of_type(six.text_type)])
     def get(self, app_id):
