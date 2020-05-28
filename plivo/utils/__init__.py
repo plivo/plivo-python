@@ -6,6 +6,7 @@ from datetime import datetime
 from base64 import encodestring
 from hmac import new as hnew
 from hashlib import sha256
+from .signature_v3 import validate_v3_signature
 
 try:
     from urllib.parse import urlparse, urlunparse
