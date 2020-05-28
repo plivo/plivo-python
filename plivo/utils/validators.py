@@ -183,6 +183,8 @@ is_subaccount_id = functools.partial(all_of, of_type(six.text_type),
                                      regex(r'^SA[A-Z0-9]{18}$'))
 is_mainaccount_id = functools.partial(all_of, of_type(six.text_type),
                                       regex(r'^MA[A-Z0-9]{18}$'))
+is_account_id = functools.partial(all_of, of_type(six.text_type),
+                                      regex(r'^(M|S)A[A-Z0-9]{18}$'))
 is_subaccount = functools.partial(
     one_of, of_type_exact('plivo.resources.accounts.Subaccount'),
     is_subaccount_id())
