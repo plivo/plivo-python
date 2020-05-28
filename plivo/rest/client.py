@@ -26,7 +26,7 @@ AuthenticationCredentials = namedtuple('AuthenticationCredentials',
 PLIVO_API = 'https://api.plivo.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
 
-API_VOICE = 'https://api-dev.voice.plivodev.com'
+API_VOICE = 'https://api.plivo.com'
 API_VOICE_BASE_URI = '/'.join([API_VOICE, 'v1/Account'])
 API_VOICE_FALLBACK_1 = 'http://plivobin.non-prod.plivops.com/19epubz1'
 API_VOICE_FALLBACK_2 = 'http://plivobin.non-prod.plivops.com/199lv531'
@@ -267,7 +267,7 @@ class Client(object):
                     del data['is_callinsights_request']
                     del data['callinsights_request_path']
                     req = self.create_request(method, path, data, **params_dict)
-            elif 'is_voice_request' in data:
+            elif data and data.get("is_voice_request", False):
                 if self.voice_retry_count == 0:
                     self.base_uri = API_VOICE_BASE_URI
                 req = self.create_request(method, path, data)
@@ -282,7 +282,6 @@ class Client(object):
                     elif self.voice_retry_count == 2:
                         self.base_uri = API_VOICE_BASE_URI_FALLBACK_2
                     else:
-                        # Change the error
                         return self.process_response(method, response, response_type, objects_type)
                     print(self.base_uri)
                     return self.request(method, path, data)
