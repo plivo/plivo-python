@@ -157,9 +157,9 @@ class Calls(PlivoResourceInterface):
                error_if_parent_not_found=False):
         if from_ in to_.split('<'):
             raise ValidationError('src and destination cannot overlap')
-
-        return self.client.request('POST', ('Call', ),
-                                   to_param_dict(self.create, locals()))
+        param_dict = to_param_dict(self.create, locals())
+        param_dict["is_voice_request"] = True
+        return self.client.request('POST', ('Call', ), param_dict)
 
     @validate_args(
         subaccount=[optional(is_subaccount())],

@@ -26,12 +26,15 @@ AuthenticationCredentials = namedtuple('AuthenticationCredentials',
 PLIVO_API = 'https://api.plivo.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
 
-API_VOICE = 'https://api-voice.plivo.com'
+API_VOICE = 'https://api-dev.voice.plivodev.com'
 API_VOICE_BASE_URI = '/'.join([API_VOICE, 'v1/Account'])
-API_VOICE_FALLBACK_1 = 'https://api-voice-usw1.plivo.com'
-API_VOICE_FALLBACK_2 = 'https://api-voice-use1.plivo.com'
-API_BASE_URI_FALLBACK_1 = '/'.join([API_VOICE_FALLBACK_1, 'v1/Account'])
-API_BASE_URI_FALLBACK_2 = '/'.join([API_VOICE_FALLBACK_2, 'v1/Account'])
+API_VOICE_FALLBACK_1 = 'http://plivobin.non-prod.plivops.com/19epubz1'
+API_VOICE_FALLBACK_2 = 'http://plivobin.non-prod.plivops.com/199lv531'
+API_VOICE_BASE_URI_FALLBACK_1 = API_VOICE_FALLBACK_1
+API_VOICE_BASE_URI_FALLBACK_2 = API_VOICE_FALLBACK_2
+
+# API_VOICE_BASE_URI_FALLBACK_1 = '/'.join([API_VOICE_FALLBACK_1, 'v1/Account'])
+# API_VOICE_BASE_URI_FALLBACK_2 = '/'.join([API_VOICE_FALLBACK_2, 'v1/Account'])
 
 CALLINSIGHTS_BASE_URL = 'https://stats.plivo.com'
 
@@ -112,10 +115,7 @@ class Client(object):
                          method,
                          response,
                          response_type=None,
-                         objects_type=None,
-                         is_voice_request=False,
-                         req=None,
-                         **kwargs):
+                         objects_type=None):
         """Processes the API response based on the status codes and method used
         to access the API
         """
@@ -162,21 +162,6 @@ class Client(object):
                 'HTTP method "{method}" not allowed to access resource at: '
                 '{url}'.format(method=method, url=response.url))
 
-        if response.status_code == 408 and is_voice_request:
-            print('Timeout for URL: {}. Retrying'.format(url=response.url))
-            self.voice_retry_count += 1
-            if self.voice_retry_count == 1:
-                self.base_uri = API_VOICE_FALLBACK_1
-            elif self.voice_retry_count == 2:
-                self.base_uri = API_VOICE_FALLBACK_2
-            else:
-                # Change the error
-                raise InvalidRequestError(
-                    'HTTP method "{method}" not allowed to access resource at: '
-                    '{url}'.format(method=method, url=response.url))
-            res = self.send_request(req, **kwargs)
-            return self.process_response(method, res, response_type, objects_type, req, **kwargs)
-
         if response.status_code == 409:
             if response_json and 'error' in response_json:
                 raise InvalidRequestError(response_json.error)
@@ -208,6 +193,8 @@ class Client(object):
                 'Received status code {status_code} for the HTTP method '
                 '"{method}"'.format(
                     status_code=response.status_code, method=method))
+
+        self.voice_retry_count = 0
 
         return response_json
 
@@ -281,13 +268,25 @@ class Client(object):
                     del data['callinsights_request_path']
                     req = self.create_request(method, path, data, **params_dict)
             elif 'is_voice_request' in data:
-                self.base_uri = API_VOICE_BASE_URI
-                del data['is_voice_request']
+                if self.voice_retry_count == 0:
+                    self.base_uri = API_VOICE_BASE_URI
                 req = self.create_request(method, path, data)
                 session = self.session
                 kwargs['session'] = session
-                res = self.send_request(req, **kwargs)
-                return self.process_response(method, res, response_type, objects_type, True, req, **kwargs)
+                response = self.send_request(req, **kwargs)
+                if response.status_code >= 400:
+                    print('Timeout for URL: {}. Retrying'.format(response.url))
+                    self.voice_retry_count += 1
+                    if self.voice_retry_count == 1:
+                        self.base_uri = API_VOICE_BASE_URI_FALLBACK_1
+                    elif self.voice_retry_count == 2:
+                        self.base_uri = API_VOICE_BASE_URI_FALLBACK_2
+                    else:
+                        # Change the error
+                        return self.process_response(method, response, response_type, objects_type)
+                    print(self.base_uri)
+                    return self.request(method, path, data)
+                return self.process_response(method, response, response_type, objects_type)
             else:
                 req = self.create_request(method, path, data)
             session = self.session
