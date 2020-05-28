@@ -197,7 +197,8 @@ class MultiPartyCallElement(PlivoXMLElement):
                 of_type_exact(str),
                 multi_is_in(('mpc-state-changes',
                              'participant-state-changes',
-                             'participant-speak-events'),
+                             'participant-speak-events',
+                             'participant-digit-input-events'),
                             case_sensitive=False,
                             make_lower_case=True)
             )
@@ -461,7 +462,7 @@ class MultiPartyCallElement(PlivoXMLElement):
             record_file_format='mp3',
             recording_callback_url=None,
             recording_callback_method='POST',
-            status_callback_events='mpc-state-changes,participant-state-changes',
+            status_callback_events='mpc-state-changes,participant-state-changes,participant-digit-input-events',
             status_callback_url=None,
             status_callback_method='POST',
             stay_alone=False,
