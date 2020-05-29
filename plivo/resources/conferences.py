@@ -83,16 +83,16 @@ class Conferences(PlivoResourceInterface):
     _iterable = False
 
     def list(self):
-        return self.client.request('GET', ('Conference', ))
+        return self.client.request('GET', ('Conference', ), is_voice_request=True)
 
     def get(self, conference_name):
-        return self.client.request('GET', ('Conference', conference_name))
+        return self.client.request('GET', ('Conference', conference_name), is_voice_request=True)
 
     def delete(self, conference_name):
-        return self.client.request('DELETE', ('Conference', conference_name))
+        return self.client.request('DELETE', ('Conference', conference_name), is_voice_request=True)
 
     def delete_all(self):
-        return self.client.request('DELETE', ('Conference', ))
+        return self.client.request('DELETE', ('Conference', ), is_voice_request=True)
 
     def hangup_all(self):
         return self.delete_all()
@@ -109,52 +109,52 @@ class Conferences(PlivoResourceInterface):
         return self.client.request(
             'POST',
             ('Conference', conference_name, 'Member', member_id, 'Speak'),
-            to_param_dict(self.member_speak, locals()))
+            to_param_dict(self.member_speak, locals()), is_voice_request=True)
 
     def member_play(self, conference_name, member_id, url):
         return self.client.request(
             'POST',
             ('Conference', conference_name, 'Member', member_id, 'Play'),
-            to_param_dict(self.member_play, locals()))
+            to_param_dict(self.member_play, locals()), is_voice_request=True)
 
     def member_deaf(self, conference_name, member_id):
         return self.client.request(
             'POST',
-            ('Conference', conference_name, 'Member', member_id, 'Deaf'))
+            ('Conference', conference_name, 'Member', member_id, 'Deaf'), is_voice_request=True)
 
     def member_mute(self, conference_name, member_id):
         return self.client.request(
             'POST',
-            ('Conference', conference_name, 'Member', member_id, 'Mute'))
+            ('Conference', conference_name, 'Member', member_id, 'Mute'), is_voice_request=True)
 
     def member_speak_stop(self, conference_name, member_id):
         return self.client.request(
             'DELETE',
-            ('Conference', conference_name, 'Member', member_id, 'Speak'))
+            ('Conference', conference_name, 'Member', member_id, 'Speak'), is_voice_request=True)
 
     def member_play_stop(self, conference_name, member_id):
         return self.client.request(
             'DELETE',
-            ('Conference', conference_name, 'Member', member_id, 'Play'))
+            ('Conference', conference_name, 'Member', member_id, 'Play'), is_voice_request=True)
 
     def member_deaf_stop(self, conference_name, member_id):
         return self.client.request(
             'DELETE',
-            ('Conference', conference_name, 'Member', member_id, 'Deaf'))
+            ('Conference', conference_name, 'Member', member_id, 'Deaf'), is_voice_request=True)
 
     def member_mute_stop(self, conference_name, member_id):
         return self.client.request(
             'DELETE',
-            ('Conference', conference_name, 'Member', member_id, 'Mute'))
+            ('Conference', conference_name, 'Member', member_id, 'Mute'), is_voice_request=True)
 
     def member_kick(self, conference_name, member_id):
         return self.client.request(
             'POST',
-            ('Conference', conference_name, 'Member', member_id, 'Kick'))
+            ('Conference', conference_name, 'Member', member_id, 'Kick'), is_voice_request=True)
 
     def member_hangup(self, conference_name, member_id):
         return self.client.request(
-            'DELETE', ('Conference', conference_name, 'Member', member_id))
+            'DELETE', ('Conference', conference_name, 'Member', member_id), is_voice_request=True)
 
     def record(self,
                conference_name,
@@ -165,8 +165,8 @@ class Conferences(PlivoResourceInterface):
                callback_url=None,
                callback_method=None):
         return self.client.request('POST',
-                                   ('Conference', conference_name, 'Record'))
+                                   ('Conference', conference_name, 'Record'), is_voice_request=True)
 
     def record_stop(self, conference_name):
         return self.client.request('DELETE',
-                                   ('Conference', conference_name, 'Record'))
+                                   ('Conference', conference_name, 'Record'), is_voice_request=True)

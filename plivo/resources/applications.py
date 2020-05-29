@@ -75,14 +75,12 @@ class Applications(PlivoResourceInterface):
         if subaccount:
             if isinstance(subaccount, Subaccount):
                 subaccount = subaccount.id
-        param_dict = to_param_dict(self.create, locals())
-        param_dict["is_voice_request"] = True
-        return self.client.request('POST', ('Application', ), param_dict)
+        return self.client.request('POST', ('Application', ), to_param_dict(self.create, locals()), is_voice_request=True)
 
     @validate_args(app_id=[of_type(six.text_type)])
     def get(self, app_id):
         return self.client.request(
-            'GET', ('Application', app_id), response_type=Application)
+            'GET', ('Application', app_id), response_type=Application, is_voice_request=True)
 
     @validate_args(
         subaccount=[optional(is_subaccount())],
@@ -106,7 +104,7 @@ class Applications(PlivoResourceInterface):
             'GET', ('Application', ),
             to_param_dict(self.list, locals()),
             response_type=ListResponseObject,
-            objects_type=Application)
+            objects_type=Application, is_voice_request=True)
 
     @validate_args(
         answer_url=[is_url()],
@@ -140,7 +138,7 @@ class Applications(PlivoResourceInterface):
             if isinstance(subaccount, Subaccount):
                 subaccount = subaccount.id
         return self.client.request('POST', ('Application', app_id),
-                                   to_param_dict(self.update, locals()))
+                                   to_param_dict(self.update, locals()), is_voice_request=True)
 
     @validate_args(
         app_id=[of_type(six.text_type)],
@@ -149,4 +147,4 @@ class Applications(PlivoResourceInterface):
     )
     def delete(self, app_id, cascade=None, new_endpoint_application=None):
         return self.client.request('DELETE', ('Application', app_id),
-                                   to_param_dict(self.delete, locals()))
+                                   to_param_dict(self.delete, locals()), is_voice_request=True)

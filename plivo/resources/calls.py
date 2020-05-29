@@ -21,7 +21,7 @@ class Call(PlivoResource):
                bleg_url=None,
                bleg_method=None):
         return self.client.calls.update(call_uuid,
-                                        **to_param_dict(self.update, locals()))
+                                        **to_param_dict(self.update, locals()), is_voice_request=True)
 
     def get(self):
         return self.client.calls.get(self.id)
@@ -35,7 +35,7 @@ class Call(PlivoResource):
                callback_url=None,
                callback_mathod=None):
         return self.client.calls.record(self.id,
-                                        **to_param_dict(self.record, locals()))
+                                        **to_param_dict(self.record, locals()), is_voice_request=True)
 
     def start_recording(self,
                         time_limit=None,
@@ -48,7 +48,7 @@ class Call(PlivoResource):
         return self.client.calls.start_recording(self.id,
                                                  **to_param_dict(
                                                      self.start_recording,
-                                                     locals()))
+                                                     locals()), is_voice_request=True)
 
     def stop_recording(self):
         return self.client.calls.stop_recording(self.id)
@@ -56,12 +56,12 @@ class Call(PlivoResource):
     def play(self, urls, length=None, legs=None, loop=None, mix=None):
         return self.client.calls.play(self.id,
                                       **to_param_dict(self.start_playing,
-                                                      locals()))
+                                                      locals()), is_voice_request=True)
 
     def start_playing(self, urls, length=None, legs=None, loop=None, mix=None):
         return self.client.calls.play(self.id,
                                       **to_param_dict(self.start_playing,
-                                                      locals()))
+                                                      locals()), is_voice_request=True)
 
     def stop_playing(self):
         return self.client.calls.stop_playing(self.id)
@@ -73,10 +73,10 @@ class Call(PlivoResource):
               language=None,
               legs=None,
               loop=None,
-              mix=None):
+              mix=None, is_voice_request=True):
         return self.client.calls.speak(self.id,
                                        **to_param_dict(self.start_playing,
-                                                       locals()))
+                                                       locals()), is_voice_request=True)
 
     def start_speaking(self,
                        text,
@@ -88,7 +88,7 @@ class Call(PlivoResource):
         return self.client.calls.start_speaking(self.id,
                                                 **to_param_dict(
                                                     self.start_playing,
-                                                    locals()))
+                                                    locals()), is_voice_request=True)
 
     def stop_speaking(self):
         return self.client.calls.stop_speaking(self.id)
@@ -96,7 +96,7 @@ class Call(PlivoResource):
     def send_digits(self, digits, leg):
         return self.client.calls.send_digits(self.id,
                                              **to_param_dict(
-                                                 self.start_playing, locals()))
+                                                 self.start_playing, locals()), is_voice_request=True)
 
     def delete(self):
         return self.client.calls.delete(self.id)
@@ -157,9 +157,7 @@ class Calls(PlivoResourceInterface):
                error_if_parent_not_found=False):
         if from_ in to_.split('<'):
             raise ValidationError('src and destination cannot overlap')
-        param_dict = to_param_dict(self.create, locals())
-        param_dict["is_voice_request"] = True
-        return self.client.request('POST', ('Call', ), param_dict)
+        return self.client.request('POST', ('Call', ), to_param_dict(self.create, locals()), is_voice_request=True)
 
     @validate_args(
         subaccount=[optional(is_subaccount())],
@@ -217,11 +215,12 @@ class Calls(PlivoResourceInterface):
             ('Call', ),
             to_param_dict(self.list, locals()),
             response_type=ListResponseObject,
+            is_voice_request=True
         )
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def get(self, call_uuid):
-        return self.client.request('GET', ('Call', call_uuid))
+        return self.client.request('GET', ('Call', call_uuid), is_voice_request=True)
 
     @validate_args(
         call_uuid=[of_type(six.text_type)],
@@ -240,7 +239,7 @@ class Calls(PlivoResourceInterface):
                bleg_url=None,
                bleg_method=None):
         return self.client.request('POST', ('Call', call_uuid),
-                                   to_param_dict(self.update, locals()))
+                                   to_param_dict(self.update, locals()), is_voice_request=True)
 
     def transfer(self,
                  call_uuid,
@@ -282,14 +281,14 @@ class Calls(PlivoResourceInterface):
                         callback_mathod=None):
         return self.client.request('POST', ('Call', call_uuid, 'Record'),
                                    to_param_dict(self.start_recording,
-                                                 locals()))
+                                                 locals()), is_voice_request=True)
 
     def record_stop(self, call_uuid):
         return self.client.calls.stop_recording(call_uuid)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def stop_recording(self, call_uuid):
-        return self.client.request('DELETE', ('Call', call_uuid, 'Record'))
+        return self.client.request('DELETE', ('Call', call_uuid, 'Record'), is_voice_request=True)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def play(self,
@@ -310,14 +309,14 @@ class Calls(PlivoResourceInterface):
                       loop=None,
                       mix=None):
         return self.client.request('POST', ('Call', call_uuid, 'Play'),
-                                   to_param_dict(self.play, locals()))
+                                   to_param_dict(self.play, locals()), is_voice_request=True)
 
     def play_stop(self, call_uuid):
         return self.client.calls.stop_playing(call_uuid)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def stop_playing(self, call_uuid):
-        return self.client.request('DELETE', ('Call', call_uuid, 'Play'))
+        return self.client.request('DELETE', ('Call', call_uuid, 'Play'), is_voice_request=True)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def speak(self,
@@ -342,11 +341,11 @@ class Calls(PlivoResourceInterface):
                        mix=None):
         return self.client.request('POST', ('Call', call_uuid, 'Speak'),
                                    to_param_dict(self.start_speaking,
-                                                 locals()))
+                                                 locals()), is_voice_request=True)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def stop_speaking(self, call_uuid):
-        return self.client.request('DELETE', ('Call', call_uuid, 'Speak'))
+        return self.client.request('DELETE', ('Call', call_uuid, 'Speak'), is_voice_request=True)
 
     def speak_stop(self, call_uuid):
         return self.client.calls.stop_speaking(call_uuid)
@@ -354,18 +353,18 @@ class Calls(PlivoResourceInterface):
     @validate_args(call_uuid=[of_type(six.text_type)])
     def send_digits(self, call_uuid, digits, leg=None):
         return self.client.request('POST', ('Call', call_uuid, 'DTMF'),
-                                   to_param_dict(self.send_digits, locals()))
+                                   to_param_dict(self.send_digits, locals()), is_voice_request=True)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def delete(self, call_uuid):
-        return self.client.request('DELETE', ('Call', call_uuid))
+        return self.client.request('DELETE', ('Call', call_uuid), is_voice_request=True)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def hangup(self, call_uuid):
         return self.client.calls.delete(call_uuid)
 
     def cancel(self, request_uuid):
-        return self.client.request('DELETE', ('Request', request_uuid))
+        return self.client.request('DELETE', ('Request', request_uuid), is_voice_request=True)
 
     def live_call_list_ids(self, limit=None, offset=None):
         return self.client.live_calls.list_ids(limit, offset)
