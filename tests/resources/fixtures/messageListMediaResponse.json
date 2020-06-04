@@ -1,0 +1,13 @@
+{
+  "api_id": "035eeada-6df1-11e6-b608-06a72a185e87",
+  "message_uuid": "message_uuid",
+  "objects": [
+      {
+          "content_type": "application/pdf",
+          "media_id": "0178eb8a-461a-4fd1-bc37-13eebfdc0676",
+          "media_url": "https://media.plivo.com/Account/{auth_id}/Message/24d742b9-9b12-4397-93a7-da496bc874d9/Media/0178eb8a-461a-4fd1-bc37-13eebfdc0676",
+          "message_uuid": "24d742b9-9b12-4397-93a7-da496bc874d9",
+          "size": 433994
+      }
+  ]
+}
