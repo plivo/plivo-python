@@ -1,0 +1,38 @@
+{
+    "api_id": "0dacbefa-0a87-11ea-b072-0242ac110007",
+    "uuid": "d35f2e82-d387-427f-8594-6fa07613c43a",
+    "number_pool": "/v1/Account/{auth_id}/NumberPool/d35f2e82-d387-427f-8594-6fa07613c43a/",
+    "meta": {
+        "limit": 20,
+        "next": "",
+        "offset": 0,
+        "previous": "",
+        "total_count": 3
+    },
+    "objects": [
+        {
+            "account_phone_number_resource": "/v1/Account/{auth_id}/Number/{your_number}/",
+            "added_on": "2019-10-09T11:24:35.085797Z",
+            "country_iso2": "US",
+            "number": "{your_number}",
+            "number_pool_uuid": "d35f2e82-d387-427f-8594-6fa07613c43a",
+            "type": "fixed"
+        },
+        {
+            "account_phone_number_resource": "/v1/Account/{auth_id}/Number/{your_number}/",
+            "added_on": "2019-10-09T11:24:35.085797Z",
+            "country_iso2": "US",
+            "number": "{your_number}",
+            "number_pool_uuid": "d35f2e82-d387-427f-8594-6fa07613c43a",
+            "type": "fixed"
+        },
+        {
+            "account_phone_number_resource": "/v1/Account/{auth_id}/Number/{your_number}/",
+            "added_on": "2019-10-09T11:24:35.085797Z",
+            "country_iso2": "CA",
+            "number": "{your_number}",
+            "number_pool_uuid": "d35f2e82-d387-427f-8594-6fa07613c43a",
+            "type": "fixed"
+        }
+    ]
+}

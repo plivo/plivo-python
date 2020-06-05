@@ -1,0 +1,10 @@
+{
+  "uuid": "d35f2e82-d387-427f-8594-6fa07613c43a",
+  "name": "My Powerpack",
+  "smart_sender": true,
+  "local_connect": false,
+  "application_type": "XML",
+  "application_id": 123912833468,
+  "number_pool": "/v1/Account/{auth_id}/NumberPool/<number_pool_uuid>/",
+  "created_on": "2019-07-15T12:22:00Z"
+}

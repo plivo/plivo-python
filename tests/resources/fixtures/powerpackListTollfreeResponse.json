@@ -1,0 +1,20 @@
+{
+    "api_id": "614b2776-0a88-11ea-b072-0242ac110007",
+    "uuid": "ca5fd1f2-26c0-43e9-a7e4-0dc426e9dd2f",
+    "number_pool": "/v1/Account/xxxxxxxxx/NumberPool/ca5fd1f2-26c0-43e9-a7e4-0dc426e9dd2f/",
+    "meta": {
+	"limit": 20,
+	"offset": 0,
+        "next": "",
+        "previous": "",
+        "total_count": 1
+    },
+    "objects": [
+        {
+            "added_on": "2019-10-09T11:10:59.741978Z",
+            "country_iso2": "US",
+            "number_pool_uuid": "ca5fd1f2-26c0-43e9-a7e4-0dc426e9dd2f",
+            "tollfree": "{your_tollfree}"
+        }
+    ]
+}

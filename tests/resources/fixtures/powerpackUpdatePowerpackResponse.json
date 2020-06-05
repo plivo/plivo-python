@@ -1,0 +1,12 @@
+{
+    "api_id": "4b2c83c4-09ff-11ea-b072-0242ac110007",
+    "uuid": "d35f2e82-d387-427f-8594-6fa07613c43a",
+    "application_id": "20342783288007824",
+    "application_type": "XML",
+    "created_on": "2019-10-09T11:10:59.666461Z",
+    "local_connect": true,
+    "name": "test",
+    "number_pool": "/v1/Account/{auth_id}/NumberPool/d35f2e82-d387-427f-8594-6fa07613c43a/",
+    "sticky_sender": true,
+    "uuid": "<powerpack_uuid>"
+}

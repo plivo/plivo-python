@@ -18,7 +18,7 @@ class NumberPool(PlivoResource):
     
     
 class Numbers(PlivoResource):
-    _name = 'Shortcodes'
+    _name = 'Numbers'
     _identifier_string = 'number_pool_id'
 
     def buy_add_number(self,
@@ -240,4 +240,4 @@ class Tollfree(PlivoResource):
             'DELETE', ('NumberPool',self.number_pool_id,'Tollfree', tollfree), params,
             response_type=None,
             objects_type=None)
-    
+
