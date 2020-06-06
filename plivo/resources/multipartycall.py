@@ -128,12 +128,10 @@ class MultiPartyCalls(PlivoResourceInterface):
         end_time__gte=[optional(is_proper_date_format())],
         end_time__lt=[optional(is_proper_date_format())],
         end_time__lte=[optional(is_proper_date_format())],
-        end_time=[optional(is_proper_date_format())],
-        start_time__gt=[optional(is_proper_date_format())],
-        start_time__gte=[optional(is_proper_date_format())],
-        start_time__lt=[optional(is_proper_date_format())],
-        start_time__lte=[optional(is_proper_date_format())],
-        start_time=[optional(is_proper_date_format())],
+        creation_time__gt=[optional(is_proper_date_format())],
+        creation_time__gte=[optional(is_proper_date_format())],
+        creation_time__lt=[optional(is_proper_date_format())],
+        creation_time__lte=[optional(is_proper_date_format())],
         limit=[optional(of_type(int), check(lambda limit: 0 < limit <= 20, '0 < limit <= 20'))],
         offset=[optional(of_type(int), check(lambda offset: 0 <= offset, '0 <= offset'))]
     )
@@ -146,12 +144,10 @@ class MultiPartyCalls(PlivoResourceInterface):
              end_time__gte=None,
              end_time__lt=None,
              end_time__lte=None,
-             end_time=None,
-             start_time__gt=None,
-             start_time__gte=None,
-             start_time__lt=None,
-             start_time__lte=None,
-             start_time=None,
+             creation_time__gt=None,
+             creation_time__gte=None,
+             creation_time__lt=None,
+             creation_time__lte=None,
              limit=None,
              offset=None
              ):
