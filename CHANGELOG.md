@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.8.1](https://github.com/plivo/plivo-python/tree/v4.8.1) (2020-06-12)
+- Fix SMS Test cases.
+
 ## [4.8.0](https://github.com/plivo/plivo-python/tree/v4.8.0) (2020-05-28)
 - Add JWT helper functions.
 
