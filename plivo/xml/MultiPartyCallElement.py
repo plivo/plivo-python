@@ -197,7 +197,9 @@ class MultiPartyCallElement(PlivoXMLElement):
                 of_type_exact(str),
                 multi_is_in(('mpc-state-changes',
                              'participant-state-changes',
-                             'participant-speak-events'),
+                             'participant-speak-events',
+                             'participant-digit-input-events',
+                             'add-participant-api-events'),
                             case_sensitive=False,
                             make_lower_case=True)
             )
