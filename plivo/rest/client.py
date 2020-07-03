@@ -273,7 +273,7 @@ class Client(object):
                 session = self.session
                 kwargs['session'] = session
                 response = self.send_request(req, **kwargs)
-                if response.status_code >= 400:
+                if response.status_code >= 500:
                     print('Fallback for URL: {}. Retry {}'.format(response.url, self.voice_retry_count))
                     self.voice_retry_count += 1
                     if self.voice_retry_count == 1:
