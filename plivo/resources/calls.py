@@ -14,14 +14,13 @@ class Call(PlivoResource):
     _identifier_string = 'call_uuid'
 
     def update(self,
-               call_uuid,
                legs=None,
                aleg_url=None,
                aleg_method=None,
                bleg_url=None,
                bleg_method=None):
-        return self.client.calls.update(call_uuid,
-                                        **to_param_dict(self.update, locals()), is_voice_request=True)
+        return self.client.calls.update(self.id,
+                                        **to_param_dict(self.update, locals()))
 
     def get(self):
         return self.client.calls.get(self.id)
@@ -35,7 +34,7 @@ class Call(PlivoResource):
                callback_url=None,
                callback_mathod=None):
         return self.client.calls.record(self.id,
-                                        **to_param_dict(self.record, locals()), is_voice_request=True)
+                                        **to_param_dict(self.record, locals()))
 
     def start_recording(self,
                         time_limit=None,
@@ -48,7 +47,7 @@ class Call(PlivoResource):
         return self.client.calls.start_recording(self.id,
                                                  **to_param_dict(
                                                      self.start_recording,
-                                                     locals()), is_voice_request=True)
+                                                     locals()))
 
     def stop_recording(self):
         return self.client.calls.stop_recording(self.id)
@@ -56,12 +55,12 @@ class Call(PlivoResource):
     def play(self, urls, length=None, legs=None, loop=None, mix=None):
         return self.client.calls.play(self.id,
                                       **to_param_dict(self.start_playing,
-                                                      locals()), is_voice_request=True)
+                                                      locals()))
 
     def start_playing(self, urls, length=None, legs=None, loop=None, mix=None):
         return self.client.calls.play(self.id,
                                       **to_param_dict(self.start_playing,
-                                                      locals()), is_voice_request=True)
+                                                      locals()))
 
     def stop_playing(self):
         return self.client.calls.stop_playing(self.id)
@@ -88,7 +87,7 @@ class Call(PlivoResource):
         return self.client.calls.start_speaking(self.id,
                                                 **to_param_dict(
                                                     self.start_playing,
-                                                    locals()), is_voice_request=True)
+                                                    locals()))
 
     def stop_speaking(self):
         return self.client.calls.stop_speaking(self.id)
@@ -96,7 +95,7 @@ class Call(PlivoResource):
     def send_digits(self, digits, leg):
         return self.client.calls.send_digits(self.id,
                                              **to_param_dict(
-                                                 self.start_playing, locals()), is_voice_request=True)
+                                                 self.start_playing, locals()))
 
     def delete(self):
         return self.client.calls.delete(self.id)
