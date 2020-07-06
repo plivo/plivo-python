@@ -75,7 +75,7 @@ class Call(PlivoResource):
               mix=None, is_voice_request=True):
         return self.client.calls.speak(self.id,
                                        **to_param_dict(self.start_playing,
-                                                       locals()), is_voice_request=True)
+                                                       locals()))
 
     def start_speaking(self,
                        text,
