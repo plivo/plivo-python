@@ -3,7 +3,6 @@
 Application class - along with its list class
 """
 
-import sys
 from plivo.base import (ListResponseObject, PlivoResource, PlivoResourceInterface, SecondaryPlivoResource)
 from plivo.utils.validators import *
 from plivo.utils import to_param_dict
@@ -79,6 +78,19 @@ class MultiPartyCall(PlivoResource):
 
     def get(self):
         return self.client.multi_party_calls.get(uuid=self.id)
+
+    def update(self, participant_id, coach_mode=None, hold=None, mute=None):
+        return self.client.multi_party_calls.update_participant(participant_id=participant_id,
+                                                                uuid=self.id,
+                                                                coach_mode=coach_mode,
+                                                                mute=mute,
+                                                                hold=hold)
+
+    def kick(self, participant_id):
+        return self.client.multi_party_calls.kick_participant(participant_id=participant_id, uuid=self.id)
+
+    def get_participant(self, participant_id):
+        return self.client.multi_party_calls.get_participant(participant_id=participant_id, uuid=self.id)
 
 
 class MultiPartyCallParticipant(SecondaryPlivoResource):
@@ -364,6 +376,10 @@ class MultiPartyCalls(PlivoResourceInterface):
     )
     def update_participant(self, participant_id, uuid=None, friendly_name=None, coach_mode=None, mute=None, hold=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
+        if str(participant_id).lower() == 'all' and coach_mode is not None:
+            raise ValidationError('cannot specify coach_mode when updating all participants')
+        if not coach_mode and not mute and not hold:
+            raise ValidationError('update at least one of coach_mode, mute or hold')
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant', participant_id),
                                    self.__clean_identifiers(to_param_dict(self.update_participant, locals())))
 
