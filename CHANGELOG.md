@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.9.1](https://github.com/plivo/plivo-python/tree/v4.8.1) (2020-07-21)
+- Add retries to other regions for voice requests.
+
 ## [4.8.1](https://github.com/plivo/plivo-python/tree/v4.8.1) (2020-06-12)
 - Fix SMS Test cases.
 
