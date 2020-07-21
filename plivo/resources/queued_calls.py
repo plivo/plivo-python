@@ -32,8 +32,8 @@ class QueuedCalls(PlivoResourceInterface):
             'status': 'queued',
             'limit': limit,
             'offset': offset,
-        })
+        }, is_voice_request=True)
 
     @validate_args(_id=[of_type(six.text_type)])
     def get(self, _id):
-        return self.client.request('GET', ('Call', _id), {'status': 'queued'})
+        return self.client.request('GET', ('Call', _id), {'status': 'queued'}, is_voice_request=True)

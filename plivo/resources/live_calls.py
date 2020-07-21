@@ -45,10 +45,10 @@ class LiveCalls(PlivoResourceInterface):
                  ):
         params = to_param_dict(self.list_ids, locals())
         params.update({'status': 'live'})
-        return self.client.request('GET', ('Call',), params)
+        return self.client.request('GET', ('Call',), params, is_voice_request=True)
 
     @validate_args(_id=[of_type(six.text_type)])
     def get(self, _id):
         return self.client.request(
-            'GET', ('Call', _id), {'status': 'live'}
+            'GET', ('Call', _id), {'status': 'live'}, is_voice_request=True
         )

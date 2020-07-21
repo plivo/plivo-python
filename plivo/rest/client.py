@@ -25,6 +25,15 @@ AuthenticationCredentials = namedtuple('AuthenticationCredentials',
 
 PLIVO_API = 'https://api.plivo.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
+
+# Will change these urls before putting this change in production
+API_VOICE = 'https://voice.plivo.com'
+API_VOICE_BASE_URI = '/'.join([API_VOICE, 'v1/Account'])
+API_VOICE_FALLBACK_1 = 'https://voice-usw1.plivo.com'
+API_VOICE_FALLBACK_2 = 'https://voice-use1.plivo.com'
+API_VOICE_BASE_URI_FALLBACK_1 = '/'.join([API_VOICE_FALLBACK_1, 'v1/Account'])
+API_VOICE_BASE_URI_FALLBACK_2 = '/'.join([API_VOICE_FALLBACK_2, 'v1/Account'])
+
 CALLINSIGHTS_BASE_URL = 'https://stats.plivo.com'
 
 
@@ -91,6 +100,7 @@ class Client(object):
         self.addresses = Addresses(self)
         self.identities = Identities(self)
         self.call_feedback = CallFeedback(self)
+        self.voice_retry_count = 0
 
     def __enter__(self):
         return self
@@ -182,6 +192,8 @@ class Client(object):
                 '"{method}"'.format(
                     status_code=response.status_code, method=method))
 
+        self.voice_retry_count = 0
+
         return response_json
 
     def create_request(self, method, path=None, data=None, **kwargs):
@@ -253,6 +265,26 @@ class Client(object):
                     del data['is_callinsights_request']
                     del data['callinsights_request_path']
                     req = self.create_request(method, path, data, **params_dict)
+            elif kwargs.get("is_voice_request", False):
+                del kwargs["is_voice_request"]
+                if self.voice_retry_count == 0:
+                    self.base_uri = API_VOICE_BASE_URI
+                req = self.create_request(method, path, data)
+                session = self.session
+                kwargs['session'] = session
+                response = self.send_request(req, **kwargs)
+                if response.status_code >= 500:
+                    print('Fallback for URL: {}. Retry {}'.format(response.url, self.voice_retry_count))
+                    self.voice_retry_count += 1
+                    if self.voice_retry_count == 1:
+                        self.base_uri = API_VOICE_BASE_URI_FALLBACK_1
+                    elif self.voice_retry_count == 2:
+                        self.base_uri = API_VOICE_BASE_URI_FALLBACK_2
+                    else:
+                        return self.process_response(method, response, response_type, objects_type)
+                    kwargs["is_voice_request"] = True
+                    return self.request(method, path, data, **kwargs)
+                return self.process_response(method, response, response_type, objects_type)
             else:
                 req = self.create_request(method, path, data)
             session = self.session
