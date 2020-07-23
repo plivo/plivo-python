@@ -82,7 +82,7 @@ class Numbers(PlivoResourceInterface):
              offset=0):
         return self.client.request(
             'GET',
-            ('Number', ),
+            ('number', ),
             to_param_dict(self.list, locals()),
             objects_type=Number,
             response_type=ListResponseObject, )
