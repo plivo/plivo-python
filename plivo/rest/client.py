@@ -201,9 +201,6 @@ class Client(object):
             url = '/'.join([self.base_uri, self.session.auth[0]] + list([str(p) for p in path])) + '/'
 
         payload = {'params': data} if method == 'GET' else {'json': data}
-        print("method", method)
-        print("url", url)
-        print("payload", payload)
         req = Request(method, url, **payload)
         return self.session.prepare_request(req)
 
@@ -222,12 +219,11 @@ class Client(object):
             try:
                 if files:
                     data_args['files'] = files
+                    print(data_args)
             except Exception as e:
                 print(e)
-        req = Request(method,
-                      '/'.join([self.base_uri, self.multipart_session.auth[0]]
-                               + list([str(p) for p in path])) + '/', **(
-                data_args))
+        url = '/'.join([self.base_uri, self.multipart_session.auth[0]] + list([str(p) for p in path])) + '/'
+        req = Request(method, url, **data_args)
         return self.multipart_session.prepare_request(req)
 
     def send_request(self, request, **kwargs):
@@ -260,9 +256,6 @@ class Client(object):
                     del data['callinsights_request_path']
                     req = self.create_request(method, path, data, **params_dict)
             else:
-                print("method", method)
-                print("path", path)
-                print("data", data)
                 req = self.create_request(method, path, data)
             session = self.session
         kwargs['session'] = session
