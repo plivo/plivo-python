@@ -32,11 +32,11 @@ class Endpoints(PlivoResourceInterface):
         app_id=[optional(of_type(six.text_type))])
     def create(self, username, password, alias, app_id=None):
         return self.client.request('POST', ('Endpoint', ),
-                                   to_param_dict(self.create, locals()))
+                                   to_param_dict(self.create, locals()), is_voice_request=True)
 
     @validate_args(endpoint_id=[of_type(six.text_type)])
     def get(self, endpoint_id):
-        return self.client.request('GET', ('Endpoint', endpoint_id))
+        return self.client.request('GET', ('Endpoint', endpoint_id), is_voice_request=True)
 
     @validate_args(
         limit=[
@@ -57,7 +57,7 @@ class Endpoints(PlivoResourceInterface):
             ('Endpoint', ),
             to_param_dict(self.list, locals()),
             objects_type=Endpoint,
-            response_type=ListResponseObject)
+            response_type=ListResponseObject, is_voice_request=True)
 
     @validate_args(
         endpoint_id=[of_type(six.text_type)],
@@ -66,8 +66,8 @@ class Endpoints(PlivoResourceInterface):
         app_id=[optional(of_type(six.text_type))])
     def update(self, endpoint_id, password=None, alias=None, app_id=None):
         return self.client.request('POST', ('Endpoint', endpoint_id),
-                                   to_param_dict(self.update, locals()))
+                                   to_param_dict(self.update, locals()), is_voice_request=True)
 
     @validate_args(endpoint_id=[of_type(six.text_type)])
     def delete(self, endpoint_id):
-        return self.client.request('DELETE', ('Endpoint', endpoint_id))
+        return self.client.request('DELETE', ('Endpoint', endpoint_id), is_voice_request=True)

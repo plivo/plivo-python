@@ -72,13 +72,14 @@ class Recordings(PlivoResourceInterface):
             to_param_dict(self.list, locals()),
             objects_type=Recording,
             response_type=ListResponseObject,
+            is_voice_request=True
         )
 
     @validate_args(recording_id=[of_type(six.text_type)])
     def get(self, recording_id):
         return self.client.request(
-            'GET', ('Recording', recording_id), response_type=Recording)
+            'GET', ('Recording', recording_id), response_type=Recording, is_voice_request=True)
 
     @validate_args(recording_id=[of_type(six.text_type)])
     def delete(self, recording_id):
-        return self.client.request('DELETE', ('Recording', recording_id))
+        return self.client.request('DELETE', ('Recording', recording_id), is_voice_request=True)
