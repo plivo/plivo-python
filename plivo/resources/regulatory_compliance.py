@@ -18,8 +18,7 @@ class EndUsers(PlivoResourceInterface):
         return self.client.request('GET', ('EndUser', end_user_id), response_type=EndUser)
 
     def list(self, limit=20, offset=0):
-        return self.client.request('GET', ('EndUser',), dict(limit=limit, offset=offset), objects_type=EndUser,
-                                   response_type=ListResponseObject, )
+        return self.client.request('GET', ('EndUser',), dict(limit=limit, offset=offset))
 
     def create(self, name=None, last_name=None, end_user_type=None):
         return self.client.request('POST', ('EndUser',),
@@ -71,37 +70,17 @@ class ComplianceDocuments(PlivoResourceInterface):
                                    objects_type=ComplianceDocument, response_type=ListResponseObject, )
 
     def create(self, end_user_id=None, document_type_id=None, alias=None, file_to_upload=None):
-        if file_to_upload:
-            file_extension = file_to_upload.strip().split('.')[-1].lower()
-            if file_extension not in ['jpeg', 'png', 'pdf']:
-                raise ValidationError('File format of the file to be uploaded should be one of JPEG, PNG or PDF')
-            content_types = {
-                'jpeg': 'image/jpeg',
-                'png': 'image/png',
-                'pdf': 'application/pdf',
-            }
-            files = {
-                'file': (file_to_upload.split(os.sep)[-1], open(file_to_upload, 'rb'), content_types[file_extension])
-            }
-        else:
-            files = {'file': ''}
+
         return self.client.request('POST', ('ComplianceDocument',),
                                    dict(end_user_id=end_user_id, document_type_id=document_type_id, alias=alias),
-                                   files=files)
+                                   files={})
 
     def update(self, compliance_document_id=None, end_user_id=None, document_type_id=None, alias=None,
                file_to_upload=None):
         if file_to_upload:
             file_extension = file_to_upload.strip().split('.')[-1].lower()
-            if file_extension not in ['jpeg', 'png', 'pdf']:
-                raise ValidationError('File format of the file to be uploaded should be one of JPEG, PNG or PDF')
-            content_types = {
-                'jpeg': 'image/jpeg',
-                'png': 'image/png',
-                'pdf': 'application/pdf',
-            }
             files = {
-                'file': (file_to_upload.split(os.sep)[-1], open(file_to_upload, 'rb'), content_types[file_extension])
+                'file': (file_to_upload.split(os.sep)[-1], open(file_to_upload, 'rb'),)
             }
         else:
             files = {'file': ''}

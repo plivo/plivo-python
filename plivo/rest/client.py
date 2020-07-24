@@ -25,8 +25,8 @@ from requests import Request, Session
 AuthenticationCredentials = namedtuple('AuthenticationCredentials',
                                        'auth_id auth_token')
 
-PLIVO_API = 'http://localhost:5000'
-# PLIVO_API = 'https://api.numbers.plivodev.com'
+# PLIVO_API = 'http://localhost:5000'
+PLIVO_API = 'https://api.numbers.plivodev.com'
 # PLIVO_API = 'https://api.plivo.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
 CALLINSIGHTS_BASE_URL = 'https://stats.plivo.com'
