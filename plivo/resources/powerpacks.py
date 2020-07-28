@@ -287,6 +287,8 @@ class Powerpack(PlivoResource):
         numberpool_uuid = self.get_numberpooluuid()
         params = {}
         params['rent'] = 'true'
+        if service:
+            params['service'] = service
         if numberpool_uuid != "":   
             if number !="":
                 return self.client.request(
