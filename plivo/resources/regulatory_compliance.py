@@ -1,7 +1,4 @@
-import os
-from plivo.base import (ListResponseObject, PlivoResource,
-                        PlivoResourceInterface, ResponseObject)
-from plivo.exceptions import ValidationError
+from plivo.base import (PlivoResource, PlivoResourceInterface)
 
 
 class EndUser(PlivoResource):
@@ -67,24 +64,13 @@ class ComplianceDocuments(PlivoResourceInterface):
         return self.client.request('GET', ('ComplianceDocument',), dict(limit=limit, offset=offset))
 
     def create(self, end_user_id=None, document_type_id=None, alias=None, file=None, **data_fields):
-        payload = dict(end_user_id=end_user_id, document_type_id=document_type_id, alias=alias)
-        for key, value in data_fields.items():
-            payload.update({key: value})
-        files = {'file': ''}
-        if file:
-            files = {'file': open(file, 'rb')}
+        payload, files = construct_compliance_document_payload(end_user_id, document_type_id, alias, file, data_fields)
         return self.client.request('POST', ('ComplianceDocument',), payload, files=files)
 
     def update(self, compliance_document_id=None, end_user_id=None, document_type_id=None, alias=None, file=None,
                **data_fields):
-        payload = dict(end_user_id=end_user_id, document_type_id=document_type_id, alias=alias)
-        for key, value in data_fields.items():
-            payload.update({key: value})
-        files = {'file': ''}
-        if file:
-            files = {'file': open(file, 'rb')}
-        return self.client.request('POST', ('ComplianceDocument', compliance_document_id), payload,
-                                   files=files)
+        payload, files = construct_compliance_document_payload(end_user_id, document_type_id, alias, file, data_fields)
+        return self.client.request('POST', ('ComplianceDocument', compliance_document_id), payload, files=files)
 
     def delete(self, compliance_document_id=None):
         return self.client.request('DELETE', ('ComplianceDocument', compliance_document_id))
@@ -146,3 +132,14 @@ class ComplianceApplications(PlivoResourceInterface):
 
     def submit(self, compliance_application_id=None):
         return self.client.request('POST', ('ComplianceApplication', compliance_application_id, 'Submit'))
+
+
+# Helper methods
+def construct_compliance_document_payload(end_user_id, document_type_id, alias, file, data_fields):
+    payload = dict(end_user_id=end_user_id, document_type_id=document_type_id, alias=alias)
+    for key, value in data_fields.items():
+        payload.update({key: value})
+    files = {'file': ''}
+    if file:
+        files = {'file': open(file, 'rb')}
+    return payload, files
