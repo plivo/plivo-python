@@ -314,13 +314,15 @@ class Powerpacks(PlivoResourceInterface):
         sticky_sender=[optional(of_type_exact(bool))],
         local_connect=[optional(of_type_exact(bool))],
         application_type=[optional(of_type(six.text_type))],
-        application_id=[optional(of_type(six.text_type))])
+        application_id=[optional(of_type(six.text_type))],
+        number_priority=[optional(of_type_exact(list))])
     def create(self,
                name,
                sticky_sender=True,
                local_connect=True,
                application_type='',
-               application_id=''):
+               application_id='',
+               number_priority=[]):
         if (name is None):
             raise ValidationError(
                 'name parameter is invalid'
