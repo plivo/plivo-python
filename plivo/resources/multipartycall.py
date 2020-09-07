@@ -378,7 +378,7 @@ class MultiPartyCalls(PlivoResourceInterface):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         if str(participant_id).lower() == 'all' and coach_mode is not None:
             raise ValidationError('cannot specify coach_mode when updating all participants')
-        if not coach_mode and not mute and not hold:
+        if all(u is None for u in [coach_mode, mute, hold]):
             raise ValidationError('update at least one of coach_mode, mute or hold')
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant', participant_id),
                                    self.__clean_identifiers(to_param_dict(self.update_participant, locals())))
