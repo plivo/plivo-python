@@ -297,7 +297,8 @@ class Calls(PlivoResourceInterface):
              legs=None,
              loop=None,
              mix=None,
-             callback_url=None):
+             callback_url=None,
+             callback_method=None):
         return self.start_playing(**to_param_dict(self.play, locals()))
 
     @validate_args(call_uuid=[of_type(six.text_type)])
@@ -308,7 +309,8 @@ class Calls(PlivoResourceInterface):
                       legs=None,
                       loop=None,
                       mix=None,
-                      callback_url=None):
+                      callback_url=None,
+                      callback_method=None):
         return self.client.request('POST', ('Call', call_uuid, 'Play'),
                                    to_param_dict(self.play, locals()), is_voice_request=True)
 
