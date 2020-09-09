@@ -12,7 +12,8 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
                               ResourceNotFoundError, ValidationError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls,
-                             Conferences, Endpoints, Identities, Messages, Powerpacks, Media,
+                             Conferences, Endpoints, Identities,
+                             Messages, Powerpacks, Media, Lookup,
                              Numbers, Pricings, Recordings, Subaccounts, CallFeedback)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
@@ -24,6 +25,7 @@ AuthenticationCredentials = namedtuple('AuthenticationCredentials',
                                        'auth_id auth_token')
 
 PLIVO_API = 'https://api.plivo.com'
+PLIVO_API_V1 = '/'.join([PLIVO_API, 'v1'])
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
 
 # Will change these urls before putting this change in production
@@ -92,6 +94,7 @@ class Client(object):
         self.conferences = Conferences(self)
         self.endpoints = Endpoints(self)
         self.messages = Messages(self)
+        self.lookup = Lookup(self)
         self.numbers = Numbers(self)
         self.powerpacks = Powerpacks(self)
         self.media = Media(self)
@@ -197,9 +200,16 @@ class Client(object):
         return response_json
 
     def create_request(self, method, path=None, data=None, **kwargs):
-
+        # The abstraction created by request() and create_request() is moot
+        # now since several product-specific handling have been aded.
+        # Requires a refactor.
         if 'is_callinsights_request' in kwargs:
             url = '/'.join([CALLINSIGHTS_BASE_URL, kwargs['callinsights_request_path']])
+            req = Request(method, url, **({'params': data} if method == 'GET' else {'json': data}))
+        elif kwargs.get('plivo_api_v1_base_url', False):
+            # currently used by lookup API but can be used by other APIs in future
+            path = path or []
+            url = '/'.join([PLIVO_API_V1] + list([str(p) for p in path]))
             req = Request(method, url, **({'params': data} if method == 'GET' else {'json': data}))
         else:
             path = path or []
@@ -285,6 +295,9 @@ class Client(object):
                     kwargs["is_voice_request"] = True
                     return self.request(method, path, data, **kwargs)
                 return self.process_response(method, response, response_type, objects_type)
+            elif kwargs.get('plivo_api_v1_base_url', False):
+                req = self.create_request(method, path, data, plivo_api_v1_base_url=True)
+                del kwargs['plivo_api_v1_base_url']
             else:
                 req = self.create_request(method, path, data)
             session = self.session

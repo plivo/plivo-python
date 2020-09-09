@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.12.0](https://github.com/plivo/plivo-python/tree/v4.12.0) (2020-10-06)
+- Add lookup API support.
+
 ## [4.11.0](https://github.com/plivo/plivo-python/tree/v4.11.0) (2020-09-24)
 - Add "public_uri" optional param support for Application API.
 
