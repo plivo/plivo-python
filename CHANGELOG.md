@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.10.2](https://github.com/plivo/plivo-python/tree/v4.10.2) (2020-09-11)
+## [4.10.1](https://github.com/plivo/plivo-python/tree/v4.10.2) (2020-09-11)
 - Fixed GET method not working for Call - start recording
 
 ## [4.10.0](https://github.com/plivo/plivo-python/tree/v4.10.0) (2020-08-24)
