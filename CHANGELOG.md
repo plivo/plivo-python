@@ -3,6 +3,9 @@
 ## [4.10.1](https://github.com/plivo/plivo-python/tree/v4.10.1) (2020-09-11)
 - Fix Play in calls for asynchronous requests.
 
+## [4.10.0](https://github.com/plivo/plivo-python/tree/v4.10.0) (2020-08-24)
+- Add Powerpack for MMS.
+
 ## [4.9.0](https://github.com/plivo/plivo-python/tree/v4.8.1) (2020-07-21)
 - Add retries to other regions for voice requests.
 
