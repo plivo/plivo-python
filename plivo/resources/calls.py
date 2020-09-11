@@ -32,7 +32,7 @@ class Call(PlivoResource):
                transcription_url=None,
                transcription_method=None,
                callback_url=None,
-               callback_method=None):
+               callback_mathod=None):
         return self.client.calls.record(self.id,
                                         **to_param_dict(self.record, locals()))
 
@@ -43,7 +43,7 @@ class Call(PlivoResource):
                         transcription_url=None,
                         transcription_method=None,
                         callback_url=None,
-                        callback_method=None):
+                        callback_mathod=None):
         return self.client.calls.start_recording(self.id,
                                                  **to_param_dict(
                                                      self.start_recording,
@@ -264,7 +264,7 @@ class Calls(PlivoResourceInterface):
                transcription_url=None,
                transcription_method=None,
                callback_url=None,
-               callback_method=None):
+               callback_mathod=None):
         return self.start_recording(**to_param_dict(self.start_recording,
                                                     locals()))
 
@@ -277,7 +277,7 @@ class Calls(PlivoResourceInterface):
                         transcription_url=None,
                         transcription_method=None,
                         callback_url=None,
-                        callback_method=None):
+                        callback_mathod=None):
         return self.client.request('POST', ('Call', call_uuid, 'Record'),
                                    to_param_dict(self.start_recording,
                                                  locals()), is_voice_request=True)
