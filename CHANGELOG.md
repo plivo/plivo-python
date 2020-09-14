@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.10.3](https://github.com/plivo/plivo-python/tree/v4.10.3) (2020-09-14)
+- Handles Asynchronous requests for make call API.
+
 ## [4.10.2](https://github.com/plivo/plivo-python/tree/v4.10.2) (2020-09-14)
 - Fix GET callback_method for Start Recording API.
 
