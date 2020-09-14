@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.10.2](https://github.com/plivo/plivo-python/tree/v4.10.2) (2020-09-14)
+- Fix GET callback_method for Start Recording API.
+
 ## [4.10.1](https://github.com/plivo/plivo-python/tree/v4.10.1) (2020-09-11)
 - Fix Play in calls for asynchronous requests.
 
