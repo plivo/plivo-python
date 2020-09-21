@@ -10,9 +10,9 @@ class Number(ResponseObject):
 class Lookup(PlivoResourceInterface):
     _resource_type = Number
 
-    def get(self, number, info='service_provider'):
+    def get(self, number, info_type='carrier'):
         params = {
-            'info': info,
+            'type': info_type,
         }
         return self.client.request(
             'GET',
