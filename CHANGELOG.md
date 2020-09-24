@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.11.0](https://github.com/plivo/plivo-python/tree/v4.11.0) (2020-09-24)
+- Add "public_uri" optional param support for Application API.
+
 ## [4.10.2](https://github.com/plivo/plivo-python/tree/v4.10.2) (2020-09-14)
 - Fix GET callback_method for Start Recording API.
 
@@ -62,10 +65,10 @@
 - Add Multi-party call triggers
 
 ## [4.2.0b1](https://github.com/plivo/plivo-python/tree/v4.2-beta1) (2018-03-11)
-- Add PHLO support in Beta branch 
+- Add PHLO support in Beta branch
 
 ## [4.2.0a4](https://github.com/plivo/plivo-python/tree/v4.2-alpha3) (2018-10-23)
-- Fix PHLO run params 
+- Fix PHLO run params
 
 ## [4.2.0a3](https://github.com/plivo/plivo-python/tree/v4.2-alpha3) (2018-08-08)
 - Support python3.7
@@ -82,7 +85,7 @@
 - Add sub-account cascade delete support.
 
 ## [4.1.4](https://github.com/plivo/plivo-python/tree/v4.1.4) (2018-10-31)
-- Add live calls filtering by to, from numbers and call direction. 
+- Add live calls filtering by to, from numbers and call direction.
 
 ## [4.1.3](https://github.com/plivo/plivo-python/tree/v4.1.3) (2018-09-18)
 - Add python3.7 support
