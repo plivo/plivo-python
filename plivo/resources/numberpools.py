@@ -26,9 +26,12 @@ class Numbers(PlivoResource):
         country_iso2=None,
         type=None, 
         region=None, 
-        number=''):
+        number='',
+        service=None):
         params = {}
         params['rent'] = 'true'
+        if service:
+            params['service'] = service
         if self.number_pool_id != "":   
             if number !="":
                 return self.client.request(
@@ -45,6 +48,8 @@ class Numbers(PlivoResource):
                     phonenumberparam['country_iso'] = country_iso2
                 if region:
                     phonenumberparam['region'] = region
+                if service:
+                    phonenumberparam['service'] = service
                 number_response = self.client.request(
                         'GET',
                         ('PhoneNumber', ),
@@ -75,25 +80,32 @@ class Numbers(PlivoResource):
     @validate_args(
     number=[of_type(six.text_type)]
     )
-    def add(self,  number):
+    def add(self,  number, service=None):
+        params = {}
+        if service:
+            params['service'] = service
         return self.client.request(
-            'POST', ('NumberPool',self.number_pool_id,'Number', number),
+            'POST', ('NumberPool',self.number_pool_id,'Number', number), params,
             response_type=None,
             objects_type=None)
     
     @validate_args(
     number=[of_type(six.text_type)]
     )
-    def find(self, number):
+    def find(self, number, service=None):
+        params = {}
+        if service:
+            params['service'] = service
         return self.client.request(
-            'GET', ('NumberPool',self.number_pool_id,'Number', number),
+            'GET', ('NumberPool',self.number_pool_id,'Number', number), params, 
             response_type=None,
             objects_type=None)
     
     def count(self,
         starts_with=None, 
         country_iso2=None,
-        type=None):
+        type=None,
+        service=None):
         params ={}
         if starts_with:
             params['starts_with'] = starts_with
@@ -101,6 +113,8 @@ class Numbers(PlivoResource):
             params['country_iso2'] = country_iso2
         if type:
             params['type'] = type
+        if service:
+            params['service'] = service
         
         try:
             response = self.client.request(
@@ -129,7 +143,8 @@ class Numbers(PlivoResource):
     def list(self,
         starts_with=None, 
         country_iso2=None,
-        type=None, limit=None, offset=None):
+        type=None, limit=None, 
+        offset=None, service=None):
         params ={}
         if starts_with:
             params['starts_with'] = starts_with
@@ -137,6 +152,8 @@ class Numbers(PlivoResource):
             params['country_iso2'] = country_iso2
         if type:
             params['type'] = type
+        if service:
+            params['service'] = service
         if limit:
             params['limit']= limit
         if offset:
