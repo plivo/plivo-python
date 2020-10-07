@@ -14,8 +14,9 @@ class EndUsers(PlivoResourceInterface):
     def get(self, end_user_id):
         return self.client.request('GET', ('EndUser', end_user_id), response_type=EndUser)
 
-    def list(self, limit=None, offset=None):
-        return self.client.request('GET', ('EndUser',), dict(limit=limit, offset=offset))
+    def list(self, limit=None, offset=None, name=None, last_name=None, end_user_type=None):
+        return self.client.request('GET', ('EndUser',), dict(limit=limit, offset=offset,
+                                                             name=name, last_name=last_name, end_user_type=end_user_type))
 
     def create(self, name=None, last_name=None, end_user_type=None):
         return self.client.request('POST', ('EndUser',),
@@ -60,8 +61,10 @@ class ComplianceDocuments(PlivoResourceInterface):
         return self.client.request('GET', ('ComplianceDocument', compliance_document_id),
                                    response_type=ComplianceDocument)
 
-    def list(self, limit=None, offset=None):
-        return self.client.request('GET', ('ComplianceDocument',), dict(limit=limit, offset=offset))
+    def list(self, limit=None, offset=None, end_user_id=None, document_type_id=None, alias=None):
+        return self.client.request('GET', ('ComplianceDocument',), dict(limit=limit, offset=offset,
+                                                                        end_user_id=end_user_id,
+                                                                        document_type_id=document_type_id, alias=alias))
 
     def create(self, end_user_id=None, document_type_id=None, alias=None, file=None, **data_fields):
         payload, files = construct_compliance_document_payload(end_user_id, document_type_id, alias, file, data_fields)
