@@ -7,6 +7,7 @@ from .test_endpoints import *
 from .test_messages import *
 from .test_powerpacks import *
 from .test_medias import *
+from .test_multipartycalls import *
 from .test_numbers import *
 from .test_pricings import *
 from .test_recordings import *

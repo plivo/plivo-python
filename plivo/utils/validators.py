@@ -62,16 +62,38 @@ def check(checker, message=None):
     return f
 
 
-def is_in(iterable, message=None, case_sensitive=True):
+def is_in(iterable, message=None, case_sensitive=True, case_type='upper'):
     def f(name, value):
         actual_value = value
         if not case_sensitive:
-            value = str(value).upper()
+            if case_type == 'upper':
+                value = str(value).upper()
+            elif case_type == 'lower':
+                value = str(value).lower()
+            elif case_type == 'title':
+                value = str(value).title()
+
         msg = message or '{} should be in {}'.format(name, iterable)
         if value in iterable:
             return value, []
         else:
             return None, ['{} (actual value: {})'.format(msg, actual_value)]
+    return f
+
+
+def multi_is_in(iterable, message=None, case_sensitive=True, make_lower_case=False, separator=','):
+    def f(name, value):
+        actual_value = value
+        if not case_sensitive:
+            if make_lower_case:
+                value = str(value).lower()
+            else:
+                value = str(value).upper()
+        msg = message or '{} should be among {}. multiple values should be COMMA(,) separated'.format(name, iterable)
+        for val in value.split(separator):
+            if val not in iterable:
+                return None, ['{} (actual value: {})'.format(msg, actual_value)]
+        return value, []
 
     return f
 
@@ -193,3 +215,5 @@ is_url = functools.partial(
     regex(
         r'(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+|None)'
     ))
+is_proper_date_format = functools.partial(all_of, of_type_exact(str),
+                                          regex(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}(:\d{2}(\.\d{1,6})?)?$'))

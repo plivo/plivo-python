@@ -102,3 +102,24 @@ class ResponseElementTest(TestCase):
         elem = plivoxml.ResponseElement().add_wait(length=content).to_string(False)
         self.assertEqual(elem,
                          '<Response><Wait length="2"/></Response>')
+
+    def test_add_mpc(self):
+        expected_xml = '<Response><MultiPartyCall agentHoldMusicMethod="GET" coachMode="true" ' \
+                       'customerHoldMusicMethod="GET" endMpcOnExit="false" enterSound="beep:2" ' \
+                       'enterSoundMethod="GET" exitSound="beep:1" exitSoundMethod="GET" hold="true" ' \
+                       'maxDuration="20000" maxParticipants="7" mute="true" onExitActionMethod="POST" ' \
+                       'onExitActionUrl="https://plivo.com/exitAction" record="true" recordFileFormat="wav" ' \
+                       'recordingCallbackMethod="GET" relayDTMFInputs="false" role="customer" ' \
+                       'startMpcOnEnter="true" statusCallbackEvents="mpc-state-changes,participant-state-changes" ' \
+                       'statusCallbackMethod="GET" stayAlone="false" waitMusicMethod="POST" ' \
+                       'waitMusicUrl="https://plivo.com/plivoTone.mp3">multi party conference</MultiPartyCall>' \
+                       '</Response>'
+
+        elem = plivoxml.ResponseElement().add_multi_party_call(content='multi party conference', role='customer',
+                                                               max_duration=20000, max_participants=7,
+                                                               wait_music_url='https://plivo.com/plivoTone.mp3',
+                                                               wait_music_method='POST', start_mpc_on_enter=True,
+                                                               record=True, record_file_format='wav', mute=True,
+                                                               enter_sound='beep:2', exit_sound='beep:1', hold=True,
+                                                               on_exit_action_url='https://plivo.com/exitAction')
+        self.assertEqual(expected_xml, elem.to_string(False))
