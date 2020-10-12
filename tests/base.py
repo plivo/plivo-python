@@ -75,6 +75,24 @@ class PlivoResourceTestCase(TestCase):
                '/' + '/'.join([quote_plus(arg)
                                for arg in args]) + '/?' + urlencode(kwargs)
 
+    def get_voice_url(self, *args, **kwargs):
+        return 'https://voice.plivo.com/v1/Account/' + \
+               self.client.session.auth[0] + \
+               '/' + '/'.join([quote_plus(arg)
+                               for arg in args]) + '/?' + urlencode(kwargs)
+
+    def get_voice_fallback1_url(self, *args, **kwargs):
+        return 'https://voice-usw1.plivo.com/v1/Account/' + \
+               self.client.session.auth[0] + \
+               '/' + '/'.join([quote_plus(arg)
+                               for arg in args]) + '/?' + urlencode(kwargs)
+
+    def get_voice_fallback2_url(self, *args, **kwargs):
+        return 'https://voice-use1.plivo.com/v1/Account/' + \
+               self.client.session.auth[0] + \
+               '/' + '/'.join([quote_plus(arg)
+                               for arg in args]) + '/?' + urlencode(kwargs)
+
 
 class PlivoRequestTest(TestCase):
     def setUp(self):
