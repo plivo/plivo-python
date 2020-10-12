@@ -114,10 +114,11 @@ class ComplianceApplications(PlivoResourceInterface):
                                    response_type=ComplianceApplication)
 
     def list(self, status=None, end_user_type=None, number_type=None, country_iso2=None,
-             alias=None, limit=None, offset=None):
+             alias=None, limit=None, offset=None, end_user_id=None):
         return self.client.request('GET', ('ComplianceApplication',),
                                    dict(status=status, end_user_type=end_user_type, number_type=number_type,
-                                        country_iso2=country_iso2, alias=alias, limit=limit, offset=offset), )
+                                        country_iso2=country_iso2, alias=alias, limit=limit, offset=offset,
+                                        end_user_id=end_user_id), )
 
     def create(self, compliance_requirement_id=None, end_user_id=None, document_ids=None, alias=None,
                end_user_type=None, country_iso2=None, number_type=None):
