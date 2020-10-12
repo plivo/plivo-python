@@ -10,7 +10,7 @@ class EndpointTest(PlivoResourceTestCase):
             username='test', password='test', alias='test')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Endpoint'), self.client.current_request.url)
+            self.get_voice_url('Endpoint'), self.client.current_request.url)
 
     @with_response(200)
     def test_list(self):
@@ -19,7 +19,7 @@ class EndpointTest(PlivoResourceTestCase):
         self.assertEqual(len(list(endpoints)), 2)
         self.assertEqual(self.client.current_request.method, 'GET')
         self.assertUrlEqual(
-            self.get_url('Endpoint', limit=20, offset=0), self.client.current_request.url)
+            self.get_voice_url('Endpoint', limit=20, offset=0), self.client.current_request.url)
 
     @with_response(200)
     def test_get(self):
@@ -28,7 +28,7 @@ class EndpointTest(PlivoResourceTestCase):
         self.assertResponseMatches(endpoint)
         self.assertEqual(self.client.current_request.method, 'GET')
         self.assertUrlEqual(
-            self.get_url('Endpoint', uuid), self.client.current_request.url)
+            self.get_voice_url('Endpoint', uuid), self.client.current_request.url)
 
     @with_response(202)
     def test_update(self):
@@ -36,7 +36,7 @@ class EndpointTest(PlivoResourceTestCase):
         self.client.endpoints.update(uuid, alias='test')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Endpoint', uuid), self.client.current_request.url)
+            self.get_voice_url('Endpoint', uuid), self.client.current_request.url)
 
     @with_response(204)
     def test_delete(self):
@@ -44,4 +44,4 @@ class EndpointTest(PlivoResourceTestCase):
         self.client.endpoints.delete(uuid)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Endpoint', uuid), self.client.current_request.url)
+            self.get_voice_url('Endpoint', uuid), self.client.current_request.url)
