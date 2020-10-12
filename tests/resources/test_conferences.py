@@ -14,7 +14,7 @@ class ConferenceTest(PlivoResourceTestCase):
         self.assertResponseMatches(conference)
         self.assertEqual(self.client.current_request.method, 'GET')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name),
+            self.get_voice_url('Conference', conference_name),
             self.client.current_request.url)
         self.assertEqual(conference.conference_name, conference_name)
 
@@ -23,7 +23,7 @@ class ConferenceTest(PlivoResourceTestCase):
         self.client.conferences.delete(conference_name)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name),
+            self.get_voice_url('Conference', conference_name),
             self.client.current_request.url)
 
     @with_response(204)
@@ -31,14 +31,14 @@ class ConferenceTest(PlivoResourceTestCase):
         self.client.conferences.delete_all()
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Conference'), self.client.current_request.url)
+            self.get_voice_url('Conference'), self.client.current_request.url)
 
     @with_response(204, method_name='delete')
     def test_hangup(self):
         self.client.conferences.hangup(conference_name)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name),
+            self.get_voice_url('Conference', conference_name),
             self.client.current_request.url)
 
     @with_response(204, method_name='delete_all')
@@ -46,14 +46,14 @@ class ConferenceTest(PlivoResourceTestCase):
         self.client.conferences.hangup_all()
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Conference'), self.client.current_request.url)
+            self.get_voice_url('Conference'), self.client.current_request.url)
 
     @with_response(200)
     def test_list(self):
         self.client.conferences.list()
         self.assertEqual(self.client.current_request.method, 'GET')
         self.assertUrlEqual(
-            self.get_url('Conference'), self.client.current_request.url)
+            self.get_voice_url('Conference'), self.client.current_request.url)
 
     @with_response(202)
     def test_record_create(self):
@@ -63,7 +63,7 @@ class ConferenceTest(PlivoResourceTestCase):
             transcription_url='http://example.transcription.url')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name, 'Record'),
+            self.get_voice_url('Conference', conference_name, 'Record'),
             self.client.current_request.url)
 
     @with_response(204)
@@ -71,7 +71,7 @@ class ConferenceTest(PlivoResourceTestCase):
         self.client.conferences.record_stop(conference_name=conference_name)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name, 'Record'),
+            self.get_voice_url('Conference', conference_name, 'Record'),
             self.client.current_request.url)
 
 
@@ -82,7 +82,7 @@ class ConferenceMemberTest(PlivoResourceTestCase):
             conference_name=conference_name, member_id=member_id)
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name, 'Member', member_id,
+            self.get_voice_url('Conference', conference_name, 'Member', member_id,
                          'Deaf'), self.client.current_request.url)
 
     @with_response(202)
@@ -93,7 +93,7 @@ class ConferenceMemberTest(PlivoResourceTestCase):
             text='Hello World!')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name, 'Member', member_id,
+            self.get_voice_url('Conference', conference_name, 'Member', member_id,
                          'Speak'), self.client.current_request.url)
 
     @with_response(202)
@@ -104,7 +104,7 @@ class ConferenceMemberTest(PlivoResourceTestCase):
             url='http://url.to.sound')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name, 'Member', member_id,
+            self.get_voice_url('Conference', conference_name, 'Member', member_id,
                          'Play'), self.client.current_request.url)
 
     @with_response(202)
@@ -113,7 +113,7 @@ class ConferenceMemberTest(PlivoResourceTestCase):
             conference_name=conference_name, member_id=member_id)
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name, 'Member', member_id,
+            self.get_voice_url('Conference', conference_name, 'Member', member_id,
                          'Mute'), self.client.current_request.url)
 
     @with_response(204)
@@ -122,7 +122,7 @@ class ConferenceMemberTest(PlivoResourceTestCase):
             conference_name=conference_name, member_id=member_id)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name, 'Member', member_id,
+            self.get_voice_url('Conference', conference_name, 'Member', member_id,
                          'Mute'), self.client.current_request.url)
 
     @with_response(204)
@@ -131,7 +131,7 @@ class ConferenceMemberTest(PlivoResourceTestCase):
             conference_name=conference_name, member_id=member_id)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name, 'Member', member_id,
+            self.get_voice_url('Conference', conference_name, 'Member', member_id,
                          'Deaf'), self.client.current_request.url)
 
     @with_response(204)
@@ -140,7 +140,7 @@ class ConferenceMemberTest(PlivoResourceTestCase):
             conference_name=conference_name, member_id=member_id)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name, 'Member', member_id,
+            self.get_voice_url('Conference', conference_name, 'Member', member_id,
                          'Speak'), self.client.current_request.url)
 
     @with_response(204)
@@ -158,7 +158,7 @@ class ConferenceMemberTest(PlivoResourceTestCase):
             conference_name=conference_name, member_id=member_id)
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name, 'Member', member_id,
+            self.get_voice_url('Conference', conference_name, 'Member', member_id,
                          'Kick'), self.client.current_request.url)
 
     @with_response(204)
@@ -167,5 +167,5 @@ class ConferenceMemberTest(PlivoResourceTestCase):
             conference_name=conference_name, member_id=member_id)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name, 'Member', member_id),
+            self.get_voice_url('Conference', conference_name, 'Member', member_id),
             self.client.current_request.url)
