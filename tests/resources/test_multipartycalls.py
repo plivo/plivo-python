@@ -213,14 +213,14 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         start_mpc_response = self.client.multi_party_calls.start(friendly_name='Voice')
 
         self.__assert_requests(actual_response=start_mpc_response, expected_method='POST',
-                               expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
+                               expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
                                             'MultiPartyCall/name_Voice/',
                                expected_request_body=request_body)
 
         start_mpc_response = self.client.multi_party_calls.start(uuid='12345678-90123456')
 
         self.__assert_requests(actual_response=start_mpc_response, expected_method='POST',
-                               expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
+                               expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
                                             'MultiPartyCall/uuid_12345678-90123456/',
                                expected_request_body=request_body)
 
@@ -285,7 +285,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
     def test_list_MPC(self):
 
         multi_party_calls = self.client.multi_party_calls.list()
-        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/',
+        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/',
                                expected_method='GET')
         # check we received a list response
         self.assertIsInstance(multi_party_calls, ListResponseObject)
@@ -322,6 +322,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         expected_url = construct_get_url('https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/',
                                          params=request_body)
         actual_url = construct_get_url(self.client.current_request.url, params={})
+        print(actual_url)
         self.assertEqual(expected_url, actual_url)
         # Verifying the method used
         self.assertEqual('GET', self.client.current_request.method)
@@ -429,8 +430,8 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
     @with_response(200)
     def test_get_participant(self):
 
-        participant_id = 12
-        uuid = '12345678-90123456'
+        participant_id = 49
+        uuid = '18905d56-79c8-41d4-a840-25feff71070e'
         resp = self.client.multi_party_calls.get_participant(participant_id=participant_id, uuid=uuid)
         self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/'
                                             'uuid_{}/Participant/{}/'.format(uuid, participant_id),
@@ -439,12 +440,12 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         # Verify whether SecondaryResourceID has been set properly
         self.assertEqual(resp.secondary_id, str(participant_id))
         # Verify whether call_uuid has been set properly
-        self.assertEqual(resp.call_uuid, 'b5f23171-ea7f-40e5-9131-d68bf7867020')
+        self.assertEqual(resp.call_uuid, '90de6710-9404-40d1-ba31-f26d2f7c533f')
         # Verify whether role has been set properly
-        self.assertEqual(resp.role, 'agent')
+        self.assertEqual(resp.role, 'customer')
         # Verify whether start_on_enter has been set properly
-        self.assertEqual(resp.start_on_enter, False)
+        self.assertEqual(resp.start_mpc_on_enter, True)
         # Verify whether duration has been set properly
-        self.assertEqual(resp.duration, 19800)
+        self.assertEqual(resp.duration, 30)
         # Verify whether billed_amount has been set properly
-        self.assertEqual(resp.billed_amount, 0.03)
+        self.assertEqual(resp.billed_amount, 0.005)
