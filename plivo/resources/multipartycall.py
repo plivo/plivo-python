@@ -164,7 +164,7 @@ class MultiPartyCalls(PlivoResourceInterface):
              offset=None
              ):
         return self.client.request('GET', ('MultiPartyCall',), to_param_dict(self.list, locals()),
-                                   response_type=ListResponseObject, objects_type=MultiPartyCall)
+                                   response_type=ListResponseObject, objects_type=MultiPartyCall, is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
@@ -305,7 +305,7 @@ class MultiPartyCalls(PlivoResourceInterface):
     )
     def start(self, uuid=None, friendly_name=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('POST', ('MultiPartyCall', mpc_id), {'status': 'active'}, is_voice_request=True)
+        return self.client.request('POST', ('MultiPartyCall', mpc_id), {'status': 'active'})
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
