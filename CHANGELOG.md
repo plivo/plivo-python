@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.13.0](https://github.com/plivo/plivo-python/tree/v4.13.0) (2020-10-23)
+- Change lookup API endpoint and response.
+
 ## [4.12.0](https://github.com/plivo/plivo-python/tree/v4.12.0) (2020-10-06)
 - Add lookup API support.
 
