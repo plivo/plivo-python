@@ -164,7 +164,7 @@ class MultiPartyCalls(PlivoResourceInterface):
              offset=None
              ):
         return self.client.request('GET', ('MultiPartyCall',), to_param_dict(self.list, locals()),
-                                   response_type=ListResponseObject, objects_type=MultiPartyCall)
+                                   response_type=ListResponseObject, objects_type=MultiPartyCall, is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
@@ -172,7 +172,8 @@ class MultiPartyCalls(PlivoResourceInterface):
     )
     def get(self, uuid=None, friendly_name=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('GET', ('MultiPartyCall', mpc_id), response_type=MultiPartyCall)
+        return self.client.request('GET', ('MultiPartyCall', mpc_id),
+                                   is_voice_request=True, response_type=MultiPartyCall)
 
     @validate_args(
         role=[of_type_exact(str), is_in(('agent', 'supervisor', 'customer'), case_sensitive=False, case_type='lower')],
@@ -295,7 +296,8 @@ class MultiPartyCalls(PlivoResourceInterface):
         if call_uuid is None and (not from_ or not to_):
             raise ValidationError('specify (from, to) when not adding an existing call_uuid to multi party participant')
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant'),
-                                   self.__clean_identifiers(to_param_dict(self.add_participant, locals())))
+                                   self.__clean_identifiers(to_param_dict(self.add_participant, locals())),
+                                   is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
@@ -311,7 +313,7 @@ class MultiPartyCalls(PlivoResourceInterface):
     )
     def stop(self, uuid=None, friendly_name=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('DELETE', ('MultiPartyCall', mpc_id))
+        return self.client.request('DELETE', ('MultiPartyCall', mpc_id), is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
@@ -329,7 +331,8 @@ class MultiPartyCalls(PlivoResourceInterface):
                         status_callback_method='POST'):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Record'),
-                                   self.__clean_identifiers(to_param_dict(self.start_recording, locals())))
+                                   self.__clean_identifiers(to_param_dict(self.start_recording, locals())),
+                                   is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
@@ -337,7 +340,7 @@ class MultiPartyCalls(PlivoResourceInterface):
     )
     def stop_recording(self, uuid=None, friendly_name=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('DELETE', ('MultiPartyCall', mpc_id, 'Record'))
+        return self.client.request('DELETE', ('MultiPartyCall', mpc_id, 'Record'), is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
@@ -345,7 +348,7 @@ class MultiPartyCalls(PlivoResourceInterface):
     )
     def pause_recording(self, uuid=None, friendly_name=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Record', 'Pause'))
+        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Record', 'Pause'), is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
@@ -353,7 +356,7 @@ class MultiPartyCalls(PlivoResourceInterface):
     )
     def resume_recording(self, uuid=None, friendly_name=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Record', 'Resume'))
+        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Record', 'Resume'), is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
@@ -364,7 +367,8 @@ class MultiPartyCalls(PlivoResourceInterface):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         return self.client.request('GET', ('MultiPartyCall', mpc_id, 'Participant'),
                                    self.__clean_identifiers(to_param_dict(self.list_participants, locals())),
-                                   response_type=ListResponseObject, objects_type=MultiPartyCallParticipant)
+                                   response_type=ListResponseObject, objects_type=MultiPartyCallParticipant,
+                                   is_voice_request=True)
 
     @validate_args(
         participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
@@ -381,7 +385,8 @@ class MultiPartyCalls(PlivoResourceInterface):
         if all(u is None for u in [coach_mode, mute, hold]):
             raise ValidationError('update at least one of coach_mode, mute or hold')
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant', participant_id),
-                                   self.__clean_identifiers(to_param_dict(self.update_participant, locals())))
+                                   self.__clean_identifiers(to_param_dict(self.update_participant, locals())),
+                                   is_voice_request=True)
 
     @validate_args(
         participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
@@ -390,7 +395,8 @@ class MultiPartyCalls(PlivoResourceInterface):
     )
     def kick_participant(self, participant_id, uuid=None, friendly_name=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('DELETE', ('MultiPartyCall', mpc_id, 'Participant', participant_id))
+        return self.client.request('DELETE', ('MultiPartyCall', mpc_id, 'Participant', participant_id),
+                                   is_voice_request=True)
 
     @validate_args(
         participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
@@ -400,4 +406,4 @@ class MultiPartyCalls(PlivoResourceInterface):
     def get_participant(self, participant_id, uuid=None, friendly_name=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         return self.client.request('GET', ('MultiPartyCall', mpc_id, 'Participant', participant_id),
-                                   response_type=MultiPartyCallParticipant)
+                                   response_type=MultiPartyCallParticipant, is_voice_request=True)
