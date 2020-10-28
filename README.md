@@ -122,7 +122,7 @@ call_made = client.calls.create(
 import plivo
 
 client = plivo.RestClient(auth_id='', auth_token='')
-resp = client.lookup.get("<insert-number-here>", info_type='carrier')
+resp = client.lookup.get("<insert-number-here>")
 print(resp)
 ```
 
