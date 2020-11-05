@@ -12,7 +12,8 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
                               ResourceNotFoundError, ValidationError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls,
-                             Conferences, Endpoints, Identities, Messages, Powerpacks, Media,
+                             Conferences, Endpoints, Identities,
+                             Messages, Powerpacks, Media, Lookup,
                              Numbers, Pricings, Recordings, Subaccounts, CallFeedback)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
@@ -94,6 +95,7 @@ class Client(object):
         self.conferences = Conferences(self)
         self.endpoints = Endpoints(self)
         self.messages = Messages(self)
+        self.lookup = Lookup(self)
         self.numbers = Numbers(self)
         self.powerpacks = Powerpacks(self)
         self.media = Media(self)
@@ -203,15 +205,25 @@ class Client(object):
         return response_json
 
     def create_request(self, method, path=None, data=None, **kwargs):
-
+        # The abstraction created by request() and create_request() is moot
+        # now since several product-specific handling have been aded.
+        # Requires a refactor.
         if 'is_callinsights_request' in kwargs:
             url = '/'.join([CALLINSIGHTS_BASE_URL, kwargs['callinsights_request_path']])
+            req = Request(method, url, **({'params': data} if method == 'GET' else {'json': data}))
+        elif kwargs.get('is_lookup_request', False):
+            path = path or []
+            url = '/'.join(list([str(p) for p in path]))
+            req = Request(method, url, **({'params': data} if method == 'GET' else {'json': data}))
         else:
             path = path or []
-            url = '/'.join([self.base_uri, self.session.auth[0]] + list([str(p) for p in path])) + '/'
-
-        payload = {'params': data} if method == 'GET' else {'json': data}
-        req = Request(method, url, **payload)
+            req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
+                                           list([str(p) for p in path])) + '/',
+                          **({
+                                 'params': data
+                             } if method == 'GET' else {
+                              'json': data
+                          }))
         return self.session.prepare_request(req)
 
     def create_multipart_request(self,
@@ -284,6 +296,9 @@ class Client(object):
                     kwargs["is_voice_request"] = True
                     return self.request(method, path, data, **kwargs)
                 return self.process_response(method, response, response_type, objects_type)
+            elif kwargs.get('is_lookup_request', False):
+                req = self.create_request(method, path, data, is_lookup_request=True)
+                del kwargs['is_lookup_request']
             else:
                 req = self.create_request(method, path, data)
             session = self.session

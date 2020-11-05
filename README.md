@@ -116,6 +116,16 @@ call_made = client.calls.create(
 
 ```
 
+### Lookup a number
+
+```python
+import plivo
+
+client = plivo.RestClient(auth_id='', auth_token='')
+resp = client.lookup.get("<insert-number-here>")
+print(resp)
+```
+
 ### Generate Plivo XML
 
 ```python
