@@ -17,6 +17,8 @@ from plivo.resources import (Accounts, Addresses, Applications, Calls,
                              Numbers, Pricings, Recordings, Subaccounts, CallFeedback)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
+from plivo.resources.regulatory_compliance import EndUsers, ComplianceDocumentTypes, ComplianceDocuments, \
+    ComplianceRequirements, ComplianceApplications
 from plivo.utils import is_valid_mainaccount, is_valid_subaccount
 from plivo.version import __version__
 from requests import Request, Session
@@ -102,6 +104,11 @@ class Client(object):
         self.addresses = Addresses(self)
         self.identities = Identities(self)
         self.call_feedback = CallFeedback(self)
+        self.end_users = EndUsers(self)
+        self.compliance_document_types = ComplianceDocumentTypes(self)
+        self.compliance_documents = ComplianceDocuments(self)
+        self.compliance_requirements = ComplianceRequirements(self)
+        self.compliance_applications = ComplianceApplications(self)
         self.voice_retry_count = 0
 
     def __enter__(self):
@@ -119,7 +126,6 @@ class Client(object):
         """Processes the API response based on the status codes and method used
         to access the API
         """
-
         try:
             response_json = response.json(
                 object_hook=lambda x: ResponseObject(x) if isinstance(x, dict) else x)
@@ -214,11 +220,10 @@ class Client(object):
             req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
                                            list([str(p) for p in path])) + '/',
                           **({
-                              'params': data
-                          } if method == 'GET' else {
+                                 'params': data
+                             } if method == 'GET' else {
                               'json': data
                           }))
-
         return self.session.prepare_request(req)
 
     def create_multipart_request(self,
@@ -238,10 +243,8 @@ class Client(object):
                     data_args['files'] = files
             except Exception as e:
                 print(e)
-        req = Request(method,
-                      '/'.join([self.base_uri, self.multipart_session.auth[0]]
-                               + list([str(p) for p in path])) + '/', **(
-                                   data_args))
+        url = '/'.join([self.base_uri, self.multipart_session.auth[0]] + list([str(p) for p in path])) + '/'
+        req = Request(method, url, **data_args)
         return self.multipart_session.prepare_request(req)
 
     def send_request(self, request, **kwargs):

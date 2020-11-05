@@ -153,8 +153,8 @@ class BaseClient(object):
         req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
                                        list([str(p) for p in path])) + '/',
                       **({
-                          'params': data
-                      } if method == 'GET' else {
+                             'params': data
+                         } if method == 'GET' else {
                           'json': data
                       }))
         return self.session.prepare_request(req)
@@ -177,7 +177,7 @@ class BaseClient(object):
         req = Request(method,
                       '/'.join([self.base_uri, self.multipart_session.auth[0]]
                                + list([str(p) for p in path])) + '/', **(
-                                   data_args))
+                data_args))
         return self.multipart_session.prepare_request(req)
 
     def send_request(self, request, **kwargs):
