@@ -25,9 +25,7 @@ from requests import Request, Session
 AuthenticationCredentials = namedtuple('AuthenticationCredentials',
                                        'auth_id auth_token')
 
-# PLIVO_API = 'http://localhost:5000'
-# PLIVO_API = 'https://api.plivo.com'
-PLIVO_API = 'https://api.numbers.plivodev.com'
+PLIVO_API = 'https://api.plivo.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
 
 # Will change these urls before putting this change in production
@@ -231,7 +229,6 @@ class Client(object):
             try:
                 if files:
                     data_args['files'] = files
-                    print(data_args)
             except Exception as e:
                 print(e)
         url = '/'.join([self.base_uri, self.multipart_session.auth[0]] + list([str(p) for p in path])) + '/'
