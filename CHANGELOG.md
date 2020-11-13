@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.14.1](https://github.com/plivo/plivo-python/tree/v4.14.1) (2020-11-16)
+- Fix resource not found exception when making sequential requests.
+
 ## [4.14.0](https://github.com/plivo/plivo-python/tree/v4.14.0) (2020-11-05)
 - Add Regulatory Compliance API Support.
 
