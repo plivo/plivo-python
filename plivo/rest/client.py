@@ -268,6 +268,8 @@ class Client(object):
             req = self.create_multipart_request(method, path, data, files)
             session = self.multipart_session
         else:
+            if not kwargs.get("is_voice_request", False):
+                self.base_uri = PLIVO_API_BASE_URI
             if data and 'is_callinsights_request' in data:
                 params_dict = {}
                 if 'callinsights_request_path' in data:

@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.15.1](https://github.com/plivo/plivo-python/tree/v4.15.1) (2020-11-17)
+- Fix resource not found exception when making sequential requests.
+
 ## [4.15.0](https://github.com/plivo/plivo-python/tree/v4.15.0) (2020-11-17)
 - Add number_priority support for Powerpack API.
 
