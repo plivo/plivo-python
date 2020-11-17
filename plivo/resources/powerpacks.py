@@ -58,7 +58,8 @@ class Powerpack(PlivoResource):
     def list_numbers(self,
         starts_with=None, 
         country_iso2=None,
-        type=None, limit=None, offset=None):
+        type=None, limit=None, 
+        offset=None, service=None):
         numberpool_uuid = self.get_numberpooluuid()
         params ={}
         if starts_with:
@@ -67,6 +68,8 @@ class Powerpack(PlivoResource):
             params['country_iso2'] = country_iso2
         if type:
             params['type'] = type
+        if service:
+            params['service'] = service
         if limit:
             params['limit']= limit
         if offset:
@@ -81,7 +84,7 @@ class Powerpack(PlivoResource):
     def count_numbers(self,
         starts_with=None, 
         country_iso2=None,
-        type=None):
+        type=None, service=None):
         numberpool_uuid = self.get_numberpooluuid()
         params ={}
         if starts_with:
@@ -90,6 +93,8 @@ class Powerpack(PlivoResource):
             params['country_iso2'] = country_iso2
         if type:
             params['type'] = type
+        if service:
+            params['service'] = service
         if numberpool_uuid != "":
             try:
                 response = self.client.request(
@@ -106,11 +111,14 @@ class Powerpack(PlivoResource):
     @validate_args(
     number=[of_type(six.text_type)]
     )
-    def find_number(self, number):
+    def find_number(self, number, service=None):
+        params = {}
+        if service:
+            params['service'] = service
         numberpool_uuid = self.get_numberpooluuid()
         if numberpool_uuid != "":
             return self.client.request(
-            'GET', ('NumberPool',numberpool_uuid,'Number', number),
+            'GET', ('NumberPool',numberpool_uuid,'Number', number), params,
             response_type=None,
             objects_type=None)
         else:
@@ -119,11 +127,14 @@ class Powerpack(PlivoResource):
     @validate_args(
     number=[of_type(six.text_type)]
     )
-    def add_number(self,  number):
+    def add_number(self,  number, service=None):
         numberpool_uuid = self.get_numberpooluuid()
+        params = {}
+        if service:
+            params['service'] = service
         if numberpool_uuid != "":
             return self.client.request(
-            'POST', ('NumberPool',numberpool_uuid,'Number', number),
+            'POST', ('NumberPool',numberpool_uuid,'Number', number), params,
             response_type=None,
             objects_type=Powerpack)
         else:
@@ -271,10 +282,13 @@ class Powerpack(PlivoResource):
         country_iso2=None,
         type=None, 
         region=None, 
-        number=''):
+        number='',
+        service=None):
         numberpool_uuid = self.get_numberpooluuid()
         params = {}
         params['rent'] = 'true'
+        if service:
+            params['service'] = service
         if numberpool_uuid != "":   
             if number !="":
                 return self.client.request(
@@ -291,6 +305,8 @@ class Powerpack(PlivoResource):
                     phonenumberparam['country_iso'] = country_iso2
                 if region:
                     phonenumberparam['region'] = region
+                if service:
+                    phonenumberparam['service'] = service
                 number_response = self.client.request(
                         'GET',
                         ('PhoneNumber', ),

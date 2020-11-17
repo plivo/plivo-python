@@ -12,10 +12,13 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
                               ResourceNotFoundError, ValidationError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls,
-                             Conferences, Endpoints, Identities, Messages, Powerpacks, Media,
+                             Conferences, Endpoints, Identities,
+                             Messages, Powerpacks, Media, Lookup,
                              Numbers, Pricings, Recordings, Subaccounts, CallFeedback)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
+from plivo.resources.regulatory_compliance import EndUsers, ComplianceDocumentTypes, ComplianceDocuments, \
+    ComplianceRequirements, ComplianceApplications
 from plivo.utils import is_valid_mainaccount, is_valid_subaccount
 from plivo.version import __version__
 from requests import Request, Session
@@ -92,6 +95,7 @@ class Client(object):
         self.conferences = Conferences(self)
         self.endpoints = Endpoints(self)
         self.messages = Messages(self)
+        self.lookup = Lookup(self)
         self.numbers = Numbers(self)
         self.powerpacks = Powerpacks(self)
         self.media = Media(self)
@@ -100,6 +104,11 @@ class Client(object):
         self.addresses = Addresses(self)
         self.identities = Identities(self)
         self.call_feedback = CallFeedback(self)
+        self.end_users = EndUsers(self)
+        self.compliance_document_types = ComplianceDocumentTypes(self)
+        self.compliance_documents = ComplianceDocuments(self)
+        self.compliance_requirements = ComplianceRequirements(self)
+        self.compliance_applications = ComplianceApplications(self)
         self.voice_retry_count = 0
 
     def __enter__(self):
@@ -117,7 +126,6 @@ class Client(object):
         """Processes the API response based on the status codes and method used
         to access the API
         """
-
         try:
             response_json = response.json(
                 object_hook=lambda x: ResponseObject(x) if isinstance(x, dict) else x)
@@ -197,20 +205,25 @@ class Client(object):
         return response_json
 
     def create_request(self, method, path=None, data=None, **kwargs):
-
+        # The abstraction created by request() and create_request() is moot
+        # now since several product-specific handling have been aded.
+        # Requires a refactor.
         if 'is_callinsights_request' in kwargs:
             url = '/'.join([CALLINSIGHTS_BASE_URL, kwargs['callinsights_request_path']])
+            req = Request(method, url, **({'params': data} if method == 'GET' else {'json': data}))
+        elif kwargs.get('is_lookup_request', False):
+            path = path or []
+            url = '/'.join(list([str(p) for p in path]))
             req = Request(method, url, **({'params': data} if method == 'GET' else {'json': data}))
         else:
             path = path or []
             req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
                                            list([str(p) for p in path])) + '/',
                           **({
-                              'params': data
-                          } if method == 'GET' else {
+                                 'params': data
+                             } if method == 'GET' else {
                               'json': data
                           }))
-
         return self.session.prepare_request(req)
 
     def create_multipart_request(self,
@@ -230,10 +243,8 @@ class Client(object):
                     data_args['files'] = files
             except Exception as e:
                 print(e)
-        req = Request(method,
-                      '/'.join([self.base_uri, self.multipart_session.auth[0]]
-                               + list([str(p) for p in path])) + '/', **(
-                                   data_args))
+        url = '/'.join([self.base_uri, self.multipart_session.auth[0]] + list([str(p) for p in path])) + '/'
+        req = Request(method, url, **data_args)
         return self.multipart_session.prepare_request(req)
 
     def send_request(self, request, **kwargs):
@@ -285,6 +296,9 @@ class Client(object):
                     kwargs["is_voice_request"] = True
                     return self.request(method, path, data, **kwargs)
                 return self.process_response(method, response, response_type, objects_type)
+            elif kwargs.get('is_lookup_request', False):
+                req = self.create_request(method, path, data, is_lookup_request=True)
+                del kwargs['is_lookup_request']
             else:
                 req = self.create_request(method, path, data)
             session = self.session
