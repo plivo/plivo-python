@@ -15,14 +15,14 @@ class CallTest(PlivoResourceTestCase):
             answer_url='http://www.example.com')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call'), self.client.current_request.url)
+            self.get_voice_url('Call'), self.client.current_request.url)
 
     @with_response(200)
     def test_list(self):
         self.client.calls.list()
         self.assertEqual(self.client.current_request.method, 'GET')
         self.assertUrlEqual(
-            self.get_url('Call', limit=20, offset=0),
+            self.get_voice_url('Call', limit=20, offset=0),
             self.client.current_request.url)
 
     @with_response(200)
@@ -32,7 +32,7 @@ class CallTest(PlivoResourceTestCase):
         self.assertResponseMatches(call)
         self.assertEqual(self.client.current_request.method, 'GET')
         self.assertUrlEqual(
-            self.get_url('Call', uuid), self.client.current_request.url)
+            self.get_voice_url('Call', uuid), self.client.current_request.url)
 
     @with_response(202)
     def test_update(self):
@@ -41,7 +41,7 @@ class CallTest(PlivoResourceTestCase):
             uuid, legs='aleg', aleg_url='http://www.example.com')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call', uuid), self.client.current_request.url)
+            self.get_voice_url('Call', uuid), self.client.current_request.url)
 
 
 class LiveCallTest(PlivoResourceTestCase):
@@ -50,7 +50,7 @@ class LiveCallTest(PlivoResourceTestCase):
         self.client.calls.play(uuid, 'http://test.url')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Play'),
+            self.get_voice_url('Call', uuid, 'Play'),
             self.client.current_request.url)
 
     @with_response(204)
@@ -58,7 +58,7 @@ class LiveCallTest(PlivoResourceTestCase):
         self.client.calls.play_stop(uuid)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Play'),
+            self.get_voice_url('Call', uuid, 'Play'),
             self.client.current_request.url)
 
     @with_response(202)
@@ -66,7 +66,7 @@ class LiveCallTest(PlivoResourceTestCase):
         self.client.calls.record(uuid, 'http://test.url')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Record'),
+            self.get_voice_url('Call', uuid, 'Record'),
             self.client.current_request.url)
 
     @with_response(204)
@@ -74,7 +74,7 @@ class LiveCallTest(PlivoResourceTestCase):
         self.client.calls.record_stop(uuid)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Record'),
+            self.get_voice_url('Call', uuid, 'Record'),
             self.client.current_request.url)
 
     @with_response(202)
@@ -82,7 +82,7 @@ class LiveCallTest(PlivoResourceTestCase):
         self.client.calls.send_digits(uuid, '123')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'DTMF'),
+            self.get_voice_url('Call', uuid, 'DTMF'),
             self.client.current_request.url)
 
     @with_response(202)
@@ -90,7 +90,7 @@ class LiveCallTest(PlivoResourceTestCase):
         self.client.calls.play(uuid, 'http://test.url')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Play'),
+            self.get_voice_url('Call', uuid, 'Play'),
             self.client.current_request.url)
 
     @with_response(204)
@@ -98,7 +98,7 @@ class LiveCallTest(PlivoResourceTestCase):
         self.client.calls.play_stop(uuid)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Play'),
+            self.get_voice_url('Call', uuid, 'Play'),
             self.client.current_request.url)
 
     @with_response(202)
@@ -106,7 +106,7 @@ class LiveCallTest(PlivoResourceTestCase):
         self.client.calls.speak(uuid, 'http://test.url')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Speak'),
+            self.get_voice_url('Call', uuid, 'Speak'),
             self.client.current_request.url)
 
     @with_response(204)
@@ -114,5 +114,5 @@ class LiveCallTest(PlivoResourceTestCase):
         self.client.calls.speak_stop(uuid)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Call', uuid, 'Speak'),
+            self.get_voice_url('Call', uuid, 'Speak'),
             self.client.current_request.url)
