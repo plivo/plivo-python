@@ -4,28 +4,46 @@ import plivo
 import time
 from tests.base import PlivoResourceTestCase
 from plivo.utils import jwt
+import sys
 
 
 class AccessTokenTest(PlivoResourceTestCase):
     def test_jwt_constructor(self):
-        self.assertRaisesRegex(TypeError, "", jwt.AccessToken.__init__,
+        if int(sys.version[0]) == 3:
+            self.assertRaisesRegex(TypeError, "", jwt.AccessToken.__init__,
                                jwt.AccessToken, 'ADADADADADADADADADA',
                                'qwerty')
+        else:
+            self.assertRaisesRegexp(TypeError, "", jwt.AccessToken.__init__,
+                                   jwt.AccessToken, 'ADADADADADADADADADA',
+                                   'qwerty')
 
     def test_jwt_constructor_auth_id(self):
-        self.assertRaisesRegex(plivo.exceptions.ValidationError,
+        if int(sys.version[0]) == 3:
+            self.assertRaisesRegex(plivo.exceptions.ValidationError,
                                "auth_id should match format .*",
                                jwt.AccessToken.__init__, jwt.AccessToken,
                                'ADADADADADADADADADA', 'qwerty', 'username')
+        else:
+            self.assertRaisesRegexp(plivo.exceptions.ValidationError,
+                                   "auth_id should match format .*",
+                                   jwt.AccessToken.__init__, jwt.AccessToken, 'ADADADADADADADADADA', 'qwerty', 'username')
 
     def test_jwt_constructor_auth_id(self):
-        self.assertRaisesRegex(plivo.exceptions.ValidationError,
+        if int(sys.version[0]) == 3:
+            self.assertRaisesRegex(plivo.exceptions.ValidationError,
                                "auth_id should match format .*",
                                jwt.AccessToken.__init__, jwt.AccessToken,
                                'ADADADADADADADADADA', 'qwerty', 'username')
+        else:
+            self.assertRaisesRegexp(plivo.exceptions.ValidationError,
+                                   "auth_id should match format .*",
+                                   jwt.AccessToken.__init__, jwt.AccessToken,
+                                   'ADADADADADADADADADA', 'qwerty', 'username')
 
     def test_jwt_constructor_lifetime(self):
-        self.assertRaisesRegex(plivo.exceptions.ValidationError,
+        if int(sys.version[0]) == 3:
+            self.assertRaisesRegex(plivo.exceptions.ValidationError,
                                ".* lifetime .*",
                                jwt.AccessToken.__init__,
                                jwt.AccessToken,
@@ -34,6 +52,16 @@ class AccessTokenTest(PlivoResourceTestCase):
                                'username',
                                valid_from=int(time.time()),
                                lifetime=123)
+        else:
+            self.assertRaisesRegexp(plivo.exceptions.ValidationError,
+                                   ".* lifetime .*",
+                                   jwt.AccessToken.__init__,
+                                   jwt.AccessToken,
+                                   'MADADADADADADADADADA',
+                                   'qwerty',
+                                   'username',
+                                   valid_from=int(time.time()),
+                                   lifetime=123)
 
     def test_jwt_constructor_validity(self):
         self.assertRaisesRegex(plivo.exceptions.ValidationError,
