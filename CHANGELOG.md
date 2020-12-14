@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.15.2](https://github.com/plivo/plivo-python/tree/v4.15.2) (2020-12-14)
+- Fix "Cannot import name 'encodestring' from 'base64'" error for Signature Validation-V2.
+
 ## [4.15.1](https://github.com/plivo/plivo-python/tree/v4.15.1) (2020-11-17)
 - Fix resource not found exception when making sequential requests.
 
