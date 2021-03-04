@@ -49,7 +49,9 @@ class Numbers(PlivoResourceInterface):
                limit=None,
                offset=None,
                eligible=None,
-               city=None):
+               city=None,
+               npanxx=None,
+               local_calling_area=None):
         return self.client.request('GET', ('PhoneNumber', ),
                                    to_param_dict(self.search, locals()))
 
