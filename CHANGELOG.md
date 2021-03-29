@@ -1,5 +1,20 @@
 # Change Log
 
+## [4.15.2](https://github.com/plivo/plivo-python/tree/v4.15.2) (2020-12-14)
+- Fix "Cannot import name 'encodestring' from 'base64'" error for Signature Validation-V2.
+
+## [4.15.1](https://github.com/plivo/plivo-python/tree/v4.15.1) (2020-11-17)
+- Fix resource not found exception when making sequential requests.
+
+## [4.15.0](https://github.com/plivo/plivo-python/tree/v4.15.0) (2020-11-17)
+- Add number_priority support for Powerpack API.
+
+## [4.14.0](https://github.com/plivo/plivo-python/tree/v4.14.0) (2020-11-05)
+- Add Regulatory Compliance API Support.
+
+## [4.13.0](https://github.com/plivo/plivo-python/tree/v4.13.0) (2020-10-23)
+- Change lookup API endpoint and response.
+
 ## [4.12.0](https://github.com/plivo/plivo-python/tree/v4.12.0) (2020-10-06)
 - Add lookup API support.
 

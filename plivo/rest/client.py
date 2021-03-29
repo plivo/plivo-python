@@ -17,6 +17,8 @@ from plivo.resources import (Accounts, Addresses, Applications, Calls,
                              Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
+from plivo.resources.regulatory_compliance import EndUsers, ComplianceDocumentTypes, ComplianceDocuments, \
+    ComplianceRequirements, ComplianceApplications
 from plivo.utils import is_valid_mainaccount, is_valid_subaccount
 from plivo.version import __version__
 from requests import Request, Session
@@ -25,7 +27,6 @@ AuthenticationCredentials = namedtuple('AuthenticationCredentials',
                                        'auth_id auth_token')
 
 PLIVO_API = 'https://api.plivo.com'
-PLIVO_API_V1 = '/'.join([PLIVO_API, 'v1'])
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
 
 # Will change these urls before putting this change in production
@@ -103,6 +104,11 @@ class Client(object):
         self.addresses = Addresses(self)
         self.identities = Identities(self)
         self.call_feedback = CallFeedback(self)
+        self.end_users = EndUsers(self)
+        self.compliance_document_types = ComplianceDocumentTypes(self)
+        self.compliance_documents = ComplianceDocuments(self)
+        self.compliance_requirements = ComplianceRequirements(self)
+        self.compliance_applications = ComplianceApplications(self)
         self.multi_party_calls = MultiPartyCalls(self)
         self.voice_retry_count = 0
 
@@ -121,7 +127,6 @@ class Client(object):
         """Processes the API response based on the status codes and method used
         to access the API
         """
-
         try:
             response_json = response.json(
                 object_hook=lambda x: ResponseObject(x) if isinstance(x, dict) else x)
@@ -207,21 +212,19 @@ class Client(object):
         if 'is_callinsights_request' in kwargs:
             url = '/'.join([CALLINSIGHTS_BASE_URL, kwargs['callinsights_request_path']])
             req = Request(method, url, **({'params': data} if method == 'GET' else {'json': data}))
-        elif kwargs.get('plivo_api_v1_base_url', False):
-            # currently used by lookup API but can be used by other APIs in future
+        elif kwargs.get('is_lookup_request', False):
             path = path or []
-            url = '/'.join([PLIVO_API_V1] + list([str(p) for p in path]))
+            url = '/'.join(list([str(p) for p in path]))
             req = Request(method, url, **({'params': data} if method == 'GET' else {'json': data}))
         else:
             path = path or []
             req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
                                            list([str(p) for p in path])) + '/',
                           **({
-                              'params': data
-                          } if method == 'GET' else {
+                                 'params': data
+                             } if method == 'GET' else {
                               'json': data
                           }))
-
         return self.session.prepare_request(req)
 
     def create_multipart_request(self,
@@ -241,10 +244,8 @@ class Client(object):
                     data_args['files'] = files
             except Exception as e:
                 print(e)
-        req = Request(method,
-                      '/'.join([self.base_uri, self.multipart_session.auth[0]]
-                               + list([str(p) for p in path])) + '/', **(
-                                   data_args))
+        url = '/'.join([self.base_uri, self.multipart_session.auth[0]] + list([str(p) for p in path])) + '/'
+        req = Request(method, url, **data_args)
         return self.multipart_session.prepare_request(req)
 
     def send_request(self, request, **kwargs):
@@ -268,6 +269,8 @@ class Client(object):
             req = self.create_multipart_request(method, path, data, files)
             session = self.multipart_session
         else:
+            if not kwargs.get("is_voice_request", False):
+                self.base_uri = PLIVO_API_BASE_URI
             if data and 'is_callinsights_request' in data:
                 params_dict = {}
                 if 'callinsights_request_path' in data:
@@ -296,9 +299,9 @@ class Client(object):
                     kwargs["is_voice_request"] = True
                     return self.request(method, path, data, **kwargs)
                 return self.process_response(method, response, response_type, objects_type)
-            elif kwargs.get('plivo_api_v1_base_url', False):
-                req = self.create_request(method, path, data, plivo_api_v1_base_url=True)
-                del kwargs['plivo_api_v1_base_url']
+            elif kwargs.get('is_lookup_request', False):
+                req = self.create_request(method, path, data, is_lookup_request=True)
+                del kwargs['is_lookup_request']
             else:
                 req = self.create_request(method, path, data)
             session = self.session

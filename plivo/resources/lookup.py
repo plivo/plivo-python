@@ -2,6 +2,9 @@
 from plivo.base import PlivoResourceInterface, ResponseObject
 
 
+LOOKUP_API_ENDPOINT = "https://lookup.plivo.com/v1/Number"
+
+
 class Number(ResponseObject):
     def __init__(self, client, data):
         super(Number, self).__init__(data)
@@ -16,7 +19,7 @@ class Lookup(PlivoResourceInterface):
         }
         return self.client.request(
             'GET',
-            ('Lookup/Number', number),
+            (LOOKUP_API_ENDPOINT, number),
             data=params,
             response_type=Number,
-            plivo_api_v1_base_url=True)
+            is_lookup_request=True)
