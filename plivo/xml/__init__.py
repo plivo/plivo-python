@@ -2,6 +2,7 @@ from .xmlUtils import map_type
 from .PlivoXMLElement import PlivoXMLElement
 from .ConferenceElement import ConferenceElement
 from .DTMFElement import DTMFElement
+from .MultiPartyCallElement import MultiPartyCallElement
 from .hangupElement import HangupElement
 from .messageElement import MessageElement
 from .numberElement import NumberElement

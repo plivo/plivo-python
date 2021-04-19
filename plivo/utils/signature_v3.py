@@ -13,7 +13,6 @@ else:
     from base64 import encodebytes as encode
 
 
-
 def string_format(value):
     if isinstance(value, bytes):
         return ''.join(chr(x) for x in bytearray(value))

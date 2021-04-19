@@ -14,7 +14,7 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
 from plivo.resources import (Accounts, Addresses, Applications, Calls,
                              Conferences, Endpoints, Identities,
                              Messages, Powerpacks, Media, Lookup,
-                             Numbers, Pricings, Recordings, Subaccounts, CallFeedback)
+                             Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
 from plivo.resources.regulatory_compliance import EndUsers, ComplianceDocumentTypes, ComplianceDocuments, \
@@ -109,6 +109,7 @@ class Client(object):
         self.compliance_documents = ComplianceDocuments(self)
         self.compliance_requirements = ComplianceRequirements(self)
         self.compliance_applications = ComplianceApplications(self)
+        self.multi_party_calls = MultiPartyCalls(self)
         self.voice_retry_count = 0
 
     def __enter__(self):
@@ -194,7 +195,7 @@ class Client(object):
                 raise PlivoRestError('Resource at {url} could not be '
                                      'deleted'.format(url=response.url))
 
-        elif response.status_code not in [200, 201, 202, 207]:
+        elif response.status_code not in [200, 201, 202, 204, 207]:
             raise PlivoRestError(
                 'Received status code {status_code} for the HTTP method '
                 '"{method}"'.format(

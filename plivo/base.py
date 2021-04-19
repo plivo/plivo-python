@@ -172,14 +172,13 @@ class PlivoResource(ResponseObject):
         return PlivoGenericResponse(
             self.client.send_request(self.__resource_uri, method='DELETE'))
 
-    def get(self, params=None):
+    def get(self):
         if not self.id:
             raise InvalidRequestError(
                 'Cannot get a {resource_type} resource without an '
                 'identifier'.format(resource_type=self._name))
 
-        self.__resource_json = self.client.send_request(
-            self.__resource_uri, data=params)
+        self.__resource_json = self.client.send_request(self.__resource_uri)
         self.__parse_json()
         return self
 
@@ -198,6 +197,27 @@ class PlivoResource(ResponseObject):
         return PlivoGenericResponse(
             self.client.send_request(
                 self.__resource_uri, data=params, method='POST'), id_string)
+
+
+class SecondaryPlivoResource(PlivoResource):
+    """
+        SecondaryPlivoResource resource object
+        This provides an interface to deal with resources where identifier is has a mid level parent
+    """
+    _secondary_identifier_string = None
+
+    @property
+    def secondary_id(self):
+        value = self.__dict__.get(self._secondary_identifier_string, None)
+        if not value:
+            raise ValueError('{} must be set'.format(self._secondary_identifier_string))
+        return value
+
+    def __init__(self, client, data):
+        """Sets up the PlivoResource"""
+        super(SecondaryPlivoResource, self).__init__(client, data)
+        self._name = self._name or self.__class__.__name__
+        self.client = client
 
 
 class PlivoResourceInterface(object):
