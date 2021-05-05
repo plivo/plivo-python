@@ -88,4 +88,4 @@ class AccessToken:
             'grants': self.grants
         }
 
-        return jwt.JWT().encode(claims, self.key, algorithm, headers).decode('utf-8')
+        return jwt.encode(claims, self.key, algorithm, headers).decode('utf-8')
