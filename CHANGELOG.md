@@ -1,4 +1,6 @@
 # Change Log
+## [4.16.1](https://github.com/plivo/plivo-python/tree/v4.16.1) (2021-05-05)
+- Fixing trivis build issue.
 
 ## [4.16.0](https://github.com/plivo/plivo-python/tree/v4.16.0) (2021-04-19)
 - Added SDK support for Multiparty Call APIs and XML.
