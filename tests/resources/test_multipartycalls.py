@@ -312,7 +312,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             'status': 'active',
             'termination_cause_code': 1010,
             'end_time__gte': '2020-03-10 11:45',
-            'start_time__lte': '2020-03-30 09:35',
+            'creation_time__lte': '2020-03-30 09:35',
             'limit': 15,
             'offset': 156
         }
