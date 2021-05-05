@@ -87,5 +87,4 @@ class AccessToken:
             'exp': self.valid_from + self.lifetime,
             'grants': self.grants
         }
-
         return jwt.encode(claims, self.key, algorithm, headers).decode('utf-8')
