@@ -46,6 +46,7 @@ except ImportError:
 
 
 class PlivoResourceTestCase(TestCase):
+    maxDiff = None
     def setUp(self):
         self.client = PlivoTestClient(
             auth_id='MA' + 'X' * 18, auth_token='AbcdEfghIjklMnop1234')
