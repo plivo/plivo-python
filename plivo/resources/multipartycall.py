@@ -17,6 +17,7 @@ class MultiPartyCall(PlivoResource):
                         from_=None,
                         to_=None,
                         call_uuid=None,
+                        caller_name=None,
                         call_status_callback_url=None,
                         call_status_callback_method='POST',
                         sip_headers=None,
@@ -25,6 +26,7 @@ class MultiPartyCall(PlivoResource):
                         confirm_key_sound_method='GET',
                         dial_music='Real',
                         ring_timeout=45,
+                        delay_dial=0,
                         max_duration=14400,
                         max_participants=10,
                         wait_music_url=None,
@@ -76,6 +78,21 @@ class MultiPartyCall(PlivoResource):
     def resume_recording(self):
         return self.client.multi_party_calls.resume_recording(uuid=self.id)
 
+    def start_participant_recording(self, participant_id, file_format=None, status_callback_url=None,
+                                    status_callback_method=None):
+        return self.client.multi_party_calls.start_participant_recording(participant_id=participant_id, uuid=self.id,
+                                                                         **to_param_dict(self.add_participant,
+                                                                                         locals()))
+
+    def stop_participant_recording(self, participant_id):
+        return self.client.multi_party_calls.stop_participant_recording(participant_id=participant_id, uuid=self.id)
+
+    def pause_participant_recording(self, participant_id):
+        return self.client.multi_party_calls.pause_participant_recording(participant_id=participant_id, uuid=self.id)
+
+    def resume_participant_recording(self, participant_id):
+        return self.client.multi_party_calls.resume_participant_recording(participant_id=participant_id, uuid=self.id)
+
     def get(self):
         return self.client.multi_party_calls.get(uuid=self.id)
 
@@ -97,6 +114,21 @@ class MultiPartyCallParticipant(SecondaryPlivoResource):
     _name = 'MultiPartyCall'
     _identifier_string = 'mpc_uuid'
     _secondary_identifier_string = 'member_id'
+
+    def start_participant_recording(self, file_format=None, status_callback_url=None,
+                                    status_callback_method=None):
+        return self.client.multi_party_calls.start_participant_recording(participant_id=self.secondary_id, uuid=self.id,
+                                                                         **to_param_dict(self.add_participant,
+                                                                                         locals()))
+
+    def stop_participant_recording(self):
+        return self.client.multi_party_calls.stop_participant_recording(participant_id=self.secondary_id, uuid=self.id)
+
+    def pause_participant_recording(self):
+        return self.client.multi_party_calls.pause_participant_recording(participant_id=self.secondary_id, uuid=self.id)
+
+    def resume_participant_recording(self):
+        return self.client.multi_party_calls.resume_participant_recording(participant_id=self.secondary_id, uuid=self.id)
 
     def update(self, coach_mode=None, hold=None, mute=None):
         return self.client.multi_party_calls.update_participant(participant_id=self.secondary_id,
@@ -182,6 +214,9 @@ class MultiPartyCalls(PlivoResourceInterface):
         from_=[optional(is_phonenumber())],
         to_=[optional(is_iterable(of_type_exact(str), sep='<'))],
         call_uuid=[optional(of_type_exact(str))],
+        caller_name=[optional(
+            of_type_exact(str),
+            check(lambda caller_name: 1 <= len(caller_name) <= 50, '1 < len(caller_name) <= 50'))],
         call_status_callback_url=[optional(of_type_exact(str), is_url())],
         call_status_callback_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
         confirm_key=[
@@ -196,6 +231,10 @@ class MultiPartyCalls(PlivoResourceInterface):
         ring_timeout=[optional(
             of_type_exact(int),
             check(lambda ring_timeout: 15 <= ring_timeout <= 120, '15 < ring_timeout <= 120')
+        )],
+        delay_dial=[optional(
+            of_type(*six.integer_types),
+            check(lambda delay_dial: 0 <= delay_dial <= 120, '0 < delay_dial <= 120')
         )],
         max_duration=[optional(
             of_type_exact(int),
@@ -251,6 +290,7 @@ class MultiPartyCalls(PlivoResourceInterface):
                         from_=None,
                         to_=None,
                         call_uuid=None,
+                        caller_name=None,
                         call_status_callback_url=None,
                         call_status_callback_method='POST',
                         sip_headers=None,
@@ -259,6 +299,7 @@ class MultiPartyCalls(PlivoResourceInterface):
                         confirm_key_sound_method='GET',
                         dial_music='Real',
                         ring_timeout=45,
+                        delay_dial=0,
                         max_duration=14400,
                         max_participants=10,
                         wait_music_url=None,
@@ -289,6 +330,7 @@ class MultiPartyCalls(PlivoResourceInterface):
                         exit_sound_method='GET'
                         ):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
+        caller_name = caller_name or from_
         if (from_ or to_) and call_uuid:
             raise ValidationError('cannot specify call_uuid when (from, to) is provided')
         if not from_ and not to_ and not call_uuid:
@@ -407,3 +449,49 @@ class MultiPartyCalls(PlivoResourceInterface):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         return self.client.request('GET', ('MultiPartyCall', mpc_id, 'Participant', participant_id),
                                    response_type=MultiPartyCallParticipant, is_voice_request=True)
+
+    @validate_args(
+        participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
+        friendly_name=[optional(of_type_exact(str))],
+        uuid=[optional(of_type_exact(str))],
+        file_format=[optional(of_type_exact(str), is_in(('mp3', 'wav'), case_sensitive=False,
+                                                        case_type='lower'))],
+        status_callback_url=[optional(of_type_exact(str), is_url())],
+        status_callback_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
+    )
+    def start_participant_recording(self, participant_id, uuid=None, friendly_name=None, file_format='mp3',
+                                    status_callback_url=None, status_callback_method='POST'):
+        mpc_id = self.__make_mpc_id(friendly_name, uuid)
+        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant', participant_id, 'Record'),
+                                   self.__clean_identifiers(to_param_dict(self.start_recording, locals())),
+                                   is_voice_request=True)
+
+    @validate_args(
+        participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
+        friendly_name=[optional(of_type_exact(str))],
+        uuid=[optional(of_type_exact(str))],
+    )
+    def stop_participant_recording(self, participant_id, uuid=None, friendly_name=None):
+        mpc_id = self.__make_mpc_id(friendly_name, uuid)
+        return self.client.request('DELETE', ('MultiPartyCall', mpc_id, 'Participant', participant_id, 'Record'),
+                                   is_voice_request=True)
+
+    @validate_args(
+        participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
+        friendly_name=[optional(of_type_exact(str))],
+        uuid=[optional(of_type_exact(str))],
+    )
+    def pause_participant_recording(self, participant_id, uuid=None, friendly_name=None):
+        mpc_id = self.__make_mpc_id(friendly_name, uuid)
+        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant', participant_id, 'Record', 'Pause'),
+                                   is_voice_request=True)
+
+    @validate_args(
+        participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
+        friendly_name=[optional(of_type_exact(str))],
+        uuid=[optional(of_type_exact(str))],
+    )
+    def resume_participant_recording(self, participant_id, uuid=None, friendly_name=None):
+        mpc_id = self.__make_mpc_id(friendly_name, uuid)
+        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant', participant_id, 'Record', 'Resume'),
+                                   is_voice_request=True)
