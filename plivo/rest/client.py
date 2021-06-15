@@ -143,7 +143,7 @@ class Client(object):
             response_json = None
 
         if response.status_code == 400:
-            if response_json and 'error' in response_json:
+            if response_json is not None and 'error' in response_json:
                 raise ValidationError(response_json.error)
             raise ValidationError(
                 'A parameter is missing or is invalid while accessing resource'
