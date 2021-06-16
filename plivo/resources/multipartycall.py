@@ -228,14 +228,8 @@ class MultiPartyCalls(PlivoResourceInterface):
             of_type_exact(str),
             one_of(is_url(), is_in(('real', 'none'), case_sensitive=False, case_type='lower')),
         )],
-        ring_timeout=[optional(
-            of_type_exact(int),
-            check(lambda ring_timeout: 15 <= ring_timeout <= 120, '15 < ring_timeout <= 120')
-        )],
-        delay_dial=[optional(
-            of_type(*six.integer_types),
-            check(lambda delay_dial: 0 <= delay_dial <= 120, '0 < delay_dial <= 120')
-        )],
+        ring_timeout=[optional(one_of(of_type_exact(str), of_type_exact(int)), multiple_valid_integers())],
+        delay_dial=[optional(one_of(of_type_exact(str), of_type_exact(int)), multiple_valid_integers())],
         max_duration=[optional(
             of_type_exact(int),
             check(lambda max_duration: 300 <= max_duration <= 28800, '300 < max_duration <= 28800'))],
