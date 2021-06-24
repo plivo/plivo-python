@@ -180,19 +180,13 @@ def is_iterable(validator, sep=None):
     return required(f)
 
 
-def multiple_valid_integers():
+def multiple_valid_integers(lowerbound, upperbound):
     def f(name, value):
-        if isinstance(value, int) and name == 'delay_dial':
-            if value >=0 and value <=120:
-                return value,[]
+        if isinstance(value, int):
+            if value >= lowerbound and value <= upperbound:
+                return value, []
             else:
-                return None , {'DelayDial value must be in range 0 to 120'}
-            return v, e
-        elif isinstance(value, int) and name == 'ring_timeout':
-            if value >=15 and value <=120:
-                return value,[]
-            else:
-                return None , {'RingTimeout value must be in range 15 to 120'}
+                return None, {name + ' value must be in range ' + str(lowerbound) + ' to ' + str(upperbound)}
         else:
             values = value.split('<')
             for i in values:
@@ -201,12 +195,9 @@ def multiple_valid_integers():
                     int(i)
                 except ValueError:
                     is_int = False
-                if is_int and name == 'delay_dial':
-                    if int(i) > 120 or int(i) < 0:
-                        return None, ['DelayDial Destination value must be in range 0 to 120']
-                elif is_int and name == 'ring_timeout':
-                    if int(i) > 120 or int(i) < 15:
-                        return None, ['RingTimeout Destination value must be in range 15 to 120']
+                if is_int:
+                    if int(i) > upperbound or int(i) < lowerbound:
+                        return None, [name + ' destination value must be in range ' + str(lowerbound) + ' to ' + str(upperbound)]
                 else:
                     return None, ['{} destination value must be integer'.format(name)]
             return value, []
