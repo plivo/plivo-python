@@ -46,7 +46,7 @@ Alternatively, you can specifiy the authentication credentials while initializin
 ```python
 import plivo
 
-client = plivo.RestClient(auth_id='yourauthid', auth_token='your_auth_token')
+client = plivo.RestClient(auth_id='auth_id', auth_token='your_auth_token')
 ```
 
 If you expect to make a large number of API requests, re-use the same client instance, but if you expect to create a client on an on-demand basis, you can use a context manager to automatically frees all resources used by the client
