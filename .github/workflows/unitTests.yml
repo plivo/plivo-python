@@ -1,8 +1,6 @@
 name: PlivoPythonSDK
 
 on:
-  push:
-    branches: [ unitTests ]
   pull_request:
     branches: [ master ]
     
@@ -22,5 +20,4 @@ jobs:
           pip install tox
       - name: Run Tests
         run: |
-          tox    
-        continue-on-error: true
+          tox
