@@ -11,7 +11,6 @@ from plivo.rest.phlo_client import PhloClient as PhloRestClient
 def plivo_mock(url, request):
     return request
 
-
 class PlivoTestClient(RestClient):
     def __init__(self,
                  auth_id=None,
