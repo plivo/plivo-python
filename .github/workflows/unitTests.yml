@@ -3,7 +3,9 @@ name: PlivoJavaSDK
 pull_request:
     branches:
       - master
-
+push:
+    branches: [ unitTests ]
+    
 jobs:
   build:
     name: UnitTests
