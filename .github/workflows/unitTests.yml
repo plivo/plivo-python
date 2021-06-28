@@ -22,4 +22,5 @@ jobs:
           pip install tox
       - name: Run Tests
         run: |
+          python --version
           tox
