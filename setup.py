@@ -39,6 +39,7 @@ setup(
         'six >= 1, < 2',
         'decorator >= 4, < 5',
         'lxml >= 3, < 5',
+        'PyJWT==1.7.1'
     ],
     keywords=['plivo', 'plivo xml', 'voice calls', 'sms'],
     include_package_data=True,
