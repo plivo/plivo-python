@@ -37,7 +37,8 @@ class MultiPartyCallElementTest(TestCase, PlivoXmlTestCase):
 
     def test_validation_on_init(self):
         expected_error = '["status_callback_events should be among (\'mpc-state-changes\', ' \
-                         '\'participant-state-changes\', \'participant-speak-events\'). ' \
+                         '\'participant-state-changes\', \'participant-speak-events\', ' \
+                         '\'participant-digit-input-events\', \'add-participant-api-events\'). ' \
                          'multiple values should be COMMA(,) separated (actual value: hostages-move)"]'
 
         actual_error = ''
