@@ -1,9 +1,10 @@
 from unittest import TestCase
 
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class HangupElementTest(TestCase):
+class HangupElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         schedule = 60
         reason = "rejected"
@@ -13,4 +14,4 @@ class HangupElementTest(TestCase):
         response = element.add(
             plivoxml.HangupElement().set_reason(reason).set_schedule(schedule)
         ).to_string(False)
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)

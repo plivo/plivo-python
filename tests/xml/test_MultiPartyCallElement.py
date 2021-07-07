@@ -1,9 +1,10 @@
 from unittest import TestCase
 from plivo import plivoxml
 from plivo.exceptions import ValidationError
+from tests import PlivoXmlTestCase
 
 
-class MultiPartyCallElementTest(TestCase):
+class MultiPartyCallElementTest(TestCase, PlivoXmlTestCase):
 
     def test_default_xml(self):
 
@@ -18,7 +19,7 @@ class MultiPartyCallElementTest(TestCase):
                             'waitMusicMethod="GET">Nairobi</MultiPartyCall>'
 
         element = plivoxml.MultiPartyCallElement(content='Nairobi', role='Agent')
-        self.assertEqual(element.to_string(False), expected_response)
+        self.assertXmlEqual(element.to_string(False), expected_response)
 
     def test_setting_optional_fields(self):
         expected_response = '<MultiPartyCall agentHoldMusicMethod="GET" coachMode="true" ' \
@@ -32,7 +33,7 @@ class MultiPartyCallElementTest(TestCase):
                             'waitMusicMethod="GET">Tokyo</MultiPartyCall>'
 
         element = plivoxml.MultiPartyCallElement(content='Tokyo', role='supervisor', exit_sound='beep:1')
-        self.assertEqual(element.to_string(False), expected_response)
+        self.assertXmlEqual(element.to_string(False), expected_response)
 
     def test_validation_on_init(self):
         expected_error = '["status_callback_events should be among (\'mpc-state-changes\', ' \
@@ -44,7 +45,7 @@ class MultiPartyCallElementTest(TestCase):
             plivoxml.MultiPartyCallElement(content='Rio', role='agent', status_callback_events='hostages-move')
         except ValidationError as e:
             actual_error = str(e)
-        self.assertEqual(expected_error, actual_error)
+        self.assertXmlEqual(expected_error, actual_error)
 
     def test_validation_on_set(self):
         expected_error = "['300 <= max_duration <= 28800 (actual value: 255)']"
@@ -55,7 +56,7 @@ class MultiPartyCallElementTest(TestCase):
             element.set_max_duration(255)
         except ValidationError as e:
             actual_error = str(e)
-        self.assertEqual(expected_error, actual_error)
+        self.assertXmlEqual(expected_error, actual_error)
 
     def test_builder_setting(self):
 
@@ -72,4 +73,4 @@ class MultiPartyCallElementTest(TestCase):
             set_customer_hold_music_url('http://plivo.com/voice.mp3').set_coach_mode(False).\
             set_on_exit_action_url('http://plivo.com/api.mp3').set_on_exit_action_method('GET')
 
-        self.assertEqual(expected_xml, element.to_string(False))
+        self.assertXmlEqual(expected_xml, element.to_string(False))

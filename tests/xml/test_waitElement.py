@@ -1,9 +1,10 @@
 from unittest import TestCase
 
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class WaitElementTest(TestCase):
+class WaitElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         expected_response = '<Response><Wait beep="true" length="1" minSilence="1" silence="true"/></Response>'
 
@@ -19,4 +20,4 @@ class WaitElementTest(TestCase):
             ).set_min_silence(min_silence).set_beep(beep)
         ).to_string(False)
 
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)
