@@ -1,9 +1,10 @@
 from unittest import TestCase
 
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class ElementTest(TestCase):
+class ElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         alphabet = "ipa"
         ph = "t&#x259;mei&#x325;&#x27E;ou&#x325;"
@@ -16,4 +17,4 @@ class ElementTest(TestCase):
                 plivoxml.PhonemeElement("Well").set_alphabet(alphabet).set_ph(ph)
             )
         ).to_string(False)
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)

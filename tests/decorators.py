@@ -20,7 +20,7 @@ def with_response(status_code, method_name=None):
                     name + '.json'))
 
             try:
-                with io.open(path) as f:
+                with io.open(path, encoding='utf-8') as f:
                     self.expected_response = json.load(f)
                     self.client.set_expected_response(
                         status_code=status_code,

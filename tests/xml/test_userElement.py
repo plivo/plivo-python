@@ -1,9 +1,10 @@
 from unittest import TestCase
 
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class UserElementTest(TestCase):
+class UserElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         expected_response = '<Response><Dial><User sendDigits="wwww2410" sendOnPreanswer="true" ' \
                             'sipHeaders="head1=val1,head2=val2">This is Test</User></Dial></Response>'
@@ -22,4 +23,4 @@ class UserElementTest(TestCase):
                 ).set_sip_headers(sip_headers)
             )
         ).to_string(False)
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)

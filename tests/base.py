@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
+from doctest import Example
+from lxml.doctestcompare import LXMLOutputChecker
 
 from httmock import HTTMock, all_requests
 
@@ -171,3 +173,12 @@ class PlivoPhlosResourceTestCase(TestCase):
                self.client.session.auth[0] + \
                '/' + '/'.join([quote_plus(arg)
                                for arg in args]) + '/?' + urlencode(kwargs)
+
+
+class PlivoXmlTestCase:
+
+    def assertXmlEqual(self, got, want):
+        checker = LXMLOutputChecker()
+        if not checker.check_output(want, got, 0):
+            message = checker.output_difference(Example("", want), got, 0)
+            raise AssertionError(message)

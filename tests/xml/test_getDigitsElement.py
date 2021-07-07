@@ -1,8 +1,9 @@
 from unittest import TestCase
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class GetDigitsElementTest(TestCase):
+class GetDigitsElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         expected_response = '<Response><GetDigits action="https://foo.example.com" digitTimeout="10"' \
             ' finishOnKey="#" invalidDigitsSound="http://foo.audio.url" log="true" method="GET"' \
@@ -43,4 +44,4 @@ class GetDigitsElementTest(TestCase):
                     language=language_speak,
                     loop=loop_speak).add_play(
                         content=content_play, loop=loop_play)).to_string(False)
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)

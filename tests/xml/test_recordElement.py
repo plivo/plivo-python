@@ -1,8 +1,9 @@
 from unittest import TestCase
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class RecordElementTest(TestCase):
+class RecordElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         expected_response = '<Response><Record action="https://foo.example.com" callbackMethod="GET" ' \
                             'callbackUrl="https://foo.example.com" fileFormat="wav" finishOnKey="#" ' \
@@ -36,4 +37,4 @@ class RecordElementTest(TestCase):
                 transcriptionType).set_transcription_url(transcriptionUrl)
             .set_transcription_method(transcriptionMethod).set_callback_url(
                 callbackUrl).set_callback_method(callbackMethod)).to_string(False)
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)
