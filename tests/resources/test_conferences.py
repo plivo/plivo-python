@@ -149,7 +149,7 @@ class ConferenceMemberTest(PlivoResourceTestCase):
             conference_name=conference_name, member_id=member_id)
         self.assertEqual(self.client.current_request.method, 'DELETE')
         self.assertUrlEqual(
-            self.get_url('Conference', conference_name, 'Member', member_id,
+            self.get_voice_url('Conference', conference_name, 'Member', member_id,
                          'Play'), self.client.current_request.url)
 
     @with_response(202)
