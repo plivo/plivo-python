@@ -58,4 +58,3 @@ class AccessTokenTest(PlivoResourceTestCase):
         token.add_voice_grants(True, True)
         self.assertEqual(True, token.grants['voice']['incoming_allow'])
         self.assertNotEqual(False, token.grants['voice']['outgoing_allow'])
-        self.assertEqual('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InBsaXZvO3Y9MSJ9.eyJqdGkiOiJ1c2VybmFtZS0xMjM0NSIsImlzcyI6Ik1BREFEQURBREFEQURBREFEQURBIiwic3ViIjoidXNlcm5hbWUiLCJuYmYiOjEyMTIxMjEyLCJleHAiOjEyMTIxNTEyLCJncmFudHMiOnsidm9pY2UiOnsiaW5jb21pbmdfYWxsb3ciOnRydWUsIm91dGdvaW5nX2FsbG93Ijp0cnVlfX19.khM99-sYP2AylLo9y6bwNnJbVPjjtOMAimiFvNo7FGA', token.to_jwt())
