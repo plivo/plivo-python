@@ -180,6 +180,30 @@ def is_iterable(validator, sep=None):
     return required(f)
 
 
+def multiple_valid_integers(lowerbound, upperbound):
+    def f(name, value):
+        if isinstance(value, int):
+            if value >= lowerbound and value <= upperbound:
+                return value, []
+            else:
+                return None, {name + ' value must be in range ' + str(lowerbound) + ' to ' + str(upperbound)}
+        else:
+            values = value.split('<')
+            for i in values:
+                is_int = True
+                try:
+                    int(i)
+                except ValueError:
+                    is_int = False
+                if is_int:
+                    if int(i) > upperbound or int(i) < lowerbound:
+                        return None, [name + ' destination value must be in range ' + str(lowerbound) + ' to ' + str(upperbound)]
+                else:
+                    return None, ['{} destination value must be integer'.format(name)]
+            return value, []
+    return f
+
+
 def validate_args(**to_validate):
     def outer(wrapped):
         @functools.wraps(wrapped)
