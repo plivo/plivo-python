@@ -331,9 +331,9 @@ class MultiPartyCalls(PlivoResourceInterface):
             raise ValidationError('specify either call_uuid or (from, to)')
         if call_uuid is None and (not from_ or not to_):
             raise ValidationError('specify (from, to) when not adding an existing call_uuid to multi party participant')
-        if len(to_.split('<')) > 1 and role.lower() != "agent":
+        if to_ and len(to_.split('<')) > 1 and role.lower() != "agent":
             raise ValidationError('Multiple to_  values given for role ' + role)
-        elif len(to_.split('<')) > 20:
+        elif to_ and len(to_.split('<')) > 20:
             raise ValidationError('No of to_ values provided should be lesser than 20')
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant'),
                                    self.__clean_identifiers(to_param_dict(self.add_participant, locals())),
