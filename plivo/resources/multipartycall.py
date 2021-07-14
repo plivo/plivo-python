@@ -335,6 +335,10 @@ class MultiPartyCalls(PlivoResourceInterface):
             raise ValidationError('Multiple to_  values given for role ' + role)
         elif to_ and len(to_.split('<')) > 20:
             raise ValidationError('No of to_ values provided should be lesser than 20')
+        if to_ and len(str(ring_timeout).split('<')) > len(to_.split('<')):
+            raise ValidationError("RingTimeout:number of ring_timeout(s) should be same as number of destination(s)")
+        if to_ and len(str(delay_dial).split('<')) > len(to_.split('<')):
+            raise ValidationError("DelayDial:number of delay_dial(s) should be same as number of destination(s)")
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant'),
                                    self.__clean_identifiers(to_param_dict(self.add_participant, locals())),
                                    is_voice_request=True)
