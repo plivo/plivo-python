@@ -228,8 +228,8 @@ class MultiPartyCalls(PlivoResourceInterface):
             of_type_exact(str),
             one_of(is_url(), is_in(('real', 'none'), case_sensitive=False, case_type='lower')),
         )],
-        ring_timeout=[optional(one_of(of_type_exact(str), of_type_exact(int)), multiple_valid_integers(15, 120))],
-        delay_dial=[optional(one_of(of_type_exact(str), of_type_exact(int)), multiple_valid_integers(0, 120))],
+        ring_timeout=[optional(one_of(of_type_exact(str), of_type_exact(int)), multiple_valid_integers())],
+        delay_dial=[optional(one_of(of_type_exact(str), of_type_exact(int)), multiple_valid_integers())],
         max_duration=[optional(
             of_type_exact(int),
             check(lambda max_duration: 300 <= max_duration <= 28800, '300 < max_duration <= 28800'))],
@@ -331,10 +331,14 @@ class MultiPartyCalls(PlivoResourceInterface):
             raise ValidationError('specify either call_uuid or (from, to)')
         if call_uuid is None and (not from_ or not to_):
             raise ValidationError('specify (from, to) when not adding an existing call_uuid to multi party participant')
-        if len(to_.split('<')) > 1 and role.lower() != "agent":
+        if to_ and len(to_.split('<')) > 1 and role.lower() != "agent":
             raise ValidationError('Multiple to_  values given for role ' + role)
-        elif len(to_.split('<')) > 20:
+        elif to_ and len(to_.split('<')) > 20:
             raise ValidationError('No of to_ values provided should be lesser than 20')
+        if to_ and len(str(ring_timeout).split('<')) > len(to_.split('<')):
+            raise ValidationError("RingTimeout:number of ring_timeout(s) should be same as number of destination(s)")
+        if to_ and len(str(delay_dial).split('<')) > len(to_.split('<')):
+            raise ValidationError("DelayDial:number of delay_dial(s) should be same as number of destination(s)")
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant'),
                                    self.__clean_identifiers(to_param_dict(self.add_participant, locals())),
                                    is_voice_request=True)

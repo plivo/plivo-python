@@ -81,6 +81,12 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         self.assertEqual(error_message, "[\"uuid should be of type: ['str']\"]")
 
         try:
+            self.client.multi_party_calls.add_participant(role='supervisor', caller_name=1234)
+        except ValidationError as e:
+            error_message = str(e)
+        self.assertEqual(error_message, "[\"caller_name should be of type: ['str']\"]")
+
+        try:
             self.client.multi_party_calls.add_participant(role='supervisor', call_status_callback_url='callback_python')
         except ValidationError as e:
             error_message = str(e)
@@ -106,7 +112,19 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             self.client.multi_party_calls.add_participant(role='supervisor', ring_timeout='2500')
         except ValidationError as e:
             error_message = str(e)
-        self.assertEqual(error_message, "[\"ring_timeout should be of type: ['int']\"]")
+        self.assertEqual(error_message, "specify either multi party call friendly name or uuid")
+
+        try:
+            self.client.multi_party_calls.add_participant(role='supervisor', ring_timeout='1aq')
+        except ValidationError as e:
+            error_message = str(e)
+        self.assertEqual(error_message, "[\'ring_timeout destination value must be integer\']")
+
+        try:
+            self.client.multi_party_calls.add_participant(role='supervisor', delay_dial='2<2.3')
+        except ValidationError as e:
+            error_message = str(e)
+        self.assertEqual(error_message, "[\'delay_dial destination value must be integer\']")
 
         try:
             self.client.multi_party_calls.add_participant(role='supervisor', max_duration=29867)
@@ -161,6 +179,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             'max_participants': 10,
             'max_duration': 14400,
             'ring_timeout': 45,
+            'delay_dial': 0,
             'dial_music': 'real',
             'confirm_key_sound_method': 'GET',
             'call_status_callback_method': 'POST',
@@ -170,7 +189,6 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
 
         add_participant_response = self.client.multi_party_calls.add_participant(friendly_name='Voice', role='agent',
                                                                                  call_uuid='1234-5678-4321-0987')
-
         self.__assert_requests(actual_response=add_participant_response, expected_method='POST',
                                expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
                                             'MultiPartyCall/name_Voice/Participant/',
@@ -192,6 +210,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         request_body['customer_hold_music_method'] = 'POST'
         request_body['exit_sound_method'] = 'POST'
         request_body['record_file_format'] = 'wav'
+        request_body['caller_name'] = '918888888888'
 
         add_participant_response = self.client.multi_party_calls.add_participant(
             uuid='12345678-90123456', role='supervisor', to_='180012341234', from_='918888888888',
