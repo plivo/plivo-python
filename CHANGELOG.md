@@ -1,5 +1,12 @@
 # Change Log
 
+## [4.18.1](https://github.com/plivo/plivo-python/tree/v4.18.1) (2021-07-16)
+- Updates to [add a member a multi-party call API](https://www.plivo.com/docs/voice/api/multiparty-call/participants#add-a-participant).
+  - Remove validation range for `delay` and `ringtimeout` parameters.
+  - Add appropriate error message for multiple `ringtimeout` and `delaydial` values.
+  - Fix the agent limit validation bug so that it only checks when multiple `to` param values are supplied.
+  - Fix the multiparty call and other voice API UT's.
+
 ## [4.18.0](https://github.com/plivo/plivo-python/tree/v4.18.0) (2021-07-13)
 - Power pack ID has been included to the response for the [list all messages API](https://www.plivo.com/docs/sms/api/message/list-all-messages/) and the [get message details API](https://www.plivo.com/docs/sms/api/message#retrieve-a-message).
 - Support for filtering messages by Power pack ID has been added to the [list all messages API](https://www.plivo.com/docs/sms/api/message#list-all-messages).
