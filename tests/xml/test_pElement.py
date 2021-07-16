@@ -1,9 +1,10 @@
 from unittest import TestCase
 
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class PElementTest(TestCase):
+class PElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         expected_response = '<Response><Speak><p><break strength="strong" time="250ms"/>' \
                             '<emphasis level="strong">This is Test</emphasis><lang xml:lang="it">' \
@@ -80,4 +81,4 @@ class PElementTest(TestCase):
                 )
             )
         ).to_string(False)
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)

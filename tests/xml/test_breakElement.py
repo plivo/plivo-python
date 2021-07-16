@@ -1,9 +1,10 @@
 from unittest import TestCase
 
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class BreakElementTest(TestCase):
+class BreakElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         time = "1000ms"
         strength = "x-strong"
@@ -14,4 +15,4 @@ class BreakElementTest(TestCase):
                 plivoxml.BreakElement().set_strength(strength).set_time(time)
             ).add_cont("one second or same as paragraph")
         ).to_string(False)
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)

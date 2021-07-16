@@ -1,9 +1,10 @@
 from unittest import TestCase
 
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class MessageElementTest(TestCase):
+class MessageElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
 
         expected_response = '<Response><Message callbackMethod="GET" callbackUrl="http://foo.example.com" ' \
@@ -21,4 +22,4 @@ class MessageElementTest(TestCase):
             plivoxml.MessageElement(content).set_src(src).set_dst(dst)
             .set_type(type).set_callback_url(callbackUrl).set_callback_method(
                 callbackMethod)).to_string(False)
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)

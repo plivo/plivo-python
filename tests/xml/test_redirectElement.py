@@ -1,9 +1,10 @@
 from unittest import TestCase
 
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class RedirectElementTest(TestCase):
+class RedirectElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         expected_response = '<Response><Redirect method="POST">This is Test</Redirect></Response>'
 
@@ -15,4 +16,4 @@ class RedirectElementTest(TestCase):
             plivoxml.RedirectElement(content).set_method(method)
         ).to_string(False)
 
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)

@@ -1,9 +1,10 @@
 from unittest import TestCase
 
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class ConferenceElementTest(TestCase):
+class ConferenceElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         expected_response = '<Response><Conference action="http://foo.com/get_recording/" callbackMethod="GET"' \
                             ' callbackUrl="http://foo.com/sms_status/" digitsMatch="#0,99,000"' \
@@ -25,7 +26,7 @@ class ConferenceElementTest(TestCase):
         record = True
         record_file_format = "mp3"
         time_limit = 600
-        hangup_on_star = True 
+        hangup_on_star = True
         action = "http://foo.com/get_recording/"
         method = "GET"
         callback_url = "http://foo.com/sms_status/"
@@ -94,4 +95,4 @@ class ConferenceElementTest(TestCase):
                 transcription_method
             )
         ).to_string(False)
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)

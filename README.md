@@ -1,6 +1,6 @@
 # plivo-python
 
-[![Build Status](https://travis-ci.org/plivo/plivo-python.svg?branch=master)](https://travis-ci.org/plivo/plivo-python)
+[![UnitTests](https://github.com/plivo/plivo-python/actions/workflows/unitTests.yml/badge.svg?branch=master)](https://github.com/plivo/plivo-python/actions/workflows/unitTests.yml)
 [![PyPI](https://img.shields.io/pypi/v/plivo.svg)](https://pypi.python.org/pypi/plivo)
 [![PyPI](https://img.shields.io/pypi/pyversions/plivo.svg)](https://pypi.python.org/pypi/plivo)
 [![PyPI](https://img.shields.io/pypi/l/plivo.svg)](https://pypi.python.org/pypi/plivo)

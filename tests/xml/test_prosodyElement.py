@@ -1,9 +1,10 @@
 from unittest import TestCase
 
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class ProsodyElementTest(TestCase):
+class ProsodyElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         expected_response = '<Response><Speak><prosody pitch="low" rate="x-high" volume="+6dB"><break ' \
                             'strength="strong" time="250ms"/><emphasis level="strong">' \
@@ -89,4 +90,4 @@ class ProsodyElementTest(TestCase):
                 )
             )
         ).to_string(False)
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)

@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import jwt, time
 from plivo.utils.validators import *
 
