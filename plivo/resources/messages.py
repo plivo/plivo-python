@@ -95,7 +95,8 @@ class Messages(PlivoResourceInterface):
                 all_of(
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
-        ])
+        ],
+        powerpack_id=[optional(of_type(six.text_type))])
     def list(self,
              subaccount=None,
              message_direction=None,
@@ -107,7 +108,8 @@ class Messages(PlivoResourceInterface):
              message_state=None,
              limit=None,
              offset=None,
-             error_code=None):
+             error_code=None,
+             powerpack_id=None):
         return self.client.request(
             'GET', ('Message', ),
             to_param_dict(self.list, locals()),
