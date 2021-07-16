@@ -1,5 +1,34 @@
 # Change Log
 
+## [4.18.1](https://github.com/plivo/plivo-python/tree/v4.18.1) (2021-07-16)
+- Updates to [add a member a multi-party call API](https://www.plivo.com/docs/voice/api/multiparty-call/participants#add-a-participant).
+  - Remove validation range for `delay` and `ringtimeout` parameters.
+  - Add appropriate error message for multiple `ringtimeout` and `delaydial` values.
+  - Fix the agent limit validation bug so that it only checks when multiple `to` param values are supplied.
+  - Fix the multiparty call and other voice API UT's.
+
+## [4.18.0](https://github.com/plivo/plivo-python/tree/v4.18.0) (2021-07-13)
+- Power pack ID has been included to the response for the [list all messages API](https://www.plivo.com/docs/sms/api/message/list-all-messages/) and the [get message details API](https://www.plivo.com/docs/sms/api/message#retrieve-a-message).
+- Support for filtering messages by Power pack ID has been added to the [list all messages API](https://www.plivo.com/docs/sms/api/message#list-all-messages).
+
+## [4.17.0](https://github.com/plivo/plivo-python/tree/v4.17.0) (2021-07-07)
+- Add SDK support for MPC enhancements.
+
+## [4.16.2](https://github.com/plivo/plivo-python/tree/v4.16.2) (2021-06-17)
+- Fix exception during 400 bad request.
+
+## [4.16.1](https://github.com/plivo/plivo-python/tree/v4.16.1) (2021-05-05)
+- Fixing trivis build issue.
+
+## [4.16.0](https://github.com/plivo/plivo-python/tree/v4.16.0) (2021-04-19)
+- Added SDK support for Multiparty Call APIs and XML.
+
+## [4.15.3](https://github.com/plivo/plivo-python/tree/v4.15.2) (2021-03-10)
+- Add "npanxx" and "local_calling_area" support for Search Phone Number.
+
+## [4.15.2](https://github.com/plivo/plivo-python/tree/v4.15.2) (2020-12-14)
+- Fix "Cannot import name 'encodestring' from 'base64'" error for Signature Validation-V2.
+
 ## [4.15.1](https://github.com/plivo/plivo-python/tree/v4.15.1) (2020-11-17)
 - Fix resource not found exception when making sequential requests.
 

@@ -21,7 +21,7 @@ class RecordingTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertUrlEqual(
-            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/?add_time__gt=2017-04-15+01%3A01%3A01&add_time__lt=2017-04-15+01%3A01%3A01&add_time__gte=2017-04-15+01%3A01%3A01&add_time__lte=2017-04-15+01%3A01%3A01.000123&limit=20&offset=0',
+            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/?add_time__gt=2017-04-15+01%3A01%3A01&add_time__lt=2017-04-15+01%3A01%3A01&add_time__gte=2017-04-15+01%3A01%3A01&add_time__lte=2017-04-15+01%3A01%3A01.000123&limit=20&offset=0',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -90,7 +90,7 @@ class RecordingTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertUrlEqual(
-            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/?call_uuid=SomeCallUUID&limit=20&subaccount=SAXXXXXXXXXXXXXXXXXX&offset=0',
+            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/?call_uuid=SomeCallUUID&limit=20&subaccount=SAXXXXXXXXXXXXXXXXXX&offset=0',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -104,7 +104,7 @@ class RecordingTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertUrlEqual(
-            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/?call_uuid=SomeCallUUID&limit=20&subaccount=SAXXXXXXXXXXXXXXXXXX&offset=0',
+            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/?call_uuid=SomeCallUUID&limit=20&subaccount=SAXXXXXXXXXXXXXXXXXX&offset=0',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -120,7 +120,7 @@ class RecordingTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertEqual(
-            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/c2186400-1c8c-11e4-a664-0026b945b52x/',
+            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/c2186400-1c8c-11e4-a664-0026b945b52x/',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -143,7 +143,7 @@ class RecordingTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertEqual(
-            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/c2186400-1c8c-11e4-a664-0026b945b52x/',
+            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/c2186400-1c8c-11e4-a664-0026b945b52x/',
             self.client.current_request.url)
 
         # Verifying the method used

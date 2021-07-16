@@ -3,7 +3,6 @@ import inspect
 import re
 from datetime import datetime
 
-from base64 import encodestring
 from hmac import new as hnew
 from hashlib import sha256
 from .signature_v3 import validate_v3_signature
@@ -12,6 +11,11 @@ try:
     from urllib.parse import urlparse, urlunparse
 except ImportError:
     from urlparse import urlparse, urlunparse
+
+try:
+    from base64 import encodebytes as base64_encode
+except ImportError:
+    from base64 import encodestring as base64_encode
 
 
 def validate_signature(uri, nonce, signature, auth_token=''):
@@ -35,8 +39,8 @@ def validate_signature(uri, nonce, signature, auth_token=''):
                            parsed_uri.path.decode('utf-8'), '', '',
                            '')).encode('utf-8')
 
-    return encodestring(hnew(auth_token, base_url + nonce, sha256)
-                        .digest()).strip() == signature
+    return base64_encode(hnew(auth_token, base_url + nonce, sha256)
+                         .digest()).strip() == signature
 
 
 def is_valid_time_comparison(time):

@@ -1,9 +1,10 @@
 from unittest import TestCase
 
 from plivo import plivoxml
+from tests import PlivoXmlTestCase
 
 
-class NumberElementTest(TestCase):
+class NumberElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         expected_response = '<Response><Dial><Number sendDigits="wwww2410" sendDigitsMode=""' \
                             ' sendOnPreanswer="true">This is Test</Number></Dial></Response>'
@@ -23,4 +24,4 @@ class NumberElementTest(TestCase):
                 )
             )
         ).to_string(False)
-        self.assertEqual(response, expected_response)
+        self.assertXmlEqual(response, expected_response)
