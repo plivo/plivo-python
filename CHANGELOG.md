@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.19.0](https://github.com/plivo/plivo-python/tree/v4.18.0) (2021-10-30)
+- Add 10DLC api endpoint.
+
 ## [4.18.1](https://github.com/plivo/plivo-python/tree/v4.18.1) (2021-07-16)
 - Updates to [add a member a multi-party call API](https://www.plivo.com/docs/voice/api/multiparty-call/participants#add-a-participant).
   - Remove validation range for `delay` and `ringtimeout` parameters.
