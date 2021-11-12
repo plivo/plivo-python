@@ -310,7 +310,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         self.assertIsInstance(multi_party_calls, ListResponseObject)
         # check if objects are case to MultiPartyCall
         self.assertIsInstance(multi_party_calls.objects[0], MultiPartyCall)
-        self.assertIsInstance(multi_party_calls.objects[len(multi_party_calls.objects)-1], MultiPartyCall)
+        self.assertIsInstance(multi_party_calls.objects[len(multi_party_calls.objects) - 1], MultiPartyCall)
         # check if ID is correctly read in 5th random object
         self.assertEqual(multi_party_calls.objects[5].id, "9aad6d16-ed2c-4433-9313-26f8cfc4d99c")
         # check if friendly_name is correctly read in 18th random object
@@ -417,7 +417,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
 
         file_format = 'wav'
         status_callback_url = 'https://plivo.com/status'
-        start_recording_response = self.client.multi_party_calls.\
+        start_recording_response = self.client.multi_party_calls. \
             start_recording(friendly_name='Voice', file_format=file_format, status_callback_url=status_callback_url)
 
         self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
@@ -468,3 +468,69 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         self.assertEqual(resp.duration, 30)
         # Verify whether billed_amount has been set properly
         self.assertEqual(resp.billed_amount, 0.005)
+
+    @with_response(200)
+    def test_start_participant_recording(self):
+        file_format = 'wav'
+        status_callback_url = "https://plivo.com/status"
+        participant_id = 10
+        start_participant_recording_response = self.client.multi_party_calls. \
+            start_participant_recording(participant_id=participant_id, friendly_name='Voice', file_format=file_format,
+                                        status_callback_url=status_callback_url)
+        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
+                                            '/name_{}/Participant/{}/Record/'.format('Voice', participant_id),
+                               expected_method='POST',
+                               expected_request_body={'file_format': 'wav',
+                                                      'status_callback_url': status_callback_url,
+                                                      'status_callback_method': 'POST'},
+                               actual_response=start_participant_recording_response)
+
+    def test_stop_participant_recording(self):
+        participant_id = 10
+        self.client.set_expected_response(status_code=204, data_to_return=None)
+        self.client.multi_party_calls.stop_participant_recording(friendly_name='Voice', participant_id=participant_id)
+        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
+                                            '/name_{}/Participant/{}/Record/'.format('Voice', participant_id),
+                               expected_method='DELETE')
+
+    def test_pause_participant_recording(self):
+        participant_id = 10
+        self.client.set_expected_response(status_code=204, data_to_return=None)
+        self.client.multi_party_calls.pause_participant_recording(friendly_name='Voice', participant_id=participant_id)
+        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
+                                            '/name_{}/Participant/{}/Record/Pause/'.format('Voice', participant_id),
+                               expected_method='POST')
+
+    def test_resume_participant_recording(self):
+        participant_id = 10
+        self.client.set_expected_response(status_code=204, data_to_return=None)
+        self.client.multi_party_calls.resume_participant_recording(friendly_name='Voice', participant_id=participant_id)
+        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
+                                            '/name_{}/Participant/{}/Record/Resume/'.format('Voice', participant_id),
+                               expected_method='POST')
+
+    @with_response(202)
+    def test_start_play_audio(self):
+        participant_id = 10
+        url = 'http://music.plivo.com/bella-ciao.wav'
+        request_body = {
+            'friendly_name': "Voice",
+            'participant_id': participant_id,
+            'url': url
+        }
+        start_play_audio_response = self.client.multi_party_calls.start_play_audio(friendly_name='Voice',
+                                                                                   participant_id=participant_id,
+                                                                                   url=url)
+        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
+                                            '/name_{}/Member/{}/Play/'.format('Voice', participant_id),
+                               expected_method='POST',
+                               actual_response=start_play_audio_response,
+                               expected_request_body=request_body)
+
+    def test_stop_play_audio(self):
+        participant_id = 10
+        self.client.set_expected_response(status_code=204, data_to_return=None)
+        self.client.multi_party_calls.stop_play_audio(friendly_name='Voice', participant_id=participant_id)
+        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
+                                            '/name_{}/Member/{}/Play/'.format('Voice', participant_id),
+                               expected_method='DELETE')
