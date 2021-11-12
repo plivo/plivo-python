@@ -9,7 +9,7 @@ from tests import PlivoXmlTestCase
 class ResponseElementTest(TestCase, PlivoXmlTestCase):
     def test_create_response(self):
         self.assertXmlEqual(plivoxml.ResponseElement().to_string(False),
-                         '<Response/>')
+                            '<Response/>')
 
     def test_add_conference(self):
         content = 'test'
@@ -22,7 +22,7 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
         time = 2
         elem = plivoxml.ResponseElement().add_dial(time_limit=time).to_string(False)
         self.assertXmlEqual(elem,
-                         '<Response><Dial timeLimit="2"/></Response>')
+                            '<Response><Dial timeLimit="2"/></Response>')
 
     def test_add_dtmf(self):
         content = 'dummy'
@@ -55,7 +55,7 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
         elem = plivoxml.ResponseElement().add_message(
             content=content).to_string(False)
         self.assertXmlEqual(elem,
-                         '<Response><Message>dummy</Message></Response>')
+                            '<Response><Message>dummy</Message></Response>')
 
     def test_add_play(self):
         content = 'dummy'
@@ -65,7 +65,7 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
     def test_add_pre_answer(self):
         elem = plivoxml.ResponseElement().add_pre_answer().to_string(False)
         self.assertXmlEqual(elem,
-                         '<Response><PreAnswer/></Response>')
+                            '<Response><PreAnswer/></Response>')
 
     def test_add_record(self):
         action = 'https://foo.example.com'
@@ -78,7 +78,7 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
         elem = plivoxml.ResponseElement().add_redirect(
             content=content).to_string(False)
         self.assertXmlEqual(elem,
-                         '<Response><Redirect>dummy</Redirect></Response>')
+                            '<Response><Redirect>dummy</Redirect></Response>')
 
     def test_add_speak(self):
         response = plivoxml.ResponseElement()
@@ -102,18 +102,23 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
         content = 2
         elem = plivoxml.ResponseElement().add_wait(length=content).to_string(False)
         self.assertXmlEqual(elem,
-                         '<Response><Wait length="2"/></Response>')
+                            '<Response><Wait length="2"/></Response>')
 
     def test_add_mpc(self):
-
         expected_xml = '<Response><MultiPartyCall agentHoldMusicMethod="GET" coachMode="true" ' \
                        'customerHoldMusicMethod="GET" endMpcOnExit="false" enterSound="beep:2" ' \
                        'enterSoundMethod="GET" exitSound="beep:1" exitSoundMethod="GET" hold="true" ' \
                        'maxDuration="20000" maxParticipants="7" mute="true" onExitActionMethod="POST" ' \
                        'onExitActionUrl="https://plivo.com/exitAction" record="true" recordFileFormat="wav" ' \
                        'recordingCallbackMethod="GET" relayDTMFInputs="false" role="customer" ' \
-                       'startMpcOnEnter="true" statusCallbackEvents="mpc-state-changes,participant-state-changes" ' \
-                       'statusCallbackMethod="GET" stayAlone="false" waitMusicMethod="POST" ' \
+                       'startMpcOnEnter="true" '\
+                       'startRecordingAudio="https://plivo.com/plivoTone.mp3" ' \
+                       'startRecordingAudioMethod="GET" ' \
+                       'statusCallbackEvents="mpc-state-changes,participant-state-changes" ' \
+                       'statusCallbackMethod="GET" stayAlone="false" ' \
+                       'stopRecordingAudio="https://plivo.com/plivoTone.mp3" ' \
+                       'stopRecordingAudioMethod="GET" ' \
+                       'waitMusicMethod="POST" ' \
                        'waitMusicUrl="https://plivo.com/plivoTone.mp3">multi party conference</MultiPartyCall>' \
                        '</Response>'
 
@@ -123,5 +128,7 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
                                                                wait_music_method='POST', start_mpc_on_enter=True,
                                                                record=True, record_file_format='wav', mute=True,
                                                                enter_sound='beep:2', exit_sound='beep:1', hold=True,
-                                                               on_exit_action_url='https://plivo.com/exitAction')
+                                                               on_exit_action_url='https://plivo.com/exitAction',
+                                                               start_recording_audio='https://plivo.com/plivoTone.mp3',
+                                                               stop_recording_audio='https://plivo.com/plivoTone.mp3')
         self.assertXmlEqual(expected_xml, elem.to_string(False))

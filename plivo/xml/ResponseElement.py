@@ -355,7 +355,12 @@ class ResponseElement(PlivoXMLElement):
                              enter_sound='beep:1',
                              enter_sound_method='GET',
                              exit_sound='beep:2',
-                             exit_sound_method='GET'
+                             exit_sound_method='GET',
+                             start_recording_audio=None,
+                             start_recording_audio_method='GET',
+                             stop_recording_audio=None,
+                             stop_recording_audio_method='GET'
+
                              ):
         self.add(
             MultiPartyCallElement(
@@ -389,6 +394,10 @@ class ResponseElement(PlivoXMLElement):
                 on_exit_action_url=on_exit_action_url,
                 on_exit_action_method=on_exit_action_method,
                 relay_dtmf_inputs=relay_dtmf_inputs,
+                start_recording_audio=start_recording_audio,
+                start_recording_audio_method=start_recording_audio_method,
+                stop_recording_audio=stop_recording_audio,
+                stop_recording_audio_method=stop_recording_audio_method
             )
         )
         return self
