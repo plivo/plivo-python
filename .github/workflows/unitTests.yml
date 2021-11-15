@@ -50,9 +50,9 @@ jobs:
             run: |
               pip install tox
           - name: Run Tests
-              run: |
-                python --version
-                tox -e py
+            run: |
+              python --version
+              tox -e py
           - name: Upload coverage to Codecov
             uses: codecov/codecov-action@v2
             with:
