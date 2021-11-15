@@ -9,7 +9,8 @@ on:
 jobs:
   build:
     name: UnitTests
-    runs-on: ubuntu-latest
+    os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         python-version: [2.7, 3.5, 3.6, 3.7]
