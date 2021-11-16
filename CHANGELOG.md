@@ -2,7 +2,6 @@
 
 ## [4.19.0](https://github.com/plivo/plivo-python/tree/v4.19.0) (2021-11-15)
 **Features - Voice: Multiparty calls**
-- The [Add Multiparty Call API](https://www.plivo.com/docs/voice/api/multiparty-call/participants#add-a-participant) allows for greater functionality by accepting options like `start recording audio`, `stop recording audio`, and their HTTP methods.
 - [Multiparty Calls](https://www.plivo.com/docs/voice/api/multiparty-call/) now has new APIs to `stop` and `play` audio.
 
 ## [4.18.1](https://github.com/plivo/plivo-python/tree/v4.18.1) (2021-07-16)

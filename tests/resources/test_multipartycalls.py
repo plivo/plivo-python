@@ -185,8 +185,6 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             'call_status_callback_method': 'POST',
             'call_uuid': '1234-5678-4321-0987',
             'role': 'agent',
-            'start_recording_audio_method': 'GET',
-            'stop_recording_audio_method': 'GET',
         }
 
         add_participant_response = self.client.multi_party_calls.add_participant(friendly_name='Voice', role='agent',

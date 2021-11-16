@@ -112,12 +112,8 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
                        'onExitActionUrl="https://plivo.com/exitAction" record="true" recordFileFormat="wav" ' \
                        'recordingCallbackMethod="GET" relayDTMFInputs="false" role="customer" ' \
                        'startMpcOnEnter="true" '\
-                       'startRecordingAudio="https://plivo.com/plivoTone.mp3" ' \
-                       'startRecordingAudioMethod="GET" ' \
                        'statusCallbackEvents="mpc-state-changes,participant-state-changes" ' \
                        'statusCallbackMethod="GET" stayAlone="false" ' \
-                       'stopRecordingAudio="https://plivo.com/plivoTone.mp3" ' \
-                       'stopRecordingAudioMethod="GET" ' \
                        'waitMusicMethod="POST" ' \
                        'waitMusicUrl="https://plivo.com/plivoTone.mp3">multi party conference</MultiPartyCall>' \
                        '</Response>'
@@ -129,6 +125,5 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
                                                                record=True, record_file_format='wav', mute=True,
                                                                enter_sound='beep:2', exit_sound='beep:1', hold=True,
                                                                on_exit_action_url='https://plivo.com/exitAction',
-                                                               start_recording_audio='https://plivo.com/plivoTone.mp3',
-                                                               stop_recording_audio='https://plivo.com/plivoTone.mp3')
+                                                               )
         self.assertXmlEqual(expected_xml, elem.to_string(False))
