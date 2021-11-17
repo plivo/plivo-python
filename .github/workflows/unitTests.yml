@@ -48,6 +48,7 @@ jobs:
         - name: Dependencies Installation
           run: |
             pip install tox
+            pip install coverage
         - name: Run Tests
           run: |
             python --version
