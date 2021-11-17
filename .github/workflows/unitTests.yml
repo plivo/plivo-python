@@ -32,7 +32,7 @@ jobs:
           python --version
           tox -e py
     
-    steps:
+    coverage:
         - uses: actions/checkout@v2
         - name: Set up Python ${{ matrix.python-version }}
           uses: actions/setup-node@v2
