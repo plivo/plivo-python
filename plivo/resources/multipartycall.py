@@ -54,7 +54,11 @@ class MultiPartyCall(PlivoResource):
                         enter_sound='beep:1',
                         enter_sound_method='GET',
                         exit_sound='beep:2',
-                        exit_sound_method='GET'
+                        exit_sound_method='GET',
+                        start_recording_audio=None,
+                        start_recording_audio_method='GET',
+                        stop_recording_audio=None,
+                        stop_recording_audio_method='GET'
                         ):
         return self.client.multi_party_calls.add_participant(role, uuid=self.id,
                                                              **to_param_dict(self.add_participant, locals()))
@@ -103,6 +107,14 @@ class MultiPartyCall(PlivoResource):
                                                                 mute=mute,
                                                                 hold=hold)
 
+    def start_play_audio(self, participant_id, url=None):
+        return self.client.multi_party_calls.start_play_audio(participant_id=participant_id,
+                                                              uuid=self.id,
+                                                              url=url)
+
+    def stop_play_audio(self, participant_id):
+        return self.client.multi_party_calls.stop_play_audio(participant_id=participant_id, uuid=self.id)
+
     def kick(self, participant_id):
         return self.client.multi_party_calls.kick_participant(participant_id=participant_id, uuid=self.id)
 
@@ -128,7 +140,8 @@ class MultiPartyCallParticipant(SecondaryPlivoResource):
         return self.client.multi_party_calls.pause_participant_recording(participant_id=self.secondary_id, uuid=self.id)
 
     def resume_participant_recording(self):
-        return self.client.multi_party_calls.resume_participant_recording(participant_id=self.secondary_id, uuid=self.id)
+        return self.client.multi_party_calls.resume_participant_recording(participant_id=self.secondary_id,
+                                                                          uuid=self.id)
 
     def update(self, coach_mode=None, hold=None, mute=None):
         return self.client.multi_party_calls.update_participant(participant_id=self.secondary_id,
@@ -275,7 +288,11 @@ class MultiPartyCalls(PlivoResourceInterface):
             of_type_exact(str),
             one_of(is_url(), is_in(('beep:1', 'beep:2', 'none'), case_sensitive=False, case_type='lower')),
         )],
-        exit_sound_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))]
+        exit_sound_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
+        start_recording_audio=[optional(of_type_exact(str), is_url())],
+        start_recording_audio_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
+        stop_recording_audio=[optional(of_type_exact(str), is_url())],
+        stop_recording_audio_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
     )
     def add_participant(self,
                         role,
@@ -321,7 +338,11 @@ class MultiPartyCalls(PlivoResourceInterface):
                         enter_sound='beep:1',
                         enter_sound_method='GET',
                         exit_sound='beep:2',
-                        exit_sound_method='GET'
+                        exit_sound_method='GET',
+                        start_recording_audio=None,
+                        start_recording_audio_method='GET',
+                        stop_recording_audio=None,
+                        stop_recording_audio_method='GET'
                         ):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         caller_name = caller_name or from_
@@ -495,5 +516,22 @@ class MultiPartyCalls(PlivoResourceInterface):
     )
     def resume_participant_recording(self, participant_id, uuid=None, friendly_name=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant', participant_id, 'Record', 'Resume'),
+        return self.client.request('POST',
+                                   ('MultiPartyCall', mpc_id, 'Participant', participant_id, 'Record', 'Resume'),
+                                   is_voice_request=True)
+
+    @validate_args(
+        participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
+        friendly_name=[optional(of_type_exact(str))],
+        uuid=[optional(of_type_exact(str))],
+        url=[of_type_exact(str), is_url()]
+    )
+    def start_play_audio(self, participant_id, uuid=None, friendly_name=None, url=None):
+        mpc_id = self.__make_mpc_id(friendly_name, uuid)
+        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Member', participant_id, 'Play'),
+                                   to_param_dict(self.start_play_audio, locals()), is_voice_request=True)
+
+    def stop_play_audio(self, participant_id, uuid=None, friendly_name=None):
+        mpc_id = self.__make_mpc_id(friendly_name, uuid)
+        return self.client.request('DELETE', ('MultiPartyCall', mpc_id, 'Member', participant_id, 'Play'),
                                    is_voice_request=True)
