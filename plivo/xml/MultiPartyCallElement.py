@@ -226,6 +226,60 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self
 
     @property
+    def start_recording_audio(self):
+        return self.__start_recording_audio
+
+    @start_recording_audio.setter
+    @validate_args(start_recording_audio=[optional(of_type_exact(str), is_url())])
+    def start_recording_audio(self, start_recording_audio):
+        self.__start_recording_audio = start_recording_audio
+
+    def set_start_recording_audio(self, start_recording_audio):
+        self.start_recording_audio = start_recording_audio
+        return self
+
+    @property
+    def start_recording_audio_method(self):
+        return self.__start_recording_audio_method
+
+    @start_recording_audio_method.setter
+    @validate_args(
+        start_recording_audio_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))])
+    def start_recording_audio_method(self, start_recording_audio_method):
+        self.__start_recording_audio_method = start_recording_audio_method
+
+    def set_start_recording_audio_method(self, start_recording_audio_method):
+        self.start_recording_audio_method = start_recording_audio_method
+        return self
+
+    @property
+    def stop_recording_audio(self):
+        return self.__stop_recording_audio
+
+    @stop_recording_audio.setter
+    @validate_args(stop_recording_audio=[optional(of_type_exact(str), is_url())])
+    def stop_recording_audio(self, stop_recording_audio):
+        self.__stop_recording_audio = stop_recording_audio
+
+    def set_stop_recording_audio(self, stop_recording_audio):
+        self.stop_recording_audio = stop_recording_audio
+        return self
+
+    @property
+    def stop_recording_audio_method(self):
+        return self.__stop_recording_audio_method
+
+    @stop_recording_audio_method.setter
+    @validate_args(
+        stop_recording_audio_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))])
+    def stop_recording_audio_method(self, stop_recording_audio_method):
+        self.__stop_recording_audio_method = stop_recording_audio_method
+
+    def set_stop_recording_audio_method(self, stop_recording_audio_method):
+        self.stop_recording_audio_method = stop_recording_audio_method
+        return self
+
+    @property
     def status_callback_method(self):
         return self.__status_callback_method
 
@@ -479,8 +533,16 @@ class MultiPartyCallElement(PlivoXMLElement):
             on_exit_action_url=None,
             on_exit_action_method='POST',
             relay_dtmf_inputs=False,
+            start_recording_audio=None,
+            start_recording_audio_method='GET',
+            stop_recording_audio=None,
+            stop_recording_audio_method='GET'
     ):
         super(MultiPartyCallElement, self).__init__()
+        self.stop_recording_audio_method = stop_recording_audio_method
+        self.stop_recording_audio = stop_recording_audio
+        self.start_recording_audio_method = start_recording_audio_method
+        self.start_recording_audio = start_recording_audio
         self.content = content
         self.role = role
         self.max_duration = max_duration
@@ -542,7 +604,11 @@ class MultiPartyCallElement(PlivoXMLElement):
             'exitSoundMethod': self.exit_sound_method,
             'onExitActionUrl': self.on_exit_action_url,
             'onExitActionMethod': self.on_exit_action_method,
-            'relayDTMFInputs': self.relay_dtmf_inputs
+            'relayDTMFInputs': self.relay_dtmf_inputs,
+            'startRecordingAudio': self.start_recording_audio,
+            'startRecordingAudioMethod': self.start_recording_audio_method,
+            'stopRecordingAudio': self.stop_recording_audio,
+            'stopRecordingAudioMethod': self.stop_recording_audio_method
         }
         return {
             k: six.text_type(map_type(v))
