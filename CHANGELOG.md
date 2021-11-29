@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.19.1](https://github.com/plivo/plivo-python/tree/v4.19.1) (2021-11-29)
+**Bug fix**
+- Library `PyJWT` version mismatch in setup.py compared with requirement.txt.
+
 ## [4.19.0](https://github.com/plivo/plivo-python/tree/v4.19.0) (2021-11-25)
 **Features - Voice: Multiparty calls**
 - The [Add Multiparty Call API](https://www.plivo.com/docs/voice/api/multiparty-call/participants#add-a-participant) allows for greater functionality by accepting options like `start recording audio`, `stop recording audio`, and their HTTP methods.
