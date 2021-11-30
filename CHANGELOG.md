@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.19.1](https://github.com/plivo/plivo-python/tree/v4.19.1) (2021-11-29)
+## [4.19.1](https://github.com/plivo/plivo-python/tree/v4.19.1) (2021-11-30)
 **Bug fix**
 - Library `PyJWT` version mismatch in setup.py compared with requirement.txt.
 
