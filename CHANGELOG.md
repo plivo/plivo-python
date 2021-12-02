@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.19.0](https://github.com/plivo/plivo-python/tree/v4.18.0) (2021-10-30)
+## [4.19.0](https://github.com/plivo/plivo-python/tree/v4.19.0) (2021-12-02)
 - Add 10DLC api endpoint.
 
 ## [4.18.1](https://github.com/plivo/plivo-python/tree/v4.18.1) (2021-07-16)
