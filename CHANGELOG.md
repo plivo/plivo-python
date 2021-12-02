@@ -1,7 +1,8 @@
 # Change Log
 
 ## [4.20.0](https://github.com/plivo/plivo-python/tree/v4.20.0) (2021-12-02)
-- Add 10DLC api endpoint.
+**Features - Messaging: 10 DLC API**
+- 10 DLC API's for brand and campaign support.
 
 ## [4.19.1](https://github.com/plivo/plivo-python/tree/v4.19.1) (2021-11-30)
 **Bug fix**
