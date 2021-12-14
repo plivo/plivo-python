@@ -192,7 +192,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         add_participant_response = self.client.multi_party_calls.add_participant(friendly_name='Voice', role='agent',
                                                                                  call_uuid='1234-5678-4321-0987')
         self.__assert_requests(actual_response=add_participant_response, expected_method='POST',
-                               expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
+                               expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
                                             'MultiPartyCall/name_Voice/Participant/',
                                expected_request_body=request_body)
 
@@ -222,7 +222,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             customer_hold_music_method='post', exit_sound_method='Post', record_file_format='wav')
 
         self.__assert_requests(actual_response=add_participant_response, expected_method='POST',
-                               expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
+                               expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
                                             'MultiPartyCall/uuid_12345678-90123456/Participant/',
                                expected_request_body=request_body)
 
@@ -251,13 +251,13 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         end_mpc_response = self.client.multi_party_calls.stop(friendly_name='Voice')
 
         self.__assert_requests(actual_response=end_mpc_response, expected_method='DELETE',
-                               expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
+                               expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
                                             'MultiPartyCall/name_Voice/')
 
         end_mpc_response = self.client.multi_party_calls.stop(uuid='12345678-90123456')
 
         self.__assert_requests(actual_response=end_mpc_response, expected_method='DELETE',
-                               expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
+                               expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
                                             'MultiPartyCall/uuid_12345678-90123456/')
 
     def test_list_mpc_validations(self):
@@ -306,7 +306,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
     def test_list_MPC(self):
 
         multi_party_calls = self.client.multi_party_calls.list()
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/',
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/',
                                expected_method='GET')
         # check we received a list response
         self.assertIsInstance(multi_party_calls, ListResponseObject)
@@ -340,7 +340,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         self.client.multi_party_calls.list(**request_body)
 
         # Construct sorted GET url for both cases
-        expected_url = construct_get_url('https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/',
+        expected_url = construct_get_url('https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/',
                                          params=request_body)
         actual_url = construct_get_url(self.client.current_request.url, params={})
         print(actual_url)
@@ -366,7 +366,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         actual_response = self.client.set_expected_response(status_code=200, data_to_return=response)
 
         multi_party_call = self.client.multi_party_calls.get(friendly_name=response['friendly_name'])
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
                                             'MultiPartyCall/name_{}/'.format(response['friendly_name']),
                                expected_method='GET', actual_response=actual_response)
         # check we received a list response
@@ -395,7 +395,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             mute=mute
         )
 
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
                                             'MultiPartyCall/uuid_{}/Participant/{}/'.format(uuid, participant_id),
                                expected_method='POST', expected_request_body={'coach_mode': coach_mode, 'mute': mute},
                                actual_response=update_response)
@@ -410,7 +410,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             uuid=uuid
         )
 
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
                                             'MultiPartyCall/uuid_{}/Participant/{}/'.format(uuid, participant_id),
                                expected_method='DELETE')
 
@@ -422,7 +422,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         start_recording_response = self.client.multi_party_calls. \
             start_recording(friendly_name='Voice', file_format=file_format, status_callback_url=status_callback_url)
 
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
                                             'MultiPartyCall/name_{}/Record/'.format('Voice'),
                                expected_method='POST',
                                expected_request_body={'file_format': 'wav',
@@ -433,19 +433,19 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
     def test_stop_recording(self):
         self.client.set_expected_response(status_code=204, data_to_return=None)
         self.client.multi_party_calls.stop_recording(friendly_name='Voice')
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/'
                                             'name_{}/Record/'.format('Voice'), expected_method='DELETE')
 
     def test_pause_recording(self):
         self.client.set_expected_response(status_code=204, data_to_return=None)
         self.client.multi_party_calls.pause_recording(friendly_name='Voice')
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/'
                                             'name_{}/Record/Pause/'.format('Voice'), expected_method='POST')
 
     def test_resume_recording(self):
         self.client.set_expected_response(status_code=204, data_to_return=None)
         self.client.multi_party_calls.resume_recording(friendly_name='Voice')
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/'
                                             'name_{}/Record/Resume/'.format('Voice'), expected_method='POST')
 
     @with_response(200)
@@ -454,7 +454,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         participant_id = 49
         uuid = '18905d56-79c8-41d4-a840-25feff71070e'
         resp = self.client.multi_party_calls.get_participant(participant_id=participant_id, uuid=uuid)
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall/'
                                             'uuid_{}/Participant/{}/'.format(uuid, participant_id),
                                expected_method='GET')
         self.assertIsInstance(resp, MultiPartyCallParticipant)
@@ -479,7 +479,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         start_participant_recording_response = self.client.multi_party_calls. \
             start_participant_recording(participant_id=participant_id, friendly_name='Voice', file_format=file_format,
                                         status_callback_url=status_callback_url)
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
                                             '/name_{}/Participant/{}/Record/'.format('Voice', participant_id),
                                expected_method='POST',
                                expected_request_body={'file_format': 'wav',
@@ -491,7 +491,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         participant_id = 10
         self.client.set_expected_response(status_code=204, data_to_return=None)
         self.client.multi_party_calls.stop_participant_recording(friendly_name='Voice', participant_id=participant_id)
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
                                             '/name_{}/Participant/{}/Record/'.format('Voice', participant_id),
                                expected_method='DELETE')
 
@@ -499,7 +499,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         participant_id = 10
         self.client.set_expected_response(status_code=204, data_to_return=None)
         self.client.multi_party_calls.pause_participant_recording(friendly_name='Voice', participant_id=participant_id)
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
                                             '/name_{}/Participant/{}/Record/Pause/'.format('Voice', participant_id),
                                expected_method='POST')
 
@@ -507,7 +507,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         participant_id = 10
         self.client.set_expected_response(status_code=204, data_to_return=None)
         self.client.multi_party_calls.resume_participant_recording(friendly_name='Voice', participant_id=participant_id)
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
                                             '/name_{}/Participant/{}/Record/Resume/'.format('Voice', participant_id),
                                expected_method='POST')
 
@@ -523,7 +523,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         start_play_audio_response = self.client.multi_party_calls.start_play_audio(friendly_name='Voice',
                                                                                    participant_id=participant_id,
                                                                                    url=url)
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
                                             '/name_{}/Member/{}/Play/'.format('Voice', participant_id),
                                expected_method='POST',
                                actual_response=start_play_audio_response,
@@ -533,6 +533,6 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         participant_id = 10
         self.client.set_expected_response(status_code=204, data_to_return=None)
         self.client.multi_party_calls.stop_play_audio(friendly_name='Voice', participant_id=participant_id)
-        self.__assert_requests(expected_url='https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
+        self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
                                             '/name_{}/Member/{}/Play/'.format('Voice', participant_id),
                                expected_method='DELETE')
