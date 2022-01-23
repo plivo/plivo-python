@@ -418,16 +418,16 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
     def test_start_recording(self):
 
         file_format = 'wav'
-        status_callback_url = 'https://plivo.com/status'
+        recording_callback_url = 'https://plivo.com/status'
         start_recording_response = self.client.multi_party_calls. \
-            start_recording(friendly_name='Voice', file_format=file_format, status_callback_url=status_callback_url)
+            start_recording(friendly_name='Voice', file_format=file_format, recording_callback_url=recording_callback_url)
 
         self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
                                             'MultiPartyCall/name_{}/Record/'.format('Voice'),
                                expected_method='POST',
                                expected_request_body={'file_format': 'wav',
-                                                      'status_callback_url': status_callback_url,
-                                                      'status_callback_method': 'POST'},
+                                                      'recording_callback_url': recording_callback_url,
+                                                      'recording_callback_method': 'POST'},
                                actual_response=start_recording_response)
 
     def test_stop_recording(self):
@@ -474,17 +474,17 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
     @with_response(200)
     def test_start_participant_recording(self):
         file_format = 'wav'
-        status_callback_url = "https://plivo.com/status"
+        recording_callback_url = "https://plivo.com/status"
         participant_id = 10
         start_participant_recording_response = self.client.multi_party_calls. \
             start_participant_recording(participant_id=participant_id, friendly_name='Voice', file_format=file_format,
-                                        status_callback_url=status_callback_url)
+                                        recording_callback_url=recording_callback_url)
         self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
                                             '/name_{}/Participant/{}/Record/'.format('Voice', participant_id),
                                expected_method='POST',
                                expected_request_body={'file_format': 'wav',
-                                                      'status_callback_url': status_callback_url,
-                                                      'status_callback_method': 'POST'},
+                                                      'recording_callback_url': recording_callback_url,
+                                                      'recording_callback_method': 'POST'},
                                actual_response=start_participant_recording_response)
 
     def test_stop_participant_recording(self):

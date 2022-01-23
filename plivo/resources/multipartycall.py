@@ -69,7 +69,7 @@ class MultiPartyCall(PlivoResource):
     def stop(self):
         return self.client.multi_party_calls.stop(uuid=self.id)
 
-    def start_recording(self, file_format=None, status_callback_url=None, status_callback_method=None):
+    def start_recording(self, file_format=None, recording_callback_url=None, recording_callback_method=None):
         return self.client.multi_party_calls.start_recording(uuid=self.id,
                                                              **to_param_dict(self.add_participant, locals()))
 
@@ -82,8 +82,8 @@ class MultiPartyCall(PlivoResource):
     def resume_recording(self):
         return self.client.multi_party_calls.resume_recording(uuid=self.id)
 
-    def start_participant_recording(self, participant_id, file_format=None, status_callback_url=None,
-                                    status_callback_method=None):
+    def start_participant_recording(self, participant_id, file_format=None, recording_callback_url=None,
+                                    recording_callback_method=None):
         return self.client.multi_party_calls.start_participant_recording(participant_id=participant_id, uuid=self.id,
                                                                          **to_param_dict(self.add_participant,
                                                                                          locals()))
@@ -127,8 +127,8 @@ class MultiPartyCallParticipant(SecondaryPlivoResource):
     _identifier_string = 'mpc_uuid'
     _secondary_identifier_string = 'member_id'
 
-    def start_participant_recording(self, file_format=None, status_callback_url=None,
-                                    status_callback_method=None):
+    def start_participant_recording(self, file_format=None, recording_callback_url=None,
+                                    recording_callback_method=None):
         return self.client.multi_party_calls.start_participant_recording(participant_id=self.secondary_id, uuid=self.id,
                                                                          **to_param_dict(self.add_participant,
                                                                                          locals()))
@@ -385,15 +385,15 @@ class MultiPartyCalls(PlivoResourceInterface):
         uuid=[optional(of_type_exact(str))],
         file_format=[optional(of_type_exact(str), is_in(('mp3', 'wav'), case_sensitive=False,
                                                         case_type='lower'))],
-        status_callback_url=[optional(of_type_exact(str), is_url())],
-        status_callback_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
+        recording_callback_url=[optional(of_type_exact(str), is_url())],
+        recording_callback_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
     )
     def start_recording(self,
                         uuid=None,
                         friendly_name=None,
                         file_format='mp3',
-                        status_callback_url=None,
-                        status_callback_method='POST'):
+                        recording_callback_url=None,
+                        recording_callback_method='POST'):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Record'),
                                    self.__clean_identifiers(to_param_dict(self.start_recording, locals())),
@@ -479,11 +479,11 @@ class MultiPartyCalls(PlivoResourceInterface):
         uuid=[optional(of_type_exact(str))],
         file_format=[optional(of_type_exact(str), is_in(('mp3', 'wav'), case_sensitive=False,
                                                         case_type='lower'))],
-        status_callback_url=[optional(of_type_exact(str), is_url())],
-        status_callback_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
+        recording_callback_url=[optional(of_type_exact(str), is_url())],
+        recording_callback_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
     )
     def start_participant_recording(self, participant_id, uuid=None, friendly_name=None, file_format='mp3',
-                                    status_callback_url=None, status_callback_method='POST'):
+                                    recording_callback_url=None, recording_callback_method='POST'):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant', participant_id, 'Record'),
                                    self.__clean_identifiers(to_param_dict(self.start_recording, locals())),
