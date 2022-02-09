@@ -63,14 +63,8 @@ def is_valid_mainaccount(mainaccount):
     return False
 
 
-def to_param_dict(func, vals, exclude_none=True, func_args_check=True, skiplist=[]):
+def to_param_dict(func, vals, exclude_none=True, func_args_check=True):
     args, varargs, kwargs, _ = inspect.getargspec(func)
-
-    # if someone wants to remove extra parameter from locals()
-    # can put it in skiplist[] as removing in update(endpoint) function
-    for i in skiplist:
-        args.remove(i)
-
     arg_names = list(args)
     # The bit of regex magic below is for arguments that are keywords in
     # Python, like from. These can't be used directly, so our convention is to

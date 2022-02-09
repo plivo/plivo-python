@@ -65,8 +65,16 @@ class Endpoints(PlivoResourceInterface):
         alias=[optional(of_type(six.text_type))],
         app_id=[optional(of_type(six.text_type))])
     def update(self, endpoint_id, password=None, alias=None, app_id=None):
+
+        # not using locals() because we need to neglect endpoint_id
+        temp = {
+            'self': self,
+            'password': password,
+            'alias': alias,
+            'app_id': app_id
+        }
         return self.client.request('POST', ('Endpoint', endpoint_id),
-                                   to_param_dict(self.update, locals(), True , True , ['endpoint_id']), is_voice_request=True)
+                                   to_param_dict(self.update, temp), is_voice_request=True)
 
     @validate_args(endpoint_id=[of_type(six.text_type)])
     def delete(self, endpoint_id):
