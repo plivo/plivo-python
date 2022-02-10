@@ -1,5 +1,5 @@
 # Change Log
-## [4.22.1](https://github.com/plivo/plivo-python/tree/v4.22.1) (2022-02-09)
+## [4.22.1](https://github.com/plivo/plivo-python/tree/v4.22.1) (2022-02-10)
 **Features - EndpointUpdated**
 - neglecting endpoint_id in to_param_dict function
 
