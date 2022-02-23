@@ -1,4 +1,8 @@
 # Change Log
+## [4.22.2](https://github.com/plivo/plivo-python/tree/v4.22.2) (2022-02-23)
+**Features - conference_recording**
+- callback_url added
+
 ## [4.22.1](https://github.com/plivo/plivo-python/tree/v4.22.1) (2022-02-10)
 **Features - EndpointUpdated**
 - neglecting endpoint_id in to_param_dict function
