@@ -1,18 +1,19 @@
 # Change Log
-## [4.22.2](https://github.com/plivo/plivo-python/tree/v4.22.2) (2022-02-23)
-**Features - conference_recording**
-- callback_url added
+
+## [4.22.2](https://github.com/plivo/plivo-python/tree/v4.22.2) (2022-02-25)
+**Feature - conference_recording**
+- Add callback_url parameter to [Record Conference AP](https://www.plivo.com/docs/voice/api/conference/record-conference#start-recording-a-conference)
 
 ## [4.22.1](https://github.com/plivo/plivo-python/tree/v4.22.1) (2022-02-10)
-**Features - EndpointUpdated**
+**Feature - EndpointUpdated**
 - neglecting endpoint_id in to_param_dict function
 
 ## [4.22.0](https://github.com/plivo/plivo-python/tree/v4.22.0) (2022-01-27)
-**Features - MPCStartCallRecording**
+**Feature - MPCStartCallRecording**
 - parameter change from statusCallback to recordingCallback
 
 ## [4.21.0](https://github.com/plivo/plivo-python/tree/v4.21.0) (2021-12-14)
-**Features - Voice**
+**Feature - Voice**
 - Routing SDK traffic through Akamai endpoints for all the [Voice APIs](https://www.plivo.com/docs/voice/api/overview/)
 
 ## [4.20.0](https://github.com/plivo/plivo-python/tree/v4.20.0) (2021-12-02)
