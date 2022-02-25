@@ -2,7 +2,7 @@
 
 ## [4.22.2](https://github.com/plivo/plivo-python/tree/v4.22.2) (2022-02-25)
 **Feature - conference_recording**
-- Add callback_url parameter to [Record Conference AP](https://www.plivo.com/docs/voice/api/conference/record-conference#start-recording-a-conference)
+- Add callback_url parameter to [Record Conference API](https://www.plivo.com/docs/voice/api/conference/record-conference#start-recording-a-conference)
 
 ## [4.22.1](https://github.com/plivo/plivo-python/tree/v4.22.1) (2022-02-10)
 **Feature - EndpointUpdated**
