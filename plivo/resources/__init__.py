@@ -15,4 +15,6 @@ from .identities import Identities
 from .call_feedback import CallFeedback
 from .powerpacks import Powerpacks
 from .lookup import Lookup
+from .brand import Brand
+from .campaign import Campaign
 from .multipartycall import MultiPartyCalls, MultiPartyCall, MultiPartyCallParticipant

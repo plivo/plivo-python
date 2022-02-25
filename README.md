@@ -3,6 +3,7 @@
 [![UnitTests](https://github.com/plivo/plivo-python/actions/workflows/unitTests.yml/badge.svg?branch=master)](https://github.com/plivo/plivo-python/actions/workflows/unitTests.yml)
 [![PyPI](https://img.shields.io/pypi/v/plivo.svg)](https://pypi.python.org/pypi/plivo)
 [![PyPI](https://img.shields.io/pypi/pyversions/plivo.svg)](https://pypi.python.org/pypi/plivo)
+[![codecov](https://codecov.io/gh/plivo/plivo-python/branch/master/graph/badge.svg)](https://codecov.io/gh/plivo/plivo-python)
 [![PyPI](https://img.shields.io/pypi/l/plivo.svg)](https://pypi.python.org/pypi/plivo)
 
 
@@ -150,9 +151,9 @@ This generates the following XML:
 ```python
 import plivo
 
-auth_id = 'Your AUTH ID'
-auth_token = 'Your AUTH Token'
-phlo_id = 'Your PHLO ID' # https://console.plivo.com/phlo/list/
+auth_id = '<auth_id>'
+auth_token = '<auth_token>'
+phlo_id = '<phlo_id' # https://console.plivo.com/phlo/list/
 phlo_client = plivo.phlo.RestClient(auth_id=auth_id, auth_token=auth_token)
 phlo = phlo_client.phlo.get(phlo_id)
 response = phlo.run()

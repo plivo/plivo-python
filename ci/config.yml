@@ -5,3 +5,7 @@ language: python-sdk
 build:
   command: |
       ./package.sh
+postDeployJobs:
+  prod:
+    - name: plivo/messaging-qa/pythonSDKSmoke
+      disabled: false

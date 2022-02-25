@@ -13,3 +13,5 @@ from .test_pricings import *
 from .test_recordings import *
 from .test_signature import *
 from .test_subaccounts import *
+from .test_brand import *
+from .test_campaign import *

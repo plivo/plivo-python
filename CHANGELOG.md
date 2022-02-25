@@ -1,5 +1,34 @@
 # Change Log
 
+## [4.22.2](https://github.com/plivo/plivo-python/tree/v4.22.2) (2022-02-25)
+**Feature - conference_recording**
+- Add callback_url parameter to [Record Conference API](https://www.plivo.com/docs/voice/api/conference/record-conference#start-recording-a-conference)
+
+## [4.22.1](https://github.com/plivo/plivo-python/tree/v4.22.1) (2022-02-10)
+**Feature - EndpointUpdated**
+- neglecting endpoint_id in to_param_dict function
+
+## [4.22.0](https://github.com/plivo/plivo-python/tree/v4.22.0) (2022-01-27)
+**Feature - MPCStartCallRecording**
+- parameter change from statusCallback to recordingCallback
+
+## [4.21.0](https://github.com/plivo/plivo-python/tree/v4.21.0) (2021-12-14)
+**Feature - Voice**
+- Routing SDK traffic through Akamai endpoints for all the [Voice APIs](https://www.plivo.com/docs/voice/api/overview/)
+
+## [4.20.0](https://github.com/plivo/plivo-python/tree/v4.20.0) (2021-12-02)
+**Features - Messaging: 10 DLC API**
+- 10 DLC API's for brand and campaign support.
+
+## [4.19.1](https://github.com/plivo/plivo-python/tree/v4.19.1) (2021-11-30)
+**Bug fix**
+- Library `PyJWT` version mismatch in setup.py compared with requirement.txt.
+
+## [4.19.0](https://github.com/plivo/plivo-python/tree/v4.19.0) (2021-11-25)
+**Features - Voice: Multiparty calls**
+- The [Add Multiparty Call API](https://www.plivo.com/docs/voice/api/multiparty-call/participants#add-a-participant) allows for greater functionality by accepting options like `start recording audio`, `stop recording audio`, and their HTTP methods.
+- [Multiparty Calls](https://www.plivo.com/docs/voice/api/multiparty-call/) now has new APIs to `stop` and `play` audio.
+
 ## [4.18.1](https://github.com/plivo/plivo-python/tree/v4.18.1) (2021-07-16)
 - Updates to [add a member a multi-party call API](https://www.plivo.com/docs/voice/api/multiparty-call/participants#add-a-participant).
   - Remove validation range for `delay` and `ringtimeout` parameters.

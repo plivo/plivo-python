@@ -165,7 +165,7 @@ class Conferences(PlivoResourceInterface):
                callback_url=None,
                callback_method=None):
         return self.client.request('POST',
-                                   ('Conference', conference_name, 'Record'), is_voice_request=True)
+                                   ('Conference', conference_name, 'Record'), to_param_dict(self.record, locals()), is_voice_request=True)
 
     def record_stop(self, conference_name):
         return self.client.request('DELETE',

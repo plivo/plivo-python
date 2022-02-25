@@ -72,7 +72,7 @@ class ApplicationTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertEqual(
-            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -93,7 +93,7 @@ class ApplicationTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertEqual(
-            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -112,7 +112,7 @@ class ApplicationTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertEqual(
-            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/20468599130939380/',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/20468599130939380/',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -139,7 +139,7 @@ class ApplicationTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertEqual(
-            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/20372631212782780/',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/20372631212782780/',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -180,7 +180,7 @@ class ApplicationTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertEqual(
-            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/20372631212782780/',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/20372631212782780/',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -233,7 +233,7 @@ class ApplicationTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertEqual(
-            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/20372631212782780/',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/20372631212782780/',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -299,7 +299,7 @@ class ApplicationTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertEqual(
-            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/20372631212782780/',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/20372631212782780/',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -423,7 +423,7 @@ class ApplicationTest(PlivoResourceTestCase):
 
         # Verifying the endpoint hit
         self.assertUrlEqual(
-            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/?limit=10&offset=10',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/?limit=10&offset=10',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -439,7 +439,7 @@ class ApplicationTest(PlivoResourceTestCase):
             offset=10, limit=10, subaccount='SAXXXXXXXXXXXXXXXXXX')
 
         self.assertUrlEqual(
-            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/?limit=10&subaccount=SAXXXXXXXXXXXXXXXXXX&offset=10',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/?limit=10&subaccount=SAXXXXXXXXXXXXXXXXXX&offset=10',
             self.client.current_request.url)
 
         # Verifying the method used
@@ -452,7 +452,7 @@ class ApplicationTest(PlivoResourceTestCase):
             offset=10, limit=10, subaccount=account_details)
 
         self.assertUrlEqual(
-            'https://voice.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/?limit=10&subaccount=SAXXXXXXXXXXXXXXXXXX&offset=10',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Application/?limit=10&subaccount=SAXXXXXXXXXXXXXXXXXX&offset=10',
             self.client.current_request.url)
 
         # Verifying the method used

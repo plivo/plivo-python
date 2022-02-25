@@ -13,7 +13,7 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               ResourceNotFoundError, ValidationError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls,
                              Conferences, Endpoints, Identities,
-                             Messages, Powerpacks, Media, Lookup,
+                             Messages, Powerpacks, Media, Lookup, Brand,Campaign,
                              Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
@@ -30,10 +30,10 @@ PLIVO_API = 'https://api.plivo.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
 
 # Will change these urls before putting this change in production
-API_VOICE = 'https://voice.plivo.com'
+API_VOICE = 'https://api.plivo.com'
 API_VOICE_BASE_URI = '/'.join([API_VOICE, 'v1/Account'])
-API_VOICE_FALLBACK_1 = 'https://voice-usw1.plivo.com'
-API_VOICE_FALLBACK_2 = 'https://voice-use1.plivo.com'
+API_VOICE_FALLBACK_1 = 'https://api.plivo.com'
+API_VOICE_FALLBACK_2 = 'https://api.plivo.com'
 API_VOICE_BASE_URI_FALLBACK_1 = '/'.join([API_VOICE_FALLBACK_1, 'v1/Account'])
 API_VOICE_BASE_URI_FALLBACK_2 = '/'.join([API_VOICE_FALLBACK_2, 'v1/Account'])
 
@@ -98,6 +98,8 @@ class Client(object):
         self.lookup = Lookup(self)
         self.numbers = Numbers(self)
         self.powerpacks = Powerpacks(self)
+        self.brand = Brand(self)
+        self.campaign = Campaign(self)
         self.media = Media(self)
         self.pricing = Pricings(self)
         self.recordings = Recordings(self)
