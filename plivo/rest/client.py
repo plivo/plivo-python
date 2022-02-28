@@ -26,14 +26,14 @@ from requests import Request, Session
 AuthenticationCredentials = namedtuple('AuthenticationCredentials',
                                        'auth_id auth_token')
 
-PLIVO_API = 'https://api.plivo.com'
+PLIVO_API = 'https://api-qa.voice.plivodev.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
 
 # Will change these urls before putting this change in production
-API_VOICE = 'https://api.plivo.com'
+API_VOICE = 'https://api-qa.voice.plivodev.com'
 API_VOICE_BASE_URI = '/'.join([API_VOICE, 'v1/Account'])
-API_VOICE_FALLBACK_1 = 'https://api.plivo.com'
-API_VOICE_FALLBACK_2 = 'https://api.plivo.com'
+API_VOICE_FALLBACK_1 = 'https://api-qa.voice.plivodev.com'
+API_VOICE_FALLBACK_2 = 'https://api-qa.voice.plivodev.com'
 API_VOICE_BASE_URI_FALLBACK_1 = '/'.join([API_VOICE_FALLBACK_1, 'v1/Account'])
 API_VOICE_BASE_URI_FALLBACK_2 = '/'.join([API_VOICE_FALLBACK_2, 'v1/Account'])
 
