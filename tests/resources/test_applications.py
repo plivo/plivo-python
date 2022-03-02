@@ -10,9 +10,6 @@ class ApplicationTest(PlivoResourceTestCase):
         with self.assertRaises(plivo.exceptions.ValidationError):
             self.client.applications.create(None, None)
 
-        # with self.assertRaises(plivo.exceptions.ValidationError):
-        #     self.client.applications.create('None', None)
-
         with self.assertRaises(plivo.exceptions.ValidationError):
             self.client.applications.create(
                 answer_url='None',
