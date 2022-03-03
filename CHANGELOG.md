@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.22.3](https://github.com/plivo/plivo-python/tree/v4.22.3) (2022-03-03)
+**Feature - DialElement**
+- confirmTimeout parameter added
+
 ## [4.22.2](https://github.com/plivo/plivo-python/tree/v4.22.2) (2022-02-25)
 **Feature - conference_recording**
 - Add callback_url parameter to [Record Conference API](https://www.plivo.com/docs/voice/api/conference/record-conference#start-recording-a-conference)
