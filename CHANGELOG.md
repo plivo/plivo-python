@@ -1,8 +1,9 @@
 # Change Log
-## [4.22.3](https://github.com/plivo/plivo-python/tree/v4.22.3) (2022-02-28)
-**Feature - Application create/update**
-- answer_url is now a optional parameter to create/update application
-- neglecting app_id to update application
+
+## [4.22.3](https://github.com/plivo/plivo-python/tree/v4.22.3) (2022-03-04)
+**Bug fix - Application API (create/update)**
+- For [create & update application API](https://www.plivo.com/docs/account/api/application#create-an-application) the parameter `answer url` is set to optional. 
+- Failing to [update application](https://www.plivo.com/docs/account/api/application#update-an-application) because of `app_id`
 
 ## [4.22.2](https://github.com/plivo/plivo-python/tree/v4.22.2) (2022-02-25)
 **Feature - conference_recording**
