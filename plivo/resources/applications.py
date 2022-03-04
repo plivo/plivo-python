@@ -45,8 +45,8 @@ class Applications(PlivoResourceInterface):
     _resource_type = Application
 
     @validate_args(
-        answer_url=[is_url()],
         app_name=[of_type(six.text_type)],
+        answer_url=[optional(is_url())],
         answer_method=[optional(of_type(six.text_type))],
         hangup_url=[optional(is_url())],
         hangup_method=[optional(of_type(six.text_type))],
@@ -60,8 +60,8 @@ class Applications(PlivoResourceInterface):
         log_incoming_messages=[optional(of_type_exact(bool))],
         public_uri=[optional(of_type_exact(bool))])
     def create(self,
-               answer_url,
                app_name,
+               answer_url=None,
                answer_method='POST',
                hangup_url=None,
                hangup_method='POST',
@@ -110,8 +110,8 @@ class Applications(PlivoResourceInterface):
             objects_type=Application, is_voice_request=True)
 
     @validate_args(
-        answer_url=[is_url()],
         app_id=[of_type(six.text_type)],
+        answer_url=[optional(is_url())],
         answer_method=[optional(of_type(six.text_type))],
         hangup_url=[optional(is_url())],
         hangup_method=[optional(of_type(six.text_type))],
@@ -126,7 +126,7 @@ class Applications(PlivoResourceInterface):
         public_uri=[optional(of_type_exact(bool))])
     def update(self,
                app_id,
-               answer_url,
+               answer_url=None,
                answer_method='POST',
                hangup_url=None,
                hangup_method='POST',
@@ -142,8 +142,28 @@ class Applications(PlivoResourceInterface):
         if subaccount:
             if isinstance(subaccount, Subaccount):
                 subaccount = subaccount.id
+
+        # using localVariablesObject insteadof locals() because we need to remove app_id
+        # as there is no support to update app_id, there is no way to remove an variable from locals() dictionary
+        localVariablesObject = {
+            'self': self,
+            'answer_url': answer_url,
+            'answer_method': answer_method,
+            'hangup_url' : hangup_url,
+            'hangup_method' : hangup_method,
+            'fallback_answer_url' : fallback_answer_url,
+            'fallback_method' : fallback_method,
+            'message_url' : message_url,
+            'message_method' : message_method,
+            'default_number_app' : default_number_app,
+            'default_endpoint_app' : default_endpoint_app,
+            'subaccount' : subaccount,
+            'log_incoming_messages' : log_incoming_messages,
+            'public_uri' : public_uri
+        }
+
         return self.client.request('POST', ('Application', app_id),
-                                   to_param_dict(self.update, locals()), is_voice_request=True)
+                                   to_param_dict(self.update, localVariablesObject), is_voice_request=True)
 
     @validate_args(
         app_id=[of_type(six.text_type)],
