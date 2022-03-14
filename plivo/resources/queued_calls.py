@@ -26,14 +26,30 @@ class QueuedCalls(PlivoResourceInterface):
                 all_of(
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, message='0 <= offset')))
-        ])
-    def list_ids(self, limit=20, offset=0):
+        ],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],)
+    def list_ids(self, limit=20, offset=0, callback_url=None, callback_method=None):
         return self.client.request('GET', ('Call', ), {
             'status': 'queued',
             'limit': limit,
             'offset': offset,
+            'callback_url': callback_url,
+            'callback_method': callback_method
         }, is_voice_request=True)
 
-    @validate_args(_id=[of_type(six.text_type)])
-    def get(self, _id):
-        return self.client.request('GET', ('Call', _id), {'status': 'queued'}, is_voice_request=True)
+    @validate_args(_id=[of_type(six.text_type)],
+                   callback_url=[optional(is_url())],
+                   callback_method=[optional(of_type(six.text_type))],)
+    def get(self,
+            _id,
+            callback_url=None,
+            callback_method=None):
+        local_object={}
+        local_object['status'] = 'queued'
+        if callback_url:
+            local_object['callback_url'] = callback_url
+        if callback_method:
+            local_object['callback_method'] = callback_method
+
+        return self.client.request('GET', ('Call', _id), local_object, is_voice_request=True)

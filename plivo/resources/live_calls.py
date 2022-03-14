@@ -34,7 +34,9 @@ class LiveCalls(PlivoResourceInterface):
             optional(of_type(six.text_type), is_in(('inbound', 'outbound')))
         ],
         from_number=[optional(is_phonenumber())],
-        to_number=[optional(is_iterable(of_type(six.text_type), sep='<'))]
+        to_number=[optional(is_iterable(of_type(six.text_type), sep='<'))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
     def list_ids(self,
                  call_direction=None,
@@ -42,13 +44,26 @@ class LiveCalls(PlivoResourceInterface):
                  to_number=None,
                  limit=20,
                  offset=0,
+                 callback_url=None,
+                 callback_method=None
                  ):
         params = to_param_dict(self.list_ids, locals())
         params.update({'status': 'live'})
         return self.client.request('GET', ('Call',), params, is_voice_request=True)
 
-    @validate_args(_id=[of_type(six.text_type)])
-    def get(self, _id):
+    @validate_args(_id=[of_type(six.text_type)],
+                   callback_url=[optional(is_url())],
+                   callback_method=[optional(of_type(six.text_type))])
+    def get(self,
+            _id,
+            callback_url=None,
+            callback_method=None):
+        local_object = {}
+        local_object['status'] = 'live'
+        if callback_url:
+            local_object['callback_url'] = callback_url
+        if callback_method:
+            local_object['callback_method'] = callback_method
         return self.client.request(
-            'GET', ('Call', _id), {'status': 'live'}, is_voice_request=True
+            'GET', ('Call', _id), local_object, is_voice_request=True
         )
