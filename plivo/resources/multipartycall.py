@@ -293,6 +293,8 @@ class MultiPartyCalls(PlivoResourceInterface):
         start_recording_audio_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
         stop_recording_audio=[optional(of_type_exact(str), is_url())],
         stop_recording_audio_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
     def add_participant(self,
                         role,
@@ -342,7 +344,9 @@ class MultiPartyCalls(PlivoResourceInterface):
                         start_recording_audio=None,
                         start_recording_audio_method='GET',
                         stop_recording_audio=None,
-                        stop_recording_audio_method='GET'
+                        stop_recording_audio_method='GET',
+                        callback_url=None,
+                        callback_method=None
                         ):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         caller_name = caller_name or from_
@@ -367,10 +371,18 @@ class MultiPartyCalls(PlivoResourceInterface):
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def start(self, uuid=None, friendly_name=None):
+    def start(self, uuid=None, friendly_name=None, callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('POST', ('MultiPartyCall', mpc_id), {'status': 'active'})
+        localObject={}
+        localObject['status'] = 'active',
+        if callback_url:
+            localObject['callback_url'] = callback_url,
+        if callback_method:
+            localObject['callback_method'] = callback_method,
+        return self.client.request('POST', ('MultiPartyCall', mpc_id), localObject)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
@@ -441,9 +453,12 @@ class MultiPartyCalls(PlivoResourceInterface):
         uuid=[optional(of_type_exact(str))],
         coach_mode=[optional(of_type_exact(bool))],
         mute=[optional(of_type_exact(bool))],
-        hold=[optional(of_type_exact(bool))]
+        hold=[optional(of_type_exact(bool))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def update_participant(self, participant_id, uuid=None, friendly_name=None, coach_mode=None, mute=None, hold=None):
+    def update_participant(self, participant_id, uuid=None, friendly_name=None, coach_mode=None, mute=None, hold=None,
+                           callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         if str(participant_id).lower() == 'all' and coach_mode is not None:
             raise ValidationError('cannot specify coach_mode when updating all participants')
@@ -481,9 +496,12 @@ class MultiPartyCalls(PlivoResourceInterface):
                                                         case_type='lower'))],
         recording_callback_url=[optional(of_type_exact(str), is_url())],
         recording_callback_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
     def start_participant_recording(self, participant_id, uuid=None, friendly_name=None, file_format='mp3',
-                                    recording_callback_url=None, recording_callback_method='POST'):
+                                    recording_callback_url=None, recording_callback_method='POST',
+                                    callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant', participant_id, 'Record'),
                                    self.__clean_identifiers(to_param_dict(self.start_recording, locals())),
