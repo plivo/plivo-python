@@ -11,9 +11,6 @@ class ApplicationTest(PlivoResourceTestCase):
             self.client.applications.create(None, None)
 
         with self.assertRaises(plivo.exceptions.ValidationError):
-            self.client.applications.create('None', None)
-
-        with self.assertRaises(plivo.exceptions.ValidationError):
             self.client.applications.create(
                 answer_url='None',
                 app_name='None',
@@ -150,7 +147,7 @@ class ApplicationTest(PlivoResourceTestCase):
             self.client.applications.update(None, 'None', 'None')
 
         with self.assertRaises(plivo.exceptions.ValidationError):
-            self.client.applications.update('AppId', None, None, None, None,
+            self.client.applications.update(None, None, None, None, None,
                                             None, None, None, None, None, None,
                                             None)
 
