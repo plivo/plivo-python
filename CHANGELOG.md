@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.22.4](https://github.com/plivo/plivo-python/tree/v4.22.4) (2022-03-18)
+## [4.23.0](https://github.com/plivo/plivo-python/tree/v4.23.0) (2022-03-18)
 **Feature - DialElement**
 - `confirmTimeout` parameter added to [The Dial element](https://www.plivo.com/docs/voice/xml/dial/) 
 
