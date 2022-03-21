@@ -58,7 +58,10 @@ class Applications(PlivoResourceInterface):
         default_endpoint_app=[optional(of_type_exact(bool))],
         subaccount=[optional(is_subaccount())],
         log_incoming_messages=[optional(of_type_exact(bool))],
-        public_uri=[optional(of_type_exact(bool))])
+        public_uri=[optional(of_type_exact(bool))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
     def create(self,
                app_name,
                answer_url=None,
@@ -73,7 +76,9 @@ class Applications(PlivoResourceInterface):
                default_endpoint_app=False,
                subaccount=None,
                log_incoming_messages=True,
-               public_uri=None):
+               public_uri=None,
+               callback_url=None,
+               callback_method=None):
 
         if subaccount:
             if isinstance(subaccount, Subaccount):
@@ -123,7 +128,10 @@ class Applications(PlivoResourceInterface):
         default_endpoint_app=[optional(of_type_exact(bool))],
         subaccount=[optional(is_subaccount())],
         log_incoming_messages=[optional(of_type_exact(bool))],
-        public_uri=[optional(of_type_exact(bool))])
+        public_uri=[optional(of_type_exact(bool))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
     def update(self,
                app_id,
                answer_url=None,
@@ -138,7 +146,10 @@ class Applications(PlivoResourceInterface):
                default_endpoint_app=False,
                subaccount=None,
                log_incoming_messages=True,
-               public_uri=None):
+               public_uri=None,
+               callback_url=None,
+               callback_method=None
+               ):
         if subaccount:
             if isinstance(subaccount, Subaccount):
                 subaccount = subaccount.id
@@ -149,27 +160,30 @@ class Applications(PlivoResourceInterface):
             'self': self,
             'answer_url': answer_url,
             'answer_method': answer_method,
-            'hangup_url' : hangup_url,
-            'hangup_method' : hangup_method,
-            'fallback_answer_url' : fallback_answer_url,
-            'fallback_method' : fallback_method,
-            'message_url' : message_url,
-            'message_method' : message_method,
-            'default_number_app' : default_number_app,
-            'default_endpoint_app' : default_endpoint_app,
-            'subaccount' : subaccount,
-            'log_incoming_messages' : log_incoming_messages,
-            'public_uri' : public_uri
+            'hangup_url': hangup_url,
+            'hangup_method': hangup_method,
+            'fallback_answer_url': fallback_answer_url,
+            'fallback_method': fallback_method,
+            'message_url': message_url,
+            'message_method': message_method,
+            'default_number_app': default_number_app,
+            'default_endpoint_app': default_endpoint_app,
+            'subaccount': subaccount,
+            'log_incoming_messages': log_incoming_messages,
+            'public_uri': public_uri,
+            'callback_url': callback_url,
+            'callback_method': callback_method
         }
-
         return self.client.request('POST', ('Application', app_id),
                                    to_param_dict(self.update, localVariablesObject), is_voice_request=True)
 
     @validate_args(
         app_id=[of_type(six.text_type)],
         new_endpoint_application=[optional(of_type(six.text_type))],
-        cascade=[optional(of_type_exact(bool))]
+        cascade=[optional(of_type_exact(bool))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def delete(self, app_id, cascade=None, new_endpoint_application=None):
+    def delete(self, app_id, cascade=None, new_endpoint_application=None, callback_url=None, callback_method=None):
         return self.client.request('DELETE', ('Application', app_id),
                                    to_param_dict(self.delete, locals()), is_voice_request=True)
