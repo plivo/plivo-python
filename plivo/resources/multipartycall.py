@@ -387,10 +387,13 @@ class MultiPartyCalls(PlivoResourceInterface):
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def stop(self, uuid=None, friendly_name=None):
+    def stop(self, uuid=None, friendly_name=None, callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('DELETE', ('MultiPartyCall', mpc_id), is_voice_request=True)
+        return self.client.request('DELETE', ('MultiPartyCall', mpc_id),
+                                   to_param_dict(self.stop, locals()), is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
@@ -399,13 +402,18 @@ class MultiPartyCalls(PlivoResourceInterface):
                                                         case_type='lower'))],
         recording_callback_url=[optional(of_type_exact(str), is_url())],
         recording_callback_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
     def start_recording(self,
                         uuid=None,
                         friendly_name=None,
                         file_format='mp3',
                         recording_callback_url=None,
-                        recording_callback_method='POST'):
+                        recording_callback_method='POST',
+                        callback_url=None,
+                        callback_method=None
+                        ):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Record'),
                                    self.__clean_identifiers(to_param_dict(self.start_recording, locals())),
@@ -414,26 +422,35 @@ class MultiPartyCalls(PlivoResourceInterface):
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def stop_recording(self, uuid=None, friendly_name=None):
+    def stop_recording(self, uuid=None, friendly_name=None, callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('DELETE', ('MultiPartyCall', mpc_id, 'Record'), is_voice_request=True)
+        return self.client.request('DELETE', ('MultiPartyCall', mpc_id, 'Record'),
+                                   to_param_dict(self.stop_recording, locals()), is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def pause_recording(self, uuid=None, friendly_name=None):
+    def pause_recording(self, uuid=None, friendly_name=None, callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Record', 'Pause'), is_voice_request=True)
+        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Record', 'Pause'),
+                                   to_param_dict(self.pause_recording, locals()), is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def resume_recording(self, uuid=None, friendly_name=None):
+    def resume_recording(self, uuid=None, friendly_name=None, callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Record', 'Resume'), is_voice_request=True)
+        return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Record', 'Resume'),
+                                   to_param_dict(self.pause_recording, locals()), is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
@@ -472,11 +489,13 @@ class MultiPartyCalls(PlivoResourceInterface):
         participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def kick_participant(self, participant_id, uuid=None, friendly_name=None):
+    def kick_participant(self, participant_id, uuid=None, friendly_name=None, callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         return self.client.request('DELETE', ('MultiPartyCall', mpc_id, 'Participant', participant_id),
-                                   is_voice_request=True)
+                                   to_param_dict(self.kick_participant, locals()), is_voice_request=True)
 
     @validate_args(
         participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
@@ -511,32 +530,45 @@ class MultiPartyCalls(PlivoResourceInterface):
         participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def stop_participant_recording(self, participant_id, uuid=None, friendly_name=None):
+    def stop_participant_recording(self,
+                                   participant_id,
+                                   uuid=None,
+                                   friendly_name=None,
+                                   callback_url=None,
+                                   callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         return self.client.request('DELETE', ('MultiPartyCall', mpc_id, 'Participant', participant_id, 'Record'),
-                                   is_voice_request=True)
+                                   to_param_dict(self.stop_participant_recording, locals()), is_voice_request=True)
 
     @validate_args(
         participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def pause_participant_recording(self, participant_id, uuid=None, friendly_name=None):
+    def pause_participant_recording(self, participant_id, uuid=None, friendly_name=None,
+                                    callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         return self.client.request('POST', ('MultiPartyCall', mpc_id, 'Participant', participant_id, 'Record', 'Pause'),
-                                   is_voice_request=True)
+                                   to_param_dict(self.pause_participant_recording, locals()), is_voice_request=True)
 
     @validate_args(
         participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def resume_participant_recording(self, participant_id, uuid=None, friendly_name=None):
+    def resume_participant_recording(self, participant_id, uuid=None, friendly_name=None,
+                                     callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         return self.client.request('POST',
                                    ('MultiPartyCall', mpc_id, 'Participant', participant_id, 'Record', 'Resume'),
-                                   is_voice_request=True)
+                                   to_param_dict(self.resume_participant_recording, locals()), is_voice_request=True)
 
     @validate_args(
         participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
