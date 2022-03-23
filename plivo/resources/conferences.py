@@ -125,12 +125,18 @@ class Conferences(PlivoResourceInterface):
     def hangup(self, conference_name):
         return self.delete(conference_name)
 
+    @validate_args(
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
     def member_speak(self,
                      conference_name,
                      member_id,
                      text,
                      voice=None,
-                     language=None):
+                     language=None,
+                     callback_url=None,
+                     callback_method=None):
         return self.client.request(
             'POST',
             ('Conference', conference_name, 'Member', member_id, 'Speak'),
@@ -166,15 +172,25 @@ class Conferences(PlivoResourceInterface):
             ('Conference', conference_name, 'Member', member_id, 'Mute'), to_param_dict(self.member_mute, locals()),
             is_voice_request=True)
 
-    def member_speak_stop(self, conference_name, member_id):
+    @validate_args(
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
+    def member_speak_stop(self, conference_name, member_id, callback_url=None, callback_method=None):
         return self.client.request(
             'DELETE',
-            ('Conference', conference_name, 'Member', member_id, 'Speak'), is_voice_request=True)
+            ('Conference', conference_name, 'Member', member_id, 'Speak'),
+            to_param_dict(self.member_speak_stop, locals()), is_voice_request=True)
 
-    def member_play_stop(self, conference_name, member_id):
+    @validate_args(
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
+    def member_play_stop(self, conference_name, member_id, callback_url=None, callback_method=None):
         return self.client.request(
             'DELETE',
-            ('Conference', conference_name, 'Member', member_id, 'Play'), is_voice_request=True)
+            ('Conference', conference_name, 'Member', member_id, 'Play'),
+            to_param_dict(self.member_play_stop, locals()), is_voice_request=True)
 
     @validate_args(
         callback_url=[optional(is_url())],
@@ -214,8 +230,14 @@ class Conferences(PlivoResourceInterface):
                callback_url=None,
                callback_method=None):
         return self.client.request('POST',
-                                   ('Conference', conference_name, 'Record'), to_param_dict(self.record, locals()), is_voice_request=True)
+                                   ('Conference', conference_name, 'Record'),
+                                   to_param_dict(self.record, locals()), is_voice_request=True)
 
-    def record_stop(self, conference_name):
+    @validate_args(
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
+    def record_stop(self, conference_name, callback_url=None, callback_method=None):
         return self.client.request('DELETE',
-                                   ('Conference', conference_name, 'Record'), is_voice_request=True)
+                                   ('Conference', conference_name, 'Record'),
+                                   to_param_dict(self.record_stop, locals()), is_voice_request=True)

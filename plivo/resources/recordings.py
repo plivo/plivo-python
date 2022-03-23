@@ -35,7 +35,10 @@ class Recordings(PlivoResourceInterface):
                 all_of(
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
-        ])
+        ],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
     def list(self,
              subaccount=None,
              call_uuid=None,
@@ -45,7 +48,9 @@ class Recordings(PlivoResourceInterface):
              add_time__lte=None,
              add_time=None,
              limit=20,
-             offset=0):
+             offset=0,
+             callback_url=None,
+             callback_method=None):
 
         if subaccount:
             if isinstance(subaccount, Subaccount):
@@ -80,6 +85,11 @@ class Recordings(PlivoResourceInterface):
         return self.client.request(
             'GET', ('Recording', recording_id), response_type=Recording, is_voice_request=True)
 
-    @validate_args(recording_id=[of_type(six.text_type)])
-    def delete(self, recording_id):
-        return self.client.request('DELETE', ('Recording', recording_id), is_voice_request=True)
+    @validate_args(
+        recording_id=[of_type(six.text_type)],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
+    def delete(self, recording_id, callback_url=None, callback_method=None):
+        return self.client.request('DELETE', ('Recording', recording_id),
+                                   to_param_dict(self.delete, locals()), is_voice_request=True)
