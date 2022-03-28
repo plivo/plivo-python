@@ -71,19 +71,36 @@ class Recordings(PlivoResourceInterface):
         if add_time and is_valid_time_comparison(add_time):
             add_time = str(add_time)
 
-        return self.client.request(
-            'GET',
-            ('Recording', ),
-            to_param_dict(self.list, locals()),
-            objects_type=Recording,
-            response_type=ListResponseObject,
-            is_voice_request=True
-        )
+        if not callback_url:
+            return self.client.request(
+                'GET',
+                ('Recording',),
+                to_param_dict(self.list, locals()),
+                objects_type=Recording,
+                response_type=ListResponseObject,
+                is_voice_request=True
+            )
+        else:
+            return self.client.request(
+                'GET',
+                ('Recording',),
+                to_param_dict(self.list, locals()),
+                objects_type=Recording,
+                is_voice_request=True
+            )
 
-    @validate_args(recording_id=[of_type(six.text_type)])
-    def get(self, recording_id):
-        return self.client.request(
-            'GET', ('Recording', recording_id), response_type=Recording, is_voice_request=True)
+
+    @validate_args(recording_id=[of_type(six.text_type)],
+                   callback_url=[optional(is_url())],
+                   callback_method=[optional(of_type(six.text_type))],
+                   )
+    def get(self, recording_id, callback_url=None, callback_method=None):
+        if not callback_url:
+            return self.client.request(
+                'GET', ('Recording', recording_id), response_type=Recording, is_voice_request=True)
+        else:
+            return self.client.request(
+                'GET', ('Recording', recording_id), to_param_dict(self.get, locals()), is_voice_request=True)
 
     @validate_args(
         recording_id=[of_type(six.text_type)],

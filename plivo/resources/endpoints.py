@@ -56,14 +56,25 @@ class Endpoints(PlivoResourceInterface):
                 all_of(
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
-        ])
-    def list(self, limit=20, offset=0):
-        return self.client.request(
-            'GET',
-            ('Endpoint', ),
-            to_param_dict(self.list, locals()),
-            objects_type=Endpoint,
-            response_type=ListResponseObject, is_voice_request=True)
+        ],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
+    def list(self, limit=20, offset=0, callback_url=None, callback_method=None):
+        if callback_url:
+            return self.client.request(
+                'GET',
+                ('Endpoint',),
+                to_param_dict(self.list, locals()),
+                objects_type=Endpoint, is_voice_request=True)
+        else:
+            return self.client.request(
+                'GET',
+                ('Endpoint',),
+                to_param_dict(self.list, locals()),
+                objects_type=Endpoint,
+                response_type=ListResponseObject, is_voice_request=True)
+
 
     @validate_args(
         endpoint_id=[of_type(six.text_type)],

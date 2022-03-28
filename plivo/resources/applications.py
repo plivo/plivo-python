@@ -85,10 +85,18 @@ class Applications(PlivoResourceInterface):
                 subaccount = subaccount.id
         return self.client.request('POST', ('Application', ), to_param_dict(self.create, locals()), is_voice_request=True)
 
-    @validate_args(app_id=[of_type(six.text_type)])
-    def get(self, app_id):
-        return self.client.request(
-            'GET', ('Application', app_id), response_type=Application, is_voice_request=True)
+    @validate_args(app_id=[of_type(six.text_type)],
+                   callback_url=[optional(is_url())],
+                   callback_method=[optional(of_type(six.text_type))],
+                   )
+    def get(self, app_id, callback_url=None, callback_method=None):
+        if not callback_url:
+            return self.client.request(
+                'GET', ('Application', app_id), response_type=Application, is_voice_request=True)
+        else:
+            return self.client.request(
+                'GET', ('Application', app_id), to_param_dict(self.get, locals()),
+                response_type=Application, is_voice_request=True)
 
     @validate_args(
         subaccount=[optional(is_subaccount())],
@@ -103,16 +111,26 @@ class Applications(PlivoResourceInterface):
                 all_of(
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
-        ])
-    def list(self, subaccount=None, limit=20, offset=0):
+        ],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
+    def list(self, subaccount=None, limit=20, offset=0, callback_url=None, callback_method=None):
         if subaccount:
             if isinstance(subaccount, Subaccount):
                 subaccount = subaccount.id
-        return self.client.request(
-            'GET', ('Application', ),
-            to_param_dict(self.list, locals()),
-            response_type=ListResponseObject,
-            objects_type=Application, is_voice_request=True)
+
+        if not callback_url:
+            return self.client.request(
+                'GET', ('Application',),
+                to_param_dict(self.list, locals()),
+                response_type=ListResponseObject,
+                objects_type=Application, is_voice_request=True)
+        else:
+            return self.client.request(
+                'GET', ('Application',),
+                to_param_dict(self.list, locals()),
+                objects_type=Application, is_voice_request=True)
 
     @validate_args(
         app_id=[of_type(six.text_type)],

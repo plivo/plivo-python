@@ -192,6 +192,8 @@ class Calls(PlivoResourceInterface):
         hangup_source=[
             optional(of_type(six.text_type))
         ],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
     def list(self,
              subaccount=None,
@@ -213,14 +215,28 @@ class Calls(PlivoResourceInterface):
              status=None,
              parent_call_uuid=None,
              hangup_cause_code=None,
-             hangup_source=None,):
-        return self.client.request(
-            'GET',
-            ('Call', ),
-            to_param_dict(self.list, locals()),
-            response_type=ListResponseObject,
-            is_voice_request=True
-        )
+             hangup_source=None,
+             callback_url=None,
+             callback_method=None
+             ):
+        # Adding if else block because if we are fetching response without callback_url then response will be of type
+        # ListResponseObject, if passing callback_url then will be of type
+        # {'api_id': '94722e88-ae7c-11ec-b52e-0242ac11000a', 'message': 'async api spawned'}
+        if callback_url :
+            return self.client.request(
+                'GET',
+                ('Call',),
+                to_param_dict(self.list, locals()),
+                is_voice_request=True
+            )
+        else :
+            return self.client.request(
+                'GET',
+                ('Call',),
+                to_param_dict(self.list, locals()),
+                response_type=ListResponseObject,
+                is_voice_request=True
+            )
 
     @validate_args(
         call_uuid=[of_type(six.text_type)],

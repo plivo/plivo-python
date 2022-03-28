@@ -190,7 +190,9 @@ class MultiPartyCalls(PlivoResourceInterface):
         creation_time__lt=[optional(is_proper_date_format())],
         creation_time__lte=[optional(is_proper_date_format())],
         limit=[optional(of_type(int), check(lambda limit: 0 < limit <= 20, '0 < limit <= 20'))],
-        offset=[optional(of_type(int), check(lambda offset: 0 <= offset, '0 <= offset'))]
+        offset=[optional(of_type(int), check(lambda offset: 0 <= offset, '0 <= offset'))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
     def list(self,
              sub_account=None,
@@ -206,19 +208,35 @@ class MultiPartyCalls(PlivoResourceInterface):
              creation_time__lt=None,
              creation_time__lte=None,
              limit=None,
-             offset=None
+             offset=None,
+             callback_url=None,
+             callback_method=None
              ):
-        return self.client.request('GET', ('MultiPartyCall',), to_param_dict(self.list, locals()),
-                                   response_type=ListResponseObject, objects_type=MultiPartyCall, is_voice_request=True)
+
+        if not callback_url:
+            return self.client.request('GET', ('MultiPartyCall',), to_param_dict(self.list, locals()),
+                                       response_type=ListResponseObject, objects_type=MultiPartyCall,
+                                       is_voice_request=True)
+        else:
+            return self.client.request('GET', ('MultiPartyCall',), to_param_dict(self.list, locals()),
+                                       objects_type=MultiPartyCall, is_voice_request=True)
 
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def get(self, uuid=None, friendly_name=None):
+    def get(self, uuid=None, friendly_name=None, callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('GET', ('MultiPartyCall', mpc_id),
-                                   is_voice_request=True, response_type=MultiPartyCall)
+
+        if not callback_url:
+            return self.client.request('GET', ('MultiPartyCall', mpc_id),
+                                       is_voice_request=True, response_type=MultiPartyCall)
+        else:
+            return self.client.request('GET', ('MultiPartyCall', mpc_id),
+                                       to_param_dict(self.get, locals()),
+                                       is_voice_request=True, response_type=MultiPartyCall)
 
     @validate_args(
         role=[of_type_exact(str), is_in(('agent', 'supervisor', 'customer'), case_sensitive=False, case_type='lower')],
@@ -455,14 +473,22 @@ class MultiPartyCalls(PlivoResourceInterface):
     @validate_args(
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
-        call_uuid=[optional(of_type_exact(str))]
+        call_uuid=[optional(of_type_exact(str))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def list_participants(self, uuid=None, friendly_name=None, call_uuid=None):
+    def list_participants(self, uuid=None, friendly_name=None, call_uuid=None, callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('GET', ('MultiPartyCall', mpc_id, 'Participant'),
-                                   self.__clean_identifiers(to_param_dict(self.list_participants, locals())),
-                                   response_type=ListResponseObject, objects_type=MultiPartyCallParticipant,
-                                   is_voice_request=True)
+        if not callback_url:
+            return self.client.request('GET', ('MultiPartyCall', mpc_id, 'Participant'),
+                                       self.__clean_identifiers(to_param_dict(self.list_participants, locals())),
+                                       response_type=ListResponseObject, objects_type=MultiPartyCallParticipant,
+                                       is_voice_request=True)
+        else:
+            return self.client.request('GET', ('MultiPartyCall', mpc_id, 'Participant'),
+                                       self.__clean_identifiers(to_param_dict(self.list_participants, locals())),
+                                       objects_type=MultiPartyCallParticipant,
+                                       is_voice_request=True)
 
     @validate_args(
         participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
@@ -501,11 +527,18 @@ class MultiPartyCalls(PlivoResourceInterface):
         participant_id=[one_of(of_type_exact(str), of_type_exact(int))],
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
-    def get_participant(self, participant_id, uuid=None, friendly_name=None):
+    def get_participant(self, participant_id, uuid=None, friendly_name=None,
+                        callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        return self.client.request('GET', ('MultiPartyCall', mpc_id, 'Participant', participant_id),
-                                   response_type=MultiPartyCallParticipant, is_voice_request=True)
+        if not callback_url:
+            return self.client.request('GET', ('MultiPartyCall', mpc_id, 'Participant', participant_id),
+                                       response_type=MultiPartyCallParticipant, is_voice_request=True)
+        else:
+            return self.client.request('GET', ('MultiPartyCall', mpc_id, 'Participant', participant_id),
+                                       to_param_dict(self.get_participant, locals()), is_voice_request=True)
 
     @validate_args(
         participant_id=[one_of(of_type_exact(str), of_type_exact(int))],

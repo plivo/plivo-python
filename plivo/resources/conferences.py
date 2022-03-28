@@ -212,10 +212,15 @@ class Conferences(PlivoResourceInterface):
             ('Conference', conference_name, 'Member', member_id, 'Mute'),
             to_param_dict(self.member_mute_stop, locals()), is_voice_request=True)
 
-    def member_kick(self, conference_name, member_id):
+    @validate_args(
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
+    def member_kick(self, conference_name, member_id, callback_url=None, callback_method=None):
         return self.client.request(
             'POST',
-            ('Conference', conference_name, 'Member', member_id, 'Kick'), is_voice_request=True)
+            ('Conference', conference_name, 'Member', member_id, 'Kick'),
+            to_param_dict(self.member_kick, locals()), is_voice_request=True)
 
     def member_hangup(self, conference_name, member_id):
         return self.client.request(
