@@ -34,7 +34,7 @@ class CallTest(PlivoResourceTestCase):
         self.assertResponseMatches(call)
         self.assertEqual(self.client.current_request.method, 'GET')
         self.assertUrlEqual(
-            self.get_voice_url('Call', uuid), self.client.current_request.url)
+            self.get_voice_url('Call', uuid) + 'call_uuid=' + uuid, self.client.current_request.url)
 
     @with_response(202)
     def test_update(self):
