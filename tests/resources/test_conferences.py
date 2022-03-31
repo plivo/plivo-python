@@ -13,6 +13,9 @@ class ConferenceTest(PlivoResourceTestCase):
         conference = self.client.conferences.get(conference_name)
         self.assertResponseMatches(conference)
         self.assertEqual(self.client.current_request.method, 'GET')
+        self.assertUrlEqual(
+            self.get_voice_url('Conference', conference_name) + 'conference_name=' + conference_name,
+            self.client.current_request.url)
         self.assertEqual(conference.conference_name, conference_name)
 
     @with_response(204)
