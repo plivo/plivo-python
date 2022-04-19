@@ -46,6 +46,26 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self
 
     @property
+    def record_min_member_count(self):
+        return self.__record_min_member_count
+
+    @record_min_member_count.setter
+    @validate_args(
+        record_min_member_count=[
+            optional(
+                of_type_exact(int),
+                check(lambda record_min_member_count: 1 <= record_min_member_count <= 2, '1 <= record_min_member_count <= 2')
+            )
+        ],
+    )
+    def record_min_member_count(self, record_min_member_count):
+        self.__record_min_member_count = record_min_member_count
+
+    def set_record_min_member_count(self, record_min_member_count):
+        self.record_min_member_count = record_min_member_count
+        return self
+
+    @property
     def wait_music_url(self):
         return self.__wait_music_url
 
@@ -507,6 +527,7 @@ class MultiPartyCallElement(PlivoXMLElement):
             role,
             max_duration=14400,
             max_participants=10,
+            record_min_member_count=1,
             wait_music_url=None,
             wait_music_method='GET',
             agent_hold_music_url=None,
@@ -547,6 +568,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         self.role = role
         self.max_duration = max_duration
         self.max_participants = max_participants
+        self.record_min_member_count = record_min_member_count
         self.wait_music_url = wait_music_url
         self.wait_music_method = wait_music_method
         self.agent_hold_music_url = agent_hold_music_url
@@ -579,6 +601,7 @@ class MultiPartyCallElement(PlivoXMLElement):
             'role': self.role,
             'maxDuration': self.max_duration,
             'maxParticipants': self.max_participants,
+            'recordMinMemberCount': self.record_min_member_count,
             'waitMusicUrl': self.wait_music_url,
             'waitMusicMethod': self.wait_music_method,
             'agentHoldMusicUrl': self.agent_hold_music_url,
