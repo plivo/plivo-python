@@ -1,5 +1,14 @@
 # Change Log
 
+## [4.23.1](https://github.com/plivo/plivo-python/tree/v4.23.1) (2022-04-11)
+**Feature - List all recordings and The MultiPartyCall element**
+- `from_number` and `to_number` added to filtering param [List all recordings](https://www.plivo.com/docs/voice/api/recording#list-all-recordings)
+- `record_min_member_count` param added to [Add a participant to a multiparty call using API](https://www.plivo.com/docs/voice/api/multiparty-call/participants#add-a-participant)
+
+## [4.23.0](https://github.com/plivo/plivo-python/tree/v4.23.0) (2022-03-18)
+**Feature - DialElement**
+- `confirmTimeout` parameter added to [The Dial element](https://www.plivo.com/docs/voice/xml/dial/) 
+
 ## [4.22.3](https://github.com/plivo/plivo-python/tree/v4.22.3) (2022-03-04)
 **Bug fix - Application API (create/update)**
 - For [create & update application API](https://www.plivo.com/docs/account/api/application#create-an-application) the parameter `answer url` is set to optional. 
