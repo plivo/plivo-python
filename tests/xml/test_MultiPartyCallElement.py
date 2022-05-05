@@ -12,7 +12,8 @@ class MultiPartyCallElementTest(TestCase, PlivoXmlTestCase):
                             'customerHoldMusicMethod="GET" endMpcOnExit="false" enterSound="beep:1" ' \
                             'enterSoundMethod="GET" exitSound="beep:2" exitSoundMethod="GET" hold="false" ' \
                             'maxDuration="14400" maxParticipants="10" mute="false" onExitActionMethod="POST" ' \
-                            'record="false" recordFileFormat="mp3" recordingCallbackMethod="POST" ' \
+                            'record="false" recordFileFormat="mp3" recordMinMemberCount="1" ' \
+                            'recordingCallbackMethod="POST" ' \
                             'relayDTMFInputs="false" role="agent" startMpcOnEnter="true" ' \
                             'startRecordingAudioMethod="GET" ' \
                             'statusCallbackEvents="mpc-state-changes,participant-state-changes" ' \
@@ -28,7 +29,8 @@ class MultiPartyCallElementTest(TestCase, PlivoXmlTestCase):
                             'customerHoldMusicMethod="GET" endMpcOnExit="false" enterSound="beep:1" ' \
                             'enterSoundMethod="GET" exitSound="beep:1" exitSoundMethod="GET" hold="false" ' \
                             'maxDuration="14400" maxParticipants="10" mute="false" onExitActionMethod="POST" ' \
-                            'record="false" recordFileFormat="mp3" recordingCallbackMethod="POST" ' \
+                            'record="false" recordFileFormat="mp3" recordMinMemberCount="1" ' \
+                            'recordingCallbackMethod="POST" ' \
                             'relayDTMFInputs="false" role="supervisor" startMpcOnEnter="true" ' \
                             'startRecordingAudioMethod="GET" ' \
                             'statusCallbackEvents="mpc-state-changes,participant-state-changes" ' \
@@ -76,7 +78,7 @@ class MultiPartyCallElementTest(TestCase, PlivoXmlTestCase):
                        'statusCallbackEvents="mpc-state-changes,participant-state-changes" ' \
                        'statusCallbackMethod="POST" stayAlone="false" stopRecordingAudio="http://plivo.com/api.mp3" ' \
                        'stopRecordingAudioMethod="GET" ' \
-                       'waitMusicMethod="GET">Helsinki</MultiPartyCall> '
+                       'waitMusicMethod="GET" recordMinMemberCount="1">Helsinki</MultiPartyCall> '
         element = plivoxml.MultiPartyCallElement(content='Helsinki', role='customer'). \
             set_max_duration(4500).set_max_participants(9).set_end_mpc_on_exit(True). \
             set_customer_hold_music_url('http://plivo.com/voice.mp3').set_coach_mode(False). \

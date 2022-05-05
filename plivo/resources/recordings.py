@@ -22,6 +22,12 @@ class Recordings(PlivoResourceInterface):
     _resource_type = Recording
 
     @validate_args(
+        from_number=[optional(of_type(six.text_type))],
+        to_number=[optional(of_type(six.text_type))],
+        conference_name=[optional(of_type(six.text_type))],
+        mpc_name=[optional(of_type(six.text_type))],
+        conference_uuid=[optional(of_type(six.text_type))],
+        mpc_uuid=[optional(of_type(six.text_type))],
         subaccount=[optional(is_subaccount())],
         call_uuid=[optional(of_type(six.text_type))],
         limit=[
@@ -35,7 +41,8 @@ class Recordings(PlivoResourceInterface):
                 all_of(
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
-        ])
+        ],
+    )
     def list(self,
              subaccount=None,
              call_uuid=None,
@@ -45,7 +52,13 @@ class Recordings(PlivoResourceInterface):
              add_time__lte=None,
              add_time=None,
              limit=20,
-             offset=0):
+             offset=0,
+             from_number=None,
+             to_number=None,
+             conference_name=None,
+             mpc_name=None,
+             conference_uuid=None,
+             mpc_uuid=None):
 
         if subaccount:
             if isinstance(subaccount, Subaccount):
