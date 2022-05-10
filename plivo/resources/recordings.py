@@ -56,7 +56,7 @@ class Recordings(PlivoResourceInterface):
              limit=20,
              offset=0,
              callback_url=None,
-             callback_method=None):
+             callback_method=None,
              from_number=None,
              to_number=None,
              conference_name=None,
