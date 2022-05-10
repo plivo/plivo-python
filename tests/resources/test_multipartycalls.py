@@ -170,6 +170,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             'status_callback_events': 'mpc-state-changes,participant-state-changes',
             'record_file_format': 'mp3',
             'record': False,
+            'record_min_member_count': 1,
             'on_exit_action_method': 'POST',
             'status_callback_method': 'GET',
             'recording_callback_method': 'GET',

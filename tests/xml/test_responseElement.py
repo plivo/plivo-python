@@ -110,7 +110,8 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
                        'enterSoundMethod="GET" exitSound="beep:1" exitSoundMethod="GET" hold="true" ' \
                        'maxDuration="20000" maxParticipants="7" mute="true" onExitActionMethod="POST" ' \
                        'onExitActionUrl="https://plivo.com/exitAction" record="true" recordFileFormat="wav" ' \
-                       'recordingCallbackMethod="GET" relayDTMFInputs="false" role="customer" ' \
+                       'recordMinMemberCount="1" recordingCallbackMethod="GET" ' \
+                       'relayDTMFInputs="false" role="customer" ' \
                        'startMpcOnEnter="true" '\
                        'startRecordingAudio="https://plivo.com/plivoTone.mp3" ' \
                        'startRecordingAudioMethod="GET" ' \

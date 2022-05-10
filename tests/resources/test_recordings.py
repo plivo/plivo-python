@@ -148,3 +148,45 @@ class RecordingTest(PlivoResourceTestCase):
 
         # Verifying the method used
         self.assertEqual('DELETE', self.client.current_request.method)
+
+    @with_response(200)
+    def test_get_added_filter(self):
+        recording = self.client.recordings.get(
+            'd405c4eb-d562-4399-af32-6ff3c57fa55x')
+
+        self.assertResponseMatches(recording)
+
+        # Verifying the endpoint hit
+        self.assertEqual(
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/d405c4eb-d562-4399-af32-6ff3c57fa55x/',
+            self.client.current_request.url)
+
+        # Verifying the method used
+        self.assertEqual('GET', self.client.current_request.method)
+
+        # Verifying the object type returned
+        self.assertEqual(plivo.resources.recordings.Recording,
+                         recording.__class__)
+        # verify to and from no param
+        self.assertEqual('+919768368717', recording.from_number)
+
+        self.assertEqual('sip:ajay6121801985815245533110@phone.plivo.com', recording.to_number)
+
+    @with_response(200)
+    def test_list_from_filter(self):
+        recordings = self.client.recordings.list(
+            call_uuid="f72eea2a-446b-4412-a17f-3b17083bd25a",
+            from_number="919768368717"
+        )
+
+        # Verifying the endpoint hit
+        self.assertUrlEqual(
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/?call_uuid=f72eea2a-446b-4412-a17f-3b17083bd25a&from_number=919768368717&limit=20&offset=0',
+            self.client.current_request.url)
+
+        # Verifying if the Account specific changes and parsing happened
+        self.assertEqual('7ed2395e-e08a-4448-86b1-9770331d94f3',
+                         recordings.objects[1].id)
+
+        self.assertEqual('+919768368717',
+                         recordings.objects[0].from_number)

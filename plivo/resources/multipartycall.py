@@ -29,6 +29,7 @@ class MultiPartyCall(PlivoResource):
                         delay_dial=0,
                         max_duration=14400,
                         max_participants=10,
+                        record_min_member_count=1,
                         wait_music_url=None,
                         wait_music_method='GET',
                         agent_hold_music_url=None,
@@ -268,6 +269,10 @@ class MultiPartyCalls(PlivoResourceInterface):
             of_type_exact(int),
             check(lambda max_participants: 2 <= max_participants <= 10, '2 < max_participants <= 10')
         )],
+        record_min_member_count=[optional(
+            of_type_exact(int),
+            check(lambda record_min_member_count: 1 <= record_min_member_count <= 2, '1 < record_min_member_count <= 2')
+        )],
         wait_music_url=[optional(of_type_exact(str), is_url())],
         wait_music_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
         agent_hold_music_url=[optional(of_type_exact(str), is_url())],
@@ -333,6 +338,7 @@ class MultiPartyCalls(PlivoResourceInterface):
                         delay_dial=0,
                         max_duration=14400,
                         max_participants=10,
+                        record_min_member_count=1,
                         wait_music_url=None,
                         wait_music_method='GET',
                         agent_hold_music_url=None,

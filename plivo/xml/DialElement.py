@@ -134,6 +134,22 @@ class DialElement(PlivoXMLElement):
         return self
 
     @property
+    def confirm_timeout(self):
+        return self.confirm_timeout
+
+    @confirm_timeout.setter
+    def confirm_timeout(self, value):
+        self.confirm_timeout = six.text_type(
+            value) if value is not None else None
+
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
+    def confirm_timeout(self, value):
+        self.confirm_timeout = value
+        return self
+
+    @property
     def confirm_key(self):
         return self.__confirm_key
 
@@ -269,6 +285,7 @@ class DialElement(PlivoXMLElement):
             caller_id=None,
             caller_name=None,
             confirm_sound=None,
+            confirm_timeout=None,
             confirm_key=None,
             dial_music=None,
             callback_url=None,
@@ -288,6 +305,7 @@ class DialElement(PlivoXMLElement):
         self.caller_id = caller_id
         self.caller_name = caller_name
         self.confirm_sound = confirm_sound
+        self.confirm_timeout = confirm_timeout
         self.confirm_key = confirm_key
         self.dial_music = dial_music
         self.callback_url = callback_url
@@ -307,6 +325,7 @@ class DialElement(PlivoXMLElement):
             'callerId': self.caller_id,
             'callerName': self.caller_name,
             'confirmSound': self.confirm_sound,
+            'confirmTimeout': self.confirm_timeout,
             'confirmKey': self.confirm_key,
             'dialMusic': self.dial_music,
             'callbackUrl': self.callback_url,
