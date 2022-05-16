@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.25.0](https://github.com/plivo/plivo-python/tree/v4.25.0) (2022-05-16)
+## [4.24.1](https://github.com/plivo/plivo-python/tree/v4.24.1) (2022-05-16)
 **Feature - Asynchronous Flow Added**
 - `callback_url` and `callback_method` added in API's [Asynchronous requests](https://www.plivo.com/docs/voice/api/request#asynchronous-request)
 
