@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.25.0](https://github.com/plivo/plivo-python/tree/v4.25.0) (2022-05-16)
+**Feature - Asynchronous Flow Added**
+- `callback_url` and `callback_method` added in API's [Asynchronous requests](https://www.plivo.com/docs/voice/api/request#asynchronous-request)
+
 ## [4.24.0](https://github.com/plivo/plivo-python/tree/v4.24.0) (2022-05-05)
 **Feature - List all recordings and The MultiPartyCall element**
 - `from_number` and `to_number` added to filtering param [List all recordings](https://www.plivo.com/docs/voice/api/recording#list-all-recordings)
