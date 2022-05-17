@@ -230,7 +230,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
     @with_response(200)
     def test_start_MPC(self):
 
-        request_body = {'status': 'active'}
+        request_body = {'status': ['active']}
 
         start_mpc_response = self.client.multi_party_calls.start(friendly_name='Voice')
 

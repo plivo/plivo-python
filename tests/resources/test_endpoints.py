@@ -28,7 +28,7 @@ class EndpointTest(PlivoResourceTestCase):
         self.assertResponseMatches(endpoint)
         self.assertEqual(self.client.current_request.method, 'GET')
         self.assertUrlEqual(
-            self.get_voice_url('Endpoint', uuid), self.client.current_request.url)
+            self.get_voice_url('Endpoint', uuid) + 'endpoint_id=' + uuid, self.client.current_request.url)
 
     @with_response(202)
     def test_update(self):

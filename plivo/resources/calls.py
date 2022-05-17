@@ -129,6 +129,8 @@ class Calls(PlivoResourceInterface):
                 lambda ring_timeout: 0 <= ring_timeout,
                 message='0 <= ring_timeout')
         ],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
     )
     def create(self,
                from_,
@@ -153,7 +155,9 @@ class Calls(PlivoResourceInterface):
                sip_headers=None,
                ring_timeout=120,
                parent_call_uuid=None,
-               error_if_parent_not_found=False):
+               error_if_parent_not_found=False,
+               callback_url=None,
+               callback_method=None):
         if from_ in to_.split('<'):
             raise ValidationError('src and destination cannot overlap')
         return self.client.request('POST', ('Call', ), to_param_dict(self.create, locals()), is_voice_request=True)
@@ -187,7 +191,10 @@ class Calls(PlivoResourceInterface):
         ],
         hangup_source=[
             optional(of_type(six.text_type))
-        ])
+        ],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
     def list(self,
              subaccount=None,
              call_direction=None,
@@ -208,18 +215,39 @@ class Calls(PlivoResourceInterface):
              status=None,
              parent_call_uuid=None,
              hangup_cause_code=None,
-             hangup_source=None):
-        return self.client.request(
-            'GET',
-            ('Call', ),
-            to_param_dict(self.list, locals()),
-            response_type=ListResponseObject,
-            is_voice_request=True
-        )
+             hangup_source=None,
+             callback_url=None,
+             callback_method=None
+             ):
+        # Adding if else block because if we are fetching response without callback_url then response will be of type
+        # ListResponseObject, if passing callback_url then will be of type
+        # {'api_id': '94722e88-ae7c-11ec-b52e-0242ac11000a', 'message': 'async api spawned'}
+        if callback_url :
+            return self.client.request(
+                'GET',
+                ('Call',),
+                to_param_dict(self.list, locals()),
+                is_voice_request=True
+            )
+        else :
+            return self.client.request(
+                'GET',
+                ('Call',),
+                to_param_dict(self.list, locals()),
+                response_type=ListResponseObject,
+                is_voice_request=True
+            )
 
-    @validate_args(call_uuid=[of_type(six.text_type)])
-    def get(self, call_uuid):
-        return self.client.request('GET', ('Call', call_uuid), is_voice_request=True)
+    @validate_args(
+        call_uuid=[of_type(six.text_type)],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
+    def get(self,
+            call_uuid,
+            callback_url=None,
+            callback_method=None):
+        return self.client.request('GET', ('Call', call_uuid), to_param_dict(self.get, locals()), is_voice_request=True)
 
     @validate_args(
         call_uuid=[of_type(six.text_type)],
@@ -236,24 +264,35 @@ class Calls(PlivoResourceInterface):
                aleg_url=None,
                aleg_method=None,
                bleg_url=None,
-               bleg_method=None):
+               bleg_method=None,
+               callback_url=None,
+               callback_method=None):
         return self.client.request('POST', ('Call', call_uuid),
                                    to_param_dict(self.update, locals()), is_voice_request=True)
 
+    @validate_args(
+        call_uuid=[of_type(six.text_type)],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
     def transfer(self,
                  call_uuid,
                  legs=None,
                  aleg_url=None,
                  aleg_method=None,
                  bleg_url=None,
-                 bleg_method=None):
+                 bleg_method=None,
+                 callback_url=None,
+                 callback_method=None):
         return self.update(
             call_uuid,
             legs=legs,
             aleg_method=aleg_method,
             aleg_url=aleg_url,
             bleg_url=bleg_url,
-            bleg_method=bleg_method)
+            bleg_method=bleg_method,
+            callback_url=callback_url,
+            callback_method=callback_method)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def record(self,
@@ -282,12 +321,15 @@ class Calls(PlivoResourceInterface):
                                    to_param_dict(self.start_recording,
                                                  locals()), is_voice_request=True)
 
-    def record_stop(self, call_uuid):
-        return self.client.calls.stop_recording(call_uuid)
+    def record_stop(self, call_uuid, callback_url=None, callback_method=None):
+        return self.client.calls.stop_recording(call_uuid, callback_url, callback_method)
 
-    @validate_args(call_uuid=[of_type(six.text_type)])
-    def stop_recording(self, call_uuid):
-        return self.client.request('DELETE', ('Call', call_uuid, 'Record'), is_voice_request=True)
+    @validate_args(call_uuid=[of_type(six.text_type)],
+                   callback_url=[optional(is_url())],
+                   callback_method=[optional(of_type(six.text_type))]
+                   )
+    def stop_recording(self, call_uuid, callback_url, callback_method):
+        return self.client.request('DELETE', ('Call', call_uuid, 'Record'), to_param_dict(self.stop_recording, locals()), is_voice_request=True)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def play(self,
@@ -314,14 +356,20 @@ class Calls(PlivoResourceInterface):
         return self.client.request('POST', ('Call', call_uuid, 'Play'),
                                    to_param_dict(self.play, locals()), is_voice_request=True)
 
-    def play_stop(self, call_uuid):
-        return self.client.calls.stop_playing(call_uuid)
+    def play_stop(self, call_uuid, callback_url=None, callback_method=None):
+        return self.client.calls.stop_playing(call_uuid, callback_url, callback_method)
 
-    @validate_args(call_uuid=[of_type(six.text_type)])
-    def stop_playing(self, call_uuid):
-        return self.client.request('DELETE', ('Call', call_uuid, 'Play'), is_voice_request=True)
+    @validate_args(call_uuid=[of_type(six.text_type)],
+                   callback_url=[optional(is_url())],
+                   callback_method=[optional(of_type(six.text_type))]
+                   )
+    def stop_playing(self, call_uuid, callback_url=None, callback_method=None):
+        return self.client.request('DELETE', ('Call', call_uuid, 'Play'), to_param_dict(self.stop_playing, locals()), is_voice_request=True)
 
-    @validate_args(call_uuid=[of_type(six.text_type)])
+    @validate_args(call_uuid=[of_type(six.text_type)],
+                   callback_url=[optional(is_url())],
+                   callback_method=[optional(of_type(six.text_type))],
+                   )
     def speak(self,
               call_uuid,
               text,
@@ -329,9 +377,12 @@ class Calls(PlivoResourceInterface):
               language=None,
               legs=None,
               loop=None,
-              mix=None):
+              mix=None,
+              callback_url=None,
+              callback_method=None
+              ):
         return self.start_speaking(call_uuid, text, voice, language, legs,
-                                   loop, mix)
+                                   loop, mix, callback_url, callback_method)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def start_speaking(self,
@@ -341,26 +392,43 @@ class Calls(PlivoResourceInterface):
                        language=None,
                        legs=None,
                        loop=None,
-                       mix=None):
+                       mix=None,
+                       callback_url=None,
+                       callback_method=None
+                       ):
         return self.client.request('POST', ('Call', call_uuid, 'Speak'),
                                    to_param_dict(self.start_speaking,
                                                  locals()), is_voice_request=True)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
-    def stop_speaking(self, call_uuid):
-        return self.client.request('DELETE', ('Call', call_uuid, 'Speak'), is_voice_request=True)
+    def stop_speaking(self, call_uuid, callback_url=None, callback_method=None):
+        return self.client.request('DELETE', ('Call', call_uuid, 'Speak'), to_param_dict(self.stop_speaking, locals()), is_voice_request=True)
 
-    def speak_stop(self, call_uuid):
-        return self.client.calls.stop_speaking(call_uuid)
+    @validate_args(
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))]
+    )
+    def speak_stop(self, call_uuid, callback_url=None, callback_method=None):
+        return self.client.calls.stop_speaking(call_uuid, callback_url, callback_method)
 
-    @validate_args(call_uuid=[of_type(six.text_type)])
-    def send_digits(self, call_uuid, digits, leg=None):
+    @validate_args(call_uuid=[of_type(six.text_type)],
+                   callback_url=[optional(is_url())],
+                   callback_method=[optional(of_type(six.text_type))],
+                   )
+    def send_digits(self, call_uuid, digits, leg=None, callback_url=None, callback_method=None):
         return self.client.request('POST', ('Call', call_uuid, 'DTMF'),
                                    to_param_dict(self.send_digits, locals()), is_voice_request=True)
 
-    @validate_args(call_uuid=[of_type(six.text_type)])
-    def delete(self, call_uuid):
-        return self.client.request('DELETE', ('Call', call_uuid), is_voice_request=True)
+    @validate_args(
+        call_uuid=[of_type(six.text_type)],
+        callback_url=[optional(is_url())],
+        callback_method=[optional(of_type(six.text_type))],
+    )
+    def delete(self,
+               call_uuid,
+               callback_url=None,
+               callback_method=None):
+        return self.client.request('DELETE', ('Call', call_uuid), to_param_dict(self.delete, locals()), is_voice_request=True)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def hangup(self, call_uuid):
