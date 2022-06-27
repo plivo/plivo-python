@@ -20,7 +20,7 @@ class Campaign(PlivoResourceInterface):
     @validate_args(
         brand=[optional(of_type(six.text_type))],
         usecase=[optional(of_type(six.text_type))])
-    def list(self, brand=None, usecase=None):
+    def list(self, brand=None, usecase=None,limit=None, offset=None):
         return self.client.request(
             'GET', ('10dlc', 'Campaign'),
             to_param_dict(self.list, locals()),
