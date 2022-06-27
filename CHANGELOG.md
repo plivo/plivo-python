@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.24.2](https://github.com/plivo/plivo-python/tree/v4.24.1) (2022-06-27)
+**Bug Fix - 10DLC retreive all campaign API**
+- Added `limit` and `offset` arguments to the 10DLC [retreive all campaigns API](https://www.plivo.com/docs/privatebeta/sms/api/10dlc/campaign#retrieve-all-campaigns)
+
 ## [4.24.1](https://github.com/plivo/plivo-python/tree/v4.24.1) (2022-05-16)
 **Bug Fix - Asynchronous Flow Added**
 - `callback_url` and `callback_method` added in API's [Asynchronous requests](https://www.plivo.com/docs/voice/api/request#asynchronous-request)
