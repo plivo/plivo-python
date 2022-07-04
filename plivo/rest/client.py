@@ -11,7 +11,7 @@ from plivo.base import ResponseObject
 from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
                               ResourceNotFoundError, ValidationError)
-from plivo.resources import (Accounts, Addresses, Applications, Calls,
+from plivo.resources import (Accounts, Addresses, Applications, Calls,Token,
                              Conferences, Endpoints, Identities,
                              Messages, Powerpacks, Media, Lookup, Brand,Campaign,
                              Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls)
@@ -90,6 +90,7 @@ class Client(object):
         self.subaccounts = Subaccounts(self)
         self.applications = Applications(self)
         self.calls = Calls(self)
+        self.token = Token(self)
         self.live_calls = LiveCalls(self)
         self.queued_calls = QueuedCalls(self)
         self.conferences = Conferences(self)
