@@ -13,11 +13,10 @@ class Token(PlivoResourceInterface):
         nbf = [required(of_type(six.text_type))],
         exp = [required(of_type(six.text_type))],
         incoming_allowed = [optional(of_type(bool))],
-        outgoing_allowed = [optional(of_type(bool))]
-        # app = [optional(of_type(six.text_type))]
+        outgoing_allowed = [optional(of_type(bool))],
+        app = [optional(of_type(six.text_type))]
     )
 
-    # def create(iss:str, auth_token:str, sub:str,nbf:str, exp:str, incoming_allowed:bool, outgoing_allowed:bool):
     def create(iss:str, auth_token:str, sub:str,nbf:str, exp:str, incoming_allowed:bool, outgoing_allowed:bool, app:str):
         flag = 0
         if(app == ""):
