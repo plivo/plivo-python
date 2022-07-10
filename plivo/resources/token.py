@@ -17,7 +17,9 @@ class Token(PlivoResourceInterface):
 
     def create( self,iss, auth_token, sub,nbf, exp, incoming_allowed, outgoing_allowed,app):
         if(incoming_allowed == True and sub == None):
-                raise ValidationError('Subaccount is required')
+                raise ValidationError('Sub is required')
+        elif(iss == None):
+                raise ValidationError('Iss is required')
         else:
             payload = json.dumps({
                 "sub": sub,
