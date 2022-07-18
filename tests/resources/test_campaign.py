@@ -22,7 +22,12 @@ class CampaignTest(PlivoResourceTestCase):
                 subscriber_optout = True,
                 subscriber_help = True,
                 sample1 = "test 1",
-                sample2 = "test 2")
+                sample2 = "test 2",
+                url="http://example.com/test",
+                method="POST",
+                subaccount_id="109878667",
+                affiliate_marketing=False,
+                reseller_id="98766")
         self.assertEqual('POST', self.client.current_request.method)
         self.assertUrlEqual(
             'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/',
@@ -50,3 +55,45 @@ class CampaignTest(PlivoResourceTestCase):
             self.client.current_request.url)
         # Verifying the method used
         self.assertEqual('GET', self.client.current_request.method)
+
+    @with_response(200)
+    def test_number_link(self):
+        response = self.client.campaign.number_link(campaign_id = 'BRPXS6E',
+                    url='http://example.com/test',
+                    method='POST',
+                    subaccount_id='109878667',
+                    numbers=['87654545465', '876650988'])
+        self.assertEqual('POST', self.client.current_request.method)
+        self.assertUrlEqual(
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/BRPXS6E/Number/',
+            self.client.current_request.url)
+
+
+    @with_response(200)
+    def test_get_numbers(self):
+        response = self.client.campaign.get_numbers(campaign_id='BRPXS6E',
+                    limit=20, 
+                    offset=0)
+        self.assertEqual('GET', self.client.current_request.method)
+        self.assertUrlEqual(
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/BRPXS6E/Number/',
+            self.client.current_request.url)
+
+    @with_response(200)
+    def test_get_number(self):
+        response = self.client.campaign.get_number(campaign_id='BRPXS6E',
+                                                    number='9873636363')
+        self.assertEqual('GET', self.client.current_request.method)
+        self.assertUrlEqual(
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/BRPXS6E/Number/9873636363/',
+            self.client.current_request.url)
+
+    @with_response(200)
+    def test_number_unlink(self):
+        response = self.client.campaign.number_unlink(campaign_id='BRPXS6E',
+                                                        number='9873636363')
+        self.assertEqual('DELETE', self.client.current_request.method)
+        self.assertUrlEqual(
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/BRPXS6E/Number/9873636363/',
+            self.client.current_request.url)
+

@@ -17,4 +17,5 @@ from .powerpacks import Powerpacks
 from .lookup import Lookup
 from .brand import Brand
 from .campaign import Campaign
+from .profile import Profile
 from .multipartycall import MultiPartyCalls, MultiPartyCall, MultiPartyCallParticipant
