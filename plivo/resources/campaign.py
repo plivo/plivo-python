@@ -13,17 +13,17 @@ class Campaign(PlivoResourceInterface):
     _resource_type = Campaign
 
     @validate_args(campaign_id=[of_type(six.text_type)])
-    def get(self, campaign_id):
+    def get_campaign(self, campaign_id):
         return self.client.request(
             'GET', ('10dlc','Campaign', campaign_id), response_type=None)
 
     @validate_args(
         brand=[optional(of_type(six.text_type))],
         usecase=[optional(of_type(six.text_type))])
-    def list(self, brand=None, usecase=None):
+    def list_campaigns(self, brand=None, usecase=None):
         return self.client.request(
             'GET', ('10dlc', 'Campaign'),
-            to_param_dict(self.list, locals()),
+            to_param_dict(self.list_campaigns, locals()),
             response_type=None,
             objects_type=None)
     
@@ -80,19 +80,19 @@ class Campaign(PlivoResourceInterface):
 
     @validate_args(
         campaign_id=[optional(of_type(six.text_type))],
-        numbers=[optional(of_type_exact(list))],
         url=[optional(of_type(six.text_type))],
         method=[optional(of_type(six.text_type))],
-        subaccount_id=[optional(of_type(six.text_type))]
+        subaccount_id=[optional(of_type(six.text_type))],
+        numbers=[optional(of_type_exact((list)))]
     )
     def number_link(self,
                     campaign_id,
                     url,
                     method,
                     subaccount_id,
-                    numbers=[]):
+                    numbers=None):
         return self.client.request('POST', ('10dlc', 'Campaign',  campaign_id, 'Number'),
-                                   to_param_dict(self.create, locals()))
+                                   to_param_dict(self.number_link, locals()))
 
     @validate_args(
         campaign_id=[of_type(six.text_type)],

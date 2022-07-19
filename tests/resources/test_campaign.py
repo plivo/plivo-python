@@ -5,15 +5,12 @@ from tests.decorators import with_response
 class CampaignTest(PlivoResourceTestCase):
     @with_response(200)
     def test_create(self):
-        sub_usecases = [
-                    "CUSTOMER_CARE",
-                    "2FA"
-                ],
+        sub_usecase = ["CUSTOMER_CARE","2FA"]
         response = self.client.campaign.create(brand_id = "B8OD95Z",
                 campaign_alias = "campaign name sssample",
                 vertical = "INSURANCE",
                 usecase = "MIXED",
-                sub_usecases = sub_usecases,
+                sub_usecases = sub_usecase,
                 description = "sample description text",
                 embedded_link = False,
                 embedded_phone = False,
@@ -24,9 +21,9 @@ class CampaignTest(PlivoResourceTestCase):
                 subscriber_help = True,
                 sample1 = "test 1",
                 sample2 = "test 2",
-                sample3 = "",
-                sample4= "",
-                sample5= "",
+                sample3 = "test 3",
+                sample4= "test 4",
+                sample5= "test 5",
                 url="http://example.com/test",
                 method="POST",
                 subaccount_id="109878667",
@@ -38,8 +35,8 @@ class CampaignTest(PlivoResourceTestCase):
             self.client.current_request.url)
 
     @with_response(200)
-    def test_get(self):
-        response = self.client.campaign.get(campaign_id='BRPXS6E')
+    def test_get_campaign(self):
+        response = self.client.campaign.get_campaign(campaign_id='BRPXS6E')
         # Verifying the endpoint hit
         self.assertUrlEqual(
             'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/BRPXS6E/',
@@ -49,8 +46,8 @@ class CampaignTest(PlivoResourceTestCase):
         self.assertEqual('GET', self.client.current_request.method)
 
     @with_response(200)
-    def test_list(self):
-        res = self.client.campaign.list()
+    def test_list_campaigns(self):
+        res = self.client.campaign.list_campaigns()
         # Test if ListResponseObject's __iter__ is working correctly
         self.assertGreater(len(list(res.campaigns)), 0)
         # Verifying the endpoint hit
@@ -62,12 +59,12 @@ class CampaignTest(PlivoResourceTestCase):
 
     @with_response(200)
     def test_number_link(self):
-        numbers = ['87654545465', '876650988']
-        response = self.client.campaign.number_link('BRPXS6E',
-                    'http://example.com/test',
-                    'POST',
-                    '109878667',
-                    numbers
+        number = ['87654545465', '876650988']
+        response = self.client.campaign.number_link(campaign_id='BRPXS6E',
+                    url='http://example.com/test',
+                    method='POST',
+                    subaccount_id='109878667',
+                    numbers=number
                     )
         self.assertEqual('POST', self.client.current_request.method)
         self.assertUrlEqual(
@@ -82,7 +79,7 @@ class CampaignTest(PlivoResourceTestCase):
                     offset=0)
         self.assertEqual('GET', self.client.current_request.method)
         self.assertUrlEqual(
-            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/BRPXS6E/Number/',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/BRPXS6E/Number/?limit=20',
             self.client.current_request.url)
 
     @with_response(200)

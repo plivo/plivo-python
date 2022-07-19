@@ -1,12 +1,4 @@
 {
-    "api_id": "dcf4bf20-b168-11ec-80b6-0242ac110003",
-    "campaign_alias": "marketing messages",
-    "campaign_id": "CRIGC80",
-    "phone_numbers": [
-        {
-            "number": "14845007032",
-            "status": "PROCESSING"
-        }
-    ],
-    "usecase": "MIXED"
+    "api_id": "ca143ac8-072d-11ed-ab02-0242ac110004",
+    "error": "The number xxxxxx is not linked to this campaign"
 }
