@@ -13,17 +13,17 @@ class Brand(PlivoResourceInterface):
     _resource_type = Brand
 
     @validate_args(brand_id=[of_type(six.text_type)])
-    def get(self, brand_id):
+    def get_brand(self, brand_id):
         return self.client.request(
             'GET', ('10dlc','Brand', brand_id), response_type=None)
             
     @validate_args(
         type=[optional(of_type(six.text_type))],
         status=[optional(of_type(six.text_type))])
-    def list(self, type=None, status=None):
+    def list_brands(self, type=None, status=None):
         return self.client.request(
             'GET', ('10dlc', 'Brand'),
-            to_param_dict(self.list, locals()),
+            to_param_dict(self.list_brands, locals()),
             response_type=None,
             objects_type=None)
     
@@ -37,7 +37,7 @@ class Brand(PlivoResourceInterface):
         subaccount_id=[optional(of_type(six.text_type))],
         emailRecipients=[optional(of_type(six.text_type))],
         campaignName=[optional(of_type(six.text_type))],
-        campaignUseCase=[optional(of_type(six.text_type))],
+        campaignUseCase=[optional(of_type(list))],
         campaignSubUseCases=[optional(of_type(six.text_type))],
         campaignDescription=[optional(of_type(six.text_type))],
         sampleMessage1=[optional(of_type(six.text_type))],
