@@ -56,7 +56,6 @@ class ProfileTest(PlivoResourceTestCase):
     def test_list(self):
         response = self.client.profile.list()
         # Verifying the endpoint hit
-        print(response)
         self.assertEqual(len(list(response.profiles)), 10)
         self.assertEqual(self.client.current_request.method, 'GET')
 
