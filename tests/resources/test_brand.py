@@ -10,34 +10,15 @@ class BrandTest(PlivoResourceTestCase):
                 brand_type="STARTER",
                 profile_uuid="201faedc-7df9-4840-9ab1-3997ce3f7cf4",
                 secondary_vetting=False,
-                url="http://example.come/test",
-                method="POST",
-                subaccount_id="1234544",
-                emailRecipients="mrm",
-                campaignName="plivo",
-                campaignUseCase="MIXED",
-                campaignSubUseCases="2FA",
-                campaignDescription="MIXED campaign",
-                sampleMessage1="sample1",
-                sampleMessage2="sample2",
-                embeddedLink=False,
-                embeddedPhone=False,
-                numberPool=False,
-                ageGated=False,
-                directLending=False,
-                subscriberOptin=False,
-                subscriberOptout=False,
-                subscriberHelp=False,
-                affiliateMarketing=False,
-                resellerID="87868787788")
+                )
         self.assertEqual('POST', self.client.current_request.method)
         self.assertUrlEqual(
             'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Brand/',
             self.client.current_request.url)
 
     @with_response(200)
-    def test_get_brand(self):
-        response = self.client.brand.get_brand(brand_id='BRPXS6E')
+    def test_get(self):
+        response = self.client.brand.get(brand_id='BRPXS6E')
         self.client.set_expected_response(
             status_code=202, data_to_return=response)
         # Verifying the endpoint hit
@@ -49,8 +30,8 @@ class BrandTest(PlivoResourceTestCase):
         self.assertEqual('GET', self.client.current_request.method)
 
     @with_response(200)
-    def test_list_brands(self):
-        res = self.client.brand.list_brands()
+    def test_list(self):
+        res = self.client.brand.list()
         # Test if ListResponseObject's __iter__ is working correctly
         self.assertGreater(len(list(res.brands)), 0)
         # Verifying the endpoint hit
