@@ -56,12 +56,10 @@ class ProfileTest(PlivoResourceTestCase):
     def test_list(self):
         response = self.client.profile.list()
         # Verifying the endpoint hit
-        self.assertUrlEqual(
-            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Profile/',
-            self.client.current_request.url)
-
-        # Verifying the method used
-        self.assertEqual('GET', self.client.current_request.method)
+        self.assertEqual(len(list(response)), 2)
+        self.assertUrlEqual(self.client.current_request.url,
+                            self.get_url('Message'))
+        self.assertEqual(self.client.current_request.method, 'GET')
 
     @with_response(200)
     def test_delete(self):

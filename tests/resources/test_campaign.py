@@ -5,14 +5,15 @@ from tests.decorators import with_response
 class CampaignTest(PlivoResourceTestCase):
     @with_response(200)
     def test_create(self):
+        sub_usecases = [
+                    "CUSTOMER_CARE",
+                    "2FA"
+                ],
         response = self.client.campaign.create(brand_id = "B8OD95Z",
                 campaign_alias = "campaign name sssample",
                 vertical = "INSURANCE",
                 usecase = "MIXED",
-                sub_usecases = [
-                    "CUSTOMER_CARE",
-                    "2FA"
-                ],
+                sub_usecases = sub_usecases,
                 description = "sample description text",
                 embedded_link = False,
                 embedded_phone = False,
@@ -23,6 +24,9 @@ class CampaignTest(PlivoResourceTestCase):
                 subscriber_help = True,
                 sample1 = "test 1",
                 sample2 = "test 2",
+                sample3 = "",
+                sample4= "",
+                sample5= "",
                 url="http://example.com/test",
                 method="POST",
                 subaccount_id="109878667",
@@ -58,11 +62,13 @@ class CampaignTest(PlivoResourceTestCase):
 
     @with_response(200)
     def test_number_link(self):
-        response = self.client.campaign.number_link(campaign_id = 'BRPXS6E',
-                    url='http://example.com/test',
-                    method='POST',
-                    subaccount_id='109878667',
-                    numbers=['87654545465', '876650988'])
+        numbers = ['87654545465', '876650988']
+        response = self.client.campaign.number_link('BRPXS6E',
+                    'http://example.com/test',
+                    'POST',
+                    '109878667',
+                    numbers
+                    )
         self.assertEqual('POST', self.client.current_request.method)
         self.assertUrlEqual(
             'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/BRPXS6E/Number/',
