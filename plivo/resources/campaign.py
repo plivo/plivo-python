@@ -13,25 +13,25 @@ class Campaign(PlivoResourceInterface):
     _resource_type = Campaign
 
     @validate_args(campaign_id=[of_type(six.text_type)])
-    def get_campaign(self, campaign_id):
+    def get(self, campaign_id):
         return self.client.request(
             'GET', ('10dlc','Campaign', campaign_id), response_type=None)
 
     @validate_args(
         brand=[optional(of_type(six.text_type))],
         usecase=[optional(of_type(six.text_type))])
-    def list_campaigns(self, brand=None, usecase=None):
+    def list(self, brand=None, usecase=None):
         return self.client.request(
             'GET', ('10dlc', 'Campaign'),
-            to_param_dict(self.list_campaigns, locals()),
+            to_param_dict(self.list, locals()),
             response_type=None,
             objects_type=None)
     
     @validate_args(
-        brand_id=[optional(of_type(six.text_type))],
+        brand_id=[required(of_type(six.text_type))],
         campaign_alias=[optional(of_type(six.text_type))],
-        vertical=[optional(of_type(six.text_type))],
-        usecase=[optional(of_type(six.text_type))],
+        vertical=[required(of_type(six.text_type))],
+        usecase=[required(of_type(six.text_type))],
         description=[optional(of_type(six.text_type))],
         reseller_id=[optional(of_type(six.text_type))],
         embedded_link=[optional(of_type_exact(bool))],
@@ -49,22 +49,21 @@ class Campaign(PlivoResourceInterface):
         sample5=[optional(of_type(six.text_type))],
         url=[optional(of_type(six.text_type))],
         method=[optional(of_type(six.text_type))],
-        subaccount_id=[optional(of_type(six.text_type))],
-        sub_usecases=[optional(of_type_exact(list))])
+        subaccount_id=[optional(of_type(six.text_type))])
     def create(self,
                brand_id,
                vertical,
                usecase,
-               description,
-               sample1,
-               sample2,
-               sample3,
-               sample4,
-               sample5,
-               reseller_id,
-               url,
-               method,
-               subaccount_id,
+               description='',
+               sample1='',
+               sample2='',
+               sample3='',
+               sample4='',
+               sample5='',
+               reseller_id='',
+               url='',
+               method='POST',
+               subaccount_id='',
                embedded_link=False,
                embedded_phone=False,
                age_gated=False,
@@ -74,23 +73,22 @@ class Campaign(PlivoResourceInterface):
                subscriber_optin=True,
                subscriber_help=True,
                campaign_alias=None,
-               sub_usecases=None):
+               sub_usecases=[]):
         return self.client.request('POST', ('10dlc', 'Campaign'),
                                    to_param_dict(self.create, locals()))
 
     @validate_args(
-        campaign_id=[optional(of_type(six.text_type))],
+        campaign_id=[required(of_type(six.text_type))],
         url=[optional(of_type(six.text_type))],
         method=[optional(of_type(six.text_type))],
-        subaccount_id=[optional(of_type(six.text_type))],
-        numbers=[optional(of_type_exact((list)))]
+        subaccount_id=[optional(of_type(six.text_type))]
     )
     def number_link(self,
                     campaign_id,
                     url,
                     method,
                     subaccount_id,
-                    numbers=None):
+                    numbers=[]):
         return self.client.request('POST', ('10dlc', 'Campaign',  campaign_id, 'Number'),
                                    to_param_dict(self.number_link, locals()))
 

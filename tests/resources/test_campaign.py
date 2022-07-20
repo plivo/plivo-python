@@ -35,8 +35,8 @@ class CampaignTest(PlivoResourceTestCase):
             self.client.current_request.url)
 
     @with_response(200)
-    def test_get_campaign(self):
-        response = self.client.campaign.get_campaign(campaign_id='BRPXS6E')
+    def test_get(self):
+        response = self.client.campaign.get(campaign_id='BRPXS6E')
         # Verifying the endpoint hit
         self.assertUrlEqual(
             'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/BRPXS6E/',
@@ -46,8 +46,8 @@ class CampaignTest(PlivoResourceTestCase):
         self.assertEqual('GET', self.client.current_request.method)
 
     @with_response(200)
-    def test_list_campaigns(self):
-        res = self.client.campaign.list_campaigns()
+    def test_list(self):
+        res = self.client.campaign.list()
         # Test if ListResponseObject's __iter__ is working correctly
         self.assertGreater(len(list(res.campaigns)), 0)
         # Verifying the endpoint hit

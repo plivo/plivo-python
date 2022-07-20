@@ -36,8 +36,8 @@ class BrandTest(PlivoResourceTestCase):
             self.client.current_request.url)
 
     @with_response(200)
-    def test_get_brand(self):
-        response = self.client.brand.get_brand(brand_id='BRPXS6E')
+    def test_get(self):
+        response = self.client.brand.get(brand_id='BRPXS6E')
         self.client.set_expected_response(
             status_code=202, data_to_return=response)
         # Verifying the endpoint hit
@@ -49,8 +49,8 @@ class BrandTest(PlivoResourceTestCase):
         self.assertEqual('GET', self.client.current_request.method)
 
     @with_response(200)
-    def test_list_brands(self):
-        res = self.client.brand.list_brands()
+    def test_list(self):
+        res = self.client.brand.list()
         # Test if ListResponseObject's __iter__ is working correctly
         self.assertGreater(len(list(res.brands)), 0)
         # Verifying the endpoint hit
