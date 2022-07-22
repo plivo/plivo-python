@@ -85,9 +85,9 @@ class Campaign(PlivoResourceInterface):
     )
     def number_link(self,
                     campaign_id,
-                    url,
-                    method,
-                    subaccount_id,
+                    url='',
+                    method='POST',
+                    subaccount_id='',
                     numbers=[]):
         return self.client.request('POST', ('10dlc', 'Campaign',  campaign_id, 'Number'),
                                    to_param_dict(self.number_link, locals()))

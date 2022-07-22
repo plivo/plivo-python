@@ -29,7 +29,7 @@ class Brand(PlivoResourceInterface):
     
     @validate_args(
         brand_alias=[required(of_type(six.text_type))],
-        brand_type=[required(of_type(six.text_type))],
+        brand_type=[optional(of_type(six.text_type), is_in(('STANDARD','STARTER')))],
         profile_uuid=[required(of_type(six.text_type))],
         secondary_vetting=[optional(of_type_exact(bool))],
         url=[optional(of_type(six.text_type))],
