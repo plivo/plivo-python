@@ -15,8 +15,8 @@ class Token(PlivoResourceInterface):
         app = [optional(of_type(six.text_type))]
     )
 
-    def create( self, iss, sub = None, nbf = None, exp = None, incoming_allowed = None, outgoing_allowed = None, app = None):    
-        if(incoming_allowed == True and sub == None):
+    def create( self, iss, sub = None, nbf = None, exp = None, incoming_allow = None, outgoing_allow = None, app = None):    
+        if(incoming_allow == True and sub == None):
             raise ValidationError('Sub is required')
         elif(iss == None):
             raise ValidationError('Iss is required')
