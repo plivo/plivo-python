@@ -21,4 +21,20 @@ class Token(PlivoResourceInterface):
         elif(iss == None):
             raise ValidationError('Iss is required')
         else:
-            return self.client.request('POST', ('JWT','Token', ),to_param_dict(self.create,locals()), is_voice_request=True)      
+            params = {}
+            params['iss'] = iss
+            params['per'] = {}
+            params['per']['voice'] = {}
+            if sub != None:
+                params['sub'] = sub
+            if nbf != None:
+                params['nbf'] = nbf
+            if exp != None:
+                params['exp'] = exp
+            if incoming_allow != None:
+                params['per']['voice']['incoming_allow'] = incoming_allow
+            if outgoing_allow != None:
+                params['per']['voice']['outgoing_allow'] = outgoing_allow
+            if app != None:
+                params['app'] = app
+            return self.client.request('POST', ('JWT','Token', ),params, is_voice_request=True)      
