@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.24.2](https://github.com/plivo/plivo-python/tree/v4.24.2) (2022-07-29)
+**Bug Fix - Asynchronous Flow Added**
+- `Token Creation ` added in API's to create a new token.
+
 ## [4.24.1](https://github.com/plivo/plivo-python/tree/v4.24.1) (2022-05-16)
 **Bug Fix - Asynchronous Flow Added**
 - `callback_url` and `callback_method` added in API's [Asynchronous requests](https://www.plivo.com/docs/voice/api/request#asynchronous-request)
