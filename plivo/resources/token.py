@@ -23,18 +23,20 @@ class Token(PlivoResourceInterface):
         else:
             params = {}
             params['iss'] = iss
-            params['per'] = {}
-            params['per']['voice'] = {}
+            
             if sub != None:
                 params['sub'] = sub
             if nbf != None:
                 params['nbf'] = nbf
             if exp != None:
                 params['exp'] = exp
-            if incoming_allow != None:
-                params['per']['voice']['incoming_allow'] = incoming_allow
-            if outgoing_allow != None:
-                params['per']['voice']['outgoing_allow'] = outgoing_allow
+            if incoming_allow != None or outgoing_allow != None:
+                params['per'] = {}
+                params['per']['voice'] = {}
+                if incoming_allow != None:
+                    params['per']['voice']['incoming_allow'] = incoming_allow
+                if outgoing_allow != None:
+                    params['per']['voice']['outgoing_allow'] = outgoing_allow
             if app != None:
                 params['app'] = app
             return self.client.request('POST', ('JWT','Token', ),params, is_voice_request=True)      
