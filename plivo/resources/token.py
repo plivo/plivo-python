@@ -1,4 +1,5 @@
 import json
+import string
 from plivo.base import (ListResponseObject, PlivoResource,PlivoResourceInterface)
 from plivo.utils import to_param_dict
 from plivo.utils.validators import *
@@ -9,8 +10,8 @@ class Token(PlivoResourceInterface):
         sub = [optional(of_type(six.text_type))],
         nbf = [optional(of_type(six.text_type))],
         exp = [optional(of_type(six.text_type))],
-        incoming_allowed = [optional(of_type(bool))],
-        outgoing_allowed = [optional(of_type(bool))],
+        incoming_allow = [optional(of_type(bool,string))],
+        outgoing_allow = [optional(of_type(bool,string))],
         app = [optional(of_type(six.text_type))]
     )
 
