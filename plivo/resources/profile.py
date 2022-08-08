@@ -19,7 +19,7 @@ class Profile(PlivoResourceInterface):
 
     def list(self):
         return self.client.request(
-            'GET', ('Profile'),
+            'GET', ('Profile', ),
             to_param_dict(self.list, locals()),
             response_type=None,
             objects_type=None)
