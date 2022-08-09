@@ -11,25 +11,7 @@ class BrandTest(PlivoResourceTestCase):
                 profile_uuid="201faedc-7df9-4840-9ab1-3997ce3f7cf4",
                 secondary_vetting=False,
                 url="http://example.come/test",
-                method="POST",
-                subaccount_id="1234544",
-                emailRecipients="mrm",
-                campaignName="plivo",
-                campaignUseCase="MIXED",
-                campaignSubUseCases=["2FA"],
-                campaignDescription="MIXED campaign",
-                sampleMessage1="sample1",
-                sampleMessage2="sample2",
-                embeddedLink=False,
-                embeddedPhone=False,
-                numberPool=False,
-                ageGated=False,
-                directLending=False,
-                subscriberOptin=False,
-                subscriberOptout=False,
-                subscriberHelp=False,
-                affiliateMarketing=False,
-                resellerID="87868787788")
+                method="POST")
         self.assertEqual('POST', self.client.current_request.method)
         self.assertUrlEqual(
             'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Brand/',

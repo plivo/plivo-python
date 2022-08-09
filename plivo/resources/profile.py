@@ -28,12 +28,10 @@ class Profile(PlivoResourceInterface):
     def delete(self, profile_uuid):
         return self.client.request(
             'DELETE', ('Profile', profile_uuid),
-            to_param_dict(self.list, locals()),
             response_type=None,
             objects_type=None)
     
     @validate_args(
-        originator=[required(of_type(six.text_type))],
         profile_alias=[optional(of_type(six.text_type))],
         customer_type=[required(of_type(six.text_type))],
         entity_type=[required(of_type(six.text_type))],
@@ -50,7 +48,6 @@ class Profile(PlivoResourceInterface):
         address=[optional(of_type_exact(dict))],
         authorized_contact=[optional(of_type_exact(dict))])
     def create(self,
-               originator,
                profile_alias,
                customer_type,
                entity_type,
@@ -68,3 +65,13 @@ class Profile(PlivoResourceInterface):
                authorized_contact={}):
         return self.client.request('POST', ('Profile', ),
                                    to_param_dict(self.create, locals()))
+
+
+    # params values should be dictionary like 
+    # {'address': {}, 'authorized_contact': {}, 'entity_type':'', 'vertical': '', 'company_name': '', 'website':''} 
+    def update(self,profile_uuid, params=None):
+        if params == None:
+            raise ValidationError(
+                'required atleast one of powerpack attributes'
+            )
+        return self.client.request('POST', ('Profile', profile_uuid), params)

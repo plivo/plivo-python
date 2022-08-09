@@ -22,7 +22,7 @@ class Campaign(PlivoResourceInterface):
         usecase=[optional(of_type(six.text_type))])
     def list(self, brand=None, usecase=None):
         return self.client.request(
-            'GET', ('10dlc', 'Campaign'),
+            'GET', ('10dlc', 'Campaign', ),
             to_param_dict(self.list, locals()),
             response_type=None,
             objects_type=None)
@@ -33,7 +33,6 @@ class Campaign(PlivoResourceInterface):
         vertical=[required(of_type(six.text_type))],
         usecase=[required(of_type(six.text_type))],
         description=[optional(of_type(six.text_type))],
-        reseller_id=[optional(of_type(six.text_type))],
         embedded_link=[optional(of_type_exact(bool))],
         embedded_phone=[optional(of_type_exact(bool))],
         age_gated=[optional(of_type_exact(bool))],
@@ -41,15 +40,10 @@ class Campaign(PlivoResourceInterface):
         subscriber_optin=[optional(of_type_exact(bool))],
         subscriber_optout=[optional(of_type_exact(bool))],
         subscriber_help=[optional(of_type_exact(bool))],
-        affiliate_marketing=[optional(of_type_exact(bool))],
         sample1=[optional(of_type(six.text_type))],
         sample2=[optional(of_type(six.text_type))],
-        sample3=[optional(of_type(six.text_type))],
-        sample4=[optional(of_type(six.text_type))],
-        sample5=[optional(of_type(six.text_type))],
         url=[optional(of_type(six.text_type))],
-        method=[optional(of_type(six.text_type))],
-        subaccount_id=[optional(of_type(six.text_type))])
+        method=[optional(of_type(six.text_type))])
     def create(self,
                brand_id,
                vertical,
@@ -57,21 +51,15 @@ class Campaign(PlivoResourceInterface):
                description='',
                sample1='',
                sample2='',
-               sample3='',
-               sample4='',
-               sample5='',
-               reseller_id='',
                url='',
                method='POST',
-               subaccount_id='',
                embedded_link=False,
                embedded_phone=False,
                age_gated=False,
                direct_lending=False,
-               affiliate_marketing=False,
-               subscriber_optout=True,
-               subscriber_optin=True,
-               subscriber_help=True,
+               subscriber_optout=False,
+               subscriber_optin=False,
+               subscriber_help=False,
                campaign_alias=None,
                sub_usecases=[]):
         return self.client.request('POST', ('10dlc', 'Campaign'),
@@ -81,13 +69,11 @@ class Campaign(PlivoResourceInterface):
         campaign_id=[required(of_type(six.text_type))],
         url=[optional(of_type(six.text_type))],
         method=[optional(of_type(six.text_type))],
-        subaccount_id=[optional(of_type(six.text_type))]
     )
     def number_link(self,
                     campaign_id,
                     url='',
                     method='POST',
-                    subaccount_id='',
                     numbers=[]):
         return self.client.request('POST', ('10dlc', 'Campaign',  campaign_id, 'Number'),
                                    to_param_dict(self.number_link, locals()))
@@ -132,6 +118,9 @@ class Campaign(PlivoResourceInterface):
         number=[of_type(six.text_type)])
     def number_unlink(self,
                 campaign_id,
-                number):
+                number,
+                url='',
+                method='POST'
+                ):
         return self.client.request('DELETE', ('10dlc', 'Campaign',  campaign_id, 'Number', number),
                                    to_param_dict(self.create, locals()))

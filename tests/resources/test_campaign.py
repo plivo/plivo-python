@@ -21,14 +21,8 @@ class CampaignTest(PlivoResourceTestCase):
                 subscriber_help = True,
                 sample1 = "test 1",
                 sample2 = "test 2",
-                sample3 = "test 3",
-                sample4= "test 4",
-                sample5= "test 5",
                 url="http://example.com/test",
-                method="POST",
-                subaccount_id="109878667",
-                affiliate_marketing=False,
-                reseller_id="98766")
+                method="POST")
         self.assertEqual('POST', self.client.current_request.method)
         self.assertUrlEqual(
             'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/',
@@ -63,7 +57,6 @@ class CampaignTest(PlivoResourceTestCase):
         response = self.client.campaign.number_link(campaign_id='BRPXS6E',
                     url='http://example.com/test',
                     method='POST',
-                    subaccount_id='109878667',
                     numbers=number
                     )
         self.assertEqual('POST', self.client.current_request.method)
