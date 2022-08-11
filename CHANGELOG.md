@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.25.0](https://github.com/plivo/plivo-python/tree/v4.25.0) (2022-07-29)
+## [4.25.1](https://github.com/plivo/plivo-python/tree/v4.25.1) (2022-07-29)
 **Feature - Token Creation**
 - `JWT Token Creation API` added API to create a new JWT token.
 
