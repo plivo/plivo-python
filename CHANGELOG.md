@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.25.1](https://github.com/plivo/plivo-python/tree/v4.25.1) (2022-07-29)
+**Feature - Token Creation**
+- `JWT Token Creation API` added API to create a new JWT token.
+
 ## [4.24.1](https://github.com/plivo/plivo-python/tree/v4.24.1) (2022-05-16)
 **Bug Fix - Asynchronous Flow Added**
 - `callback_url` and `callback_method` added in API's [Asynchronous requests](https://www.plivo.com/docs/voice/api/request#asynchronous-request)
