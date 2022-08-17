@@ -17,10 +17,28 @@ class Profile(PlivoResourceInterface):
         return self.client.request(
             'GET', ('Profile', profile_uuid), response_type=None)
 
-    def list(self):
+    @validate_args(
+        limit=[
+            optional(
+                all_of(
+                    of_type(*six.integer_types),
+                    check(lambda limit: 0 < limit <= 20, '0 < limit <= 20')))
+        ],
+        offset=[
+            optional(
+                all_of(
+                    of_type(*six.integer_types),
+                    check(lambda offset: 0 <= offset, '0 <= offset')))
+        ])
+    def list(self, limit=None, offset=None):
+        params ={}
+        if limit:
+            params['limit']= limit
+        if offset:
+            params['offset'] = offset
+
         return self.client.request(
-            'GET', ('Profile', ),
-            to_param_dict(self.list, locals()),
+            'GET', ('Profile', ), params,
             response_type=None,
             objects_type=None)
 

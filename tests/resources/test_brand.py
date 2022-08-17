@@ -32,12 +32,12 @@ class BrandTest(PlivoResourceTestCase):
 
     @with_response(200)
     def test_list(self):
-        res = self.client.brand.list()
+        res = self.client.brand.list(limit=2, offset=0)
         # Test if ListResponseObject's __iter__ is working correctly
         self.assertGreater(len(list(res.brands)), 0)
         # Verifying the endpoint hit
         self.assertUrlEqual(
-            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Brand/',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Brand/?limit=2&offset=0',
             self.client.current_request.url)
         # Verifying the method used
         self.assertEqual('GET', self.client.current_request.method)
