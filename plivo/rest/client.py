@@ -15,6 +15,7 @@ from plivo.resources import (Accounts, Addresses, Applications, Calls,
                              Conferences, Endpoints, Identities,
                              Messages, Powerpacks, Media, Lookup, Brand,Campaign,
                              Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls)
+
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.queued_calls import QueuedCalls
 from plivo.resources.regulatory_compliance import EndUsers, ComplianceDocumentTypes, ComplianceDocuments, \
@@ -26,11 +27,11 @@ from requests import Request, Session
 AuthenticationCredentials = namedtuple('AuthenticationCredentials',
                                        'auth_id auth_token')
 
-PLIVO_API = 'https://api.plivo.com'
+PLIVO_API = 'https://api-qa.voice.plivodev.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
 
 # Will change these urls before putting this change in production
-API_VOICE = 'https://api.plivo.com'
+API_VOICE = 'https://api-qa.voice.plivodev.com'
 API_VOICE_BASE_URI = '/'.join([API_VOICE, 'v1/Account'])
 API_VOICE_FALLBACK_1 = 'https://api.plivo.com'
 API_VOICE_FALLBACK_2 = 'https://api.plivo.com'
