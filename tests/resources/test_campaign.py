@@ -19,8 +19,12 @@ class CampaignTest(PlivoResourceTestCase):
                 subscriber_optin = True,
                 subscriber_optout = True,
                 subscriber_help = True,
+                affiliate_marketing = False,
                 sample1 = "test 1",
                 sample2 = "test 2",
+                sample3 = "test 1",
+                sample4 = "test 2",
+                sample5 = "test 2",
                 url="http://example.com/test",
                 method="POST")
         self.assertEqual('POST', self.client.current_request.method)
