@@ -529,7 +529,7 @@ class Calls(PlivoResourceInterface):
     def delete_all_streams(self,
                    call_uuid):
         return self.client.request('DELETE', ('Call', call_uuid, 'Stream'),
-                                   to_param_dict(self.delete_all,
+                                   to_param_dict(self.delete_all_streams,
                                                  locals()), is_voice_request=True)
 
     @validate_args(
@@ -539,15 +539,11 @@ class Calls(PlivoResourceInterface):
     def get_details_of_specific_stream(self,
                                        call_uuid,
                                        stream_id):
-        return self.client.request('GET', ('Call', call_uuid, 'Stream', stream_id),
-                                   to_param_dict(self.get_details_of_specific_stream,
-                                                 locals()), is_voice_request=True)
+        return self.client.request('GET', ('Call', call_uuid, 'Stream', stream_id), is_voice_request=True)
 
     @validate_args(
         call_uuid=[of_type(six.text_type)]
     )
     def get_all_streams(self,
                         call_uuid):
-        return self.client.request('GET', ('Call', call_uuid, 'Stream'),
-                                   to_param_dict(self.get_details_of_specific_stream,
-                                                 locals()), is_voice_request=True)
+        return self.client.request('GET', ('Call', call_uuid, 'Stream'), is_voice_request=True)
