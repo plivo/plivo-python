@@ -2,6 +2,7 @@
 from .accounts import Accounts, Subaccounts
 from .applications import Applications
 from .calls import Calls
+from .token import Token
 from .conferences import Conferences
 from .endpoints import Endpoints
 from .messages import Messages
