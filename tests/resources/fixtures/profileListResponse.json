@@ -1,0 +1,311 @@
+{
+    "api_id": "24725a58-0725-11ed-ab02-0242ac110004",
+    "meta": {
+        "limit": 10,
+        "next": "/v1/Account/MAODZKMDFJMJU3MTEYNG/Profile/?limit=10&offset=10",
+        "offset": 0
+    },
+    "profiles": [
+        {
+            "address": {
+                "city": "New York",
+                "country": "US",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "alt_business_id": "ABC",
+            "alt_business_id_type": "DUNS",
+            "authorized_contact": {
+                "email": "vishnu@plivo.com",
+                "first_name": "vishnu",
+                "last_name": "Doe",
+                "phone": "919742763781",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "company_name": "ABC Inc.12345",
+            "customer_type": "RESELLER",
+            "ein": "122321231",
+            "ein_issuing_country": "US",
+            "entity_type": "PUBLIC",
+            "primary_profile": "0b8a783c-9906-4c84-8ace-cb88413a1da6",
+            "profile_alias": "vishnu4032",
+            "profile_type": "SECONDARY",
+            "profile_uuid": "e38000f9-4c05-4303-8dd1-b32a2d18fefb",
+            "stock_exchange": "NYSE",
+            "stock_symbol": "TESLA",
+            "vertical": "ENTERTAINMENT",
+            "website": "hibye.com"
+        },
+        {
+            "address": {
+                "city": "New York",
+                "country": "US",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "alt_business_id": "ABC",
+            "alt_business_id_type": "DUNS",
+            "authorized_contact": {
+                "email": "vishnu@plivo.com",
+                "first_name": "vishnu",
+                "last_name": "Doe",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "company_name": "ABC Inc.12345",
+            "customer_type": "RESELLER",
+            "ein": "122321231",
+            "ein_issuing_country": "US",
+            "entity_type": "PUBLIC",
+            "primary_profile": "0b8a783c-9906-4c84-8ace-cb88413a1da6",
+            "profile_alias": "vishnu4034",
+            "profile_type": "SECONDARY",
+            "profile_uuid": "a18c75b8-bca3-4691-8745-73e46fc25b3e",
+            "stock_exchange": "NYSE",
+            "stock_symbol": "TESLA",
+            "vertical": "ENTERTAINMENT",
+            "website": "hibye.com"
+        },
+        {
+            "address": {
+                "city": "Knoxville",
+                "country": "US",
+                "postal_code": "37909",
+                "state": "TN",
+                "street": "1388 Papermill Pointe Way Knoxville"
+            },
+            "authorized_contact": {
+                "email": "scott.polk@adtel.net",
+                "first_name": "Barker Sleep Institute"
+            },
+            "customer_type": "DIRECT",
+            "ein": "202766670",
+            "ein_issuing_country": "US",
+            "entity_type": "PRIVATE",
+            "primary_profile": "31e919a2-c442-4d12-8d99-fe60b6e5de1e",
+            "profile_alias": "Barker Sleep Institute",
+            "profile_type": "SECONDARY",
+            "profile_uuid": "21ac739e-57fa-4945-a465-0ace7d43d9f1",
+            "vertical": "HEALTHCARE",
+            "website": "http://www.barkersleep.com/"
+        },
+        {
+            "address": {
+                "city": "New York",
+                "country": "US",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "alt_business_id_type": "NONE",
+            "authorized_contact": {
+                "email": "test@plivo.com",
+                "first_name": "JAY",
+                "last_name": "Doe",
+                "phone": "919074079045",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "company_name": "google.com",
+            "customer_type": "DIRECT",
+            "ein": "364710676",
+            "ein_issuing_country": "US",
+            "entity_type": "GOVERNMENT",
+            "primary_profile": "0b8a783c-9906-4c84-8ace-cb88413a1da6",
+            "profile_alias": "test_stan_34379",
+            "profile_type": "SECONDARY",
+            "profile_uuid": "56711bac-af40-450a-b713-60cbd23ac28b",
+            "stock_exchange": "NSE",
+            "stock_symbol": "ABC",
+            "vertical": "PROFESSIONAL"
+        },
+        {
+            "address": {
+                "city": "New York",
+                "country": "US",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "alt_business_id_type": "NONE",
+            "authorized_contact": {
+                "email": "test@plivo.com",
+                "first_name": "JAY",
+                "last_name": "Doe",
+                "phone": "919074079045",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "company_name": "google.com",
+            "customer_type": "DIRECT",
+            "ein": "364710676",
+            "ein_issuing_country": "US",
+            "entity_type": "GOVERNMENT",
+            "primary_profile": "0b8a783c-9906-4c84-8ace-cb88413a1da6",
+            "profile_alias": "standard",
+            "profile_type": "SECONDARY",
+            "profile_uuid": "287bc61b-10c2-452a-9137-4c1772292d6a",
+            "stock_exchange": "NSE",
+            "stock_symbol": "ABC",
+            "vertical": "PROFESSIONAL"
+        },
+        {
+            "address": {
+                "city": "NY",
+                "country": "IN",
+                "postal_code": "78711",
+                "state": "NY",
+                "street": "NY, 5TH street, texas"
+            },
+            "alt_business_id_type": "NONE",
+            "authorized_contact": {
+                "email": "ben@facebook.com",
+                "first_name": "Ben",
+                "last_name": "Ten",
+                "phone": "+919844577901",
+                "seniority": "CFO",
+                "title": "Ms"
+            },
+            "company_name": "Facebook inc",
+            "customer_type": "DIRECT",
+            "ein": "H9009808",
+            "entity_type": "PUBLIC",
+            "primary_profile": "0b8a783c-9906-4c84-8ace-cb88413a1da6",
+            "profile_alias": "Facebook inc",
+            "profile_type": "SECONDARY",
+            "profile_uuid": "4cd54cc6-a96d-4119-ba0f-b4aaa814521d",
+            "stock_exchange": "NYSE",
+            "stock_symbol": "NSE",
+            "vertical": "TECHNOLOGY",
+            "website": "www.facebook.com"
+        },
+        {
+            "address": {
+                "city": "New York",
+                "country": "US",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "alt_business_id_type": "NONE",
+            "authorized_contact": {
+                "email": "Lorraine@theSimplifiedGroup.coms",
+                "first_name": "JAY",
+                "last_name": "Doe",
+                "phone": "919074079045",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "company_name": "google.com",
+            "customer_type": "DIRECT",
+            "ein": "364710676",
+            "ein_issuing_country": "US",
+            "entity_type": "PRIVATE",
+            "primary_profile": "0b8a783c-9906-4c84-8ace-cb88413a1da6",
+            "profile_alias": "standard",
+            "profile_type": "SECONDARY",
+            "profile_uuid": "55cce8f9-2a0c-4b29-9ed5-a5f4c684e883",
+            "stock_exchange": "NSE",
+            "stock_symbol": "ABC",
+            "vertical": "PROFESSIONAL"
+        },
+        {
+            "address": {
+                "city": "New York",
+                "country": "IN",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "alt_business_id_type": "NONE",
+            "authorized_contact": {
+                "email": "test@plivo.com",
+                "first_name": "John",
+                "last_name": "Doe",
+                "phone": "919539113734",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "company_name": "ABC Inc.",
+            "customer_type": "DIRECT",
+            "ein": "123456789",
+            "ein_issuing_country": "US",
+            "entity_type": "PRIVATE",
+            "primary_profile": "0b8a783c-9906-4c84-8ace-cb88413a1da6",
+            "profile_alias": "used_in_automation_01",
+            "profile_type": "SECONDARY",
+            "profile_uuid": "6e55356f-546b-4098-8697-5e4c46e15546",
+            "stock_exchange": "NSE",
+            "stock_symbol": "ABC",
+            "vertical": "ENERGY",
+            "website": "www.google.com"
+        },
+        {
+            "address": {
+                "city": "New York",
+                "country": "IN",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "alt_business_id": "NONE",
+            "alt_business_id_type": "NONE",
+            "authorized_contact": {
+                "email": "test@plivo.com",
+                "first_name": "John",
+                "last_name": "Doe",
+                "phone": "919539113734",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "company_name": "ABC Inc.",
+            "customer_type": "DIRECT",
+            "ein": "123456789",
+            "ein_issuing_country": "US",
+            "entity_type": "PRIVATE",
+            "primary_profile": "0b8a783c-9906-4c84-8ace-cb88413a1da6",
+            "profile_alias": "ren_001",
+            "profile_type": "SECONDARY",
+            "profile_uuid": "cd12838e-20db-4950-bc66-52413d089dea",
+            "stock_exchange": "NSE",
+            "stock_symbol": "ABC",
+            "vertical": "ENERGY",
+            "website": "www.google.com"
+        },
+        {
+            "address": {
+                "city": "New York",
+                "country": "IN",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "alt_business_id": "NONE",
+            "alt_business_id_type": "NONE",
+            "authorized_contact": {
+                "email": "test@plivo.com",
+                "first_name": "John",
+                "last_name": "Doe",
+                "phone": "919539113734",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "company_name": "ABC Inc.",
+            "customer_type": "DIRECT",
+            "ein": "fadasdfa",
+            "ein_issuing_country": "in",
+            "entity_type": "PRIVATE",
+            "primary_profile": "0b8a783c-9906-4c84-8ace-cb88413a1da6",
+            "profile_alias": "testing_004",
+            "profile_type": "SECONDARY",
+            "profile_uuid": "c4d95735-b6bb-4c5a-99f4-a269617184b1",
+            "stock_exchange": "NSE",
+            "stock_symbol": "ABC",
+            "vertical": "ENERGY",
+            "website": "www.google.com"
+        }
+    ]
+}

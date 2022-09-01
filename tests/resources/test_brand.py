@@ -5,26 +5,13 @@ from tests.decorators import with_response
 class BrandTest(PlivoResourceTestCase):
     @with_response(200)
     def test_create(self):
-        response = self.client.brand.create( alt_business_id_type = "GIIN",
-                alt_business_id = "111",
-                city = "New York",
-                company_name = "ABC Inc.",
-                country = "US",
-                ein = "111111111",
-                ein_issuing_country = "US",
-                email = "johndoe@abc.com",
-                entity_type = "PRIVATE_PROFIT",
-                first_name = "John",
-                last_name = "Doe",
-                phone = "+11234567890",
-                postal_code = "10001",
-                registration_status = "PENDING",
-                state = "NY",
-                stock_exchange = "NASDAQ",
-                stock_symbol = "ABC",
-                street = "123",
-                vertical = "RETAIL",
-                website = "http://www.abcmobile.com")
+        response = self.client.brand.create( 
+                brand_alias = "brand name sample",
+                brand_type="STARTER",
+                profile_uuid="201faedc-7df9-4840-9ab1-3997ce3f7cf4",
+                secondary_vetting=False,
+                url="http://example.come/test",
+                method="POST")
         self.assertEqual('POST', self.client.current_request.method)
         self.assertUrlEqual(
             'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Brand/',
@@ -45,12 +32,12 @@ class BrandTest(PlivoResourceTestCase):
 
     @with_response(200)
     def test_list(self):
-        res = self.client.brand.list()
+        res = self.client.brand.list(limit=2, offset=0)
         # Test if ListResponseObject's __iter__ is working correctly
         self.assertGreater(len(list(res.brands)), 0)
         # Verifying the endpoint hit
         self.assertUrlEqual(
-            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Brand/',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Brand/?limit=2&offset=0',
             self.client.current_request.url)
         # Verifying the method used
         self.assertEqual('GET', self.client.current_request.method)

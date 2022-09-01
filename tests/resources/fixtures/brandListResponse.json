@@ -1,49 +1,237 @@
 {
-    "api_id": "b9df43c0-374c-11ec-97b3-0242ac110002",
+    "api_id": "6f79d1b2-0724-11ed-ab02-0242ac110004",
     "brands": [
         {
-            "brand_id": "ABCDEFG",
-            "company_name": "ABC Inc.",
-            "ein": "111111111",
+            "address": {
+                "city": "",
+                "country": "",
+                "postal_code": "",
+                "state": "",
+                "street": ""
+            },
+            "authorized_contact": {},
+            "brand_alias": "John Doe",
+            "brand_id": "BPL3KN9",
+            "brand_type": "STARTER",
             "ein_issuing_country": "US",
-            "email": "johndoe@abc.com",
-            "entity_type": "PRIVATE_PROFIT",
-            "registration_status": "COMPLETED",
-            "vertical": "RETAIL",
-            "website": "http://www.abcmobile.com"
+            "registration_status": "COMPLETED"
         },
         {
-            "brand_id": "QWERTYU",
-            "company_name": "ABC Inc.",
-            "ein": "111111111",
+            "address": {
+                "city": "New York",
+                "country": "IN",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "authorized_contact": {
+                "email": "renold.thomas@plivo.com",
+                "first_name": "John",
+                "last_name": "Doe",
+                "phone": "919074079045",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "brand_alias": "sole_prop_007",
+            "brand_id": "BNOOLMO",
+            "brand_type": "STARTER",
+            "ein_issuing_country": "IN",
+            "entity_type": "INDIVIDUAL",
+            "profile_uuid": "55515d72-2852-4016-9ed9-c64bd1c0c055",
+            "registration_status": "COMPLETED",
+            "vertical": "ENERGY"
+        },
+        {
+            "address": {
+                "city": "New York",
+                "country": "IN",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "authorized_contact": {
+                "email": "vishnu@plivo.com",
+                "first_name": "vishnu",
+                "last_name": "Doe",
+                "phone": "919742763781",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "brand_alias": "vishnu12",
+            "brand_id": "BWDWMAC",
+            "brand_type": "STARTER",
+            "ein_issuing_country": "IN",
+            "entity_type": "INDIVIDUAL",
+            "profile_uuid": "71a18795-77fa-4623-9735-44bbd08d86c4",
+            "registration_status": "COMPLETED",
+            "vertical": "ENTERTAINMENT"
+        },
+        {
+            "address": {
+                "city": "",
+                "country": "",
+                "postal_code": "",
+                "state": "",
+                "street": ""
+            },
+            "authorized_contact": {},
+            "brand_alias": "vishnu128",
+            "brand_id": "BP6VSIN",
+            "brand_type": "STARTER",
+            "ein_issuing_country": "IN",
+            "profile_uuid": "d3d85b2d-a4c2-4f7b-a66f-83002a5fd5e8",
+            "registration_status": "COMPLETED",
+            "vertical": "ENTERTAINMENT"
+        },
+        {
+            "address": {
+                "city": "",
+                "country": "",
+                "postal_code": "",
+                "state": "",
+                "street": ""
+            },
+            "authorized_contact": {},
+            "brand_alias": "vishnu125",
+            "brand_id": "BLTKJ18",
+            "brand_type": "STANDARD",
+            "company_name": "ABC Inc.123",
+            "ein": "123121231",
             "ein_issuing_country": "US",
-            "email": "johndoe@abc.com",
-            "entity_type": "PRIVATE_PROFIT",
+            "profile_uuid": "709a4b1c-bbde-40e6-be36-164b1dc8f718",
             "registration_status": "COMPLETED",
-            "vertical": "RETAIL",
-            "website": "http://www.abcmobile.com"
+            "vertical": "ENTERTAINMENT"
         },
         {
-            "brand_id": "IOPLKJH",
-            "company_name": "test_public",
-            "ein": "11122233",
-            "ein_issuing_country": "IN",
-            "email": "test@gmail.com",
-            "entity_type": "PUBLIC_PROFIT",
+            "address": {
+                "city": "New York",
+                "country": "US",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "authorized_contact": {
+                "email": "vishnu@plivo.com",
+                "first_name": "vishnu",
+                "last_name": "Doe",
+                "phone": "919742763781",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "brand_alias": "vishnu128",
+            "brand_id": "BCKWPKX",
+            "brand_type": "STANDARD",
+            "company_name": "ABC Inc.12345",
+            "ein": "122321231",
+            "ein_issuing_country": "US",
+            "entity_type": "PRIVATE",
+            "profile_uuid": "a28b5892-4d8b-4098-9fe7-6f786fb0be1f",
             "registration_status": "COMPLETED",
-            "vertical": "AGRICULTURE",
-            "website": "www.testpublic.com"
+            "vertical": "ENTERTAINMENT"
         },
         {
-            "brand_id": "ASDFGH",
-            "company_name": "test inc.",
-            "ein": "4453336545",
-            "ein_issuing_country": "IN",
-            "email": "tests@gmail.com",
-            "entity_type": "PUBLIC_PROFIT",
+            "address": {
+                "city": "New York",
+                "country": "US",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "authorized_contact": {
+                "email": "test@plivo.com",
+                "first_name": "JAY",
+                "last_name": "Doe",
+                "phone": "919074079045",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "brand_alias": "govt",
+            "brand_id": "B2IYFNC",
+            "brand_type": "STARTER",
+            "ein_issuing_country": "US",
+            "entity_type": "GOVERNMENT",
+            "profile_uuid": "ca01734d-a86a-4ed4-aa5a-8723cbb595b3",
             "registration_status": "COMPLETED",
-            "vertical": "AGRICULTURE",
-            "website": "https://www.plivo.com/"
+            "vertical": "ENERGY"
+        },
+        {
+            "address": {
+                "city": "New York",
+                "country": "US",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "authorized_contact": {
+                "email": "vishnu@plivo.com",
+                "first_name": "vishnu",
+                "last_name": "Doe",
+                "phone": "919742763781",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "brand_alias": "vishnu128",
+            "brand_id": "BTBISBX",
+            "brand_type": "STARTER",
+            "ein_issuing_country": "US",
+            "entity_type": "PUBLIC",
+            "profile_uuid": "c1a1c66a-2bc4-4150-a3f3-033ec41efc5d",
+            "registration_status": "COMPLETED",
+            "vertical": "ENTERTAINMENT",
+            "website": "hibye.com"
+        },
+        {
+            "address": {
+                "city": "New York",
+                "country": "US",
+                "postal_code": "10001",
+                "state": "NY",
+                "street": "123"
+            },
+            "authorized_contact": {
+                "email": "test@plivo.com",
+                "first_name": "JAY",
+                "last_name": "Doe",
+                "phone": "919074079045",
+                "seniority": "admin",
+                "title": "Doe"
+            },
+            "brand_alias": "sole234t",
+            "brand_id": "BIKPRB1",
+            "brand_type": "STANDARD",
+            "company_name": "google.com",
+            "ein": "364710676",
+            "ein_issuing_country": "US",
+            "entity_type": "GOVERNMENT",
+            "profile_uuid": "16384c5d-0173-474c-9a0c-54143b2fc531",
+            "registration_status": "COMPLETED",
+            "vertical": "PROFESSIONAL",
+            "vetting_score": 80,
+            "vetting_status": "ACTIVE"
+        },
+        {
+            "address": {
+                "city": "",
+                "country": "",
+                "postal_code": "",
+                "state": "",
+                "street": ""
+            },
+            "authorized_contact": {},
+            "brand_alias": "Seven 1 Nine Media, LLC",
+            "brand_id": "BK98MJL",
+            "brand_type": "STANDARD",
+            "company_name": "Seven 1 Nine Media, LLC",
+            "ein": "partner",
+            "ein_issuing_country": "nil",
+            "profile_uuid": "f9ee4193-a8b7-49e6-aed1-2a286c7f5c4b",
+            "registration_status": "COMPLETED",
+            "vertical": "nil"
         }
-    ]
+    ],
+    "meta": {
+        "limit": 10,
+        "next": "/v1/Account/MAODZKMDFJMJU3MTEYNG/10dlc/Brand/?limit=10&offset=10",
+        "offset": 0
+    }
 }
