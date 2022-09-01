@@ -86,6 +86,7 @@ class Campaign(PlivoResourceInterface):
         return self.client.request('POST', ('10dlc', 'Campaign'),
                                    to_param_dict(self.create, locals()))
 
+
     @validate_args(
         campaign_id=[required(of_type(six.text_type))],
         url=[optional(of_type(six.text_type))],
