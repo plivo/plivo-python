@@ -103,6 +103,46 @@ class Call(PlivoResource):
     def hangup(self):
         return self.client.calls.delete(self.id)
 
+    def start_stream(self,
+                     service_url,
+                     bidirectional=None,
+                     audio_track=None,
+                     stream_timeout=None,
+                     status_callback_url=None,
+                     status_callback_method=None,
+                     content_type=None,
+                     extra_headers=None):
+        return self.client.calls.start_stream(self.id,
+                                              **to_param_dict(
+                                                  self.start_stream(),
+                                                  locals()))
+
+    def delete_specific_stream(self,
+                               stream_id):
+        return self.client.calls.delete_specific_stream(self.id,
+                                                        **to_param_dict(
+                                                            self.delete_specific_stream(),
+                                                            locals()))
+
+    def delete_all_streams(self):
+        return self.client.calls.delete_all_streams(self.id,
+                                                    **to_param_dict(
+                                                        self.delete_all_streams(),
+                                                        locals()))
+
+    def get_details_of_specific_stream(self,
+                                       stream_id):
+        return self.client.calls.get_details_of_specific_stream(self.id,
+                                                                **to_param_dict(
+                                                                    self.get_details_of_specific_stream(),
+                                                                    locals()))
+
+    def get_all_streams(self):
+        return self.client.calls.get_all_streams(self.id,
+                                                 **to_param_dict(
+                                                     self.get_details_of_specific_stream(),
+                                                     locals()))
+
 
 class Calls(PlivoResourceInterface):
     _resource_type = Call
@@ -448,3 +488,57 @@ class Calls(PlivoResourceInterface):
 
     def queued_call_get(self, _id):
         return self.client.queued_calls.get(_id)
+
+    @validate_args(
+        call_uuid=[of_type(six.text_type)],
+        service_url=[of_type(six.text_type)]
+    )
+    def start_stream(self,
+                     call_uuid,
+                     service_url,
+                     bidirectional=None,
+                     audio_track=None,
+                     stream_timeout=None,
+                     status_callback_url=None,
+                     status_callback_method=None,
+                     content_type=None,
+                     extra_headers=None):
+        return self.client.request('POST', ('Call', call_uuid, 'Stream'),
+                                   to_param_dict(self.start_stream,
+                                                 locals()), is_voice_request=True)
+
+    @validate_args(
+        call_uuid=[of_type(six.text_type)],
+        stream_id=[of_type(six.text_type)]
+    )
+    def delete_specific_stream(self,
+                               call_uuid,
+                               stream_id):
+        return self.client.request('DELETE', ('Call', call_uuid, 'Stream', stream_id),
+                                   to_param_dict(self.delete_specific_stream,
+                                                 locals()), is_voice_request=True)
+
+    @validate_args(
+        call_uuid=[of_type(six.text_type)]
+    )
+    def delete_all_streams(self,
+                           call_uuid):
+        return self.client.request('DELETE', ('Call', call_uuid, 'Stream'),
+                                   to_param_dict(self.delete_all_streams,
+                                                 locals()), is_voice_request=True)
+
+    @validate_args(
+        call_uuid=[of_type(six.text_type)],
+        stream_id=[of_type(six.text_type)]
+    )
+    def get_details_of_specific_stream(self,
+                                       call_uuid,
+                                       stream_id):
+        return self.client.request('GET', ('Call', call_uuid, 'Stream', stream_id), is_voice_request=True)
+
+    @validate_args(
+        call_uuid=[of_type(six.text_type)]
+    )
+    def get_all_streams(self,
+                        call_uuid):
+        return self.client.request('GET', ('Call', call_uuid, 'Stream'), is_voice_request=True)
