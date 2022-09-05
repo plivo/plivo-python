@@ -2,8 +2,8 @@ from plivo.xml import (ConferenceElement, DialElement, DTMFElement,
                        GetDigitsElement, GetInputElement, HangupElement,
                        MessageElement, PlayElement, PlivoXMLElement,
                        PreAnswerElement, RecordElement, RedirectElement,
-                       SpeakElement, WaitElement, MultiPartyCallElement
-                       )
+                       SpeakElement, WaitElement, MultiPartyCallElement,
+                       StreamElement)
 
 
 class ResponseElement(PlivoXMLElement):
@@ -23,6 +23,7 @@ class ResponseElement(PlivoXMLElement):
         'Speak',
         'Wait',
         'MultiPartyCall',
+        'Stream'
     ]
 
     def add_conference(

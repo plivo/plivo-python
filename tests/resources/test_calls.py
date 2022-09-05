@@ -118,3 +118,28 @@ class LiveCallTest(PlivoResourceTestCase):
         self.assertUrlEqual(
             self.get_voice_url('Call', uuid, 'Speak'),
             self.client.current_request.url)
+
+    @with_response(201)
+    def test_stream_create(self):
+        service_url = 'http://test.url'
+        self.client.calls.start_stream(uuid, service_url)
+        self.assertEqual(self.client.current_request.method, 'POST')
+        self.assertUrlEqual(
+            self.get_voice_url('Call', uuid, 'Stream'),
+            self.client.current_request.url)
+
+    @with_response(200)
+    def test_stream_get_all(self):
+        self.client.calls.get_all_streams(uuid)
+        self.assertEqual(self.client.current_request.method, 'GET')
+        self.assertUrlEqual(
+            self.get_voice_url('Call', uuid, 'Stream'),
+            self.client.current_request.url)
+
+    @with_response(204)
+    def test_stream_delete_all(self):
+        self.client.calls.delete_all_streams(uuid)
+        self.assertEqual(self.client.current_request.method, 'DELETE')
+        self.assertUrlEqual(
+            self.get_voice_url('Call', uuid, 'Stream'),
+            self.client.current_request.url)
