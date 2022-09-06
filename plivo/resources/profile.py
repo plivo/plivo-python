@@ -18,12 +18,7 @@ class Profile(PlivoResourceInterface):
             'GET', ('Profile', profile_uuid), response_type=None)
 
     @validate_args(
-        limit=[
-            optional(
-                all_of(
-                    of_type(*six.integer_types),
-                    check(lambda limit: 0 < limit <= 20, '0 < limit <= 20')))
-        ],
+        limit=[optional(of_type(*six.integer_types))],
         offset=[
             optional(
                 all_of(
