@@ -54,11 +54,15 @@ class CampaignTest(PlivoResourceTestCase):
                 sample3 = "test 1",
                 sample4 = "test 2",
                 sample5 = "test 2",
-                url="http://example.com/test",
-                method="POST",
-                message_flow="message flow is mandatory field with 40 minimum character length,message flow is mandatory field with 40 minimum character length",
-                help_message="help messgae is mandatory param and minimum 20 character",
-                optout_message="optout message should be mandatory and 20 minimum character")
+                url = "http://example.com/test",
+                method = "POST",
+                message_flow = "message flow is mandatory field with 40 minimum character length,message flow is mandatory field with 40 minimum character length",
+                help_message = "help messgae is mandatory param and minimum 20 character",
+                optin_keywords= '',
+                optin_message ='',
+                optout_keywords = '',
+                optout_message = "optout message should be mandatory and 20 minimum character",
+                help_keywords='')
         self.assertEqual('POST', self.client.current_request.method)
         self.assertUrlEqual(
             'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/',
