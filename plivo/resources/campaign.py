@@ -79,6 +79,13 @@ class Campaign(PlivoResourceInterface):
                sample4='',
                sample5='',
                url='',
+               message_flow='',
+               help_message='',
+               optin_keywords='',
+               optin_message='',
+               optout_keywords='',
+               optout_message='',
+               help_keywords='',
                method='POST',
                embedded_link=False,
                embedded_phone=False,
@@ -89,14 +96,7 @@ class Campaign(PlivoResourceInterface):
                subscriber_help=False,
                affiliate_marketing=False,
                campaign_alias=None,
-               sub_usecases=[],
-               message_flow='',
-               help_message='',
-               optin_keywords='',
-               optin_message='',
-               optout_keywords='',
-               optout_message='',
-               help_keywords=''):
+               sub_usecases=[]):
         return self.client.request('POST', ('10dlc', 'Campaign'),
                                    to_param_dict(self.create, locals()))
 
