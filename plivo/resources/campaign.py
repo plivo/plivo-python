@@ -59,13 +59,13 @@ class Campaign(PlivoResourceInterface):
         sample3=[optional(of_type(six.text_type))],
         sample4=[optional(of_type(six.text_type))],
         sample5=[optional(of_type(six.text_type))],
-        message_flow=[optional(of_type(six.text_type))]
-        help_message=[optional(of_type(six.text_type))]
-        optin_keywords=[optional(of_type(six.text_type))]
-        optin_message=[optional(of_type(six.text_type))]
-        optout_keywords=[optional(of_type(six.text_type))]
-        optout_message=[optional(of_type(six.text_type))]
-        help_keywords=[optional(of_type(six.text_type))]
+        message_flow=[optional(of_type(six.text_type))],
+        help_message=[optional(of_type(six.text_type))],
+        optin_keywords=[optional(of_type(six.text_type))],
+        optin_message=[optional(of_type(six.text_type))],
+        optout_keywords=[optional(of_type(six.text_type))],
+        optout_message=[optional(of_type(six.text_type))],
+        help_keywords=[optional(of_type(six.text_type))],
         url=[optional(of_type(six.text_type))],
         method=[optional(of_type(six.text_type))])
     def create(self,
