@@ -33,6 +33,38 @@ class CampaignTest(PlivoResourceTestCase):
             self.client.current_request.url)
 
     @with_response(200)
+    def test_create_mandatory_param(self):
+        sub_usecase = ["CUSTOMER_CARE","2FA"]
+        response = self.client.campaign.create(brand_id = "B8OD95Z",
+                campaign_alias = "campaign name sssample",
+                vertical = "INSURANCE",
+                usecase = "MIXED",
+                sub_usecases = sub_usecase,
+                description = " description should be minimum 40 character description should be minimum 40 character",
+                embedded_link = False,
+                embedded_phone = False,
+                age_gated = False,
+                direct_lending = False,
+                subscriber_optin = True,
+                subscriber_optout = True,
+                subscriber_help = True,
+                affiliate_marketing = False,
+                sample1 = "sample message should be minimum 20 character",
+                sample2 = "sample message should be minimum 20 character",
+                sample3 = "test 1",
+                sample4 = "test 2",
+                sample5 = "test 2",
+                url="http://example.com/test",
+                method="POST",
+                message_flow="message flow is mandatory field with 40 minimum character length,message flow is mandatory field with 40 minimum character length",
+                help_message="help messgae is mandatory param and minimum 20 character",
+                optout_message="optout message should be mandatory and 20 minimum character")
+        self.assertEqual('POST', self.client.current_request.method)
+        self.assertUrlEqual(
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/',
+            self.client.current_request.url)
+
+    @with_response(200)
     def test_get(self):
         response = self.client.campaign.get(campaign_id='BRPXS6E')
         # Verifying the endpoint hit
