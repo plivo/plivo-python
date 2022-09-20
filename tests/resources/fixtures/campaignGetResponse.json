@@ -1,18 +1,25 @@
 {
-    "api_id": "12ae5a32-3751-11ec-8e4c-0242ac110002",
+    "api_id": "f687a17e-0725-11ed-ab02-0242ac110004",
     "campaign": {
-        "brand_id": "BHYYNCK",
-        "campaign_id": "CMPT4EP",
+        "brand_id": "BOZ5T2X",
+        "campaign_id": "CY5NVUA",
         "mno_metadata": {
             "AT&T": {
-                "tpm": 4500
+                "tpm": 15
             },
             "T-Mobile": {
-                "brand_tier": "TOP"
+                "brand_tier": "SOLE_PROPRIETOR"
             },
-            "Verizon Wireless": {}
+            "US Cellular": {
+                "tpm": 15
+            },
+            "Verizon Wireless": {
+                "tpm": 15
+            }
         },
-        "reseller_id": "RPDPPUM",
-        "usecase": "ACCOUNT_NOTIFICATION"
+        "registration_status": "ACTIVE",
+        "reseller_id": "",
+        "sub_usecase": "2FA,MARKETING",
+        "usecase": "STARTER"
     }
 }

@@ -1,14 +1,27 @@
 {
-    "api_id": "71aa47e0-3750-11ec-8e4c-0242ac110002",
+    "api_id": "e1474046-0723-11ed-ab02-0242ac110004",
     "brand": {
-        "brand_id": "BRPXS6E",
-        "company_name": "ABC Inc.",
-        "ein": "111111111",
-        "ein_issuing_country": "US",
-        "email": "johndoe@abc.com",
-        "entity_type": "PRIVATE_PROFIT",
+        "address": {
+            "city": "New York",
+            "country": "IN",
+            "postal_code": "10001",
+            "state": "NY",
+            "street": "123"
+        },
+        "authorized_contact": {
+            "email": "test@plivo.com",
+            "first_name": "John",
+            "last_name": "Doe",
+            "phone": "919074079045",
+            "seniority": "admin",
+            "title": "Doe"
+        },
+        "brand_id": "BOZ5T2X",
+        "brand_type": "STARTER",
+        "ein_issuing_country": "IN",
+        "entity_type": "INDIVIDUAL",
+        "profile_uuid": "6e9a16c7-27ae-44b4-8b1f-e6b9b007426b",
         "registration_status": "COMPLETED",
-        "vertical": "RETAIL",
-        "website": "http://www.abcmobile.com"
+        "vertical": "ENERGY"
     }
 }

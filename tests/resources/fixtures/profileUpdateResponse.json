@@ -1,0 +1,32 @@
+{
+    "api_id": "fd1fdade-17cd-11ed-b25b-0242ac110004",
+    "profile": {
+        "address": {
+            "city": "New York",
+            "country": "IN",
+            "postal_code": "10001",
+            "state": "NY",
+            "street": "123"
+        },
+        "alt_business_id_type": "NONE",
+        "authorized_contact": {
+            "email": "test@plivo.com",
+            "first_name": "John",
+            "last_name": "Doe",
+            "phone": "919539113734",
+            "seniority": "admin",
+            "title": "Doe"
+        },
+        "company_name": "ABC Inc.",
+        "customer_type": "DIRECT",
+        "ein": "123456789",
+        "ein_issuing_country": "US",
+        "entity_type": "PRIVATE",
+        "primary_profile": "0b8a783c-9906-4c84-8ace-cb88413a1da6",
+        "profile_alias": "used_in_automation_01",
+        "profile_type": "SECONDARY",
+        "profile_uuid": "09322f43-fe16-4525-b8e4-4229c867795d",
+        "vertical": "ENERGY",
+        "website": "www.google.com"
+    }
+}

@@ -13,9 +13,10 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               ResourceNotFoundError, ValidationError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls,Token,
                              Conferences, Endpoints, Identities,
-                             Messages, Powerpacks, Media, Lookup, Brand,Campaign,
+                             Messages, Powerpacks, Media, Lookup, Brand, Campaign, Profile,
                              Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls)
 from plivo.resources.live_calls import LiveCalls
+from plivo.resources.profile import Profile
 from plivo.resources.queued_calls import QueuedCalls
 from plivo.resources.regulatory_compliance import EndUsers, ComplianceDocumentTypes, ComplianceDocuments, \
     ComplianceRequirements, ComplianceApplications
@@ -101,6 +102,7 @@ class Client(object):
         self.powerpacks = Powerpacks(self)
         self.brand = Brand(self)
         self.campaign = Campaign(self)
+        self.profile = Profile(self)
         self.media = Media(self)
         self.pricing = Pricings(self)
         self.recordings = Recordings(self)
