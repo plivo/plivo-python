@@ -82,6 +82,7 @@ class Numbers(PlivoResourceInterface):
              services=None,
              tendlc_registration_status=None,
              tendlc_campaign_id=None,
+             toll_free_sms_verification=None,
              limit=20,
              offset=0):
         return self.client.request(
