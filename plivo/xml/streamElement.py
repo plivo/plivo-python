@@ -78,7 +78,7 @@ class StreamElement(PlivoXMLElement):
         self.statusCallbackUrl = statusCallbackUrl
         self.statusCallbackMethod = statusCallbackMethod
         self.contentType = contentType
-        self.extraHeaders = extraHeaders
+        self.extraHeaders = self.process_extra_headers(extraHeaders)
 
 
     def to_dict(self):
@@ -95,3 +95,14 @@ class StreamElement(PlivoXMLElement):
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
         }
+
+    def process_extra_headers(self, extraHeaders):
+        res = {}
+        for key in extraHeaders:
+            if not key.endswith('X-PH'):
+                new_key = key + 'X-PH'
+                res[new_key] = extraHeaders[key]
+            else:
+                res[key] = extraHeaders[key]
+
+        return res
