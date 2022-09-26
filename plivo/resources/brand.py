@@ -20,12 +20,7 @@ class Brand(PlivoResourceInterface):
     @validate_args(
         type=[optional(of_type(six.text_type))],
         status=[optional(of_type(six.text_type))],
-        limit=[
-            optional(
-                all_of(
-                    of_type(*six.integer_types),
-                    check(lambda limit: 0 < limit <= 20, '0 < limit <= 20')))
-        ],
+        limit=[optional(of_type(*six.integer_types))],
         offset=[
             optional(
                 all_of(
