@@ -1,5 +1,5 @@
 # Change Log
-## [4.26.1](https://github.com/plivo/plivo-python/tree/v4.26.1) (2022-09-12)
+## [4.26.1](https://github.com/plivo/plivo-python/tree/v4.26.1) (2022-09-28)
 **10DLC: Adding more attributes to campaign creation request**
 - Adding more attributes to campaign creation request
 
