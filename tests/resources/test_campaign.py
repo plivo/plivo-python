@@ -11,7 +11,7 @@ class CampaignTest(PlivoResourceTestCase):
                 vertical = "INSURANCE",
                 usecase = "MIXED",
                 sub_usecases = sub_usecase,
-                description = "sample description text",
+                description = "sample description  is mandatory param and minimum 40 character,sample description  is mandatory param and minimum 40 character",
                 embedded_link = False,
                 embedded_phone = False,
                 age_gated = False,
@@ -20,13 +20,20 @@ class CampaignTest(PlivoResourceTestCase):
                 subscriber_optout = True,
                 subscriber_help = True,
                 affiliate_marketing = False,
-                sample1 = "test 1",
-                sample2 = "test 2",
+                sample1 = "sample messgae 1 is mandatory param and minimum 20 character",
+                sample2 = "sample messgae 2 is mandatory param and minimum 20 character",
                 sample3 = "test 1",
                 sample4 = "test 2",
                 sample5 = "test 2",
                 url="http://example.com/test",
-                method="POST")
+                method="POST",
+                message_flow = "message flow is mandatory field with 40 minimum character length,message flow is mandatory field with 40 minimum character length",
+                help_message = "help messgae is mandatory param and minimum 20 character",
+                optin_keywords= '',
+                optin_message ='',
+                optout_keywords = '',
+                optout_message = "optout message should be mandatory and 20 minimum character",
+                help_keywords='')
         self.assertEqual('POST', self.client.current_request.method)
         self.assertUrlEqual(
             'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/',
