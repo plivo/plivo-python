@@ -20,12 +20,7 @@ class Campaign(PlivoResourceInterface):
     @validate_args(
         brand=[optional(of_type(six.text_type))],
         usecase=[optional(of_type(six.text_type))],
-        limit=[
-            optional(
-                all_of(
-                    of_type(*six.integer_types),
-                    check(lambda limit: 0 < limit <= 20, '0 < limit <= 20')))
-        ],
+        limit=[optional(of_type(*six.integer_types))],
         offset=[
             optional(
                 all_of(
@@ -116,12 +111,7 @@ class Campaign(PlivoResourceInterface):
 
     @validate_args(
         campaign_id=[of_type(six.text_type)],
-        limit=[
-            optional(
-                all_of(
-                    of_type(*six.integer_types),
-                    check(lambda limit: 0 < limit <= 20, '0 < limit <= 20')))
-        ],
+        limit=[optional(of_type(*six.integer_types))],
         offset=[
             optional(
                 all_of(
