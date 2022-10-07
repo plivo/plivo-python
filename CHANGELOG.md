@@ -1,7 +1,13 @@
 # Change Log
+
+## [4.26.2](https://github.com/plivo/plivo-python/tree/v4.26.2) (2022-09-28)
+**10DLC: Adding more attributes to campaign creation request**
+- Adding more attributes to campaign creation request
+
 ## [4.26.1](https://github.com/plivo/plivo-python/tree/v4.26.1) (2022-09-08)
 **Feature - Limit bug fix**
 - Fixed Limit threshold in 10DLC APIs
+
 
 ## [4.26.0](https://github.com/plivo/plivo-python/tree/v4.26.0) (2022-08-30)
 **Feature - 10DLC APIs**
