@@ -97,6 +97,10 @@ class StreamElement(PlivoXMLElement):
         }
 
     def process_extra_headers(self, extraHeaders):
+        if not extraHeaders: return
+
+        if not type(extraHeaders) is dict: raise TypeError('extraHeaders needs to be passed in as a dictionary object!')
+
         res = {}
         for key in extraHeaders:
             if not key.endswith('X-PH'):
