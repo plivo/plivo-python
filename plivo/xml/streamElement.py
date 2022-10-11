@@ -1,10 +1,7 @@
 from plivo.utils.validators import *
 from plivo.xml import (
     PlivoXMLElement,
-    map_type,
-    BreakElement,
-    EmphasisElement,
-    LangElement,
+    map_type
 )
 
 
@@ -12,51 +9,6 @@ class StreamElement(PlivoXMLElement):
     _name = 'Stream'
     _nestable = [
     ]
-
-    @property
-    def voice(self):
-        return self.__voice
-
-    @voice.setter
-    def voice(self, value):
-        self.__voice = six.text_type(value) if value is not None else None
-
-    @validate_args(
-        value=[of_type(six.text_type)],
-    )
-    def set_voice(self, value):
-        self.voice = value
-        return self
-
-    @property
-    def language(self):
-        return self.__language
-
-    @language.setter
-    def language(self, value):
-        self.__language = six.text_type(value) if value is not None else None
-
-    @validate_args(
-        value=[of_type(six.text_type)],
-    )
-    def set_language(self, value):
-        self.language = value
-        return self
-
-    @property
-    def loop(self):
-        return self.__loop
-
-    @loop.setter
-    def loop(self, value):
-        self.__loop = int(value) if value is not None else None
-
-    @validate_args(
-        value=[of_type(*six.integer_types)],
-    )
-    def set_loop(self, value):
-        self.loop = value
-        return self
 
     def __init__(
             self,
@@ -79,7 +31,6 @@ class StreamElement(PlivoXMLElement):
         self.statusCallbackMethod = statusCallbackMethod
         self.contentType = contentType
         self.extraHeaders = self.process_extra_headers(extraHeaders)
-
 
     def to_dict(self):
         d = {
