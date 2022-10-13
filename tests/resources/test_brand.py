@@ -5,7 +5,7 @@ from tests.decorators import with_response
 class BrandTest(PlivoResourceTestCase):
     @with_response(200)
     def test_create(self):
-        response = self.client.brand.create( 
+        response = self.client.brand.create(
                 brand_alias = "brand name sample",
                 brand_type="STARTER",
                 profile_uuid="201faedc-7df9-4840-9ab1-3997ce3f7cf4",
@@ -29,7 +29,7 @@ class BrandTest(PlivoResourceTestCase):
 
         # Verifying the method used
         self.assertEqual('GET', self.client.current_request.method)
-    
+
     @with_response(200)
     def test_get_usecases(self):
         response = self.client.brand.get_usecases(brand_id='BRPXS6E')

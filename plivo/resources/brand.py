@@ -16,7 +16,7 @@ class Brand(PlivoResourceInterface):
     def get(self, brand_id):
         return self.client.request(
             'GET', ('10dlc','Brand', brand_id), response_type=None)
-            
+
     @validate_args(
         type=[optional(of_type(six.text_type))],
         status=[optional(of_type(six.text_type))],
@@ -27,14 +27,14 @@ class Brand(PlivoResourceInterface):
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
         ])
-    def list(self, type=None, status=None, 
+    def list(self, type=None, status=None,
                 limit=None, offset=None):
         return self.client.request(
             'GET', ('10dlc', 'Brand', ),
             to_param_dict(self.list, locals()),
             response_type=None,
             objects_type=None)
-    
+
     @validate_args(
         brand_alias=[required(of_type(six.text_type))],
         brand_type=[optional(of_type(six.text_type), is_in(('STANDARD','STARTER')))],
