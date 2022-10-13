@@ -53,6 +53,7 @@ class Brand(PlivoResourceInterface):
         return self.client.request('POST', ('10dlc', 'Brand'),
                                    to_param_dict(self.create, locals()))
 
+
     @validate_args(brand_id=[required(of_type(six.text_type))])
     def get_usecases(self, brand_id):
         return self.client.request(
