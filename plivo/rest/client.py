@@ -223,7 +223,6 @@ class Client(object):
             req = Request(method, url, **({'params': data} if method == 'GET' else {'json': data}))
         else:
             path = path or []
-            print("created url---- ", '/'.join([self.base_uri, self.session.auth[0]] + list([str(p) for p in path])) + '/')
             req = Request(method, '/'.join([self.base_uri, self.session.auth[0]] +
                                            list([str(p) for p in path])) + '/',
                           **({
