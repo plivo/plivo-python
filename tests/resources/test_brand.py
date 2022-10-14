@@ -31,7 +31,7 @@ class BrandTest(PlivoResourceTestCase):
         self.assertEqual('GET', self.client.current_request.method)
     
     @with_response(200)
-    def test_get_brand_usecases(self):
+    def test_get_usecases(self):
         response = self.client.brand.get_usecases(brand_id='BRPXS6E')
         self.client.set_expected_response(
             status_code=202, data_to_return=response)
