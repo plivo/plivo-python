@@ -4,7 +4,6 @@ from plivo.xml import (
     map_type
 )
 
-
 class StreamElement(PlivoXMLElement):
     _name = 'Stream'
     _nestable = [
