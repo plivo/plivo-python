@@ -4,6 +4,7 @@ from plivo.xml import (
     map_type
 )
 
+
 class StreamElement(PlivoXMLElement):
     _name = 'Stream'
     _nestable = [
@@ -29,7 +30,7 @@ class StreamElement(PlivoXMLElement):
         self.statusCallbackUrl = statusCallbackUrl
         self.statusCallbackMethod = statusCallbackMethod
         self.contentType = contentType
-        self.extraHeaders = self.process_extra_headers(extraHeaders)
+        self.extraHeaders = extraHeaders
 
     def to_dict(self):
         d = {
@@ -45,18 +46,3 @@ class StreamElement(PlivoXMLElement):
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
         }
-
-    def process_extra_headers(self, extraHeaders):
-        if not extraHeaders: return
-
-        if not type(extraHeaders) is dict: raise TypeError('extraHeaders needs to be passed in as a dictionary object!')
-
-        res = {}
-        for key in extraHeaders:
-            if not key.endswith('X-PH'):
-                new_key = key + 'X-PH'
-                res[new_key] = extraHeaders[key]
-            else:
-                res[key] = extraHeaders[key]
-
-        return res
