@@ -1,4 +1,8 @@
 # Change Log
+## [4.28.0](https://github.com/plivo/plivo-python/tree/v4.28.0) (2022-11-03)
+**Adding Brand Usecase request**
+-Added Brand Usecase request
+
 ## [4.27.0](https://github.com/plivo/plivo-python/tree/v4.27.0) (2022-10-14)
 **Adding new attributes to Account PhoneNumber object**
 -Added 3 new keys to AccountPhoneNumber object:`tendlc_registration_status`, `tendlc_campaign_id` and `toll_free_sms_verification` (https://www.plivo.com/docs/numbers/api/account-phone-number#the-accountphonenumber-object)
