@@ -1,10 +1,14 @@
 # Change Log
 
-
-## [4.28.0](https://github.com/plivo/plivo-python/tree/v4.28.0) (2022-10-27)
+## [4.29.0](https://github.com/plivo/plivo-python/tree/v4.29.0) (2022-11-11)
 **Feature - Streaming API and XML**
 - Added Stream API endpoints
 - Added Stream XML creation ability
+
+## [4.28.0](https://github.com/plivo/plivo-python/tree/v4.28.0) (2022-11-03)
+**Adding Brand Usecase request**
+-Added Brand Usecase request
+
 
 ## [4.27.0](https://github.com/plivo/plivo-python/tree/v4.27.0) (2022-10-14)
 **Adding new attributes to Account PhoneNumber object**
