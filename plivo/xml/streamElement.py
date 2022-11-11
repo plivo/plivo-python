@@ -3,6 +3,7 @@ from plivo.xml import (
     PlivoXMLElement,
     map_type
 )
+from json import dumps
 
 
 class StreamElement(PlivoXMLElement):
@@ -30,7 +31,7 @@ class StreamElement(PlivoXMLElement):
         self.statusCallbackUrl = statusCallbackUrl
         self.statusCallbackMethod = statusCallbackMethod
         self.contentType = contentType
-        self.extraHeaders = extraHeaders
+        self.extraHeaders = self.processExtraHeaders(extraHeaders)
 
     def to_dict(self):
         d = {
@@ -46,3 +47,6 @@ class StreamElement(PlivoXMLElement):
             k: six.text_type(map_type(v))
             for k, v in d.items() if v is not None
         }
+
+    def processExtraHeaders(self, extraHeaders):
+        return dumps(extraHeaders)

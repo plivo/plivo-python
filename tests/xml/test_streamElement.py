@@ -7,7 +7,7 @@ from tests import PlivoXmlTestCase
 class StreamElementTest(TestCase, PlivoXmlTestCase):
     def test_set_methods(self):
         expected_response = """<Response>
-                                    <Stream bidirectional="true" extraHeaders="{'ab': 'cd'}">wss://test.url</Stream>
+                                    <Stream bidirectional="true" extraHeaders='{"ab": "cd"}'>wss://test.url</Stream>
                                 </Response>"""
 
         content = 'wss://test.url'
