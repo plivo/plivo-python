@@ -57,7 +57,7 @@ class BrandTest(PlivoResourceTestCase):
 
     @with_response(200)
     def test_delete(self):
-        response = self.client.brand.get(brand_id='BRPXS6E')
+        response = self.client.brand.delete(brand_id='BRPXS6E')
         self.client.set_expected_response(
             status_code=202, data_to_return=response)
         # Verifying the endpoint hit
