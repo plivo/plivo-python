@@ -55,7 +55,7 @@ class CampaignTest(PlivoResourceTestCase):
         response = self.client.campaign.get(campaign_id='CUU5RCB')
         # Verifying the endpoint hit
         self.assertUrlEqual(
-            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/BRPXS6E/',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/CUU5RCB/',
             self.client.current_request.url)
 
         # Verifying the method used
