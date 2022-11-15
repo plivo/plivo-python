@@ -52,7 +52,7 @@ class CampaignTest(PlivoResourceTestCase):
     
     @with_response(200)
     def test_delete(self):
-        response = self.client.campaign.get(campaign_id='CUU5RCB')
+        response = self.client.campaign.delete(campaign_id='CUU5RCB')
         # Verifying the endpoint hit
         self.assertUrlEqual(
             'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/CUU5RCB/',
