@@ -54,3 +54,16 @@ class BrandTest(PlivoResourceTestCase):
 
         # Verifying the method used
         self.assertEqual('GET', self.client.current_request.method)
+
+    @with_response(200)
+    def test_delete(self):
+        response = self.client.brand.get(brand_id='BRPXS6E')
+        self.client.set_expected_response(
+            status_code=202, data_to_return=response)
+        # Verifying the endpoint hit
+        self.assertUrlEqual(
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Brand/BRPXS6E/',
+            self.client.current_request.url)
+        
+        # Verifying the method used
+        self.assertEqual('DELETE', self.client.current_request.method)
