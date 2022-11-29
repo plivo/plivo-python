@@ -62,6 +62,14 @@ class CampaignTest(PlivoResourceTestCase):
         self.assertEqual('DELETE', self.client.current_request.method)
 
     @with_response(200)
+    def test_update(self):
+        response = self.client.campaign.update('CXNSG9W', sample1 = "sample message 1 needs minimum 20 character")
+        self.assertEqual('PUT', self.client.current_request.method)
+        self.assertUrlEqual(
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/',
+            self.client.current_request.url)
+
+    @with_response(200)
     def test_list(self):
         res = self.client.campaign.list(limit=2, offset=0)
         # Test if ListResponseObject's __iter__ is working correctly
