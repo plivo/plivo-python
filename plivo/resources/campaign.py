@@ -34,7 +34,7 @@ class Campaign(PlivoResourceInterface):
         )
     def update(self, campaign_id, reseller_id='', description='', sample1='', sample2='', help_message='', message_flow='', optin_keywords='', optin_message='', optout_keywords='', optout_message='', help_keywords=''):
         return self.client.request(
-            'PUT', ('10dlc','Campaign', campaign_id), to_param_dict(self.update, locals()))
+            'POST', ('10dlc','Campaign', campaign_id), to_param_dict(self.update, locals()))
 
     @validate_args(
         brand=[optional(of_type(six.text_type))],
