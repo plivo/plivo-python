@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import inspect
 import re
 from datetime import datetime
 
@@ -16,6 +15,11 @@ try:
     from base64 import encodebytes as base64_encode
 except ImportError:
     from base64 import encodestring as base64_encode
+
+try:
+    from inspect import getfullargspec as getargspec
+except ImportError:
+    from inspect import getargspec as getargspec
 
 
 def validate_signature(uri, nonce, signature, auth_token=''):
@@ -64,7 +68,7 @@ def is_valid_mainaccount(mainaccount):
 
 
 def to_param_dict(func, vals, exclude_none=True, func_args_check=True):
-    args, varargs, kwargs, _ = inspect.getargspec(func)
+    args = getargspec(func)[0]
     arg_names = list(args)
     # The bit of regex magic below is for arguments that are keywords in
     # Python, like from. These can't be used directly, so our convention is to
