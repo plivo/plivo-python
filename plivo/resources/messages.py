@@ -39,7 +39,8 @@ class Messages(PlivoResourceInterface):
         trackable=[optional(of_type_exact(bool))],
         powerpack_uuid=[optional(of_type(six.text_type))],
         media_urls=[optional(of_type_exact(list))],
-        media_ids=[optional(of_type_exact(list))])
+        media_ids=[optional(of_type_exact(list))],
+        message_expiry=[optional(of_type(six.integer_types))])
     def create(self,
                dst,
                text=None,
@@ -51,7 +52,8 @@ class Messages(PlivoResourceInterface):
                trackable=False,
                powerpack_uuid=None,
                media_urls=None,
-               media_ids=None):
+               media_ids=None,
+               message_expiry=None):
         if src in dst.split('<'):
             raise ValidationError(
                 'destination number cannot be same as source number')
