@@ -33,8 +33,11 @@ class Campaign(PlivoResourceInterface):
         help_keywords=[optional(of_type(six.text_type))],
         )
     def update(self, campaign_id, reseller_id='', description='', sample1='', sample2='', help_message='', message_flow='', optin_keywords='', optin_message='', optout_keywords='', optout_message='', help_keywords=''):
+        
+        payload = locals()
+        payload.pop("campaign_id")
         return self.client.request(
-            'POST', ('10dlc','Campaign', campaign_id), to_param_dict(self.update, locals()))
+            'POST', ('10dlc','Campaign', campaign_id), to_param_dict(self.update, payload))
 
     @validate_args(
         brand=[optional(of_type(six.text_type))],
@@ -167,7 +170,5 @@ class Campaign(PlivoResourceInterface):
                 url='',
                 method='POST'
                 ):
-        payload = locals()
-        payload.pop("campaign_id")
         return self.client.request('DELETE', ('10dlc', 'Campaign',  campaign_id, 'Number', number),
-                                   to_param_dict(self.create, payload))
+                                   to_param_dict(self.create, locals()))
