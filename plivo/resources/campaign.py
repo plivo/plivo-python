@@ -17,6 +17,11 @@ class Campaign(PlivoResourceInterface):
         return self.client.request(
             'GET', ('10dlc','Campaign', campaign_id), response_type=None)
 
+    @validate_args(campaign_id=[required(of_type(six.text_type))])
+    def delete(self, campaign_id):
+        return self.client.request(
+            'DELETE', ('10dlc','Campaign', campaign_id), response_type=None)
+
     @validate_args(
         brand=[optional(of_type(six.text_type))],
         usecase=[optional(of_type(six.text_type))],

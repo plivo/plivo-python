@@ -49,6 +49,17 @@ class CampaignTest(PlivoResourceTestCase):
 
         # Verifying the method used
         self.assertEqual('GET', self.client.current_request.method)
+    
+    @with_response(200)
+    def test_delete(self):
+        response = self.client.campaign.delete(campaign_id='CUU5RCB')
+        # Verifying the endpoint hit
+        self.assertUrlEqual(
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/CUU5RCB/',
+            self.client.current_request.url)
+
+        # Verifying the method used
+        self.assertEqual('DELETE', self.client.current_request.method)
 
     @with_response(200)
     def test_list(self):
