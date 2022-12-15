@@ -167,5 +167,7 @@ class Campaign(PlivoResourceInterface):
                 url='',
                 method='POST'
                 ):
+        payload = locals()
+        payload.pop("campaign_id")
         return self.client.request('DELETE', ('10dlc', 'Campaign',  campaign_id, 'Number', number),
-                                   to_param_dict(self.create, locals()))
+                                   to_param_dict(self.create, payload))
