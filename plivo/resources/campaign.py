@@ -21,6 +21,27 @@ class Campaign(PlivoResourceInterface):
     def delete(self, campaign_id):
         return self.client.request(
             'DELETE', ('10dlc','Campaign', campaign_id), response_type=None)
+    
+    @validate_args(
+        campaign_id=[required(of_type(six.text_type))],
+        reseller_id=[optional(of_type(six.text_type))],
+        description=[optional(of_type(six.text_type))],
+        sample1=[optional(of_type(six.text_type))],
+        sample2=[optional(of_type(six.text_type))],
+        help_message=[optional(of_type(six.text_type))],
+        message_flow=[optional(of_type(six.text_type))],
+        optin_keywords=[optional(of_type(six.text_type))],
+        optin_message=[optional(of_type(six.text_type))],
+        optout_keywords=[optional(of_type(six.text_type))],
+        optout_message=[optional(of_type(six.text_type))],
+        help_keywords=[optional(of_type(six.text_type))],
+        )
+    def update(self, campaign_id, reseller_id='', description='', sample1='', sample2='', help_message='', message_flow='', optin_keywords='', optin_message='', optout_keywords='', optout_message='', help_keywords=''):
+        
+        payload = locals()
+        payload.pop("campaign_id")
+        return self.client.request(
+            'POST', ('10dlc','Campaign', campaign_id), to_param_dict(self.update, payload))
 
     @validate_args(
         brand=[optional(of_type(six.text_type))],

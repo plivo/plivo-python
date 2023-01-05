@@ -1,0 +1,39 @@
+{
+    "campaign": {
+        "campaign_id": "CXNSG9W",
+        "registration_status": "FAILED",
+        "reseller_id": "",
+        "brand_id": "BS2TTMI",
+        "usecase": "MARKETING",
+        "mno_metadata": {
+            "AT&T": {
+                "tpm": 4500
+            },
+            "T-Mobile": {
+                "brand_tier": "TOP"
+            },
+            "US Cellular": {
+                "tpm": 4500
+            },
+            "Verizon Wireless": {
+                "tpm": 4500
+            }
+        },
+        "sample1": "updated sample1 asdsdasdfasdsdasdf 2",
+        "sample2": "sample message sdasdasdasdsdasdasda 2",
+        "description": "campaign descriptioncampaign descriptioncampaign descriptioncampaign descriptioncampaign descriptioncampaign descriptioncampaign descriptioncampaign descriptioncampaign description",
+        "campaign_attributes": {
+            "embedded_link": false,
+            "embedded_phone": false,
+            "age_gated": false,
+            "direct_lending": false,
+            "subscriber_optin": false,
+            "subscriber_optout": false,
+            "subscriber_help": false,
+            "affiliate_marketing": false
+        },
+        "message_flow": "message flowmessage flowmessage flowmessage flowmessage flowmessage flowmessage flowmessage flowmessage flow",
+        "help_message": "help message 2help message 2help message 2help message 2help message 2help message 2help message 2help message 2",
+        "help_keywords": "HELP UPDATE"
+    }
+}

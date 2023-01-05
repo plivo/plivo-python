@@ -1,4 +1,8 @@
 # Change Log
+## [4.30.0](https://github.com/plivo/plivo-python/tree/v4.30.0) (2022-12-16)
+**Adding Update campaign**
+-Added update campaign
+
 ## [4.29.0](https://github.com/plivo/plivo-python/tree/v4.29.0) (2022-12-06)
 **Adding Delete campaign and brand**
 -Added delete campaign and brand
