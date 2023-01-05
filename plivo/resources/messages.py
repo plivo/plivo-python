@@ -40,7 +40,7 @@ class Messages(PlivoResourceInterface):
         powerpack_uuid=[optional(of_type(six.text_type))],
         media_urls=[optional(of_type_exact(list))],
         media_ids=[optional(of_type_exact(list))],
-        message_expiry=[optional(of_type(six.integer_types))])
+        message_expiry=[optional(of_type(*six.integer_types))])
     def create(self,
                dst,
                text=None,
