@@ -58,3 +58,8 @@ class Brand(PlivoResourceInterface):
     def get_usecases(self, brand_id):
         return self.client.request(
             'GET', ('10dlc','Brand', brand_id, 'usecases'), response_type=None)
+
+    @validate_args(brand_id=[required(of_type(six.text_type))])
+    def delete(self, brand_id):
+        return self.client.request(
+            'DELETE', ('10dlc','Brand', brand_id), response_type=None)
