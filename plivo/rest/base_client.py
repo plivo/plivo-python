@@ -5,7 +5,11 @@ Base client, used for all API requests.
 
 import os
 import platform
-from collections import namedtuple
+
+try:
+    from collections.abc import namedtuple
+except ImportError:
+    from collections import namedtuple
 
 from plivo.base import ResponseObject
 from plivo.exceptions import (AuthenticationError, InvalidRequestError,
