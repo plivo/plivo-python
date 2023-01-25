@@ -5,11 +5,7 @@ Core client, used for all API requests.
 
 import os
 import platform
-
-try:
-    from collections.abc import namedtuple
-except ImportError:
-    from collections import namedtuple
+from collections import namedtuple
 
 from plivo.base import ResponseObject
 from plivo.exceptions import (AuthenticationError, InvalidRequestError,
