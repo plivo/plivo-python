@@ -1,4 +1,8 @@
 # Change Log
+## [4.32.0](https://github.com/plivo/plivo-python/tree/v4.32.0) (2023-01-25)
+**inspect getargspec fix for python 3.11 version**
+- adding getfullargspec for python 3.11 support 
+
 ## [4.31.0](https://github.com/plivo/plivo-python/tree/v4.31.0) (2023-01-18)
 **Adding new parameter in Send Message API**
 -Added new parameter in Send Message API
