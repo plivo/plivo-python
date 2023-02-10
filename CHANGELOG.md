@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.33.0](https://github.com/plivo/plivo-python/tree/v4.29.0) (2022-02-10)
+## [4.33.0](https://github.com/plivo/plivo-python/tree/v4.33.0) (2022-02-10)
 **Feature - Streaming API and XML**
 - Added Stream API endpoints
 - Added Stream XML creation ability
