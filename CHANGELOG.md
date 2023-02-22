@@ -1,4 +1,8 @@
 # Change Log
+## [4.31.0](https://github.com/plivo/plivo-python/tree/v4.31.0) (2023-02-23)
+**Feature - Enhance MDR filtering capabilities **
+- Added new fields on MDR object response
+
 ## [4.30.0](https://github.com/plivo/plivo-python/tree/v4.30.0) (2022-12-16)
 **Adding Update campaign**
 -Added update campaign
