@@ -1,4 +1,9 @@
 # Change Log
+
+## [4.33.0](https://github.com/plivo/plivo-python/tree/v4.33.0) (2023-02-23)
+**Feature - Enhance MDR filtering capabilities **
+- Added new fields on MDR object response
+
 ## [4.32.0](https://github.com/plivo/plivo-python/tree/v4.32.0) (2023-01-25)
 **inspect getargspec fix for python 3.11 version**
 - adding getfullargspec for python 3.11 support 
@@ -6,6 +11,7 @@
 ## [4.31.0](https://github.com/plivo/plivo-python/tree/v4.31.0) (2023-01-18)
 **Adding new parameter in Send Message API**
 -Added new parameter in Send Message API
+
 
 ## [4.30.0](https://github.com/plivo/plivo-python/tree/v4.30.0) (2022-12-16)
 **Adding Update campaign**
