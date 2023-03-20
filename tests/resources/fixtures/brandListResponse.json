@@ -14,7 +14,8 @@
             "brand_id": "BPL3KN9",
             "brand_type": "STARTER",
             "ein_issuing_country": "US",
-            "registration_status": "COMPLETED"
+            "registration_status": "COMPLETED",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -39,7 +40,8 @@
             "entity_type": "INDIVIDUAL",
             "profile_uuid": "55515d72-2852-4016-9ed9-c64bd1c0c055",
             "registration_status": "COMPLETED",
-            "vertical": "ENERGY"
+            "vertical": "ENERGY",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -64,7 +66,8 @@
             "entity_type": "INDIVIDUAL",
             "profile_uuid": "71a18795-77fa-4623-9735-44bbd08d86c4",
             "registration_status": "COMPLETED",
-            "vertical": "ENTERTAINMENT"
+            "vertical": "ENTERTAINMENT",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -81,7 +84,8 @@
             "ein_issuing_country": "IN",
             "profile_uuid": "d3d85b2d-a4c2-4f7b-a66f-83002a5fd5e8",
             "registration_status": "COMPLETED",
-            "vertical": "ENTERTAINMENT"
+            "vertical": "ENTERTAINMENT",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -100,7 +104,8 @@
             "ein_issuing_country": "US",
             "profile_uuid": "709a4b1c-bbde-40e6-be36-164b1dc8f718",
             "registration_status": "COMPLETED",
-            "vertical": "ENTERTAINMENT"
+            "vertical": "ENTERTAINMENT",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -127,7 +132,8 @@
             "entity_type": "PRIVATE",
             "profile_uuid": "a28b5892-4d8b-4098-9fe7-6f786fb0be1f",
             "registration_status": "COMPLETED",
-            "vertical": "ENTERTAINMENT"
+            "vertical": "ENTERTAINMENT",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -152,7 +158,8 @@
             "entity_type": "GOVERNMENT",
             "profile_uuid": "ca01734d-a86a-4ed4-aa5a-8723cbb595b3",
             "registration_status": "COMPLETED",
-            "vertical": "ENERGY"
+            "vertical": "ENERGY",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -178,7 +185,8 @@
             "profile_uuid": "c1a1c66a-2bc4-4150-a3f3-033ec41efc5d",
             "registration_status": "COMPLETED",
             "vertical": "ENTERTAINMENT",
-            "website": "hibye.com"
+            "website": "hibye.com",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -207,7 +215,8 @@
             "registration_status": "COMPLETED",
             "vertical": "PROFESSIONAL",
             "vetting_score": 80,
-            "vetting_status": "ACTIVE"
+            "vetting_status": "ACTIVE",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -226,7 +235,8 @@
             "ein_issuing_country": "nil",
             "profile_uuid": "f9ee4193-a8b7-49e6-aed1-2a286c7f5c4b",
             "registration_status": "COMPLETED",
-            "vertical": "nil"
+            "vertical": "nil",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         }
     ],
     "meta": {
