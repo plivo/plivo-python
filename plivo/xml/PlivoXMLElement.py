@@ -1,5 +1,5 @@
 from lxml import etree
-
+import six
 from plivo.exceptions import PlivoXMLError
 
 
@@ -36,7 +36,12 @@ class PlivoXMLElement(object):
                 self._name, **self.to_dict())
         if self.content:
             try:
-                e.text = self.content.decode()
+                if six.PY2 and isinstance(self.content, str):
+                    e.text = self.content.decode()
+                elif six.PY3 and isinstance(self.content, bytes):
+                    e.text = self.content.decode()
+                else:
+                    e.text = self.content
             except:
                 e.text = self.content
         for child in self.children:
