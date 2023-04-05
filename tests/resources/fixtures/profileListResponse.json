@@ -36,7 +36,8 @@
             "stock_exchange": "NYSE",
             "stock_symbol": "TESLA",
             "vertical": "ENTERTAINMENT",
-            "website": "hibye.com"
+            "website": "hibye.com",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -67,7 +68,8 @@
             "stock_exchange": "NYSE",
             "stock_symbol": "TESLA",
             "vertical": "ENTERTAINMENT",
-            "website": "hibye.com"
+            "website": "hibye.com",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -90,7 +92,8 @@
             "profile_type": "SECONDARY",
             "profile_uuid": "21ac739e-57fa-4945-a465-0ace7d43d9f1",
             "vertical": "HEALTHCARE",
-            "website": "http://www.barkersleep.com/"
+            "website": "http://www.barkersleep.com/",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -120,7 +123,8 @@
             "profile_uuid": "56711bac-af40-450a-b713-60cbd23ac28b",
             "stock_exchange": "NSE",
             "stock_symbol": "ABC",
-            "vertical": "PROFESSIONAL"
+            "vertical": "PROFESSIONAL",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -150,7 +154,8 @@
             "profile_uuid": "287bc61b-10c2-452a-9137-4c1772292d6a",
             "stock_exchange": "NSE",
             "stock_symbol": "ABC",
-            "vertical": "PROFESSIONAL"
+            "vertical": "PROFESSIONAL",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -180,7 +185,8 @@
             "stock_exchange": "NYSE",
             "stock_symbol": "NSE",
             "vertical": "TECHNOLOGY",
-            "website": "www.facebook.com"
+            "website": "www.facebook.com",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -210,7 +216,8 @@
             "profile_uuid": "55cce8f9-2a0c-4b29-9ed5-a5f4c684e883",
             "stock_exchange": "NSE",
             "stock_symbol": "ABC",
-            "vertical": "PROFESSIONAL"
+            "vertical": "PROFESSIONAL",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -241,7 +248,8 @@
             "stock_exchange": "NSE",
             "stock_symbol": "ABC",
             "vertical": "ENERGY",
-            "website": "www.google.com"
+            "website": "www.google.com",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -273,7 +281,8 @@
             "stock_exchange": "NSE",
             "stock_symbol": "ABC",
             "vertical": "ENERGY",
-            "website": "www.google.com"
+            "website": "www.google.com",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         },
         {
             "address": {
@@ -305,7 +314,8 @@
             "stock_exchange": "NSE",
             "stock_symbol": "ABC",
             "vertical": "ENERGY",
-            "website": "www.google.com"
+            "website": "www.google.com",
+            "created_at": "2023-03-07T11:25:28.262701Z"
         }
     ]
 }
