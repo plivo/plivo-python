@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.33.1](https://github.com/plivo/plivo-python/tree/v4.33.1) (2023-04-19)
+## [4.33.1](https://github.com/plivo/plivo-python/tree/v4.33.1) (2023-04-20)
 - Fix decode issue for python 2.x and python 3.x
 
 ## [4.33.0](https://github.com/plivo/plivo-python/tree/v4.33.0) (2023-02-23)
