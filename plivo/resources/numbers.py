@@ -83,6 +83,11 @@ class Numbers(PlivoResourceInterface):
              tendlc_registration_status=None,
              tendlc_campaign_id=None,
              toll_free_sms_verification=None,
+             renewal_date=None,
+             renewal_date__lte=None,
+             renewal_date__lt=None,
+             renewal_date__gte=None,
+             renewal_date__gt=None,
              limit=20,
              offset=0):
         return self.client.request(

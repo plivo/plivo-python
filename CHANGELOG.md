@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.34.0](https://github.com/plivo/plivo-python/tree/v4.34.0) (2023-05-04)
+- Add New Param `renewalDate` to the response of the [list all numbers API], [list single number API]
+- Add 3 new filters to AccountPhoneNumber - list all my numbers API:`renewal_date`, `renewal_date__gt`, `renewal_date__gte`,`renewal_date__lt` and `renewal_date__lte` (https://www.plivo.com/docs/numbers/api/account-phone-number#list-all-my-numbers)
+
 ## [4.33.1](https://github.com/plivo/plivo-python/tree/v4.33.1) (2023-04-20)
 - Fix decode issue for python 2.x and python 3.x
 
