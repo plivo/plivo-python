@@ -57,7 +57,6 @@ class Recordings(PlivoResourceInterface):
              add_time__gte=None,
              add_time__lt=None,
              add_time__lte=None,
-             add_time=None,
              recording_storage_duration__gt=None,
              recording_storage_duration__gte=None,
              recording_storage_duration__lt=None,
@@ -89,9 +88,6 @@ class Recordings(PlivoResourceInterface):
 
         if add_time__lte and is_valid_time_comparison(add_time__lte):
             add_time__lte = str(add_time__lte)
-
-        if add_time and is_valid_time_comparison(add_time):
-            add_time = str(add_time)
 
         if not callback_url:
             return self.client.request(
