@@ -30,6 +30,11 @@ class Recordings(PlivoResourceInterface):
         mpc_uuid=[optional(of_type(six.text_type))],
         subaccount=[optional(is_subaccount())],
         call_uuid=[optional(of_type(six.text_type))],
+        recording_storage_duration=[optional(of_type(*six.integer_types))],
+        recording_storage_duration__gt=[optional(of_type(*six.integer_types))],
+        recording_storage_duration__gte=[optional(of_type(*six.integer_types))],
+        recording_storage_duration__lt=[optional(of_type(*six.integer_types))],
+        recording_storage_duration__lte=[optional(of_type(*six.integer_types))],
         limit=[
             optional(
                 all_of(
@@ -53,6 +58,11 @@ class Recordings(PlivoResourceInterface):
              add_time__lt=None,
              add_time__lte=None,
              add_time=None,
+             recording_storage_duration__gt=None,
+             recording_storage_duration__gte=None,
+             recording_storage_duration__lt=None,
+             recording_storage_duration__lte=None,
+             recording_storage_duration=None,
              limit=20,
              offset=0,
              callback_url=None,
