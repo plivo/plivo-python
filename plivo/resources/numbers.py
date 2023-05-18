@@ -83,6 +83,7 @@ class Numbers(PlivoResourceInterface):
              tendlc_registration_status=None,
              tendlc_campaign_id=None,
              toll_free_sms_verification=None,
+             cnam_lookup=None,
              renewal_date=None,
              renewal_date__lte=None,
              renewal_date__lt=None,
