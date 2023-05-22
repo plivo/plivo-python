@@ -130,6 +130,7 @@ class Numbers(PlivoResourceInterface):
                app_id=None,
                subaccount=None,
                alias=None,
+               cnam_lookup=None,
                verification_info=None,):
         return self.client.request('POST', ('Number', number),
                                    to_param_dict(self.update, locals()))
