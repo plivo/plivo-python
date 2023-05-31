@@ -13,45 +13,57 @@
             "call_uuid": "f72eea2a-446b-4412-a17f-3b17083bd25a",
             "conference_name": "",
             "from_number": "+919768368717",
+            "monthly_recording_storage_amount": 0.0008,
             "recording_duration_ms": "7560.00000",
             "recording_end_ms": "1649759930398.00000",
             "recording_format": "mp3",
             "recording_id": "d405c4eb-d562-4399-af32-6ff3c57fa559",
             "recording_start_ms": "1649759922838.00000",
+            "recording_storage_duration": 209,
+            "recording_storage_rate": 0.0004,
             "recording_type": "call",
             "recording_url": "https://media.plivo.com/v1/Account/MAZTCXYJFKZJK3N2Q3YT/Recording/d405c4eb-d562-4399-af32-6ff3c57fa559.mp3",
             "resource_uri": "/v1/Account/MAZTCXYJFKZJK3N2Q3YT/Recording/d405c4eb-d562-4399-af32-6ff3c57fa559/",
-            "to_number": "sip:ajay6121801985815245533110@phone.plivo.com"
+            "to_number": "sip:ajay6121801985815245533110@phone.plivo.com",
+            "rounded_recording_duration": 120
         },
         {
             "add_time": "2022-04-12 13:49:19.579419+05:30",
             "call_uuid": "b5e575b4-721c-425d-8da5-6c5cf6494487",
             "conference_name": "",
             "from_number": "+919768368712",
+            "monthly_recording_storage_amount": 0.0008,
             "recording_duration_ms": "25020.00000",
             "recording_end_ms": "1649751556401.00000",
             "recording_format": "mp3",
             "recording_id": "7ed2395e-e08a-4448-86b1-9770331d94f3",
             "recording_start_ms": "1649751531381.00000",
+            "recording_storage_duration": 209,
+            "recording_storage_rate": 0.0004,
             "recording_type": "call",
             "recording_url": "https://media.plivo.com/v1/Account/MAZTCXYJFKZJK3N2Q3YT/Recording/7ed2395e-e08a-4448-86b1-9770331d94f3.mp3",
             "resource_uri": "/v1/Account/MAZTCXYJFKZJK3N2Q3YT/Recording/7ed2395e-e08a-4448-86b1-9770331d94f3/",
-            "to_number": "sip:ajay6121801985815245533110@phone.plivo.com"
+            "to_number": "sip:ajay6121801985815245533110@phone.plivo.com",
+            "rounded_recording_duration": 120
         },
         {
             "add_time": "2022-04-12 13:49:19.579419+05:30",
             "call_uuid": "b5e575b4-721c-425d-8da5-6c5cf6494487",
             "conference_name": "",
             "from_number": "+919768368711",
+            "monthly_recording_storage_amount": 0.0008,
             "recording_duration_ms": "25020.00000",
             "recording_end_ms": "1649751556401.00000",
             "recording_format": "mp3",
             "recording_id": "7ed2395e-e08a-4448-86b1-9770331d94f3",
             "recording_start_ms": "1649751531381.00000",
+            "recording_storage_duration": 209,
+            "recording_storage_rate": 0.0004,
             "recording_type": "call",
             "recording_url": "https://media.plivo.com/v1/Account/MAZTCXYJFKZJK3N2Q3YT/Recording/7ed2395e-e08a-4448-86b1-9770331d94f3.mp3",
             "resource_uri": "/v1/Account/MAZTCXYJFKZJK3N2Q3YT/Recording/7ed2395e-e08a-4448-86b1-9770331d94f3/",
-            "to_number": "sip:ajay6121801985815245533110@phone.plivo.com"
+            "to_number": "sip:ajay6121801985815245533110@phone.plivo.com",
+            "rounded_recording_duration": 120
         }
     ]
 }
