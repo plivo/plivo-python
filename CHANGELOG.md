@@ -1,5 +1,13 @@
 # Change Log
 
+## [4.36.0](https://github.com/plivo/plivo-python/tree/v4.36.0) (2023-06-02)
+**Feature - CNAM Lookup**
+- Added New Param `cnam_lookup` in to the response of the [list all numbers API], [list single number API]
+- Added `cnam_lookup` filter to AccountPhoneNumber - list all my numbers API.
+- Added `cnam_lookup` parameter to buy number[Buy a Phone Number]  to configure CNAM Lookup while buying a US number
+- Added `cnam_lookup` parameter to update number[Update an account phone number] to configure CNAM Lookup while buying a US number
+
+
 ## [4.35.0](https://github.com/plivo/plivo-python/tree/v4.35.0) (2023-05-29)
 - Added `monthly_recording_storage_amount`, `recording_storage_rate`, `rounded_recording_duration`, and `recording_storage_duration` parameters to the response for [get single recording API](https://www.plivo.com/docs/voice/api/recording#retrieve-a-recording) and [get all recordings API](https://www.plivo.com/docs/voice/api/recording#list-all-recordings)
 - Added `recording_storage_duration` parameter as a filter option for [get all recordings API](https://www.plivo.com/docs/voice/api/recording#list-all-recordings)
