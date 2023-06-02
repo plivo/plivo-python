@@ -33,8 +33,9 @@ class Numbers(PlivoResourceInterface):
     @validate_args(
         number=[is_phonenumber()],
         app_id=[optional(of_type(six.text_type))],
-        verification_info=[optional(of_type_exact(dict))])
-    def buy(self, number, app_id=None, verification_info=None):
+        verification_info=[optional(of_type_exact(dict))],
+        cnam_lookup=[optional(of_type(six.text_type))],)
+    def buy(self, number, app_id=None, verification_info=None, cnam_lookup=None):
         return self.client.request('POST', ('PhoneNumber', number),
                                    to_param_dict(self.buy, locals()))
 
@@ -88,6 +89,7 @@ class Numbers(PlivoResourceInterface):
              renewal_date__lt=None,
              renewal_date__gte=None,
              renewal_date__gt=None,
+             cnam_lookup=None,
              limit=20,
              offset=0):
         return self.client.request(
@@ -128,7 +130,8 @@ class Numbers(PlivoResourceInterface):
                app_id=None,
                subaccount=None,
                alias=None,
-               verification_info=None,):
+               verification_info=None,
+               cnam_lookup=None,):
         return self.client.request('POST', ('Number', number),
                                    to_param_dict(self.update, locals()))
 

@@ -200,7 +200,7 @@ class Client(object):
                 raise PlivoRestError('Resource at {url} could not be '
                                      'deleted'.format(url=response.url))
 
-        elif response.status_code not in [200, 201, 202, 204, 207]:
+        elif response.status_code not in [200, 201, 202, 204, 206, 207]:
             raise PlivoRestError(
                 'Received status code {status_code} for the HTTP method '
                 '"{method}"'.format(
