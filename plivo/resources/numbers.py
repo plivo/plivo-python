@@ -16,6 +16,7 @@ class Number(PlivoResource):
     def delete(self):
         return self.client.numbers.delete(self.id)
 
+    #here to make changes
     def update(self,
                app_id=None,
                subaccount=None,
@@ -34,8 +35,12 @@ class Numbers(PlivoResourceInterface):
         number=[is_phonenumber()],
         app_id=[optional(of_type(six.text_type))],
         verification_info=[optional(of_type_exact(dict))],
-        cnam_lookup=[optional(of_type(six.text_type))],)
-    def buy(self, number, app_id=None, verification_info=None, cnam_lookup=None):
+        cnam_lookup=[optional(of_type(six.text_type))],
+        cnam=[optional(of_type(six.text_type))],
+        callback_url=[optional(of_type(six.text_type))],
+        callback_method=[optional(of_type(six.text_type))],
+        )
+    def buy(self, number, app_id=None, verification_info=None, cnam_lookup=None, cnam=None, callback_url=None, callback_method=None):
         return self.client.request('POST', ('PhoneNumber', number),
                                    to_param_dict(self.buy, locals()))
 
@@ -90,6 +95,7 @@ class Numbers(PlivoResourceInterface):
              renewal_date__gte=None,
              renewal_date__gt=None,
              cnam_lookup=None,
+             cnam=None
              limit=20,
              offset=0):
         return self.client.request(
@@ -131,7 +137,10 @@ class Numbers(PlivoResourceInterface):
                subaccount=None,
                alias=None,
                verification_info=None,
-               cnam_lookup=None,):
+               cnam_lookup=None,
+               cnam=None,
+               callback_url=None,
+               callback_method=None):
         return self.client.request('POST', ('Number', number),
                                    to_param_dict(self.update, locals()))
 

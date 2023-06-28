@@ -33,6 +33,7 @@
       "toll_free_sms_verification": null,
       "renewal_date": "2014-09-05",
       "cnam_lookup": "enabled",
+      "cnam": "plivo",
       "voice_enabled": true,
       "voice_rate": "0.00850"
     },
@@ -61,6 +62,7 @@
       "toll_free_sms_verification": null,
       "renewal_date": "2013-02-01",
       "cnam_lookup": "enabled",
+      "cnam": "numbers",
       "voice_enabled": true,
       "voice_rate": "0.00850"
     },
@@ -88,6 +90,7 @@
       "toll_free_sms_verification": "verified",
       "renewal_date": "2013-04-25",
       "cnam_lookup": "disabled",
+      "cnam": "plivo12",
       "voice_enabled": true,
       "voice_rate": "0.00850"
     }
