@@ -176,12 +176,16 @@ class RecordingTest(PlivoResourceTestCase):
     def test_list_from_filter(self):
         recordings = self.client.recordings.list(
             call_uuid="f72eea2a-446b-4412-a17f-3b17083bd25a",
-            from_number="919768368717"
+            from_number="919768368717",
+            recording_storage_duration__lte=120,
+            recording_storage_duration__gte=100
         )
 
         # Verifying the endpoint hit
         self.assertUrlEqual(
-            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/?call_uuid=f72eea2a-446b-4412-a17f-3b17083bd25a&from_number=919768368717&limit=20&offset=0',
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Recording/?call_uuid=f72eea2a-446b-4412-a17f'
+            '-3b17083bd25a&from_number=919768368717&limit=20&offset=0&recording_storage_duration__lte=120'
+            '&recording_storage_duration__gte=100',
             self.client.current_request.url)
 
         # Verifying if the Account specific changes and parsing happened

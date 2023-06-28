@@ -1,9 +1,31 @@
 # Change Log
 
-## [4.33.0](https://github.com/plivo/plivo-python/tree/v4.33.0) (2022-02-10)
+## [4.37.0](https://github.com/plivo/plivo-python/tree/v4.37.0) (2022-06-38)
 **Feature - Streaming API and XML**
 - Added Stream API endpoints
 - Added Stream XML creation ability
+
+## [4.36.0](https://github.com/plivo/plivo-python/tree/v4.36.0) (2023-06-02)
+**Feature - CNAM Lookup**
+- Added New Param `cnam_lookup` in to the response of the [list all numbers API], [list single number API]
+- Added `cnam_lookup` filter to AccountPhoneNumber - list all my numbers API.
+- Added `cnam_lookup` parameter to buy number[Buy a Phone Number]  to configure CNAM Lookup while buying a US number
+- Added `cnam_lookup` parameter to update number[Update an account phone number] to configure CNAM Lookup while buying a US number
+
+## [4.35.0](https://github.com/plivo/plivo-python/tree/v4.35.0) (2023-05-29)
+- Added `monthly_recording_storage_amount`, `recording_storage_rate`, `rounded_recording_duration`, and `recording_storage_duration` parameters to the response for [get single recording API](https://www.plivo.com/docs/voice/api/recording#retrieve-a-recording) and [get all recordings API](https://www.plivo.com/docs/voice/api/recording#list-all-recordings)
+- Added `recording_storage_duration` parameter as a filter option for [get all recordings API](https://www.plivo.com/docs/voice/api/recording#list-all-recordings)
+
+## [4.34.0](https://github.com/plivo/plivo-python/tree/v4.34.0) (2023-05-04)
+- Add New Param `renewalDate` to the response of the [list all numbers API], [list single number API]
+- Add 3 new filters to AccountPhoneNumber - list all my numbers API:`renewal_date`, `renewal_date__gt`, `renewal_date__gte`,`renewal_date__lt` and `renewal_date__lte` (https://www.plivo.com/docs/numbers/api/account-phone-number#list-all-my-numbers)
+
+## [4.33.1](https://github.com/plivo/plivo-python/tree/v4.33.1) (2023-04-20)
+- Fix decode issue for python 2.x and python 3.x
+
+## [4.33.0](https://github.com/plivo/plivo-python/tree/v4.33.0) (2023-02-23)
+**Feature - Enhance MDR filtering capabilities **
+- Added new fields on MDR object response
 
 ## [4.32.0](https://github.com/plivo/plivo-python/tree/v4.32.0) (2023-01-25)
 **inspect getargspec fix for python 3.11 version**
@@ -24,7 +46,6 @@
 ## [4.28.0](https://github.com/plivo/plivo-python/tree/v4.28.0) (2022-11-03)
 **Adding Brand Usecase request**
 -Added Brand Usecase request
-
 
 ## [4.27.0](https://github.com/plivo/plivo-python/tree/v4.27.0) (2022-10-14)
 **Adding new attributes to Account PhoneNumber object**
