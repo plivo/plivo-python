@@ -23,6 +23,7 @@ class ResponseElement(PlivoXMLElement):
         'Speak',
         'Wait',
         'MultiPartyCall',
+        'Stream'
     ]
 
     def add_conference(
