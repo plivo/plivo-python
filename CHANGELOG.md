@@ -1,11 +1,16 @@
 # Change Log
 
-## [4.37.0](https://github.com/plivo/plivo-python/tree/v4.37.0) (2023-06-28)
+## [4.38.0](https://github.com/plivo/plivo-python/tree/v4.37.0) (2023-06-30)
 **Feature - CNAM Storage**
 - Added New Param `cnam` in to the response of the [list all numbers API], [list single number API]
 - Added `cnam` filter to AccountPhoneNumber - list all my numbers API.
 - Added `cnam`, `callback_url`, `callback_method` parameter to buy number[Buy a Phone Number]  to configure CNAM storage while buying a US number
 - Added `cnam`, `callback_url`, `callback_method` parameter to update number[Update an account phone number] to configure CNAM storage while updating a US number
+- 
+## [4.37.0](https://github.com/plivo/plivo-python/tree/v4.37.0) (2022-06-38)
+**Feature - Streaming API and XML**
+- Added Stream API endpoints
+- Added Stream XML creation ability
 
 ## [4.36.0](https://github.com/plivo/plivo-python/tree/v4.36.0) (2023-06-02)
 **Feature - CNAM Lookup**
@@ -13,7 +18,6 @@
 - Added `cnam_lookup` filter to AccountPhoneNumber - list all my numbers API.
 - Added `cnam_lookup` parameter to buy number[Buy a Phone Number]  to configure CNAM Lookup while buying a US number
 - Added `cnam_lookup` parameter to update number[Update an account phone number] to configure CNAM Lookup while buying a US number
-
 
 ## [4.35.0](https://github.com/plivo/plivo-python/tree/v4.35.0) (2023-05-29)
 - Added `monthly_recording_storage_amount`, `recording_storage_rate`, `rounded_recording_duration`, and `recording_storage_duration` parameters to the response for [get single recording API](https://www.plivo.com/docs/voice/api/recording#retrieve-a-recording) and [get all recordings API](https://www.plivo.com/docs/voice/api/recording#list-all-recordings)
@@ -37,7 +41,6 @@
 ## [4.31.0](https://github.com/plivo/plivo-python/tree/v4.31.0) (2023-01-18)
 **Adding new parameter in Send Message API**
 -Added new parameter in Send Message API
-
 
 ## [4.30.0](https://github.com/plivo/plivo-python/tree/v4.30.0) (2022-12-16)
 **Adding Update campaign**
@@ -63,7 +66,6 @@
 ## [4.26.1](https://github.com/plivo/plivo-python/tree/v4.26.1) (2022-09-08)
 **Feature - Limit bug fix**
 - Fixed Limit threshold in 10DLC APIs
-
 
 ## [4.26.0](https://github.com/plivo/plivo-python/tree/v4.26.0) (2022-08-30)
 **Feature - 10DLC APIs**
