@@ -10,6 +10,7 @@
   "number_type": "local",
   "city": "USA",
   "cnam_lookup": "enabled",
+  "cnam": "plivo",
   "compliance_application_id": null,
   "compliance_status": null,
   "country": "United States",
