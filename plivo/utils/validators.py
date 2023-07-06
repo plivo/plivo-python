@@ -157,6 +157,7 @@ def of_type_exact(*args):
     return f
 
 
+
 def is_iterable(validator, sep=None):
     def f(name, value):
         try:
@@ -212,6 +213,34 @@ def validate_args(**to_validate):
 
     return outer
 
+def validate_list_items(instance_type):
+    def f(arg_name, value):
+        if not isinstance(value, list):
+            return [], [f"{arg_name} must be a list"]
+
+        errors = []
+        validated_items = []
+        for idx, item in enumerate(value):
+            flag = 0
+            if isinstance(item, dict):
+                try:
+                    instance_type(**item)
+                except Exception as exception:
+                    errors.append(str(exception))
+                    flag=1
+
+            else:
+                err = f"Invalid item at index {idx} in {arg_name}: should be of type {instance_type.__name__}" 
+                if not isinstance(item, instance_type):
+                    errors.append(err)
+                    flag = 1
+                
+            if not flag:
+                validated_items.append(item)
+
+        return validated_items, errors
+
+    return f
 
 is_valid_date = functools.partial(of_type, six.text_type)
 is_phonenumber = functools.partial(of_type, six.text_type)
@@ -231,3 +260,5 @@ is_url = functools.partial(
     ))
 is_proper_date_format = functools.partial(all_of, of_type_exact(str),
                                           regex(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}(:\d{2}(\.\d{1,6})?)?$'))
+
+is_template = functools.partial(of_type_exact,'plivo.utils.template.Template')
