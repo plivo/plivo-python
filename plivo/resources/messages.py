@@ -117,7 +117,7 @@ class Messages(PlivoResourceInterface):
         message_type=[
             optional(all_of(of_type(six.text_type), is_in(('sms', 'mms', 'whatsapp'))))],
         conversation_id=[optional(of_type(six.text_type))],
-        conversation_origin=[optional(all_of(of_type(six.text_type), is_in(('user_initiated', 'business_initiated', 'service', 'utility', 'authentication', 'marketing'))))]
+        conversation_origin=[optional(all_of(of_type(six.text_type), is_in(('service', 'utility', 'authentication', 'marketing'))))]
         )
 
     def list(self,

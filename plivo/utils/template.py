@@ -30,13 +30,11 @@ class Component:
 
 class Template:
     @validate_args(
-        namespace=[optional(of_type_exact(str))],
         name=[required(of_type_exact(str))],
         language=[required(of_type_exact(str))],
         components=[optional(validate_list_items(Component))],
     )
-    def __init__(self, name, language,namespace=None, components=None):
-        self.namespace = namespace
+    def __init__(self, name, language, components=None):
         self.name = name
         self.language = language
         self.components = components if components is not None else []
