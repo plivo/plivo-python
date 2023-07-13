@@ -143,6 +143,26 @@ class Call(PlivoResource):
                                                      self.get_details_of_specific_stream(),
                                                      locals()))
 
+    def create_masking_session(self):
+        return self.client.calls.create_masking_session(self.id,
+                                                        **to_param_dict(self.create_masking_session(), locals()))
+
+    def delete_masking_session(self):
+        return self.client.calls.delete_masking_session(self.id,
+                                                        **to_param_dict(self.delete_masking_session(), locals()))
+
+    def get_masking_session(self):
+        return self.client.calls.get_masking_session(self.id,
+                                                     **to_param_dict(self.get_masking_session(), locals()))
+
+    def update_masking_session(self):
+        return self.client.calls.update_masking_session(self.id,
+                                                        **to_param_dict(self.update_masking_session(), locals()))
+
+    def list_masking_session(self):
+        return self.client.calls.list_masking_session(self.id,
+                                                      **to_param_dict(self.list_masking_session(), locals()))
+
 
 class Calls(PlivoResourceInterface):
     _resource_type = Call
@@ -200,7 +220,7 @@ class Calls(PlivoResourceInterface):
                callback_method=None):
         if from_ in to_.split('<'):
             raise ValidationError('src and destination cannot overlap')
-        return self.client.request('POST', ('Call', ), to_param_dict(self.create, locals()), is_voice_request=True)
+        return self.client.request('POST', ('Call',), to_param_dict(self.create, locals()), is_voice_request=True)
 
     @validate_args(
         subaccount=[optional(is_subaccount())],
@@ -262,14 +282,14 @@ class Calls(PlivoResourceInterface):
         # Adding if else block because if we are fetching response without callback_url then response will be of type
         # ListResponseObject, if passing callback_url then will be of type
         # {'api_id': '94722e88-ae7c-11ec-b52e-0242ac11000a', 'message': 'async api spawned'}
-        if callback_url :
+        if callback_url:
             return self.client.request(
                 'GET',
                 ('Call',),
                 to_param_dict(self.list, locals()),
                 is_voice_request=True
             )
-        else :
+        else:
             return self.client.request(
                 'GET',
                 ('Call',),
@@ -369,7 +389,8 @@ class Calls(PlivoResourceInterface):
                    callback_method=[optional(of_type(six.text_type))]
                    )
     def stop_recording(self, call_uuid, callback_url, callback_method):
-        return self.client.request('DELETE', ('Call', call_uuid, 'Record'), to_param_dict(self.stop_recording, locals()), is_voice_request=True)
+        return self.client.request('DELETE', ('Call', call_uuid, 'Record'),
+                                   to_param_dict(self.stop_recording, locals()), is_voice_request=True)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def play(self,
@@ -404,7 +425,8 @@ class Calls(PlivoResourceInterface):
                    callback_method=[optional(of_type(six.text_type))]
                    )
     def stop_playing(self, call_uuid, callback_url=None, callback_method=None):
-        return self.client.request('DELETE', ('Call', call_uuid, 'Play'), to_param_dict(self.stop_playing, locals()), is_voice_request=True)
+        return self.client.request('DELETE', ('Call', call_uuid, 'Play'), to_param_dict(self.stop_playing, locals()),
+                                   is_voice_request=True)
 
     @validate_args(call_uuid=[of_type(six.text_type)],
                    callback_url=[optional(is_url())],
@@ -442,7 +464,8 @@ class Calls(PlivoResourceInterface):
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def stop_speaking(self, call_uuid, callback_url=None, callback_method=None):
-        return self.client.request('DELETE', ('Call', call_uuid, 'Speak'), to_param_dict(self.stop_speaking, locals()), is_voice_request=True)
+        return self.client.request('DELETE', ('Call', call_uuid, 'Speak'), to_param_dict(self.stop_speaking, locals()),
+                                   is_voice_request=True)
 
     @validate_args(
         callback_url=[optional(is_url())],
@@ -468,7 +491,8 @@ class Calls(PlivoResourceInterface):
                call_uuid,
                callback_url=None,
                callback_method=None):
-        return self.client.request('DELETE', ('Call', call_uuid), to_param_dict(self.delete, locals()), is_voice_request=True)
+        return self.client.request('DELETE', ('Call', call_uuid), to_param_dict(self.delete, locals()),
+                                   is_voice_request=True)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def hangup(self, call_uuid):
@@ -542,3 +566,82 @@ class Calls(PlivoResourceInterface):
     def get_all_streams(self,
                         call_uuid):
         return self.client.request('GET', ('Call', call_uuid, 'Stream'), is_voice_request=True)
+
+    @validate_args(
+        callback_url=[optional(is_url())],
+        recording_callback_url=[optional(is_url())],
+        first_party_play_url=[optional(is_url())],
+        second_party_play_url=[optional(is_url())],
+    )
+    def create_masking_session(self,
+                               first_party=None,
+                               second_party=None,
+                               session_expiry=None,
+                               call_time_limit=None,
+                               record=None,
+                               record_file_format=None,
+                               recording_callback_url=None,
+                               initiate_call_to_first_party=None,
+                               callback_url=None,
+                               callback_method=None,
+                               ring_timeout=None,
+                               first_party_play_url=None,
+                               second_party_play_url=None,
+                               recording_callback_method=None
+                               ):
+        return self.client.request('POST', ('Masking', 'Session',),
+                                   to_param_dict(self.create_masking_session, locals()), is_voice_request=True)
+
+    def delete_masking_session(self,
+                               session_uuid
+                               ):
+        return self.client.request('DELETE', ('Masking', 'Session', session_uuid),
+                                   to_param_dict(self.delete_masking_session, locals()), is_voice_request=True)
+
+    def get_masking_session(self,
+                            session_uuid
+                            ):
+        return self.client.request('GET', ('Masking', 'Session', session_uuid), is_voice_request=True)
+
+    def update_masking_session(self,
+                               session_uuid,
+                               session_expiry=None,
+                               call_time_limit=None,
+                               record=None,
+                               record_file_format=None,
+                               recording_callback_url=None,
+                               callback_url=None,
+                               callback_method=None,
+                               ring_timeout=None,
+                               first_party_play_url=None,
+                               second_party_play_url=None,
+                               recording_callback_method=None
+                               ):
+        return self.client.request('POST', ('Masking', 'Session', session_uuid),
+                                   to_param_dict(self.update_masking_session, locals()), is_voice_request=True)
+
+    def list_masking_session(self,
+                             first_party=None,
+                             second_party=None,
+                             virtual_number=None,
+                             status=None,
+                             created_time=None,
+                             created_time__lt=None,
+                             created_time__lte=None,
+                             created_time__gt=None,
+                             created_time__gte=None,
+                             expiry_time=None,
+                             expiry_time__lt=None,
+                             expiry_time__lte=None,
+                             expiry_time__gt=None,
+                             expiry_time__gte=None,
+                             duration=None,
+                             duration__lt=None,
+                             duration__lte=None,
+                             duration__gt=None,
+                             duration__gte=None,
+                             limit=None,
+                             offset=None
+                             ):
+        return self.client.request('GET', ('Masking', 'Session'), to_param_dict(self.list_masking_session, locals()),
+                                   is_voice_request=True)
