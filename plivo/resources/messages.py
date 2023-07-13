@@ -71,9 +71,9 @@ class Messages(PlivoResourceInterface):
             raise ValidationError(
                 'Template paramater is only applicable when message_type is whatsapp'
             )
-        if ((type_ == 'whatsapp') and (powerpack_uuid is not None)):
+        if ((type_ == 'whatsapp') and (src is None)):
             raise ValidationError(
-                'Invalid Source Number'
+                'src parameter not present'
             )
         if template is not None:
             template =  template.__dict__
