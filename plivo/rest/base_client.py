@@ -18,7 +18,7 @@ from requests import Request, Session
 AuthenticationCredentials = namedtuple('AuthenticationCredentials',
                                        'auth_id auth_token')
 
-PLIVO_API = 'https://api.plivo.com'
+PLIVO_API = 'https://api-messaging.sms.plivodev.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
 
 

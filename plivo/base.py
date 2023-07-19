@@ -60,6 +60,26 @@ class ResponseObject(object):
         return pprint.pformat(self.__dict__)
 
 
+class ListSessionResponseObject(ResponseObject):
+    def __init__(self, client, dct):
+        super(ListSessionResponseObject, self).__init__(dct)
+
+    def __iter__(self):
+        return self.sessions.__iter__()
+
+    def __len__(self):
+        return len(self.sessions)
+
+    def __str__(self):
+        return pprint.pformat(self.sessions)
+
+    def __repr__(self):
+        if self.sessions is not None:
+            return str([session for session in self.sessions])
+        else:
+            return ''
+
+
 class ListResponseObject(ResponseObject):
     def __init__(self, client, dct):
         super(ListResponseObject, self).__init__(dct)

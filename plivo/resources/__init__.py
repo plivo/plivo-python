@@ -20,3 +20,4 @@ from .brand import Brand
 from .campaign import Campaign
 from .profile import Profile
 from .multipartycall import MultiPartyCalls, MultiPartyCall, MultiPartyCallParticipant
+from .verify import Sessions

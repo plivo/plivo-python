@@ -14,7 +14,7 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
 from plivo.resources import (Accounts, Addresses, Applications, Calls,Token,
                              Conferences, Endpoints, Identities,
                              Messages, Powerpacks, Media, Lookup, Brand, Campaign, Profile,
-                             Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls)
+                             Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls, Sessions)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.profile import Profile
 from plivo.resources.queued_calls import QueuedCalls
@@ -27,14 +27,14 @@ from requests import Request, Session
 AuthenticationCredentials = namedtuple('AuthenticationCredentials',
                                        'auth_id auth_token')
 
-PLIVO_API = 'https://api.plivo.com'
+PLIVO_API = 'https://api-messaging.sms.plivodev.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
 
 # Will change these urls before putting this change in production
-API_VOICE = 'https://api.plivo.com'
+API_VOICE = 'https://api-messaging.sms.plivodev.com'
 API_VOICE_BASE_URI = '/'.join([API_VOICE, 'v1/Account'])
-API_VOICE_FALLBACK_1 = 'https://api.plivo.com'
-API_VOICE_FALLBACK_2 = 'https://api.plivo.com'
+API_VOICE_FALLBACK_1 = 'https://api-messaging.sms.plivodev.com'
+API_VOICE_FALLBACK_2 = 'https://api-messaging.sms.plivodev.com'
 API_VOICE_BASE_URI_FALLBACK_1 = '/'.join([API_VOICE_FALLBACK_1, 'v1/Account'])
 API_VOICE_BASE_URI_FALLBACK_2 = '/'.join([API_VOICE_FALLBACK_2, 'v1/Account'])
 
@@ -116,6 +116,7 @@ class Client(object):
         self.compliance_applications = ComplianceApplications(self)
         self.multi_party_calls = MultiPartyCalls(self)
         self.voice_retry_count = 0
+        self.verify = Sessions(self)
 
     def __enter__(self):
         return self
