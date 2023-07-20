@@ -1,5 +1,13 @@
 # Change Log
 
+## [4.38.0]
+**Feature - Verify**
+- Added Create Session API
+- Added Get Session API
+- Added List Session API
+- Added Validate Session API
+
+
 ## [4.37.0](https://github.com/plivo/plivo-python/tree/v4.37.0) (2022-06-38)
 **Feature - Streaming API and XML**
 - Added Stream API endpoints

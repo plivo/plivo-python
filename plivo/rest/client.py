@@ -116,7 +116,7 @@ class Client(object):
         self.compliance_applications = ComplianceApplications(self)
         self.multi_party_calls = MultiPartyCalls(self)
         self.voice_retry_count = 0
-        self.verify = Sessions(self)
+        self.verify_session = Sessions(self)
 
     def __enter__(self):
         return self

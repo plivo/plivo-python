@@ -10,7 +10,7 @@ class SessionTest(PlivoResourceTestCase):
         self.client.set_expected_response(
             status_code=202, data_to_return=expected_response)
 
-        test_session = self.client.verify.create(
+        test_session = self.client.verify_session.create(
             recipient='1234567890')
 
         self.assertEqual(
@@ -23,13 +23,13 @@ class SessionTest(PlivoResourceTestCase):
     def test_create_session_without_recipient(self):
         self.assertRaises(
             exceptions.ValidationError,
-            self.client.verify.create
+            self.client.verify_session.create
         )
 
     @with_response(200)
     def test_get(self):
         session_uuid = 'session_uuid'
-        session = self.client.verify.get(session_uuid)
+        session = self.client.verify_session.get(session_uuid)
         self.assertResponseMatches(session)
         self.assertUrlEqual(self.client.current_request.url,
                             self.get_url('Verify', 'Session', session_uuid))
@@ -37,7 +37,7 @@ class SessionTest(PlivoResourceTestCase):
 
     @with_response(200)
     def test_list(self):
-        messages = self.client.verify.list()
+        messages = self.client.verify_session.list()
         # Test if ListResponseObject's __iter__ is working correctly
         self.assertEqual(len(list(messages)), 20)
         self.assertUrlEqual(self.client.current_request.url,
@@ -51,7 +51,7 @@ class SessionTest(PlivoResourceTestCase):
         self.client.set_expected_response(
             status_code=200, data_to_return=expected_response)
 
-        test_session = self.client.verify.validate(
+        test_session = self.client.verify_session.validate(
             session_uuid=session_uuid, otp='123456')
 
         self.assertEqual(
@@ -64,6 +64,6 @@ class SessionTest(PlivoResourceTestCase):
     def test_validate_without_otp(self):
         self.assertRaises(
             exceptions.ValidationError,
-            self.client.verify.validate,
+            self.client.verify_session.validate,
             session_uuid='1234567'
         )
