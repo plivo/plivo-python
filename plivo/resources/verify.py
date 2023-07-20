@@ -89,7 +89,8 @@ class Sessions(PlivoResourceInterface):
         session_uuid=[of_type(six.text_type)]
     )
     def validate(self, session_uuid, otp=None):
-
+        if otp is None:
+            raise ValidationError('otp is required')
         return self.client.request('POST', ('Verify', 'Session', session_uuid),
                                    to_param_dict(self.validate, locals()))
 
