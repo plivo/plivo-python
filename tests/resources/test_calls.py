@@ -143,5 +143,3 @@ class LiveCallTest(PlivoResourceTestCase):
         self.assertUrlEqual(
             self.get_voice_url('Call', uuid, 'Stream'),
             self.client.current_request.url)
-
-
