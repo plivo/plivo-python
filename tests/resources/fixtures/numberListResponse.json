@@ -32,6 +32,7 @@
       "tendlc_registration_status": "PROCESSING",
       "toll_free_sms_verification": null,
       "renewal_date": "2014-09-05",
+      "cnam": "plivo",
       "cnam_lookup": "enabled",
       "voice_enabled": true,
       "voice_rate": "0.00850"
@@ -60,6 +61,7 @@
       "tendlc_registration_status": "REGISTERED",
       "toll_free_sms_verification": null,
       "renewal_date": "2013-02-01",
+      "cnam": "",
       "cnam_lookup": "enabled",
       "voice_enabled": true,
       "voice_rate": "0.00850"
@@ -87,6 +89,7 @@
       "tendlc_registration_status": null,
       "toll_free_sms_verification": "verified",
       "renewal_date": "2013-04-25",
+      "cnam": "plivo",
       "cnam_lookup": "disabled",
       "voice_enabled": true,
       "voice_rate": "0.00850"
