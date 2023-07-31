@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.38.0](https://github.com/plivo/plivo-python/tree/v4.38.0) (2022-07-31)
+**Feature - Number Masking**
+- Added Create, Delete, Update, Get and List Masking Session API
+
 ## [4.37.0](https://github.com/plivo/plivo-python/tree/v4.37.0) (2022-06-38)
 **Feature - Streaming API and XML**
 - Added Stream API endpoints
