@@ -5,15 +5,15 @@ class Parameter:
         type=[required(of_type_exact(str))],
         text=[optional(of_type_exact(str, type(None)))],
         media=[optional(of_type_exact(str))],
-        currency=[optional(of_type_exact('plivo.utils.template.Currency'))],
-        date_time=[optional(of_type_exact('plivo.utils.template.DateTime'))],
+        currency=[optional(of_type_exact(dict))],
+        date_time=[optional(of_type_exact(dict))],
     )
     def __init__(self, type, text=None, media=None, currency=None, date_time=None):
         self.type = type
         self.text = text
         self.media = media
-        self.currency = currency
-        self.date_time = date_time
+        self.currency = Currency(**currency) if currency else None
+        self.date_time = DateTime(**date_time) if date_time else None
 
 class Component:
     @validate_args(
@@ -42,37 +42,19 @@ class Template:
 
 class Currency:
     @validate_args(
+        fallback_value=[required(of_type_exact(str))],
         currency_code=[required(of_type_exact(str))],
-        amount1000=[required(of_type_exact(int))],
+        amount_1000=[required(of_type_exact(int))],
     )
-    def __init__(self, currency_code, amount1000):
+    def __init__(self, fallback_value, currency_code, amount_1000):
+        self.fallback_value=fallback_value
         self.currency_code = currency_code
-        self.amount1000 = amount1000
+        self.amount_1000 = amount_1000
 
 
 class DateTime:
     @validate_args(
-        component=[required(of_type_exact('plivo.utils.template.HSMDateTimeComponent'))],
+        fallback_value=[required(of_type_exact(str))],
     )
-    def __init__(self, component):
-        self.component = component
-
-
-class HSMDateTimeComponent:
-    @validate_args(
-        day_of_week=[optional(of_type_exact(str))],
-        year=[optional(of_type_exact(int))],
-        month=[optional(of_type_exact(int))],
-        day_of_month=[optional(of_type_exact(int))],
-        hour=[optional(of_type_exact(int))],
-        minute=[optional(of_type_exact(int))],
-        calendar=[optional(of_type_exact(str))],
-    )
-    def __init__(self, day_of_week=None, year=None, month=None, day_of_month=None, hour=None, minute=None, calendar=None):
-        self.day_of_week = day_of_week
-        self.year = year
-        self.month = month
-        self.day_of_month = day_of_month
-        self.hour = hour
-        self.minute = minute
-        self.calendar = calendar
+    def __init__(self, fallback_value):
+        self.fallback_value = fallback_value
