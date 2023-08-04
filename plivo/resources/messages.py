@@ -41,10 +41,11 @@ class Messages(PlivoResourceInterface):
         media_urls=[optional(of_type_exact(list))],
         media_ids=[optional(of_type_exact(list))],
         message_expiry=[optional(of_type(*six.integer_types))],
-        template=[optional(is_template())])
+        template=[optional(is_template())],
         dlt_entity_id=[optional(of_type(six.text_type))],
         dlt_template_id=[optional(of_type(six.text_type))],
-        dlt_template_category=[optional(of_type(six.text_type))])
+        dlt_template_category=[optional(of_type(six.text_type))]
+    )
     def create(self,
                dst,
                text=None,
