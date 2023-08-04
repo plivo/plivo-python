@@ -1,7 +1,6 @@
 # Change Log
 
 ## [4.40.0](https://github.com/plivo/plivo-python/tree/v4.40.0) (2023-08-07)
-**Feature - WhatsApp message support **
 **Feature - WhatsApp message support**
 - Added new param `template` and  new message_type `whatsapp` to [send message API](https://www.plivo.com/docs/sms/api/message#send-a-message)
 - Added new parameters `conversationID`, `conversationOrigin`,`conversationExpirationTimestamp` in [list all messages API](https://www.plivo.com/docs/sms/api/message#list-all-messages) and [get message details API](https://www.plivo.com/docs/sms/api/message#retrieve-a-message) reponse
