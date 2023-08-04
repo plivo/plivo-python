@@ -1,10 +1,19 @@
 # Change Log
 
-## [4.38.0](https://github.com/plivo/plivo-python/tree/v4.38.0) (2023-07-19)
+## [4.40.0](https://github.com/plivo/plivo-python/tree/v4.40.0) (2023-08-07)
 **Feature - WhatsApp message support **
+**Feature - WhatsApp message support**
 - Added new param `template` and  new message_type `whatsapp` to [send message API](https://www.plivo.com/docs/sms/api/message#send-a-message)
-- Added new parameters `conversation_id`, `conversation_origin`,`conversation_expiration_timestamp` in [list all messages API](https://www.plivo.com/docs/sms/api/message#list-all-messages) and [get message details API](https://www.plivo.com/docs/sms/api/message#retrieve-a-message) reponse
-- Added  new message_states and  new filters `message_type`,`conversation_id`, `conversation_origin` in [list all messages API](https://www.plivo.com/docs/sms/api/message#list-all-messages)
+- Added new parameters `conversationID`, `conversationOrigin`,`conversationExpirationTimestamp` in [list all messages API](https://www.plivo.com/docs/sms/api/message#list-all-messages) and [get message details API](https://www.plivo.com/docs/sms/api/message#retrieve-a-message) reponse
+- Added  new filters including `message_states` (`read`,`deleted`)   `message_type`(`whatsapp`),`conversation_id`, `conversation_origin` in [list all messages API](https://www.plivo.com/docs/sms/api/message#list-all-messages)
+## [4.39.0](https://github.com/plivo/plivo-python/tree/v4.39.0) (2023-08-03)
+**Feature - DLT parameters**
+- Added new params `DLTEntityID`, `DLTTemplateID`, `DLTTemplateCategory` to the [send message API](https://www.plivo.com/docs/sms/api/message/send-a-message/)
+- Added new params `DLTEntityID`, `DLTTemplateID`, `DLTTemplateCategory` to the response for the [list all messages API](https://www.plivo.com/docs/sms/api/message/list-all-messages/) and the [get message details API](https://www.plivo.com/docs/sms/api/message#retrieve-a-message)
+
+## [4.38.0](https://github.com/plivo/plivo-python/tree/v4.38.0) (2022-07-31)
+**Feature - Number Masking**
+- Added Create, Delete, Update, Get and List Masking Session API
 
 ## [4.37.0](https://github.com/plivo/plivo-python/tree/v4.37.0) (2022-06-38)
 **Feature - Streaming API and XML**
