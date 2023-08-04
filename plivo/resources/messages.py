@@ -40,7 +40,10 @@ class Messages(PlivoResourceInterface):
         powerpack_uuid=[optional(of_type(six.text_type))],
         media_urls=[optional(of_type_exact(list))],
         media_ids=[optional(of_type_exact(list))],
-        message_expiry=[optional(of_type(*six.integer_types))])
+        message_expiry=[optional(of_type(*six.integer_types))],
+        dlt_entity_id=[optional(of_type(six.text_type))],
+        dlt_template_id=[optional(of_type(six.text_type))],
+        dlt_template_category=[optional(of_type(six.text_type))])
     def create(self,
                dst,
                text=None,
@@ -53,7 +56,10 @@ class Messages(PlivoResourceInterface):
                powerpack_uuid=None,
                media_urls=None,
                media_ids=None,
-               message_expiry=None):
+               message_expiry=None,
+               dlt_entity_id=None,
+               dlt_template_id=None,
+               dlt_template_category=None):
         if src in dst.split('<'):
             raise ValidationError(
                 'destination number cannot be same as source number')

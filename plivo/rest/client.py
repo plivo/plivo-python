@@ -16,6 +16,7 @@ from plivo.resources import (Accounts, Addresses, Applications, Calls,Token,
                              Messages, Powerpacks, Media, Lookup, Brand, Campaign, Profile,
                              Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls, Sessions)
 from plivo.resources.live_calls import LiveCalls
+from plivo.resources.maskingsession import MaskingSessions
 from plivo.resources.profile import Profile
 from plivo.resources.queued_calls import QueuedCalls
 from plivo.resources.regulatory_compliance import EndUsers, ComplianceDocumentTypes, ComplianceDocuments, \
@@ -115,6 +116,7 @@ class Client(object):
         self.compliance_requirements = ComplianceRequirements(self)
         self.compliance_applications = ComplianceApplications(self)
         self.multi_party_calls = MultiPartyCalls(self)
+        self.masking_sessions = MaskingSessions(self)
         self.voice_retry_count = 0
         self.verify_session = Sessions(self)
 

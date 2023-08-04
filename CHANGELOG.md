@@ -1,12 +1,20 @@
 # Change Log
 
-## [4.38.0]
+## [4.40.0](https://github.com/plivo/plivo-python/tree/v4.40.0) (2023-08-04)
 **Feature - Verify**
 - Added Create Session API
 - Added Get Session API
 - Added List Session API
 - Added Validate Session API
 
+## [4.39.0](https://github.com/plivo/plivo-python/tree/v4.39.0) (2023-08-03)
+**Feature - DLT parameters**
+- Added new params `DLTEntityID`, `DLTTemplateID`, `DLTTemplateCategory` to the [send message API](https://www.plivo.com/docs/sms/api/message/send-a-message/)
+- Added new params `DLTEntityID`, `DLTTemplateID`, `DLTTemplateCategory` to the response for the [list all messages API](https://www.plivo.com/docs/sms/api/message/list-all-messages/) and the [get message details API](https://www.plivo.com/docs/sms/api/message#retrieve-a-message)
+
+## [4.38.0](https://github.com/plivo/plivo-python/tree/v4.38.0) (2022-07-31)
+**Feature - Number Masking**
+- Added Create, Delete, Update, Get and List Masking Session API
 
 ## [4.37.0](https://github.com/plivo/plivo-python/tree/v4.37.0) (2022-06-38)
 **Feature - Streaming API and XML**
