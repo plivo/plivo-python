@@ -230,7 +230,7 @@ def validate_list_items(instance_type):
                     flag=1
 
             else:
-                err = f"Invalid item at index {idx} in {arg_name}: should be of type {instance_type.__name__}" 
+                err = "Invalid item at index {} in {}: should be of type {}".format(idx, arg_name, instance_type.__name__)
                 if not isinstance(item, instance_type):
                     errors.append(err)
                     flag = 1
