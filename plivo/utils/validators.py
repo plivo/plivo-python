@@ -216,7 +216,7 @@ def validate_args(**to_validate):
 def validate_list_items(instance_type):
     def f(arg_name, value):
         if not isinstance(value, list):
-            return [], [f"{arg_name} must be a list"]
+            return [], ["{} must be a list".format(arg_name)]
 
         errors = []
         validated_items = []
