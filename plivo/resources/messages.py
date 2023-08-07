@@ -103,7 +103,7 @@ class Messages(PlivoResourceInterface):
         message_state=[
             optional(
                 is_in(('queued', 'sent', 'failed', 'delivered', 'undelivered',
-                       'rejected', 'read', 'deleted')))
+                       'rejected', 'read')))
         ],
         limit=[
             optional(
