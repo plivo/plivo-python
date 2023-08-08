@@ -32,7 +32,7 @@ class Messages(PlivoResourceInterface):
         dst=[is_iterable(of_type(six.text_type), '<')],
         text=[optional(of_type(six.text_type))],
         type_=[
-            optional(all_of(of_type(six.text_type), is_in(('sms', 'mms'))))],
+            optional(all_of(of_type(six.text_type), is_in(('sms', 'mms', 'whatsapp'))))],
         url=[optional(is_url())],
         method=[optional(of_type(six.text_type))],
         log=[optional(of_type_exact(bool))],
@@ -41,9 +41,11 @@ class Messages(PlivoResourceInterface):
         media_urls=[optional(of_type_exact(list))],
         media_ids=[optional(of_type_exact(list))],
         message_expiry=[optional(of_type(*six.integer_types))],
+        template=[optional(is_template())],
         dlt_entity_id=[optional(of_type(six.text_type))],
         dlt_template_id=[optional(of_type(six.text_type))],
-        dlt_template_category=[optional(of_type(six.text_type))])
+        dlt_template_category=[optional(of_type(six.text_type))]
+    )
     def create(self,
                dst,
                text=None,
@@ -56,7 +58,8 @@ class Messages(PlivoResourceInterface):
                powerpack_uuid=None,
                media_urls=None,
                media_ids=None,
-               message_expiry=None,
+               message_expiry=None, 
+               template=None,
                dlt_entity_id=None,
                dlt_template_id=None,
                dlt_template_category=None):
@@ -71,6 +74,16 @@ class Messages(PlivoResourceInterface):
             raise ValidationError(
                 'Both powerpack_uuid and src cannot be specified. Specify either powerpack_uuid or src in request params to send a message.'
             )
+        if ((type_ != 'whatsapp') and (template is not None)):
+            raise ValidationError(
+                'Template paramater is only applicable when message_type is whatsapp'
+            )
+        if ((type_ == 'whatsapp') and (src is None)):
+            raise ValidationError(
+                'src parameter not present'
+            )
+        if template is not None:
+            template =  template.__dict__
         return self.client.request('POST', ('Message', ),
                                    to_param_dict(self.create, locals()))
 
@@ -90,7 +103,7 @@ class Messages(PlivoResourceInterface):
         message_state=[
             optional(
                 is_in(('queued', 'sent', 'failed', 'delivered', 'undelivered',
-                       'rejected')))
+                       'rejected', 'read')))
         ],
         limit=[
             optional(
@@ -107,7 +120,13 @@ class Messages(PlivoResourceInterface):
         powerpack_id=[optional(of_type(six.text_type))],
         tendlc_campaign_id=[optional(of_type(six.text_type))],
         destination_country_iso2=[optional(of_type(six.text_type))],
-        tendlc_registration_status=[optional(of_type(six.text_type))])
+        tendlc_registration_status=[optional(of_type(six.text_type))],
+        message_type=[
+            optional(all_of(of_type(six.text_type), is_in(('sms', 'mms', 'whatsapp'))))],
+        conversation_id=[optional(of_type(six.text_type))],
+        conversation_origin=[optional(all_of(of_type(six.text_type), is_in(('service', 'utility', 'authentication', 'marketing'))))]
+        )
+
     def list(self,
              subaccount=None,
              message_direction=None,
@@ -123,7 +142,11 @@ class Messages(PlivoResourceInterface):
              powerpack_id=None,
              tendlc_campaign_id=None,
              destination_country_iso2=None,
-             tendlc_registration_status=None):
+             tendlc_registration_status=None,
+             message_type=None,
+             conversation_id=None,
+             conversation_origin=None,
+             ):
         return self.client.request(
             'GET', ('Message', ),
             to_param_dict(self.list, locals()),
