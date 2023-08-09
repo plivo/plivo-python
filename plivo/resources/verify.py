@@ -53,6 +53,7 @@ class Sessions(PlivoResourceInterface):
         country=[optional(of_type(six.text_type))],
         alias=[optional(of_type(six.text_type))],
         app_uuid=[optional(of_type(six.text_type))],
+        recipient=[optional(of_type(six.text_type))],
         limit=[
             optional(
                 all_of(
@@ -76,6 +77,7 @@ class Sessions(PlivoResourceInterface):
              country=None,
              alias=None,
              app_uuid=None,
+             recipient=None,
              limit=None,
              offset=None):
         return self.client.request(
