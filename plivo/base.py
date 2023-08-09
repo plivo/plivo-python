@@ -63,21 +63,35 @@ class ResponseObject(object):
 class ListSessionResponseObject(ResponseObject):
     def __init__(self, client, dct):
         super(ListSessionResponseObject, self).__init__(dct)
+        self.error = dct.get('error', None)
+        self.sessions = dct.get('sessions', None)
 
     def __iter__(self):
-        return self.sessions.__iter__()
+        if self.sessions is not None:
+            return self.sessions.__iter__()
+        else:
+            return iter([])
 
     def __len__(self):
-        return len(self.sessions)
+        if self.sessions is not None:
+            return len(self.sessions)
+        else:
+            return 0  # Return 0 for error case
 
     def __str__(self):
-        return pprint.pformat(self.sessions)
+        if self.sessions is not None:
+            return pprint.pformat(self.sessions)
+        else:
+            return str(self.error)  # Display error message for error case
 
     def __repr__(self):
         if self.sessions is not None:
             return str([session for session in self.sessions])
         else:
-            return ''
+            return str(self.error)  # Display error message for error case
+
+    def has_error(self):
+        return self.error is not None
 
 
 class ListResponseObject(ResponseObject):
