@@ -81,7 +81,7 @@ class ListSessionResponseObject(ResponseObject):
 
     def __str__(self):
         if self.sessions is not None:
-            response_dict = {'meta': self.meta, 'sessions': self.sessions}
+            response_dict = {'api_id': self.apiID, 'meta': self.meta, 'sessions': self.sessions}
             return pprint.pformat(response_dict)
         else:
             return str(self.error)  # Display error message for error case
