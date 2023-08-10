@@ -66,6 +66,7 @@ class ListSessionResponseObject(ResponseObject):
         self.error = dct.get('error', None)
         self.sessions = dct.get('sessions', None)
         self.meta = dct.get('meta', None)
+        self.apiID = dct.get('api_id', None)
     def __iter__(self):
         if self.sessions is not None:
             return self.sessions.__iter__()
@@ -87,7 +88,7 @@ class ListSessionResponseObject(ResponseObject):
 
     def __repr__(self):
         if self.sessions is not None:
-            response_dict = {'meta': self.meta, 'sessions': [session for session in self.sessions]}
+            response_dict = {'api_id': self.apiID, 'meta': self.meta, 'sessions': [session for session in self.sessions]}
             return str(response_dict)
         else:
             return str(self.error)  # Display error message for error case
