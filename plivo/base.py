@@ -60,6 +60,43 @@ class ResponseObject(object):
         return pprint.pformat(self.__dict__)
 
 
+class ListSessionResponseObject(ResponseObject):
+    def __init__(self, client, dct):
+        super(ListSessionResponseObject, self).__init__(dct)
+        self.error = dct.get('error', None)
+        self.sessions = dct.get('sessions', None)
+        self.meta = dct.get('meta', None)
+        self.apiID = dct.get('api_id', None)
+    def __iter__(self):
+        if self.sessions is not None:
+            return self.sessions.__iter__()
+        else:
+            return iter([])
+
+    def __len__(self):
+        if self.sessions is not None:
+            return len(self.sessions)
+        else:
+            return 0  # Return 0 for error case
+
+    def __str__(self):
+        if self.sessions is not None:
+            response_dict = {'api_id': self.apiID, 'meta': self.meta, 'sessions': self.sessions}
+            return pprint.pformat(response_dict)
+        else:
+            return str(self.error)  # Display error message for error case
+
+    def __repr__(self):
+        if self.sessions is not None:
+            response_dict = {'api_id': self.apiID, 'meta': self.meta, 'sessions': [session for session in self.sessions]}
+            return str(response_dict)
+        else:
+            return str(self.error)  # Display error message for error case
+
+    def has_error(self):
+        return self.error is not None
+
+
 class ListResponseObject(ResponseObject):
     def __init__(self, client, dct):
         super(ListResponseObject, self).__init__(dct)

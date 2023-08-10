@@ -1,0 +1,30 @@
+{
+    "api_id": "8faf830c-4be8-485a-9235-045495b03148",
+    "session_uuid": "5c533d15-1975-4f20-80be-40174142ea37",
+    "app_uuid": "eeb90c7b-9367-4457-8644-47007661bff5",
+    "recipient": "918681951370",
+    "channel": "sms",
+    "status": "expired",
+    "count": 1,
+    "attempt_details": [
+        {
+            "channel": "sms",
+            "attempt_uuid": "c1ed6b11-783d-4efd-8b45-d372e02d2943",
+            "status": "failed",
+            "time": "2023-07-18T08:46:14.865388Z"
+        }
+    ],
+    "charges": {
+        "total_charge": "0",
+        "validation_charge": "0.0000",
+        "attempt_charges": [
+            {
+                "attempt_uuid": "c1ed6b11-783d-4efd-8b45-d372e02d2943",
+                "channel": "sms",
+                "charge": "0.00000"
+            }
+        ]
+    },
+    "created_at": "2023-07-18T08:46:14.851205Z",
+    "updated_at": "2023-07-18T08:46:14.865388Z"
+}

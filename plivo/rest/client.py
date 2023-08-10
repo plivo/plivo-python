@@ -14,7 +14,7 @@ from plivo.exceptions import (AuthenticationError, InvalidRequestError,
 from plivo.resources import (Accounts, Addresses, Applications, Calls,Token,
                              Conferences, Endpoints, Identities,
                              Messages, Powerpacks, Media, Lookup, Brand, Campaign, Profile,
-                             Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls)
+                             Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls, Sessions)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.maskingsession import MaskingSessions
 from plivo.resources.profile import Profile
@@ -118,6 +118,7 @@ class Client(object):
         self.multi_party_calls = MultiPartyCalls(self)
         self.masking_sessions = MaskingSessions(self)
         self.voice_retry_count = 0
+        self.verify_session = Sessions(self)
 
     def __enter__(self):
         return self

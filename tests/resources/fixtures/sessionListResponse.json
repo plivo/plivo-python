@@ -1,0 +1,836 @@
+{
+    "api_id": "2edcc63d-c67a-4b1e-88d3-a6458fbe1ad4",
+    "meta": {
+        "limit": 20,
+        "offset": 0,
+        "next": "/v1/Account/MAODZKMDFJMJU3MTEYNG/Verify/Session/?limit=20&offset=20",
+        "previous": null
+    },
+    "sessions": [
+        {
+            "session_uuid": "fc7500ea-648e-4677-91a0-89d850bbd6ff",
+            "app_uuid": "18a595dc-7e37-4100-8ad6-e860469604f4",
+            "alias": "Kanishka_1",
+            "recipient": "8097480999",
+            "channel": "sms",
+            "status": "expired",
+            "count": 2,
+            "requestor_ip": "110.226.183.100",
+            "destination_country_iso2": "",
+            "destination_network": null,
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "143fe959-1bbc-488e-b192-623f7bfc8fee",
+                    "status": "failed",
+                    "time": "2023-07-19T18:32:05.513477+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "fbaed0a3-f76c-4cde-bf8e-7ed3af01cb3f",
+                    "status": "failed",
+                    "time": "2023-07-19T18:32:35.85376+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "143fe959-1bbc-488e-b192-623f7bfc8fee",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "fbaed0a3-f76c-4cde-bf8e-7ed3af01cb3f",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T18:32:05.496988+05:30",
+            "updated_at": "2023-07-19T18:32:35.85376+05:30"
+        },
+        {
+            "session_uuid": "9355da0b-7a69-4e64-b8c5-b5b1f51e6910",
+            "app_uuid": "18a595dc-7e37-4100-8ad6-e860469604f4",
+            "alias": "Kanishka_1",
+            "recipient": "8097480999",
+            "channel": "sms",
+            "status": "expired",
+            "count": 3,
+            "requestor_ip": "110.226.183.100",
+            "destination_country_iso2": "",
+            "destination_network": null,
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "ab08460a-4221-441c-9e6d-d042db38c28e",
+                    "status": "failed",
+                    "time": "2023-07-19T18:28:20.327707+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "ff4d8ace-5a71-461f-8e1e-0c9a02acc5bc",
+                    "status": "failed",
+                    "time": "2023-07-19T18:28:34.558135+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "192fe0d6-1f97-4059-b768-1a37ae18c042",
+                    "status": "failed",
+                    "time": "2023-07-19T18:28:41.01968+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "ab08460a-4221-441c-9e6d-d042db38c28e",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "ff4d8ace-5a71-461f-8e1e-0c9a02acc5bc",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "192fe0d6-1f97-4059-b768-1a37ae18c042",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T18:28:20.319233+05:30",
+            "updated_at": "2023-07-19T18:28:41.01968+05:30"
+        },
+        {
+            "session_uuid": "b7aba5bf-476e-4485-b00a-bbcea68c9b4a",
+            "app_uuid": "18a595dc-7e37-4100-8ad6-e860469604f4",
+            "alias": "Kanishka_1",
+            "recipient": "8097480999",
+            "channel": "sms",
+            "status": "expired",
+            "count": 2,
+            "requestor_ip": "110.226.183.100",
+            "destination_country_iso2": "",
+            "destination_network": null,
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "2d28771c-4f9e-41ff-ae23-0f5f0b6d8558",
+                    "status": "failed",
+                    "time": "2023-07-19T18:24:38.074358+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "96989644-e57a-4e58-84da-3572eda5c0dc",
+                    "status": "failed",
+                    "time": "2023-07-19T18:27:19.538409+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "2d28771c-4f9e-41ff-ae23-0f5f0b6d8558",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "96989644-e57a-4e58-84da-3572eda5c0dc",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T18:24:38.063177+05:30",
+            "updated_at": "2023-07-19T18:27:19.538409+05:30"
+        },
+        {
+            "session_uuid": "5d4eb971-f040-46a8-aa0d-3113d8f4c7bd",
+            "app_uuid": "3cdec449-a367-435e-b4f9-40d777a7cfcc",
+            "alias": "new_voice45",
+            "recipient": "8097480999",
+            "channel": "sms",
+            "status": "expired",
+            "count": 1,
+            "requestor_ip": "110.226.183.100",
+            "destination_country_iso2": "",
+            "destination_network": null,
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "76a3eaed-5fee-4b1d-9d30-1c632b1da245",
+                    "status": "failed",
+                    "time": "2023-07-19T18:07:22.539967+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "76a3eaed-5fee-4b1d-9d30-1c632b1da245",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T18:07:22.531234+05:30",
+            "updated_at": "2023-07-19T18:07:22.539967+05:30"
+        },
+        {
+            "session_uuid": "9acdc723-a422-40df-b5bb-6f6876a61088",
+            "app_uuid": "3cdec449-a367-435e-b4f9-40d777a7cfcc",
+            "alias": "new_voice45",
+            "recipient": "8097480999",
+            "channel": "sms",
+            "status": "expired",
+            "count": 3,
+            "requestor_ip": "110.226.183.100",
+            "destination_country_iso2": "",
+            "destination_network": null,
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "bc5ebeee-3895-4841-854f-f0b8af949fb1",
+                    "status": "failed",
+                    "time": "2023-07-19T18:04:19.731346+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "4ebd0a46-736a-4b16-9f95-f8578ccc71b9",
+                    "status": "failed",
+                    "time": "2023-07-19T18:04:36.94973+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "b439bfba-a750-4a41-9a38-ef59b62a0b57",
+                    "status": "failed",
+                    "time": "2023-07-19T18:07:01.433289+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "bc5ebeee-3895-4841-854f-f0b8af949fb1",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "4ebd0a46-736a-4b16-9f95-f8578ccc71b9",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "b439bfba-a750-4a41-9a38-ef59b62a0b57",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T18:04:19.7172+05:30",
+            "updated_at": "2023-07-19T18:07:01.433289+05:30"
+        },
+        {
+            "session_uuid": "89386648-5dc4-4452-9418-2ec0b8666d2c",
+            "app_uuid": "3cdec449-a367-435e-b4f9-40d777a7cfcc",
+            "alias": "new_voice45",
+            "recipient": "8097480999",
+            "channel": "sms",
+            "status": "expired",
+            "count": 2,
+            "requestor_ip": "110.226.183.100",
+            "destination_country_iso2": "",
+            "destination_network": null,
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "041103e5-1f2f-452b-9c36-6f6bc209298b",
+                    "status": "failed",
+                    "time": "2023-07-19T18:01:14.278037+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "f865c35b-1d6f-4a46-9882-13a0ce720f38",
+                    "status": "failed",
+                    "time": "2023-07-19T18:03:29.721507+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "041103e5-1f2f-452b-9c36-6f6bc209298b",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "f865c35b-1d6f-4a46-9882-13a0ce720f38",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T18:01:14.240116+05:30",
+            "updated_at": "2023-07-19T18:03:29.721507+05:30"
+        },
+        {
+            "session_uuid": "1b42fa64-5e6f-4b40-9845-9470a42c9be6",
+            "app_uuid": "3cdec449-a367-435e-b4f9-40d777a7cfcc",
+            "alias": "new_voice45",
+            "recipient": "8097480999",
+            "channel": "sms",
+            "status": "expired",
+            "count": 2,
+            "requestor_ip": "110.226.183.100",
+            "destination_country_iso2": "",
+            "destination_network": null,
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "2968d4e8-9916-40a0-a221-6e9a32cc7bde",
+                    "status": "failed",
+                    "time": "2023-07-19T17:44:21.553902+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "ffa14be4-415d-484d-b894-edde88e0945a",
+                    "status": "failed",
+                    "time": "2023-07-19T17:45:32.75472+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "2968d4e8-9916-40a0-a221-6e9a32cc7bde",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "ffa14be4-415d-484d-b894-edde88e0945a",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T17:44:21.534068+05:30",
+            "updated_at": "2023-07-19T17:45:32.75472+05:30"
+        },
+        {
+            "session_uuid": "ed3cd2de-156b-4543-a67d-669b0759a9c7",
+            "app_uuid": "3cdec449-a367-435e-b4f9-40d777a7cfcc",
+            "alias": "new_voice45",
+            "recipient": "917339521564",
+            "channel": "sms",
+            "status": "expired",
+            "count": 1,
+            "requestor_ip": "49.204.141.11",
+            "destination_country_iso2": "IN",
+            "destination_network": "AirTel",
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "2521eb44-4d76-46c7-a946-a7a4b2336ee8",
+                    "status": "failed",
+                    "time": "2023-07-19T17:38:48.531945+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "2521eb44-4d76-46c7-a946-a7a4b2336ee8",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T17:38:48.522052+05:30",
+            "updated_at": "2023-07-19T17:38:48.531945+05:30"
+        },
+        {
+            "session_uuid": "dd45b015-d05d-4959-ad0a-9d8264ae27b2",
+            "app_uuid": "3cdec449-a367-435e-b4f9-40d777a7cfcc",
+            "alias": "new_voice45",
+            "recipient": "8097480999",
+            "channel": "sms",
+            "status": "expired",
+            "count": 1,
+            "requestor_ip": "110.226.183.100",
+            "destination_country_iso2": "",
+            "destination_network": null,
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "9a57ffaa-6f58-40d3-88ee-71e87a91e941",
+                    "status": "failed",
+                    "time": "2023-07-19T17:38:10.326559+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "9a57ffaa-6f58-40d3-88ee-71e87a91e941",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T17:38:10.316149+05:30",
+            "updated_at": "2023-07-19T17:38:10.326559+05:30"
+        },
+        {
+            "session_uuid": "3e92eaad-7a74-4e1d-8f54-2eac9288084d",
+            "app_uuid": "3cdec449-a367-435e-b4f9-40d777a7cfcc",
+            "alias": "new_voice45",
+            "recipient": "8097480999",
+            "channel": "sms",
+            "status": "expired",
+            "count": 2,
+            "requestor_ip": "110.226.183.100",
+            "destination_country_iso2": "",
+            "destination_network": null,
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "555eb7c4-3fae-40ce-bc40-705dc816f7f9",
+                    "status": "failed",
+                    "time": "2023-07-19T17:27:58.081522+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "c3914d2a-e5f2-48fd-8c6e-a43b6c85c7d8",
+                    "status": "failed",
+                    "time": "2023-07-19T17:29:07.363541+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "555eb7c4-3fae-40ce-bc40-705dc816f7f9",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "c3914d2a-e5f2-48fd-8c6e-a43b6c85c7d8",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T17:27:58.069469+05:30",
+            "updated_at": "2023-07-19T17:29:07.363541+05:30"
+        },
+        {
+            "session_uuid": "c5dc8af7-4ddf-4dff-8776-fa9d7086096f",
+            "app_uuid": "3cdec449-a367-435e-b4f9-40d777a7cfcc",
+            "alias": "new_voice45",
+            "recipient": "918707046402",
+            "channel": "sms",
+            "status": "expired",
+            "count": 1,
+            "requestor_ip": "122.179.71.113",
+            "destination_country_iso2": "IN",
+            "destination_network": "Jio",
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "de19f86c-7024-4949-96ac-81418a92b34e",
+                    "status": "failed",
+                    "time": "2023-07-19T14:59:33.666697+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "de19f86c-7024-4949-96ac-81418a92b34e",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T14:59:33.652082+05:30",
+            "updated_at": "2023-07-19T14:59:33.666697+05:30"
+        },
+        {
+            "session_uuid": "5968e08a-80d4-4da6-a680-4e7aa9a47888",
+            "app_uuid": "abcaeb46-ca04-4c13-b066-bfdb27dd50f0",
+            "alias": "new_voice3",
+            "recipient": "918707046409",
+            "channel": "sms",
+            "status": "expired",
+            "count": 2,
+            "requestor_ip": "122.179.71.113",
+            "destination_country_iso2": "IN",
+            "destination_network": "Jio",
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "2ffbdc73-c90b-4ff7-acea-fd90897510d7",
+                    "status": "failed",
+                    "time": "2023-07-19T12:11:46.594182+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "027e8b4d-a172-4836-9ae7-4b31475815ec",
+                    "status": "failed",
+                    "time": "2023-07-19T12:12:00.243134+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "2ffbdc73-c90b-4ff7-acea-fd90897510d7",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "027e8b4d-a172-4836-9ae7-4b31475815ec",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T12:11:46.582927+05:30",
+            "updated_at": "2023-07-19T12:12:00.243134+05:30"
+        },
+        {
+            "session_uuid": "b5f1faa6-f31c-453c-9435-1c9d949b9532",
+            "app_uuid": "eeb90c7b-9367-4457-8644-47007661bff5",
+            "alias": "new_voice3",
+            "recipient": "918707046409",
+            "channel": "sms",
+            "status": "expired",
+            "count": 1,
+            "requestor_ip": "122.179.71.113",
+            "destination_country_iso2": "IN",
+            "destination_network": "Jio",
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "960e2f10-bc2d-4bba-b0ae-ce822ba9c50f",
+                    "status": "failed",
+                    "time": "2023-07-19T12:03:15.913803+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "960e2f10-bc2d-4bba-b0ae-ce822ba9c50f",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-19T12:03:15.900121+05:30",
+            "updated_at": "2023-07-19T12:03:15.913803+05:30"
+        },
+        {
+            "session_uuid": "5c533d15-1975-4f20-80be-40174142ea37",
+            "app_uuid": "eeb90c7b-9367-4457-8644-47007661bff5",
+            "alias": "new_voice3",
+            "recipient": "918681951370",
+            "channel": "sms",
+            "status": "expired",
+            "count": 1,
+            "requestor_ip": "49.204.143.115",
+            "destination_country_iso2": "IN",
+            "destination_network": "IDEA",
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "c1ed6b11-783d-4efd-8b45-d372e02d2943",
+                    "status": "failed",
+                    "time": "2023-07-18T14:16:14.865388+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "c1ed6b11-783d-4efd-8b45-d372e02d2943",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-18T14:16:14.851205+05:30",
+            "updated_at": "2023-07-18T14:16:14.865388+05:30"
+        },
+        {
+            "session_uuid": "5bdf5b02-feca-43ab-94c5-209e8e773aa2",
+            "app_uuid": "3f6b1bb1-f086-4407-bda4-5a92e435685d",
+            "alias": "application 1",
+            "recipient": "33603939061",
+            "channel": "sms",
+            "status": "expired",
+            "count": 2,
+            "requestor_ip": "49.204.143.115",
+            "destination_country_iso2": "FR",
+            "destination_network": "SFR",
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "966d140c-82b3-44a7-b2b1-9d0214eff802",
+                    "status": "failed",
+                    "time": "2023-07-18T14:08:57.36506+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "d541ac8c-b216-4d5a-9e48-318f1c659b27",
+                    "status": "failed",
+                    "time": "2023-07-18T14:08:58.376232+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "966d140c-82b3-44a7-b2b1-9d0214eff802",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "d541ac8c-b216-4d5a-9e48-318f1c659b27",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-18T14:08:57.351515+05:30",
+            "updated_at": "2023-07-18T14:08:58.376232+05:30"
+        },
+        {
+            "session_uuid": "69307156-0ad5-42ea-be71-5468defa9af8",
+            "app_uuid": "3f6b1bb1-f086-4407-bda4-5a92e435685d",
+            "alias": "application 1",
+            "recipient": "33603939061",
+            "channel": "sms",
+            "status": "expired",
+            "count": 3,
+            "requestor_ip": "49.204.143.115",
+            "destination_country_iso2": "FR",
+            "destination_network": "SFR",
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "7491d80e-68de-435c-acb6-f1e4d09f4f46",
+                    "status": "failed",
+                    "time": "2023-07-18T14:04:36.314444+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "90b1563c-8bae-4b8f-a179-2b1e2c7bebed",
+                    "status": "failed",
+                    "time": "2023-07-18T14:07:48.920634+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "de8e2c4a-1341-4eb7-904b-5d3b9ddfa80e",
+                    "status": "failed",
+                    "time": "2023-07-18T14:07:49.884265+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "7491d80e-68de-435c-acb6-f1e4d09f4f46",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "90b1563c-8bae-4b8f-a179-2b1e2c7bebed",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "de8e2c4a-1341-4eb7-904b-5d3b9ddfa80e",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-18T14:04:36.300711+05:30",
+            "updated_at": "2023-07-18T14:07:49.884265+05:30"
+        },
+        {
+            "session_uuid": "0e513cfa-d9c0-482c-af7c-42d18371fad9",
+            "app_uuid": "3f6b1bb1-f086-4407-bda4-5a92e435685d",
+            "alias": "application 1",
+            "recipient": "33603939061",
+            "channel": "sms",
+            "status": "expired",
+            "count": 3,
+            "requestor_ip": "49.204.143.115",
+            "destination_country_iso2": "FR",
+            "destination_network": "SFR",
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "d217b136-322d-4224-befb-539a2343cb49",
+                    "status": "failed",
+                    "time": "2023-07-18T13:56:49.781848+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "a7506501-aae0-46fb-a639-51a8166274e4",
+                    "status": "failed",
+                    "time": "2023-07-18T13:56:51.42582+05:30"
+                },
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "8f1ef980-bd32-47ec-896f-bafa4fb26af5",
+                    "status": "failed",
+                    "time": "2023-07-18T13:56:52.405448+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "d217b136-322d-4224-befb-539a2343cb49",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "a7506501-aae0-46fb-a639-51a8166274e4",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    },
+                    {
+                        "attempt_uuid": "8f1ef980-bd32-47ec-896f-bafa4fb26af5",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-18T13:56:49.767876+05:30",
+            "updated_at": "2023-07-18T13:56:52.405448+05:30"
+        },
+        {
+            "session_uuid": "8901ba19-a299-4532-9df7-4edb53bcca4e",
+            "app_uuid": "3f6b1bb1-f086-4407-bda4-5a92e435685d",
+            "alias": "application 1",
+            "recipient": "8801717572237",
+            "channel": "sms",
+            "status": "verified",
+            "count": 1,
+            "requestor_ip": "49.204.143.115",
+            "destination_country_iso2": "BD",
+            "destination_network": "Grameenphone",
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "933ac088-2112-4b7a-8283-937d5bbf071a",
+                    "status": "failed",
+                    "time": "2023-07-18T13:54:51.251367+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0.05",
+                "validation_charge": "0.05",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "933ac088-2112-4b7a-8283-937d5bbf071a",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-18T13:54:51.239489+05:30",
+            "updated_at": "2023-07-18T13:54:51.251367+05:30"
+        },
+        {
+            "session_uuid": "4037055d-4c13-436b-a6e7-65ab9aecb7ff",
+            "app_uuid": "3f6b1bb1-f086-4407-bda4-5a92e435685d",
+            "alias": "application 1",
+            "recipient": "917339521564",
+            "channel": "sms",
+            "status": "expired",
+            "count": 1,
+            "requestor_ip": "49.204.143.115",
+            "destination_country_iso2": "IN",
+            "destination_network": "AirTel",
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "b0bb392e-0004-460f-bb31-c2a1fd99f8dc",
+                    "status": "failed",
+                    "time": "2023-07-18T13:53:45.952719+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "b0bb392e-0004-460f-bb31-c2a1fd99f8dc",
+                        "channel": "sms",
+                        "charge": "0.00000"
+                    }
+                ]
+            },
+            "created_at": "2023-07-18T13:53:45.880313+05:30",
+            "updated_at": "2023-07-18T13:53:45.952719+05:30"
+        },
+        {
+            "session_uuid": "ecb8e325-5252-40cf-8e41-68707afdb889",
+            "app_uuid": "3f6b1bb1-f086-4407-bda4-5a92e435685d",
+            "alias": "application 1",
+            "recipient": "917339521564",
+            "channel": "sms",
+            "status": "expired",
+            "count": 1,
+            "requestor_ip": "49.205.86.137",
+            "destination_country_iso2": "IN",
+            "destination_network": "AirTel",
+            "attempt_details": [
+                {
+                    "channel": "sms",
+                    "attempt_uuid": "d40b1465-166a-4fd6-8e90-2fbd4894313c",
+                    "status": "delivered",
+                    "time": "2023-07-17T17:27:26.591282+05:30"
+                }
+            ],
+            "charges": {
+                "total_charge": "0.007",
+                "validation_charge": "0.0000",
+                "attempt_charges": [
+                    {
+                        "attempt_uuid": "d40b1465-166a-4fd6-8e90-2fbd4894313c",
+                        "channel": "sms",
+                        "charge": "0.00700"
+                    }
+                ]
+            },
+            "created_at": "2023-07-17T17:27:26.582437+05:30",
+            "updated_at": "2023-07-17T17:27:26.591282+05:30"
+        }
+    ]
+}
