@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from plivo.utils.validators import *
 
-from ..base import ListResponseObject, PlivoResource, PlivoResourceInterface
+from ..base import ListMessagesResponseObject, PlivoResource, PlivoResourceInterface
 from ..exceptions import *
 from ..utils import *
 
@@ -150,5 +150,5 @@ class Messages(PlivoResourceInterface):
         return self.client.request(
             'GET', ('Message', ),
             to_param_dict(self.list, locals()),
-            response_type=ListResponseObject,
+            response_type=ListMessagesResponseObject,
             objects_type=Message)
