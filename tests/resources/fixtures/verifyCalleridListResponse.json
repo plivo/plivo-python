@@ -1,0 +1,52 @@
+{
+  "api_id": "3b21c7d7-09f7-489b-b753-659814a676bf",
+  "meta": {
+    "limit": 20,
+    "next": null,
+    "offset": 0,
+    "previous": null,
+    "total_count": 4
+  },
+  "objects": [
+    {
+      "alias": "abhishek",
+      "country": "IN",
+      "created_at": "2023-09-25T14:40:38.68729Z",
+      "modified_at": "2023-09-25T14:40:38.68729Z",
+      "phone_number": "+919653244280",
+      "resource_uri": "/v1/Account/MADCHANDRESH02TANK06/VerifiedCallerId/919653244280",
+      "subaccount": "",
+      "verification_uuid": "01be6b07-b106-46e2-8dfc-096d8e22cc0e"
+    },
+    {
+      "alias": "abhishek",
+      "country": "IN",
+      "created_at": "2023-09-25T13:10:39.968133Z",
+      "modified_at": "2023-09-25T13:10:39.968133Z",
+      "phone_number": "+919768368717",
+      "resource_uri": "/v1/Account/MADCHANDRESH02TANK06/VerifiedCallerId/919768368717",
+      "subaccount": "",
+      "verification_uuid": "2e68eb73-4d54-4391-bc98-71cd380911a4"
+    },
+    {
+      "alias": "test",
+      "country": "IN",
+      "created_at": "2023-09-22T14:11:03.091534Z",
+      "modified_at": "2023-09-22T14:11:03.091534Z",
+      "phone_number": "+919768368718",
+      "resource_uri": "/v1/Account/MADCHANDRESH02TANK06/VerifiedCallerId/919768368718",
+      "subaccount": "",
+      "verification_uuid": "0f978b20-9e2b-4cfe-99fe-f7087c03b8e1"
+    },
+    {
+      "alias": "Test2",
+      "country": "",
+      "created_at": "2023-08-30T07:47:43.87171Z",
+      "modified_at": "2023-08-30T07:47:43.87171Z",
+      "phone_number": "+917691021365",
+      "resource_uri": "/v1/Account/MADCHANDRESH02TANK06/VerifiedCallerId/917691021365",
+      "subaccount": "SAMTU0Y2FKNGETYZDKNI",
+      "verification_uuid": "20265c57-2d8e-46fe-8fa8-e8ab4ee58a8c"
+    }
+  ]
+}

@@ -25,3 +25,7 @@ class ResourceNotFoundError(PlivoRestError):
 
 class ValidationError(PlivoRestError):
     pass
+
+
+class ForbiddenError(PlivoRestError):
+    pass
