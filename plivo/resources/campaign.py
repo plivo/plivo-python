@@ -44,8 +44,9 @@ class Campaign(PlivoResourceInterface):
             'POST', ('10dlc','Campaign', campaign_id), to_param_dict(self.update, payload))
 
     @validate_args(
-        brand=[optional(of_type(six.text_type))],
+        brand_id=[optional(of_type(six.text_type))],
         usecase=[optional(of_type(six.text_type))],
+        campaign_source=[optional(of_type(six.text_type))],
         limit=[optional(of_type(*six.integer_types))],
         offset=[
             optional(
@@ -53,7 +54,7 @@ class Campaign(PlivoResourceInterface):
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
         ])
-    def list(self, brand=None, usecase=None, 
+    def list(self, brand_id=None, usecase=None, campaign_source=None,
                 limit=None, offset=None):
         return self.client.request(
             'GET', ('10dlc', 'Campaign', ),

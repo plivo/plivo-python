@@ -1,8 +1,12 @@
 # Change Log
 
-## [4.42.0](https://github.com/plivo/plivo-python/tree/v4.42.0) (2023-10-17)
+## [4.43.0](https://github.com/plivo/plivo-python/tree/v4.42.0) (2023-10-17)
 **Feature - Fixes for Campaign services list API meta data**
 - Fixed Meta data response for campaign, brand and profile list 
+
+## [4.42.0](https://github.com/plivo/plivo-python/tree/v4.42.0) (2023-10-16)
+**Introducing campaign_source**
+- Added campaign_source in GET / LIST campaign APIs
 
 ## [4.41.0](https://github.com/plivo/plivo-python/tree/v4.41.0) (2023-08-10)
 **Feature - Verify**

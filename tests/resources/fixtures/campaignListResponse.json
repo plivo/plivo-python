@@ -21,7 +21,8 @@
             "registration_status": "ACTIVE",
             "reseller_id": "RFWG6CB",
             "sub_usecase": "CUSTOMER_CARE",
-            "usecase": "STARTER"
+            "usecase": "STARTER",
+            "campaign_source": "plivo"
         },
         {
             "brand_id": "BNOOLMO",
@@ -43,7 +44,8 @@
             "registration_status": "FAILED",
             "reseller_id": "",
             "sub_usecase": "2FA,MARKETING",
-            "usecase": "STARTER"
+            "usecase": "STARTER",
+            "campaign_source": "plivo"
         },
         {
             "brand_id": "BWDWMAC",
@@ -65,7 +67,8 @@
             "registration_status": "ACTIVE",
             "reseller_id": "",
             "sub_usecase": "2FA,MARKETING",
-            "usecase": "STARTER"
+            "usecase": "STARTER",
+            "campaign_source": "plivo"
         },
         {
             "brand_id": "BCKWPKX",
@@ -87,7 +90,8 @@
             "registration_status": "PROCESSING",
             "reseller_id": "",
             "sub_usecase": "2FA,MARKETING",
-            "usecase": "MIXED"
+            "usecase": "MIXED",
+            "campaign_source": "plivo"
         },
         {
             "brand_id": "B2IYFNC",
@@ -109,7 +113,8 @@
             "registration_status": "PROCESSING",
             "reseller_id": "",
             "sub_usecase": "2FA",
-            "usecase": "STARTER"
+            "usecase": "STARTER",
+            "campaign_source": "plivo"
         },
         {
             "brand_id": "BK98MJL",
@@ -129,7 +134,8 @@
                 }
             },
             "registration_status": "ACTIVE",
-            "reseller_id": ""
+            "reseller_id": "",
+            "campaign_source": "plivo"
         },
         {
             "brand_id": "B3WKVGC",
@@ -151,7 +157,8 @@
             "registration_status": "PROCESSING",
             "reseller_id": "RFWG6CB",
             "sub_usecase": "CUSTOMER_CARE",
-            "usecase": "STARTER"
+            "usecase": "STARTER",
+            "campaign_source": "plivo"
         },
         {
             "brand_id": "BBYQU0Z",
@@ -172,7 +179,8 @@
             },
             "registration_status": "PROCESSING",
             "reseller_id": "",
-            "usecase": "2FA"
+            "usecase": "2FA",
+            "campaign_source": "plivo"
         },
         {
             "brand_id": "BBYQU0Z",
@@ -214,7 +222,8 @@
             },
             "registration_status": "ACTIVE",
             "reseller_id": "",
-            "usecase": "2FA"
+            "usecase": "2FA",
+            "campaign_source": "plivo"
         }
     ],
     "meta": {
