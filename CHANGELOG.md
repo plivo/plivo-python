@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.42.0](https://github.com/plivo/plivo-python/tree/v4.42.0) (2023-10-16)
+**Introducing campaign_source**
+- Added campaign_source in GET / LIST campaign APIs
+
 ## [4.41.0](https://github.com/plivo/plivo-python/tree/v4.41.0) (2023-08-10)
 **Feature - Verify**
 - Added Create Session API
