@@ -2,7 +2,7 @@
 
 ## [4.44.0](https://github.com/plivo/plivo-python/tree/v4.44.0) (2023-10-18)
 **Feature - Fixes for Campaign services list API meta data**
-- Fixed Meta data response for campaign, brand and profile list 
+- Fixed Meta data response for campaign, brand and profile list
 
 ## [4.43.0](https://github.com/plivo/plivo-python/tree/v4.43.0) (2023-10-18)
 **Feature - Verify CallerID**
