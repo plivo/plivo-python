@@ -4,6 +4,11 @@
 **Feature - Fixes for Campaign services list API meta data**
 - Fixed Meta data response for campaign, brand and profile list 
 
+## [4.43.0](https://github.com/plivo/plivo-python/tree/v4.43.0) (2023-10-18)
+**Feature - Verify CallerID**
+- Added Initiate and Verify VerifyCallerID API
+- Added Update, Delete, Get and List verified CallerIDs API
+
 ## [4.42.0](https://github.com/plivo/plivo-python/tree/v4.42.0) (2023-10-16)
 **Introducing campaign_source**
 - Added campaign_source in GET / LIST campaign APIs

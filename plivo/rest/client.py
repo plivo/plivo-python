@@ -10,13 +10,14 @@ from collections import namedtuple
 from plivo.base import ResponseObject
 from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
-                              ResourceNotFoundError, ValidationError)
-from plivo.resources import (Accounts, Addresses, Applications, Calls,Token,
+                              ResourceNotFoundError, ValidationError, ForbiddenError)
+from plivo.resources import (Accounts, Addresses, Applications, Calls, Token,
                              Conferences, Endpoints, Identities,
                              Messages, Powerpacks, Media, Lookup, Brand, Campaign, Profile,
                              Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls, Sessions)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.maskingsession import MaskingSessions
+from plivo.resources.verify_callerid import VerifyCallerids
 from plivo.resources.profile import Profile
 from plivo.resources.queued_calls import QueuedCalls
 from plivo.resources.regulatory_compliance import EndUsers, ComplianceDocumentTypes, ComplianceDocuments, \
@@ -119,6 +120,7 @@ class Client(object):
         self.masking_sessions = MaskingSessions(self)
         self.voice_retry_count = 0
         self.verify_session = Sessions(self)
+        self.verify_callerids = VerifyCallerids(self)
 
     def __enter__(self):
         return self
@@ -162,6 +164,13 @@ class Client(object):
                 raise AuthenticationError(response_json.error)
             raise AuthenticationError(
                 'Failed to authenticate while accessing resource at: '
+                '{url}'.format(url=response.url))
+
+        if response.status_code == 403:
+            if response_json and 'error' in response_json:
+                raise ForbiddenError(response_json.error)
+            raise ForbiddenError(
+                'Request Failed : '
                 '{url}'.format(url=response.url))
 
         if response.status_code == 404:
