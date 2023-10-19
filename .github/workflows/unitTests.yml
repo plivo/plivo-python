@@ -16,10 +16,6 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Clear Cache
-        run: |
-              echo "::remove-workflow-commands cache::"
-
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
@@ -42,9 +38,6 @@ jobs:
         matrix:
           python-version: [3.11]
       steps:  
-        - name: Clear Cache
-          run: |
-              echo "::remove-workflow-commands cache::"
         - uses: actions/checkout@v2
         - name: Set up Python ${{ matrix.python-version }}
           uses: actions/setup-python@v2
