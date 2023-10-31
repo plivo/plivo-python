@@ -155,7 +155,7 @@ class ListTollfreeRequestResponseObject(ResponseObject):
     def __init__(self, client, dct):
         super(ListTollfreeRequestResponseObject, self).__init__(dct)
         self.error = dct.get('error', None)
-        self.objects = dct.get('objects', None)
+        self.objects = dct.get('objects', [])
         self.meta = dct.get('meta', None)
         self.apiID = dct.get('api_id', None)
 
