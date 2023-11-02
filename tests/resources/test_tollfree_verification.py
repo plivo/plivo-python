@@ -29,7 +29,8 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
 
     @with_response(200)
     def test_TollfreeVerificationGet(self):
-        tollfree_verficiation = self.client.tollfree_verification.get(tollfree_verification_uuid="312b3119-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
+        tollfree_verficiation = self.client.tollfree_verification.get(
+            tollfree_verification_uuid="312b3119-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
 
         self.assertResponseMatches(tollfree_verficiation)
 
@@ -50,7 +51,8 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
     @with_response(202)
     def test_TollfreeVerificationUpdate(self):
         updated_app = self.client.tollfree_verification.update(
-            extra_data='Testing the update of extra data in python-SDK',)
+            tollfree_verification_uuid="312b3119-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            extra_data='Testing the update of extra data in python-SDK')
 
         # Verifying the endpoint hit
         self.assertEqual(
@@ -66,7 +68,8 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
         self.client.set_expected_response(
             status_code=204, data_to_return=expected_response)
 
-        response = self.client.tollfree_verification.delete(tollfree_verification_uuid="312b3119-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
+        response = self.client.tollfree_verification.delete(
+            tollfree_verification_uuid="312b3119-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
 
         # Verifying the endpoint hit
         self.assertEqual(
@@ -79,18 +82,18 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
     @with_response(202)
     def test_TollfreeVerificationCreate(self):
         response = self.client.tollfree_verification.create(
-         usecase="2FA",
-         number="18554950186",
-         profile_uuid="42f92135-6ec2-4110-8da4-71171f6aad44",
-         optin_type="VERBAL",
-         volume="100",
-         usecase_summary="hbv",
-         message_sample="message_sample",
-         callback_url="https://plivobin-prod-usw1.plivops.com/1pcfjrt1",
-         callback_method="POST",
-         optin_image_url="http://aaa.com",
-         additional_information="this is additional_information",
-         extra_data="this is extra_data",
+            usecase="2FA",
+            number="18554950186",
+            profile_uuid="42f92135-6ec2-4110-8da4-71171f6aad44",
+            optin_type="VERBAL",
+            volume="100",
+            usecase_summary="hbv",
+            message_sample="message_sample",
+            callback_url="https://plivobin-prod-usw1.plivops.com/1pcfjrt1",
+            callback_method="POST",
+            optin_image_url="http://aaa.com",
+            additional_information="this is additional_information",
+            extra_data="this is extra_data",
         )
 
         # Verifying the endpoint hit
