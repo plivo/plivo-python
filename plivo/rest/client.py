@@ -15,7 +15,7 @@ from plivo.resources import (Accounts, Addresses, Applications, Calls, Token,
                              Conferences, Endpoints, Identities,
                              Messages, Powerpacks, Media, Lookup, Brand, Campaign, Profile,
                              Numbers, Pricings, Recordings, Subaccounts, CallFeedback, MultiPartyCalls, Sessions,
-                             TollFreeVerificationRequests)
+                             TollfreeVerifications)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.maskingsession import MaskingSessions
 from plivo.resources.verify_callerid import VerifyCallerids
@@ -102,7 +102,7 @@ class Client(object):
         self.messages = Messages(self)
         self.lookup = Lookup(self)
         self.numbers = Numbers(self)
-        self.tollfree_request = TollFreeVerificationRequests(self)
+        self.tollfree_request = TollfreeVerifications(self)
         self.powerpacks = Powerpacks(self)
         self.brand = Brand(self)
         self.campaign = Campaign(self)

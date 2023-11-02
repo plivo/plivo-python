@@ -6,12 +6,12 @@ from ..exceptions import *
 from ..utils import *
 
 
-class TollFreeVerificationRequest(PlivoResource):
-    _name = 'TollFreeVerificationRequest'
+class TollfreeVerification(PlivoResource):
+    _name = 'TollfreeVerification'
     _identifier_string = 'uuid'
 
     def delete(self):
-        return self.client.tollfree_verification.delete(self.uuid)
+        return self.client.tollfree_verification.delete(tollfree_verification_uuid=self.uuid)
 
     def update(self,
                profile_uuid=None,
@@ -32,10 +32,10 @@ class TollFreeVerificationRequest(PlivoResource):
                                                         extra_data=extra_data, optin_type=optin_type,
                                                         callback_url=callback_url, callback_method=callback_method)
 
-class TollFreeVerificationRequests(PlivoResourceInterface):
+class TollfreeVerifications(PlivoResourceInterface):
     def __init__(self, client):
-        self._resource_type = TollFreeVerificationRequest
-        super(TollFreeVerificationRequests, self).__init__(client)
+        self._resource_type = TollfreeVerification
+        super(TollfreeVerifications, self).__init__(client)
 
     def create(self,
                profile_uuid=None,
@@ -55,7 +55,7 @@ class TollFreeVerificationRequests(PlivoResourceInterface):
 
     def get(self, tollfree_verification_uuid=None):
         return self.client.request(
-            'GET', ('TollfreeVerification', tollfree_verification_uuid), response_type=TollFreeVerificationRequest)
+            'GET', ('TollfreeVerification', tollfree_verification_uuid), response_type=TollfreeVerification)
 
     def list(self,
              number=None,
@@ -70,7 +70,7 @@ class TollFreeVerificationRequests(PlivoResourceInterface):
              offset=0):
         return self.client.request(
             'GET', ('TollfreeVerification',), to_param_dict(self.list, locals()),
-            objects_type=TollFreeVerificationRequest, response_type=ListTollfreeRequestResponseObject, )
+            objects_type=TollfreeVerification, response_type=ListTollfreeRequestResponseObject, )
 
     def update(self, tollfree_verification_uuid=None,
                profile_uuid=None,
@@ -87,5 +87,5 @@ class TollFreeVerificationRequests(PlivoResourceInterface):
         return self.client.request(
             'POST', ('TollfreeVerification', tollfree_verification_uuid), to_param_dict(self.update, locals()))
 
-    def delete(self, tollfree_verification_uuid):
+    def delete(self, tollfree_verification_uuid=None):
         return self.client.request('DELETE', ('TollfreeVerification', tollfree_verification_uuid))
