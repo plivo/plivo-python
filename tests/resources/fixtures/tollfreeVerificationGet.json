@@ -1,0 +1,20 @@
+{
+  "api_id": "4e1f954c-baf3-11ec-bafe-0242ac110003",
+  "additional_information": "",
+  "callback_method": "POST",
+  "callback_url": "http://plivobin-prod-usw1.plivops.com/1e4jvpt1",
+  "created": "2023-10-12T15:28:10.216507Z",
+  "extra_data": "",
+  "message_sample": "1.Your Plivo verification code is xxxx. 2.Dear <customer name>, you have signed up on Plivo successfully.",
+  "number": "18449605287",
+  "optin_image_url": "https://www.plivo.com",
+  "optin_type": "MOBILE_QR_CODE",
+  "profile_uuid": "0ead82e0-fc80-4dc3-888b-7778932cf134",
+  "error_message": "Demo Testing Sanity",
+  "status": "REJECTED",
+  "last_modified": "2023-10-13T08:24:26.619565Z",
+  "usecase": "2FA",
+  "usecase_summary": "1.We send 2FA codes to customers when they signup. 2.Dear <customer name>, you have signed up on Plivo successfully.",
+  "uuid": "8163b5f2-7955-498b-780f-b5e6f1062396",
+  "volume": "100"
+}
