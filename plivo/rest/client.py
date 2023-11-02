@@ -102,7 +102,7 @@ class Client(object):
         self.messages = Messages(self)
         self.lookup = Lookup(self)
         self.numbers = Numbers(self)
-        self.tollfree_request = TollfreeVerifications(self)
+        self.tollfree_verification = TollfreeVerifications(self)
         self.powerpacks = Powerpacks(self)
         self.brand = Brand(self)
         self.campaign = Campaign(self)

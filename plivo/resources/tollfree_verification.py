@@ -1,7 +1,6 @@
 from ..utils.validators import *
 
-from ..base import ListResponseObject, PlivoResource, PlivoResourceInterface, ListTollfreeRequestResponseObject, \
-    ListSessionResponseObject
+from ..base import PlivoResource, PlivoResourceInterface, ListTollfreeVerificationResponseObject
 from ..exceptions import *
 from ..utils import *
 
@@ -70,7 +69,7 @@ class TollfreeVerifications(PlivoResourceInterface):
              offset=0):
         return self.client.request(
             'GET', ('TollfreeVerification',), to_param_dict(self.list, locals()),
-            objects_type=TollfreeVerification, response_type=ListTollfreeRequestResponseObject, )
+            objects_type=TollfreeVerification, response_type=ListTollfreeVerificationResponseObject, )
 
     def update(self, tollfree_verification_uuid=None,
                profile_uuid=None,

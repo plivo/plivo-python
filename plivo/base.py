@@ -151,9 +151,9 @@ class ListResponseObject(ResponseObject):
     def __repr__(self):
         return str([object for object in self.objects])
 
-class ListTollfreeRequestResponseObject(ResponseObject):
+class ListTollfreeVerificationResponseObject(ResponseObject):
     def __init__(self, client, dct):
-        super(ListTollfreeRequestResponseObject, self).__init__(dct)
+        super(ListTollfreeVerificationResponseObject, self).__init__(dct)
         self.error = dct.get('error', None)
         self.objects = dct.get('objects', [])
         self.meta = dct.get('meta', None)
