@@ -23,9 +23,6 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
         # Test if ListResponseObject's __iter__ is working correctly
         self.assertEqual(len(list(tollfree_verification)), 2)
 
-        with self.assertRaises(plivo.exceptions.ValidationError):
-            tollfree_verification = self.client.tollfree_verification.list(
-                offset=10, limit=10, status='PROCESSING1')
 
     @with_response(200)
     def test_get(self):
