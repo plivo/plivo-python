@@ -7,7 +7,7 @@ from tests.decorators import with_response
 
 class TollfreeVerificationTest(PlivoResourceTestCase):
     @with_response(200)
-    def test_TollfreeVerificationList(self):
+    def test_list(self):
         tollfree_verification = self.client.tollfree_verification.list(offset=10, limit=10)
 
         # Verifying the endpoint hit
@@ -28,7 +28,7 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
                 offset=10, limit=10, status='PROCESSING1')
 
     @with_response(200)
-    def test_TollfreeVerificationGet(self):
+    def test_get(self):
         tollfree_verficiation = self.client.tollfree_verification.get(
             tollfree_verification_uuid="312b3119-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
 
@@ -49,7 +49,7 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
         self.assertEqual('312b3119-XXXX-XXXX-XXXX-XXXXXXXXXXXX', tollfree_verficiation.uuid)
 
     @with_response(202)
-    def test_TollfreeVerificationUpdate(self):
+    def test_update(self):
         updated_app = self.client.tollfree_verification.update(
             tollfree_verification_uuid="312b3119-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
             extra_data='Testing the update of extra data in python-SDK')
@@ -62,7 +62,7 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
         # Verifying the method used
         self.assertEqual('POST', self.client.current_request.method)
 
-    def test_numbers_TollfreeVerificationDelete(self):
+    def test_delete(self):
         expected_response = {}
 
         self.client.set_expected_response(
@@ -80,7 +80,7 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
         self.assertEqual('DELETE', self.client.current_request.method)
 
     @with_response(201)
-    def test_TollfreeVerificationCreate(self):
+    def test_create(self):
         response = self.client.tollfree_verification.create(
             usecase="2FA",
             number="18554950186",
