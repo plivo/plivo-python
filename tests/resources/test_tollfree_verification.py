@@ -79,7 +79,7 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
         # Verifying the method used
         self.assertEqual('DELETE', self.client.current_request.method)
 
-    @with_response(202)
+    @with_response(201)
     def test_TollfreeVerificationCreate(self):
         response = self.client.tollfree_verification.create(
             usecase="2FA",
