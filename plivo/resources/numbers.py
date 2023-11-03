@@ -90,6 +90,7 @@ class Numbers(PlivoResourceInterface):
              renewal_date__gte=None,
              renewal_date__gt=None,
              cnam_lookup=None,
+             toll_free_sms_verification_order_status=None,
              limit=20,
              offset=0):
         return self.client.request(

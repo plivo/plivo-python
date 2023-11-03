@@ -1,0 +1,50 @@
+{
+  "api_id": "4e15f360-72fe-11ee-8538-e20bbbfb283e",
+  "meta": {
+    "count": 2,
+    "limit": 10,
+    "next": null,
+    "offset": 10,
+    "previous": "/v1/Account/MAXXXXXXXXXXXXXXXXXX/TollfreeVerification/?limit=10&offset=0"
+  },
+  "objects": [
+    {
+      "additional_information": "",
+      "callback_method": "POST",
+      "callback_url": "http://plivobin-prod-usw1.plivops.com/1e4jvpt1",
+      "created": "2023-10-12T15:28:10.216507Z",
+      "extra_data": "",
+      "message_sample": "1.Your Plivo verification code is xxxx. 2.Dear <customer name>, you have signed up on Plivo successfully.",
+      "number": "18449605287",
+      "optin_image_url": "https://www.plivo.com",
+      "optin_type": "MOBILE_QR_CODE",
+      "profile_uuid": "0ead82e0-fc80-4dc3-888b-7778932cf134",
+      "error_message": "Demo Testing Sanity",
+      "status": "REJECTED",
+      "last_modified": "2023-10-13T08:24:26.619565Z",
+      "usecase": "2FA",
+      "usecase_summary": "1.We send 2FA codes to customers when they signup. 2.Dear <customer name>, you have signed up on Plivo successfully.",
+      "uuid": "312b3119-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+      "volume": "100"
+    },
+    {
+      "additional_information": "",
+      "callback_method": "POST",
+      "callback_url": "http://plivobin-prod-usw1.plivops.com/1e4jvpt1",
+      "created": "2023-10-12T12:06:46.527653Z",
+      "extra_data": "",
+      "message_sample": "1.Your Plivo verification code is xxxx. 2.Dear <customer name>, you have signed up on Plivo successfully.",
+      "number": "18449605287",
+      "optin_image_url": "https://www.plivo.com",
+      "optin_type": "MOBILE_QR_CODE",
+      "profile_uuid": "0ead82e0-fc80-4dc3-888b-7778932cf134",
+      "error_message": "Demo Testing Sanity",
+      "status": "REJECTED",
+      "last_modified": "2023-10-12T15:27:56.052433Z",
+      "usecase": "2FA",
+      "usecase_summary": "1.We send 2FA codes to customers when they signup. 2.Dear <customer name>, you have signed up on Plivo successfully.",
+      "uuid": "96ec880d-b7ee-4eb5-7c9a-3ff28826e77c",
+      "volume": "100"
+    }
+  ]
+}
