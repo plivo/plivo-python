@@ -45,6 +45,7 @@ class Campaign(PlivoResourceInterface):
 
     @validate_args(
         brand_id=[optional(of_type(six.text_type))],
+        registration_status=[optional(of_type(six.text_type))],
         usecase=[optional(of_type(six.text_type))],
         campaign_source=[optional(of_type(six.text_type))],
         limit=[optional(of_type(*six.integer_types))],
@@ -54,7 +55,7 @@ class Campaign(PlivoResourceInterface):
                     of_type(*six.integer_types),
                     check(lambda offset: 0 <= offset, '0 <= offset')))
         ])
-    def list(self, brand_id=None, usecase=None, campaign_source=None,
+    def list(self, brand_id=None, registration_status=None, usecase=None, campaign_source=None,
                 limit=None, offset=None):
         return self.client.request(
             'GET', ('10dlc', 'Campaign', ),
