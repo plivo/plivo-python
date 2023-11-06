@@ -1,4 +1,7 @@
 # Change Log
+## [4.46.0](https://github.com/plivo/plivo-python/tree/v4.46.0) (2023-11-06)
+**Introducing registration_status**
+- Added registration_status in LIST campaign APIs
 
 ## [4.45.0](https://github.com/plivo/plivo-python/tree/v4.45.0) (2023-11-03)
 **Feature - TollFree Verification API Support**
