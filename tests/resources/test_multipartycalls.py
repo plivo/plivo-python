@@ -170,6 +170,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             'status_callback_events': 'mpc-state-changes,participant-state-changes',
             'record_file_format': 'mp3',
             'record': False,
+            'record_participant_track': False,
             'record_min_member_count': 1,
             'on_exit_action_method': 'POST',
             'status_callback_method': 'GET',
@@ -485,7 +486,8 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
                                expected_method='POST',
                                expected_request_body={'file_format': 'wav',
                                                       'recording_callback_url': recording_callback_url,
-                                                      'recording_callback_method': 'POST'},
+                                                      'recording_callback_method': 'POST',
+                                                      'record_track_type': 'all'},
                                actual_response=start_participant_recording_response)
 
     def test_stop_participant_recording(self):
@@ -494,7 +496,10 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         self.client.multi_party_calls.stop_participant_recording(friendly_name='Voice', participant_id=participant_id)
         self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
                                             '/name_{}/Participant/{}/Record/'.format('Voice', participant_id),
-                               expected_method='DELETE')
+                               expected_method='DELETE',
+                               expected_request_body={'record_track_type': 'all',
+                                                      'friendly_name': 'Voice',
+                                                      'participant_id': 10})
 
     def test_pause_participant_recording(self):
         participant_id = 10
@@ -502,7 +507,10 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         self.client.multi_party_calls.pause_participant_recording(friendly_name='Voice', participant_id=participant_id)
         self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
                                             '/name_{}/Participant/{}/Record/Pause/'.format('Voice', participant_id),
-                               expected_method='POST')
+                               expected_method='POST',
+                               expected_request_body={'record_track_type': 'all',
+                                                      'friendly_name': 'Voice',
+                                                      'participant_id': 10})
 
     def test_resume_participant_recording(self):
         participant_id = 10
@@ -510,7 +518,10 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
         self.client.multi_party_calls.resume_participant_recording(friendly_name='Voice', participant_id=participant_id)
         self.__assert_requests(expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/MultiPartyCall'
                                             '/name_{}/Participant/{}/Record/Resume/'.format('Voice', participant_id),
-                               expected_method='POST')
+                               expected_method='POST',
+                               expected_request_body={'record_track_type': 'all',
+                                                      'friendly_name': 'Voice',
+                                                      'participant_id': 10})
 
     @with_response(202)
     def test_start_play_audio(self):

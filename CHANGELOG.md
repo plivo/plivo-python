@@ -1,4 +1,7 @@
 # Change Log
+## [4.47.0](https://github.com/plivo/plivo-python/tree/v4.47.0) (2023-12-07)
+**Code Refactoring**
+
 ## [4.46.0](https://github.com/plivo/plivo-python/tree/v4.46.0) (2023-11-06)
 **Introducing registration_status**
 - Added registration_status in LIST campaign APIs
