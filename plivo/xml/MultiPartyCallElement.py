@@ -160,6 +160,19 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self
 
     @property
+    def record_participant_track(self):
+        return self.__record_participant_track
+
+    @record_participant_track.setter
+    @validate_args(record_participant_track=[optional(of_type_exact(bool))])
+    def record_participant_track(self, record_participant_track):
+        self.__record_participant_track = record_participant_track
+
+    def set_record_participant_track(self, record_participant_track):
+        self.record_participant_track = record_participant_track
+        return self
+
+    @property
     def record_file_format(self):
         return self.__record_file_format
 
@@ -535,6 +548,7 @@ class MultiPartyCallElement(PlivoXMLElement):
             customer_hold_music_url=None,
             customer_hold_music_method='GET',
             record=False,
+            record_participant_track=False,
             record_file_format='mp3',
             recording_callback_url=None,
             recording_callback_method='POST',
@@ -576,6 +590,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         self.customer_hold_music_url = customer_hold_music_url
         self.customer_hold_music_method = customer_hold_music_method
         self.record = record
+        self.record_participant_track = record_participant_track
         self.record_file_format = record_file_format
         self.recording_callback_url = recording_callback_url
         self.recording_callback_method = recording_callback_method
@@ -609,6 +624,7 @@ class MultiPartyCallElement(PlivoXMLElement):
             'customerHoldMusicUrl': self.customer_hold_music_url,
             'customerHoldMusicMethod': self.customer_hold_music_method,
             'record': self.record,
+            'recordParticipantTrack': self.record_participant_track,
             'recordFileFormat': self.record_file_format,
             'recordingCallbackUrl': self.recording_callback_url,
             'recordingCallbackMethod': self.recording_callback_method,
