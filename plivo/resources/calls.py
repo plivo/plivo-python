@@ -72,7 +72,8 @@ class Call(PlivoResource):
               language=None,
               legs=None,
               loop=None,
-              mix=None, is_voice_request=True):
+              mix=None,
+              type=None, is_voice_request=True):
         return self.client.calls.speak(self.id,
                                        **to_param_dict(self.start_playing,
                                                        locals()))
@@ -83,7 +84,8 @@ class Call(PlivoResource):
                        language=None,
                        legs=None,
                        loop=None,
-                       mix=None):
+                       mix=None,
+                       type=None):
         return self.client.calls.start_speaking(self.id,
                                                 **to_param_dict(
                                                     self.start_playing,
@@ -421,10 +423,11 @@ class Calls(PlivoResourceInterface):
               loop=None,
               mix=None,
               callback_url=None,
-              callback_method=None
+              callback_method=None,
+              type=None,
               ):
         return self.start_speaking(call_uuid, text, voice, language, legs,
-                                   loop, mix, callback_url, callback_method)
+                                   loop, mix, callback_url, callback_method, type)
 
     @validate_args(call_uuid=[of_type(six.text_type)])
     def start_speaking(self,
@@ -436,7 +439,8 @@ class Calls(PlivoResourceInterface):
                        loop=None,
                        mix=None,
                        callback_url=None,
-                       callback_method=None
+                       callback_method=None,
+                       type=None
                        ):
         return self.client.request('POST', ('Call', call_uuid, 'Speak'),
                                    to_param_dict(self.start_speaking,

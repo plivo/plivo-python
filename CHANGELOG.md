@@ -1,4 +1,7 @@
 # Change Log
+## [4.47.1](https://github.com/plivo/plivo-python/tree/v4.47.1) (2023-12-19)
+**Type param addition in speak api for call and mpc**
+
 ## [4.47.0](https://github.com/plivo/plivo-python/tree/v4.47.0) (2023-12-07)
 **Minor enhancements and optimizations**
 
