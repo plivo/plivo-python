@@ -189,6 +189,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             'role': 'agent',
             'start_recording_audio_method': 'GET',
             'stop_recording_audio_method': 'GET',
+            'create_mpc_if_alone': True
         }
 
         add_participant_response = self.client.multi_party_calls.add_participant(friendly_name='Voice', role='agent',
