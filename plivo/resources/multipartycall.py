@@ -61,7 +61,7 @@ class MultiPartyCall(PlivoResource):
                         start_recording_audio_method='GET',
                         stop_recording_audio=None,
                         stop_recording_audio_method='GET',
-                        create_mpc_if_alone=True
+                        start_mpc_with_single_participant=True
                         ):
         return self.client.multi_party_calls.add_participant(role, uuid=self.id,
                                                              **to_param_dict(self.add_participant, locals()))
@@ -335,7 +335,7 @@ class MultiPartyCalls(PlivoResourceInterface):
         stop_recording_audio_method=[optional(of_type_exact(str), is_in(('GET', 'POST'), case_sensitive=False))],
         callback_url=[optional(is_url())],
         callback_method=[optional(of_type(six.text_type))],
-        create_mpc_if_alone=[optional(of_type_exact(bool))],
+        start_mpc_with_single_participant=[optional(of_type_exact(bool))],
     )
     def add_participant(self,
                         role,
@@ -390,7 +390,7 @@ class MultiPartyCalls(PlivoResourceInterface):
                         stop_recording_audio_method='GET',
                         callback_url=None,
                         callback_method=None,
-                        create_mpc_if_alone=True
+                        start_mpc_with_single_participant=True
                         ):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         caller_name = caller_name or from_
