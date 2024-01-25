@@ -1,4 +1,7 @@
 # Change Log
+## [4.47.2](https://github.com/plivo/plivo-python/tree/v4.47.2) (2024-01-25)
+**Added new params 'create_mpc_with_single_participant' for Add Participant API of MPC**
+
 ## [4.47.1](https://github.com/plivo/plivo-python/tree/v4.47.1) (2023-12-19)
 **Type param addition in speak api for call and mpc**
 
