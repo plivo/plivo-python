@@ -1,4 +1,9 @@
 # Change Log
+## [4.47.2](https://github.com/plivo/plivo-python/tree/v4.47.2) (2024-02-05)
+**Feature - Log Redaction Enhancement**
+-  Added log attribute in GET and List MDR response
+-  Change log field from bool to string in send SMS 
+
 ## [4.47.1](https://github.com/plivo/plivo-python/tree/v4.47.1) (2023-12-19)
 **Type param addition in speak api for call and mpc**
 
