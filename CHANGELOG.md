@@ -1,4 +1,7 @@
 # Change Log
+## [4.48.0](https://github.com/plivo/plivo-python/tree/v4.48.0) (2024-02-12)
+**Custom Verify OTP - Added new optional param 'otp' for Create Session and made 'otp' param optional for Validate Session**
+
 ## [4.47.2](https://github.com/plivo/plivo-python/tree/v4.47.2) (2024-01-25)
 **Added new params 'create_mpc_with_single_participant' for Add Participant API of MPC**
 
