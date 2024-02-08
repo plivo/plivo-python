@@ -22,12 +22,14 @@ class Sessions(PlivoResourceInterface):
 
     @validate_args(
         app_uuid=[optional(of_type(six.text_type))],
+        otp=[optional(of_type(six.text_type))],
         recipient=[required(is_phonenumber())],
         channel=[optional(all_of(of_type(six.text_type), is_in(('sms', 'voice'))))],
         url=[optional(is_url())],
         method=[optional(of_type(six.text_type))])
     def create(self,
                app_uuid=None,
+               otp=None,
                recipient=None,
                channel=None,
                url=None,
@@ -91,8 +93,6 @@ class Sessions(PlivoResourceInterface):
         session_uuid=[of_type(six.text_type)]
     )
     def validate(self, session_uuid, otp=None):
-        if otp is None:
-            raise ValidationError('otp is required')
         return self.client.request('POST', ('Verify', 'Session', session_uuid),
                                    to_param_dict(self.validate, locals()))
 
