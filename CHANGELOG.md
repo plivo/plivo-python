@@ -1,4 +1,9 @@
 # Change Log
+
+## [4.49.0](https://github.com/plivo/plivo-python/tree/v4.49.0) (2022-02-21)
+**Adding Import Campaign**
+-Added Import Campaign API
+
 ## [4.48.0](https://github.com/plivo/plivo-python/tree/v4.48.0) (2024-02-12)
 **Custom Verify OTP - Added new optional param 'otp' for Create Session and made 'otp' param optional for Validate Session**
 
