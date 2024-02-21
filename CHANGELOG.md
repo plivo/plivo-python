@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.49.0](https://github.com/plivo/plivo-python/tree/v4.49.0) (2022-02-21)
+## [4.49.0](https://github.com/plivo/plivo-python/tree/v4.49.0) (2024-02-21)
 **Adding Import Campaign**
 -Added Import Campaign API
 
