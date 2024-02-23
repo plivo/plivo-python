@@ -97,6 +97,14 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self.__wait_time
 
     @wait_time.setter
+    @validate_args(
+        wait_time=[
+            optional(
+                of_type_exact(int),
+                check(lambda wait_time: 0 <= wait_time <= 1800, '0 <= wait_time <= 1800')
+            )
+        ],
+    )
     def wait_time(self, wait_time):
         self.__wait_time = wait_time
 
