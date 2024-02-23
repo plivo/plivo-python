@@ -1,4 +1,8 @@
 # Change Log
+
+## [4.48.1](https://github.com/plivo/plivo-python/tree/v4.48.1) (2024-02-23)
+**Added new param 'waitTime' for MPC XML
+
 ## [4.48.0](https://github.com/plivo/plivo-python/tree/v4.48.0) (2024-02-12)
 **Custom Verify OTP - Added new optional param 'otp' for Create Session and made 'otp' param optional for Validate Session**
 
