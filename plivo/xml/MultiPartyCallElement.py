@@ -563,7 +563,7 @@ class MultiPartyCallElement(PlivoXMLElement):
             record_min_member_count=1,
             wait_music_url=None,
             wait_music_method='GET',
-            wait_time=5,
+            wait_time=None,
             agent_hold_music_url=None,
             agent_hold_music_method='GET',
             customer_hold_music_url=None,

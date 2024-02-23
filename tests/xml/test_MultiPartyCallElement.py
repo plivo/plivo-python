@@ -19,7 +19,7 @@ class MultiPartyCallElementTest(TestCase, PlivoXmlTestCase):
                             'statusCallbackEvents="mpc-state-changes,participant-state-changes" ' \
                             'statusCallbackMethod="POST" stayAlone="false" ' \
                             'stopRecordingAudioMethod="GET" ' \
-                            'waitMusicMethod="GET" waitTime="5">Nairobi</MultiPartyCall>'
+                            'waitMusicMethod="GET">Nairobi</MultiPartyCall>'
 
         element = plivoxml.MultiPartyCallElement(content='Nairobi', role='Agent')
         self.assertXmlEqual(element.to_string(False), expected_response)
@@ -36,7 +36,7 @@ class MultiPartyCallElementTest(TestCase, PlivoXmlTestCase):
                             'statusCallbackEvents="mpc-state-changes,participant-state-changes" ' \
                             'statusCallbackMethod="POST" stayAlone="false" ' \
                             'stopRecordingAudioMethod="GET" ' \
-                            'waitMusicMethod="GET" waitTime="5">Tokyo</MultiPartyCall>'
+                            'waitMusicMethod="GET">Tokyo</MultiPartyCall>'
 
         element = plivoxml.MultiPartyCallElement(content='Tokyo', role='supervisor', exit_sound='beep:1')
         self.assertXmlEqual(element.to_string(False), expected_response)
