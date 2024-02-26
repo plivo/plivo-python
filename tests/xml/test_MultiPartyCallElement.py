@@ -78,12 +78,14 @@ class MultiPartyCallElementTest(TestCase, PlivoXmlTestCase):
                        'statusCallbackEvents="mpc-state-changes,participant-state-changes" ' \
                        'statusCallbackMethod="POST" stayAlone="false" stopRecordingAudio="http://plivo.com/api.mp3" ' \
                        'stopRecordingAudioMethod="GET" ' \
+                       'waitTime="5" ' \
                        'waitMusicMethod="GET" recordMinMemberCount="1">Helsinki</MultiPartyCall> '
         element = plivoxml.MultiPartyCallElement(content='Helsinki', role='customer'). \
             set_max_duration(4500).set_max_participants(9).set_end_mpc_on_exit(True). \
             set_customer_hold_music_url('http://plivo.com/voice.mp3').set_coach_mode(False). \
             set_on_exit_action_url('http://plivo.com/api.mp3').set_on_exit_action_method('GET'). \
             set_stop_recording_audio("http://plivo.com/api.mp3"). \
-            set_start_recording_audio("http://plivo.com/api.mp3")
+            set_start_recording_audio("http://plivo.com/api.mp3"). \
+            set_wait_time(5)
 
         self.assertXmlEqual(expected_xml, element.to_string(False))
