@@ -61,9 +61,3 @@ class SessionTest(PlivoResourceTestCase):
         self.assertEqual(test_session.message,
                          expected_response['message'])
 
-    def test_validate_without_otp(self):
-        self.assertRaises(
-            exceptions.ValidationError,
-            self.client.verify_session.validate,
-            session_uuid='1234567'
-        )

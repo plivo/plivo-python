@@ -110,7 +110,7 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
                        'enterSoundMethod="GET" exitSound="beep:1" exitSoundMethod="GET" hold="true" ' \
                        'maxDuration="20000" maxParticipants="7" mute="true" onExitActionMethod="POST" ' \
                        'onExitActionUrl="https://plivo.com/exitAction" record="true" recordFileFormat="wav" ' \
-                       'recordMinMemberCount="1" recordingCallbackMethod="GET" ' \
+                       'recordMinMemberCount="1" recordParticipantTrack="false" recordingCallbackMethod="GET" ' \
                        'relayDTMFInputs="false" role="customer" ' \
                        'startMpcOnEnter="true" '\
                        'startRecordingAudio="https://plivo.com/plivoTone.mp3" ' \
@@ -120,13 +120,14 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
                        'stopRecordingAudio="https://plivo.com/plivoTone.mp3" ' \
                        'stopRecordingAudioMethod="GET" ' \
                        'waitMusicMethod="POST" ' \
+                       'waitTime="5" ' \
                        'waitMusicUrl="https://plivo.com/plivoTone.mp3">multi party conference</MultiPartyCall>' \
                        '</Response>'
 
         elem = plivoxml.ResponseElement().add_multi_party_call(content='multi party conference', role='customer',
                                                                max_duration=20000, max_participants=7,
                                                                wait_music_url='https://plivo.com/plivoTone.mp3',
-                                                               wait_music_method='POST', start_mpc_on_enter=True,
+                                                               wait_music_method='POST', wait_time=5, start_mpc_on_enter=True,
                                                                record=True, record_file_format='wav', mute=True,
                                                                enter_sound='beep:2', exit_sound='beep:1', hold=True,
                                                                on_exit_action_url='https://plivo.com/exitAction',

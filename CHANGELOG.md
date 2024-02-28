@@ -1,8 +1,18 @@
 # Change Log
-## [4.47.2](https://github.com/plivo/plivo-python/tree/v4.47.2) (2024-02-05)
+
+## [4.48.2](https://github.com/plivo/plivo-python/tree/v4.48.2) (2024-02-28)
 **Feature - Log Redaction Enhancement**
 -  Added log attribute in GET and List MDR response
 -  Change log field from bool to string in send SMS 
+
+## [4.48.1](https://github.com/plivo/plivo-python/tree/v4.48.1) (2024-02-26)
+**Added new param 'waitTime' for MPC XML
+
+## [4.48.0](https://github.com/plivo/plivo-python/tree/v4.48.0) (2024-02-12)
+**Custom Verify OTP - Added new optional param 'otp' for Create Session and made 'otp' param optional for Validate Session**
+
+## [4.47.2](https://github.com/plivo/plivo-python/tree/v4.47.2) (2024-01-25)
+**Added new params 'create_mpc_with_single_participant' for Add Participant API of MPC**
 
 ## [4.47.1](https://github.com/plivo/plivo-python/tree/v4.47.1) (2023-12-19)
 **Type param addition in speak api for call and mpc**
