@@ -1,5 +1,10 @@
 # Change Log
 
+## [4.48.2](https://github.com/plivo/plivo-python/tree/v4.48.2) (2024-02-28)
+**Feature - Log Redaction Enhancement**
+-  Added log attribute in GET and List MDR response
+-  Change log field from bool to string in send SMS 
+
 ## [4.48.1](https://github.com/plivo/plivo-python/tree/v4.48.1) (2024-02-26)
 **Added new param 'waitTime' for MPC XML
 
