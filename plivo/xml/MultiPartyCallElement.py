@@ -93,6 +93,26 @@ class MultiPartyCallElement(PlivoXMLElement):
         return self
 
     @property
+    def wait_time(self):
+        return self.__wait_time
+
+    @wait_time.setter
+    @validate_args(
+        wait_time=[
+            optional(
+                of_type_exact(int),
+                check(lambda wait_time: 0 <= wait_time <= 1800, '0 <= wait_time <= 1800')
+            )
+        ],
+    )
+    def wait_time(self, wait_time):
+        self.__wait_time = wait_time
+
+    def set_wait_time(self, wait_time):
+        self.wait_time = wait_time
+        return self
+
+    @property
     def agent_hold_music_url(self):
         return self.__agent_hold_music_url
 
@@ -543,6 +563,7 @@ class MultiPartyCallElement(PlivoXMLElement):
             record_min_member_count=1,
             wait_music_url=None,
             wait_music_method='GET',
+            wait_time=None,
             agent_hold_music_url=None,
             agent_hold_music_method='GET',
             customer_hold_music_url=None,
@@ -585,6 +606,7 @@ class MultiPartyCallElement(PlivoXMLElement):
         self.record_min_member_count = record_min_member_count
         self.wait_music_url = wait_music_url
         self.wait_music_method = wait_music_method
+        self.wait_time = wait_time
         self.agent_hold_music_url = agent_hold_music_url
         self.agent_hold_music_method = agent_hold_music_method
         self.customer_hold_music_url = customer_hold_music_url
@@ -619,6 +641,7 @@ class MultiPartyCallElement(PlivoXMLElement):
             'recordMinMemberCount': self.record_min_member_count,
             'waitMusicUrl': self.wait_music_url,
             'waitMusicMethod': self.wait_music_method,
+            'waitTime': self.wait_time,
             'agentHoldMusicUrl': self.agent_hold_music_url,
             'agentHoldMusicMethod': self.agent_hold_music_method,
             'customerHoldMusicUrl': self.customer_hold_music_url,
