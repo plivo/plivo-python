@@ -129,9 +129,9 @@ class Campaign(PlivoResourceInterface):
             method=[optional(of_type(six.text_type))],
             url=[optional(of_type(six.text_type))],
     )
-    def importcampaign(self,campaign_id, campaign_alias, url='', method=''):
+    def import_campaign(self,campaign_id, campaign_alias, url='', method=''):
         return self.client.request('POST', ('10dlc', 'Campaign', 'Import'),
-                                   to_param_dict(self.importcampaign, locals()))
+                                   to_param_dict(self.import_campaign, locals()))
 
     @validate_args(
         campaign_id=[required(of_type(six.text_type))],

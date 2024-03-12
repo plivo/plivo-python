@@ -41,14 +41,17 @@ class CampaignTest(PlivoResourceTestCase):
 
     @with_response(200)
     def test_import(self):
-        response = self.client.campaign.importcampaign(
-    campaign_id = "CNTQ0OD",
-    campaign_alias= "New Contact by vinay for ct",
-)
+        response = self.client.campaign.import_campaign(
+            campaign_id = "CNTQ0OD",
+            campaign_alias= "New Contact by vinay for ct",
+        )
         self.assertEqual('POST', self.client.current_request.method)
         self.assertUrlEqual(
             'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/10dlc/Campaign/Import/',
             self.client.current_request.url)
+        
+        self.assertEqual('CNTQ0OD', response.campaign_id)
+        self.assertEqual('Request to import campaign was received and is being processed.', response.message)
         
 
     @with_response(200)
