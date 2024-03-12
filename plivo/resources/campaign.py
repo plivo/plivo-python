@@ -129,7 +129,7 @@ class Campaign(PlivoResourceInterface):
             method=[optional(of_type(six.text_type))],
             url=[optional(of_type(six.text_type))],
     )
-    def import_campaign(self,campaign_id, campaign_alias, url='', method=''):
+    def import_campaign(self,campaign_id, campaign_alias, url=None, method=None):
         return self.client.request('POST', ('10dlc', 'Campaign', 'Import'),
                                    to_param_dict(self.import_campaign, locals()))
 
