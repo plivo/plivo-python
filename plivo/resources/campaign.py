@@ -123,6 +123,15 @@ class Campaign(PlivoResourceInterface):
         return self.client.request('POST', ('10dlc', 'Campaign'),
                                    to_param_dict(self.create, locals()))
 
+    @validate_args(
+            campaign_id=[required(of_type(six.text_type))],
+            campaign_alias=[required(of_type(six.text_type))],
+            method=[optional(of_type(six.text_type))],
+            url=[optional(of_type(six.text_type))],
+    )
+    def import_campaign(self,campaign_id, campaign_alias, url=None, method=None):
+        return self.client.request('POST', ('10dlc', 'Campaign', 'Import'),
+                                   to_param_dict(self.import_campaign, locals()))
 
     @validate_args(
         campaign_id=[required(of_type(six.text_type))],

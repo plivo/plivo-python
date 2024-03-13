@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.49.0](https://github.com/plivo/plivo-python/tree/v4.49.0) (2024-03-13)
+**Adding Import Campaign**
+-Added Import Campaign API
+
 ## [4.48.2](https://github.com/plivo/plivo-python/tree/v4.48.2) (2024-02-28)
 **Feature - Log Redaction Enhancement**
 -  Added log attribute in GET and List MDR response
