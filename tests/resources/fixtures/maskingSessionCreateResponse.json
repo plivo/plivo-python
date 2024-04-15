@@ -30,6 +30,16 @@
         "total_call_count": 0,
         "total_call_billed_duration": 0,
         "total_session_amount": 0,
-        "last_interaction_time": ""
+        "last_interaction_time": "",
+        "is_pin_authentication_required": true,
+        "generate_pin": false,
+        "generate_pin_length": 4,
+        "first_party_pin": "1234",
+        "second_party_pin": "1235",
+        "pin_prompt_play": "https://s3.amazonaws.com/plivosamplexml/pin_prompt_play_url.xml",
+        "pin_retry": 2,
+        "pin_retry_wait": 5,
+        "incorrect_pin_play": "https://s3.amazonaws.com/plivosamplexml/incorrect_play_url.xml",
+        "unknown_caller_play": "https://s3.amazonaws.com/plivosamplexml/unknown_play_url.xml"
     }
 }

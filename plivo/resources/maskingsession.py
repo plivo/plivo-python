@@ -3,9 +3,11 @@ from plivo.base import (ListResponseObject, PlivoResource,
 from plivo.utils import to_param_dict
 from plivo.utils.validators import *
 
+
 class MaskingSession(PlivoResource):
     _name = 'MaskingSession'
     _identifier_string = 'session_uuid'
+
     def create_masking_session(self):
         return self.client.calls.create_masking_session(self.id,
                                                         **to_param_dict(self.create_masking_session(), locals()))
@@ -35,6 +37,9 @@ class MaskingSessions(PlivoResourceInterface):
         recording_callback_url=[optional(is_url())],
         first_party_play_url=[optional(is_url())],
         second_party_play_url=[optional(is_url())],
+        pin_prompt_play=[optional(is_url())],
+        incorrect_pin_play=[optional(is_url())],
+        unknown_caller_play=[optional(is_url())],
     )
     def create_masking_session(self,
                                first_party=None,
@@ -50,7 +55,17 @@ class MaskingSessions(PlivoResourceInterface):
                                ring_timeout=None,
                                first_party_play_url=None,
                                second_party_play_url=None,
-                               recording_callback_method=None
+                               recording_callback_method=None,
+                               is_pin_authentication_required=None,
+                               generate_pin=None,
+                               generate_pin_length=None,
+                               first_party_pin=None,
+                               second_party_pin=None,
+                               pin_prompt_play=None,
+                               pin_retry=None,
+                               pin_retry_wait=None,
+                               incorrect_pin_play=None,
+                               unknown_caller_play=None
                                ):
         return self.client.request('POST', ('Masking', 'Session',),
                                    to_param_dict(self.create_masking_session, locals()), is_voice_request=True)
