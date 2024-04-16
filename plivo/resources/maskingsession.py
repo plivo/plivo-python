@@ -65,7 +65,9 @@ class MaskingSessions(PlivoResourceInterface):
                                pin_retry=None,
                                pin_retry_wait=None,
                                incorrect_pin_play=None,
-                               unknown_caller_play=None
+                               unknown_caller_play=None,
+                               subaccount=None,
+                               geomatch=None
                                ):
         return self.client.request('POST', ('Masking', 'Session',),
                                    to_param_dict(self.create_masking_session, locals()), is_voice_request=True)
@@ -93,7 +95,9 @@ class MaskingSessions(PlivoResourceInterface):
                                ring_timeout=None,
                                first_party_play_url=None,
                                second_party_play_url=None,
-                               recording_callback_method=None
+                               recording_callback_method=None,
+                               subaccount=None,
+                               geomatch=None
                                ):
         return self.client.request('POST', ('Masking', 'Session', session_uuid),
                                    to_param_dict(self.update_masking_session, locals()), is_voice_request=True)
@@ -119,7 +123,8 @@ class MaskingSessions(PlivoResourceInterface):
                              duration__gt=None,
                              duration__gte=None,
                              limit=None,
-                             offset=None
+                             offset=None,
+                             subaccount=None
                              ):
         return self.client.request('GET', ('Masking', 'Session'), to_param_dict(self.list_masking_session, locals()),
                                    is_voice_request=True)
