@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.50.0](https://github.com/plivo/plivo-python/tree/v4.50.0) (2024-04-18)
+**Feature - Support for dynamic button components when sending a templated WhatsApp message**
+- Added new param `payload` in templates to support dynamic payload in templates
+
 ## [4.49.0](https://github.com/plivo/plivo-python/tree/v4.49.0) (2024-03-13)
 **Adding Import Campaign**
 -Added Import Campaign API
