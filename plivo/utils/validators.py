@@ -262,3 +262,4 @@ is_proper_date_format = functools.partial(all_of, of_type_exact(str),
                                           regex(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}(:\d{2}(\.\d{1,6})?)?$'))
 
 is_template = functools.partial(of_type_exact,'plivo.utils.template.Template')
+is_interactive = functools.partial(of_type_exact,'plivo.utils.interactive.Interactive')
