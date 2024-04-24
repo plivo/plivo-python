@@ -1,35 +1,16 @@
-from plivo.utils.validators import validate_args, optional, of_type_exact, validate_list_items
+from plivo.utils.validators import *
 from plivo.utils.template import Parameter
-
-class WAMedia:
-    @validate_args(
-        id=[optional(of_type_exact(str, type(None)))],
-        link=[optional(of_type_exact(str, type(None)))],
-        caption=[optional(of_type_exact(str, type(None)))],
-        filename=[optional(of_type_exact(str, type(None)))],
-    )
-    def __init__(self, id=None, link=None, caption=None, filename=None):
-        self.id = id
-        self.link = link
-        self.caption = caption
-        self.filename = filename
-
 
 class Header:
     @validate_args(
         type=[optional(of_type_exact(str, type(None)))],
         text=[optional(of_type_exact(str, type(None)))],
-        image=[optional(of_type_exact(WAMedia, type(None)))],
-        document=[optional(of_type_exact(WAMedia, type(None)))],
-        video=[optional(of_type_exact(WAMedia, type(None)))]
+        media=[optional(of_type_exact(str, type(None)))]
     )
-    def __init__(self, type=None, text=None, image=None, document=None, video=None):
+    def __init__(self, type, text, media):
         self.type = type
         self.text = text
-        self.image = image
-        self.document = document
-        self.video = video
-
+        self.media = media
 
 class Body:
     @validate_args(
@@ -123,14 +104,14 @@ class Action:
 class Interactive:
     @validate_args(
         type=[optional(of_type_exact(str, type(None)))],
-        header=[optional(of_type_exact(Header, type(None)))],
-        body=[optional(of_type_exact(Body, type(None)))],
-        footer=[optional(of_type_exact(Footer, type(None)))],
-        action=[optional(of_type_exact(Action, type(None)))]
+        header=[optional(of_type_exact(dict))],
+        body=[optional(of_type_exact(dict))],
+        footer=[optional(of_type_exact(dict))],
+        action=[optional(of_type_exact(dict))]
     )
     def __init__(self, type=None, header=None, body=None, footer=None, action=None):
         self.type = type
-        self.header = header
-        self.body = body
-        self.footer = footer
-        self.action = action
+        self.header = Header(**header) if header else None
+        self.body = Body(**body) if body else None
+        self.footer = Footer(**footer) if footer else None
+        self.action = Action(**action) if action else None
