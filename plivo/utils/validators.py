@@ -242,6 +242,24 @@ def validate_list_items(instance_type):
 
     return f
 
+def validate_dict_items(instance_type):
+    def validator(arg_name, value):
+        if not isinstance(value, dict):
+            return None, ["{} must be a dictionary".format(arg_name)]
+        
+        errors = []
+        try:
+            instance_type(**value)
+        except TypeError as e:
+            errors.append(str(e))
+        
+        if errors:
+            return None, errors
+        return value, []
+
+    return validator
+
+
 is_valid_date = functools.partial(of_type, six.text_type)
 is_phonenumber = functools.partial(of_type, six.text_type)
 is_subaccount_id = functools.partial(all_of, of_type(six.text_type),
