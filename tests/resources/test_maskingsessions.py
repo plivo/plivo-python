@@ -1,12 +1,43 @@
 from tests.base import PlivoResourceTestCase
 from tests.decorators import with_response
 
+
 class MaskingSessionTest(PlivoResourceTestCase):
     @with_response(201)
     def test_create(self):
         self.client.masking_sessions.create_masking_session(
             first_party='917708772011',
             second_party='918220568648')
+        self.assertEqual(self.client.current_request.method, 'POST')
+        self.assertUrlEqual(
+            self.get_voice_url('Masking', 'Session'), self.client.current_request.url)
+
+    @with_response(201)
+    def test_create_geomatch_false(self):
+        self.client.masking_sessions.create_masking_session(
+            first_party='917708772011',
+            second_party='918220568648',
+            geomatch=False)
+        self.assertEqual(self.client.current_request.method, 'POST')
+        self.assertUrlEqual(
+            self.get_voice_url('Masking', 'Session'), self.client.current_request.url)
+
+    @with_response(201)
+    def test_create_geomatch_true(self):
+        self.client.masking_sessions.create_masking_session(
+            first_party='917708772011',
+            second_party='918220568648',
+            geomatch=True)
+        self.assertEqual(self.client.current_request.method, 'POST')
+        self.assertUrlEqual(
+            self.get_voice_url('Masking', 'Session'), self.client.current_request.url)
+
+    @with_response(201)
+    def test_create_subaccount(self):
+        self.client.masking_sessions.create_masking_session(
+            first_party='917708772011',
+            second_party='918220568648',
+            subaccount='SAZTA0ZJJHMDETOWQ4YI')
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
             self.get_voice_url('Masking', 'Session'), self.client.current_request.url)
