@@ -1,8 +1,8 @@
 # Change Log
 
-## [4.50.1](https://github.com/plivo/plivo-python/tree/v4.49.1) (2024-04-15)
-**Adding Pin Based Authentication, Sub-account and Geomatch**
--Added Pin Based Authentication, Sub-account and Geomatch support in Masking APIs.
+## [4.51.0](https://github.com/plivo/plivo-python/tree/v4.51.0) (2024-05-02)
+**Feature - Added SubAccount and GeoMatch for Create Masking Session API of Number Masking.**
+-  Added sub_account and geo_match support in MaskingSession APIs
 
 ## [4.50.0](https://github.com/plivo/plivo-python/tree/v4.50.0) (2024-04-22)
 **Feature - Support for dynamic button components when sending a templated WhatsApp message**
