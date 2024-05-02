@@ -13,7 +13,8 @@ class MaskingSessionTest(PlivoResourceTestCase):
             self.get_voice_url('Masking', 'Session'), self.client.current_request.url)
 
     @with_response(201)
-    def test_create_geomatch_false(self):
+    # geomatch = false
+    def test_create(self):
         self.client.masking_sessions.create_masking_session(
             first_party='917708772011',
             second_party='918220568648',
@@ -23,7 +24,8 @@ class MaskingSessionTest(PlivoResourceTestCase):
             self.get_voice_url('Masking', 'Session'), self.client.current_request.url)
 
     @with_response(201)
-    def test_create_geomatch_true(self):
+    # geomatch = true
+    def test_create(self):
         self.client.masking_sessions.create_masking_session(
             first_party='917708772011',
             second_party='918220568648',
@@ -33,7 +35,8 @@ class MaskingSessionTest(PlivoResourceTestCase):
             self.get_voice_url('Masking', 'Session'), self.client.current_request.url)
 
     @with_response(201)
-    def test_create_subaccount(self):
+    # subaccount is passed
+    def test_create(self):
         self.client.masking_sessions.create_masking_session(
             first_party='917708772011',
             second_party='918220568648',
