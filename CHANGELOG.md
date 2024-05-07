@@ -1,4 +1,7 @@
 # Change Log
+## [4.53.0](https://github.com/plivo/plivo-python/tree/v4.53.0) (2024-05-07)
+**Minor enhancements**
+-  updated decorator version
 
 ## [4.51.0](https://github.com/plivo/plivo-python/tree/v4.51.0) (2024-05-02)
 **Feature - Added SubAccount and GeoMatch for Create Masking Session API of Number Masking.**
