@@ -42,6 +42,7 @@ class Messages(PlivoResourceInterface):
         media_ids=[optional(of_type_exact(list))],
         message_expiry=[optional(of_type(*six.integer_types))],
         template=[optional(is_template())],
+        interactive=[optional(is_interactive())],
         dlt_entity_id=[optional(of_type(six.text_type))],
         dlt_template_id=[optional(of_type(six.text_type))],
         dlt_template_category=[optional(of_type(six.text_type))]
@@ -60,6 +61,7 @@ class Messages(PlivoResourceInterface):
                media_ids=None,
                message_expiry=None, 
                template=None,
+               interactive=None,
                dlt_entity_id=None,
                dlt_template_id=None,
                dlt_template_category=None):
@@ -84,6 +86,8 @@ class Messages(PlivoResourceInterface):
             )
         if template is not None:
             template =  template.__dict__
+        if interactive is not None:
+            interactive = interactive.__dict__
         return self.client.request('POST', ('Message', ),
                                    to_param_dict(self.create, locals()))
 
