@@ -1,4 +1,7 @@
 # Change Log
+## [4.53.0](https://github.com/plivo/plivo-python/tree/v4.53.0) (2024-05-07)
+**Minor enhancements**
+-  updated decorator version
 
 ## [v4.52.0](https://github.com/plivo/plivo-python/tree/v4.52.0) (2024-05-07)
 **Feature - Adding support for interactive whatsapp messages**
