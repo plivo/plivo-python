@@ -1,4 +1,10 @@
 # Change Log
+
+## [4.54.0](https://github.com/plivo/plivo-python/tree/v4.54.0) (2024-05-07)
+**Feature - Adding support for location whatsapp messages**
+- Added new param `location` to [send message API](https://www.plivo.com/docs/sms/api/message#send-a-message) to support location `whatsapp` messages
+- Added new param `location` in templates to support location based templated messages
+
 ## [4.53.0](https://github.com/plivo/plivo-python/tree/v4.53.0) (2024-05-07)
 **Minor enhancements**
 -  updated decorator version
