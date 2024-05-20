@@ -1,4 +1,5 @@
 from plivo.utils.validators import *
+from plivo.utils.location import *
 
 class Parameter:
     @validate_args(
@@ -8,14 +9,16 @@ class Parameter:
         payload=[optional(of_type_exact(str))],
         currency=[optional(of_type_exact(dict))],
         date_time=[optional(of_type_exact(dict))],
+        location=[optional(validate_dict_items(Location))]
     )
-    def __init__(self, type, text=None, media=None, payload=None, currency=None, date_time=None):
+    def __init__(self, type, text=None, media=None, payload=None, currency=None, date_time=None, location=None):
         self.type = type
         self.text = text
         self.media = media
         self.payload = payload
         self.currency = Currency(**currency) if currency else None
         self.date_time = DateTime(**date_time) if date_time else None
+        self.location = location
 
 class Component:
     @validate_args(

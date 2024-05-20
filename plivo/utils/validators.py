@@ -281,3 +281,4 @@ is_proper_date_format = functools.partial(all_of, of_type_exact(str),
 
 is_template = functools.partial(of_type_exact,'plivo.utils.template.Template')
 is_interactive = functools.partial(of_type_exact,'plivo.utils.interactive.Interactive')
+is_location = functools.partial(of_type_exact,'plivo.utils.location.Location')
