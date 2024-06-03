@@ -115,7 +115,7 @@ class Applications(PlivoResourceInterface):
         callback_url=[optional(is_url())],
         callback_method=[optional(of_type(six.text_type))],
     )
-    def list(self, subaccount=None, limit=20, offset=0, callback_url=None, callback_method=None):
+    def list(self, subaccount=None, limit=20, offset=0, callback_url=None, callback_method=None, app_name=None):
         if subaccount:
             if isinstance(subaccount, Subaccount):
                 subaccount = subaccount.id
