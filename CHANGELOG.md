@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.55.0](https://github.com/plivo/plivo-python/tree/v4.55.0) (2024-06-05)
+**Feature - Adding locale support for Create Session API**
+- Added new param `locale` for create session API
+
 ## [4.54.1](https://github.com/plivo/plivo-python/tree/v4.54.1) (2024-05-28)
 **Feature - Adding Filtering support for List Application API**
 - Added new filter param `app_name` in list application API
