@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.55.0](https://github.com/plivo/plivo-python/tree/v4.55.1) (2024-07-04)
+## [4.55.1](https://github.com/plivo/plivo-python/tree/v4.55.1) (2024-07-04)
 **Feature - Adding new param support for Add Participant API**
 - Added `Send_digits` and `send_on_preanswer` attribute in add participant
 
