@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.55.0](https://github.com/plivo/plivo-python/tree/v4.55.1) (2024-07-04)
+**Feature - Adding new param support for Add Participant API**
+- Added `Send_digits` and `send_on_preanswer` attribute in add participant
+
 ## [4.55.0](https://github.com/plivo/plivo-python/tree/v4.55.0) (2024-06-05)
 **Feature - Adding locale support for Create Session API**
 - Added new param `locale` for create session API
