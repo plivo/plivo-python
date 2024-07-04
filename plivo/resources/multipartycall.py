@@ -90,8 +90,9 @@ class MultiPartyCall(PlivoResource):
     def start_participant_recording(self, participant_id, file_format=None, recording_callback_url=None,
                                     recording_callback_method=None, record_track_type='all'):
         return self.client.multi_party_calls.start_participant_recording(participant_id=participant_id, uuid=self.id,
-                                                                         **to_param_dict(self.start_participant_recording,
-                                                                                         locals()))
+                                                                         **to_param_dict(
+                                                                             self.start_participant_recording,
+                                                                             locals()))
 
     def stop_participant_recording(self, participant_id, record_track_type='all'):
         return self.client.multi_party_calls.stop_participant_recording(participant_id=participant_id, uuid=self.id,
@@ -144,8 +145,9 @@ class MultiPartyCallParticipant(SecondaryPlivoResource):
     def start_participant_recording(self, file_format=None, recording_callback_url=None,
                                     recording_callback_method=None, record_track_type='all'):
         return self.client.multi_party_calls.start_participant_recording(participant_id=self.secondary_id, uuid=self.id,
-                                                                         **to_param_dict(self.start_participant_recording,
-                                                                                         locals()))
+                                                                         **to_param_dict(
+                                                                             self.start_participant_recording,
+                                                                             locals()))
 
     def stop_participant_recording(self, record_track_type='all'):
         return self.client.multi_party_calls.stop_participant_recording(participant_id=self.secondary_id, uuid=self.id,
@@ -154,13 +156,16 @@ class MultiPartyCallParticipant(SecondaryPlivoResource):
 
     def pause_participant_recording(self, record_track_type='all'):
         return self.client.multi_party_calls.pause_participant_recording(participant_id=self.secondary_id, uuid=self.id,
-                                                                         **to_param_dict(self.pause_participant_recording,
-                                                                                         locals()))
+                                                                         **to_param_dict(
+                                                                             self.pause_participant_recording,
+                                                                             locals()))
 
     def resume_participant_recording(self, record_track_type='all'):
-        return self.client.multi_party_calls.resume_participant_recording(participant_id=self.secondary_id, uuid=self.id,
-                                                                          **to_param_dict(self.resume_participant_recording,
-                                                                                          locals()))
+        return self.client.multi_party_calls.resume_participant_recording(participant_id=self.secondary_id,
+                                                                          uuid=self.id,
+                                                                          **to_param_dict(
+                                                                              self.resume_participant_recording,
+                                                                              locals()))
 
     def update(self, coach_mode=None, hold=None, mute=None):
         return self.client.multi_party_calls.update_participant(participant_id=self.secondary_id,
@@ -338,6 +343,7 @@ class MultiPartyCalls(PlivoResourceInterface):
         callback_url=[optional(is_url())],
         callback_method=[optional(of_type(six.text_type))],
         create_mpc_with_single_participant=[optional(of_type_exact(bool))],
+        send_on_preanswer=[optional(of_type_exact(bool))],
     )
     def add_participant(self,
                         role,
@@ -392,7 +398,9 @@ class MultiPartyCalls(PlivoResourceInterface):
                         stop_recording_audio_method='GET',
                         callback_url=None,
                         callback_method=None,
-                        create_mpc_with_single_participant=True
+                        create_mpc_with_single_participant=True,
+                        send_digits=None,
+                        send_on_preanswer=False
                         ):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
         caller_name = caller_name or from_
@@ -422,7 +430,7 @@ class MultiPartyCalls(PlivoResourceInterface):
     )
     def start(self, uuid=None, friendly_name=None, callback_url=None, callback_method=None):
         mpc_id = self.__make_mpc_id(friendly_name, uuid)
-        localObject={}
+        localObject = {}
         localObject['status'] = 'active',
         if callback_url:
             localObject['callback_url'] = callback_url,
