@@ -189,7 +189,8 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             'role': 'agent',
             'start_recording_audio_method': 'GET',
             'stop_recording_audio_method': 'GET',
-            'create_mpc_with_single_participant': True
+            'create_mpc_with_single_participant': True,
+            'send_on_preanswer': False
         }
 
         add_participant_response = self.client.multi_party_calls.add_participant(friendly_name='Voice', role='agent',
@@ -222,7 +223,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             coach_mode=False, dial_music='http://music.plivo.com/bella-ciao.wav', ring_timeout=100,
             status_callback_events='participant-speak-events', max_duration=25000, max_participants=5,
             relay_dtmf_inputs=True, customer_hold_music_url='http://music.plivo.com/bella-ciao.wav',
-            customer_hold_music_method='post', exit_sound_method='Post', record_file_format='wav')
+            customer_hold_music_method='post', exit_sound_method='Post', record_file_format='wav', send_on_preanswer=False)
 
         self.__assert_requests(actual_response=add_participant_response, expected_method='POST',
                                expected_url='https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/'
