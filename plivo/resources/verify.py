@@ -27,6 +27,7 @@ class Sessions(PlivoResourceInterface):
         channel=[optional(all_of(of_type(six.text_type), is_in(('sms', 'voice'))))],
         url=[optional(is_url())],
         method=[optional(of_type(six.text_type))],
+        code_length=[optional(of_type(six.integer_types))],
         locale=[optional(of_type(six.text_type))])
     def create(self,
                app_uuid=None,
@@ -37,7 +38,8 @@ class Sessions(PlivoResourceInterface):
                method='POST',
                locale=None,
                brand_name=None,
-               app_hash=None):
+               app_hash=None,
+               code_length=None):
         if recipient is None:
             raise ValidationError('destination number is required')
         return self.client.request('POST', ('Verify', 'Session', ),
