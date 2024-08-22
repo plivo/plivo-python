@@ -11,5 +11,8 @@
   "to_number": "911231231231",
   "total_amount": "0.00250",
   "total_rate": "0.00250",
-  "units": 1
+  "units": 1,
+  "message_sent_time": "2024-08-21 18:28:49.244057+05:30",
+  "message_updated_time": "2024-08-21 18:28:51.94772+05:30",
+  "error_message": ""
 }
