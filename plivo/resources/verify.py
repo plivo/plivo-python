@@ -27,7 +27,6 @@ class Sessions(PlivoResourceInterface):
         channel=[optional(all_of(of_type(six.text_type), is_in(('sms', 'voice'))))],
         url=[optional(is_url())],
         method=[optional(of_type(six.text_type))],
-        code_length=[optional(of_type(six.integer_types))],
         locale=[optional(of_type(six.text_type))])
     def create(self,
                app_uuid=None,
