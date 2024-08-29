@@ -19,7 +19,8 @@ class StreamElement(PlivoXMLElement):
             statusCallbackUrl=None,
             statusCallbackMethod=None,
             contentType=None,
-            extraHeaders=None
+            extraHeaders=None,
+            keepCallAlive=None
     ):
         super(StreamElement, self).__init__()
 
@@ -31,6 +32,7 @@ class StreamElement(PlivoXMLElement):
         self.statusCallbackMethod = statusCallbackMethod
         self.contentType = contentType
         self.extraHeaders = extraHeaders
+        self.keepCallAlive = keepCallAlive
 
     def to_dict(self):
         d = {
@@ -41,6 +43,7 @@ class StreamElement(PlivoXMLElement):
             'statusCallbackMethod': self.statusCallbackMethod,
             'contentType': self.contentType,
             'extraHeaders': self.extraHeaders,
+            'keepAlive': self.keepCallAlive
         }
         return {
             k: six.text_type(map_type(v))

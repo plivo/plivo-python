@@ -13,9 +13,10 @@ class StreamElementTest(TestCase, PlivoXmlTestCase):
         content = 'wss://test.url'
         bidirectional = True
         extraHeaders = "a=1,b=2"
+        keepCallAlive = True
 
         element = plivoxml.ResponseElement()
         response = element.add(
-            plivoxml.StreamElement(content, bidirectional=bidirectional, extraHeaders=extraHeaders)
+            plivoxml.StreamElement(content, bidirectional=bidirectional, extraHeaders=extraHeaders, keepCallAlive=keepCallAlive)
         ).to_string(False)
         self.assertXmlEqual(response, expected_response)
