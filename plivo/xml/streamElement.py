@@ -43,7 +43,7 @@ class StreamElement(PlivoXMLElement):
             'statusCallbackMethod': self.statusCallbackMethod,
             'contentType': self.contentType,
             'extraHeaders': self.extraHeaders,
-            'keepAlive': self.keepCallAlive
+            'keepCallAlive': self.keepCallAlive
         }
         return {
             k: six.text_type(map_type(v))
