@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.55.2](https://github.com/plivo/plivo-python/tree/v4.55.2) (2024-09-03)
+**Feature - Adding new element for Audio Stream XML **
+- Added `keepCallAlive` element in Audio Stream XML
+
 ## [4.55.1](https://github.com/plivo/plivo-python/tree/v4.55.1) (2024-07-04)
 **Feature - Adding new param support for Add Participant API**
 - Added `Send_digits` and `send_on_preanswer` attribute in add participant
