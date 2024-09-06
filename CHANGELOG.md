@@ -1,9 +1,9 @@
 # Change Log
 
-## [4.55.2](https://github.com/plivo/plivo-python/tree/v4.55.2) (2024-08-12)
-**Feature - Adding support for brand_name and app_hash in Create,Get and List Session**
-- Added new request param `brand_name` and `app_hash` in create Session API
-- Added support for `brand_name` and `app_hash` param in get and list Session response
+## [4.55.3](https://github.com/plivo/plivo-python/tree/v4.55.3) (2024-09-06)
+**Feature - Adding support for brand_name, code_length and app_hash in Create,Get and List Session**
+- Added new request param `brand_name` , `app_hash` and `code_length`  in create Session API
+- Added support for `brand_name`,`code_length` and `app_hash` param in get and list Session response
 
 ## [4.55.1](https://github.com/plivo/plivo-python/tree/v4.55.1) (2024-07-04)
 **Feature - Adding new param support for Add Participant API**
