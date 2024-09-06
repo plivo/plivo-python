@@ -101,9 +101,7 @@ class MaskingSessions(PlivoResourceInterface):
                                recording_callback_method=None,
                                subaccount=None,
                                geomatch=None,
-                               create_session_with_single_party=None,
-                               virtual_number_cooloff_period=None,
-                               force_pin_authentication=None
+                               create_session_with_single_party=None
                                ):
         return self.client.request('POST', ('Masking', 'Session', session_uuid),
                                    to_param_dict(self.update_masking_session, locals()), is_voice_request=True)
