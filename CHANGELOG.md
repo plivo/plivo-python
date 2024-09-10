@@ -1,4 +1,8 @@
 # Change Log
+## [4.55.6](https://github.com/plivo/plivo-python/tree/v4.55.6) (2024-09-10)
+**Feature - Adding few optional parameters to the existing machine detection params**
+- Added six new optional machine detection params `machine_detection_maximum_speech_length`,`machine_detection_initial_silence`,`machine_detection_maximum_words`,`machine_detection_initial_greeting`,`machine_detection_silence`,`machine_detection_answer_time`
+
 ## [4.55.5](https://github.com/plivo/plivo-python/tree/v4.55.5) (2024-09-10)
 **Feature - Adding validations for AudioStream XML creation**
 - Added Validations for AudioStream XML creation
