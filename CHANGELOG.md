@@ -1,5 +1,5 @@
 # Change Log
-## [4.55.5](https://github.com/plivo/plivo-python/tree/v4.55.5) (2024-09-12)
+## [4.55.5](https://github.com/plivo/plivo-python/tree/v4.55.5) (2024-09-10)
 **Feature - Adding validations for AudioStream XML creation**
 - Added Validations for AudioStream XML creation
 
