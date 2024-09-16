@@ -88,6 +88,8 @@ class MaskingSessions(PlivoResourceInterface):
 
     def update_masking_session(self,
                                session_uuid,
+                               first_party=None,
+                               second_party=None,
                                session_expiry=None,
                                call_time_limit=None,
                                record=None,
