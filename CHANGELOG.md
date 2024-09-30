@@ -1,4 +1,8 @@
 # Change Log
+## [4.56.0](https://github.com/plivo/plivo-python/tree/v4.56.0) (2024-09-30)
+**Feature - Adding new param support for Number Masking session with single party **
+- Added `create_session_with_single_party`, `virtual_number_cooloff_period` and `force_pin_authentication` attributes in Masking Session
+
 ## [4.55.5](https://github.com/plivo/plivo-python/tree/v4.55.5) (2024-09-10)
 **Feature - Adding validations for AudioStream XML creation**
 - Added Validations for AudioStream XML creation
@@ -6,7 +10,6 @@
 ## [4.55.4](https://github.com/plivo/plivo-python/tree/v4.55.4) (2024-09-06)
 **Feature - Adding more attribute on mdr object**
 - Added `message_sent_time`, `message_updated_time` and `error-message` on get and list Message API
-
 
 ## [4.55.3](https://github.com/plivo/plivo-python/tree/v4.55.3) (2024-09-06)
 **Feature - Adding support for brand_name, code_length and app_hash in Create,Get and List Session**
