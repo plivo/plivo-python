@@ -29,3 +29,6 @@ class ValidationError(PlivoRestError):
 
 class ForbiddenError(PlivoRestError):
     pass
+
+class TooManyRequestsError(PlivoRestError):
+    pass
