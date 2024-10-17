@@ -1,4 +1,9 @@
 # Change Log
+## [4.56.2](https://github.com/plivo/plivo-python/tree/v4.56.2) (2024-10-16)
+**Feature - FraudCheck param in Create, Get and List Session**
+- Support for the `fraud_check` parameter in sms verify session request
+- Added support for `fraud_check` in GET and LIST verify session.
+
 ## [4.56.1](https://github.com/plivo/plivo-python/tree/v4.56.1) (2024-10-10)
 **Feature - Dtmf param in Create, Get and List Session**
 - Support for the `dtmf` parameter in voice verify session request

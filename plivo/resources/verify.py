@@ -39,7 +39,8 @@ class Sessions(PlivoResourceInterface):
                brand_name=None,
                app_hash=None,
                code_length=None,
-               dtmf=None):
+               dtmf=None,
+               fraud_check=None):
         if recipient is None:
             raise ValidationError('destination number is required')
         return self.client.request('POST', ('Verify', 'Session', ),

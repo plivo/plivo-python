@@ -5,7 +5,11 @@ build:
 
 start:
 	docker-compose up --build --remove-orphans --detach
-	docker attach $(shell docker-compose ps -q pythonSDK)
+	# Wait for the container to be running before attaching
+	@while [ -z "$$(docker-compose ps -q pythonSDK)" ]; do \
+		sleep 1; \
+	done
+	docker attach $$(docker-compose ps -q pythonSDK)
 
 test:
 	@[ "${CONTAINER}" ] && \
