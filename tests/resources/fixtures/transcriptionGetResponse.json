@@ -1,0 +1,9 @@
+{
+    "api_id": "f83b30a3-228c-4676-813e-985fcdf61201",
+    "cost": 0.05,
+    "rate": 0.05,
+    "recording_duration_ms": 22780,
+    "recording_start_ms": 1729761222174,
+    "status": "success",
+    "transcription": "\nSpeaker 0: Scan just to be safe. If you notice any error messages, please let me know immediately. They can help us diagnose the issue better. If it continues to freeze, we might need to look into your system performance. I can guide you through checking your task manager if that helps.\n\nSometimes, background processes can use up a lot of resources. I under"
+}

@@ -18,6 +18,7 @@ from plivo.resources import (Accounts, Addresses, Applications, Calls, Token,
                              TollfreeVerifications)
 from plivo.resources.live_calls import LiveCalls
 from plivo.resources.maskingsession import MaskingSessions
+from plivo.resources.transcription import Transcriptions
 from plivo.resources.verify_callerid import VerifyCallerids
 from plivo.resources.profile import Profile
 from plivo.resources.queued_calls import QueuedCalls
@@ -123,6 +124,8 @@ class Client(object):
         self.voice_retry_count = 0
         self.verify_session = Sessions(self)
         self.verify_callerids = VerifyCallerids(self)
+        self.transcriptions = Transcriptions(self)
+
 
     def __enter__(self):
         return self
