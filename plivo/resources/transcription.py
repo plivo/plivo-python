@@ -20,6 +20,9 @@ class Transcription(PlivoResource):
     def create_tanscription(self):
         return self.client.transcriptions.create_tanscription(self.id, **to_param_dict(self.create_tanscription(), locals()))
 
+    def delete_tanscription(self):
+        return self.client.transcriptions.delete_tanscription(self.id, **to_param_dict(self.delete_tanscription(), locals()))
+
 
 class Transcriptions(PlivoResourceInterface):
     _resource_type = Transcription
@@ -37,6 +40,10 @@ class Transcriptions(PlivoResourceInterface):
     def create_tanscription(self, recording_id):
             return self.client.request(
                 'POST', ('Transcription', recording_id), is_voice_request=True)
+
+    def delete_tanscription(self, transcription_id):
+        return self.client.request(
+            'DELETE', ('Transcription', transcription_id), is_voice_request=True)
 
 
 
