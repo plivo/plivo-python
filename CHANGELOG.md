@@ -1,6 +1,6 @@
 # Change Log
 
-## [4.58.0](https://github.com/plivo/plivo-go/tree/v4.58.0) (2024-11-07)
+## [4.57.0](https://github.com/plivo/plivo-go/tree/v4.57.0) (2024-11-07)
 **Feature - CreateRecordingTranscription, GetRecordingTranscription and DeleteRecordingTranscription feature added**
 - Support added to create transcription for recorded calls for which transcription is not available  and get API to retrieve and delete API to delete.
 - Support for the `type` filter parameter, supported filters are transcription, raw and diarized
