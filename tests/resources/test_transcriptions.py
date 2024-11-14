@@ -11,8 +11,7 @@ class TranscriptionTest(PlivoResourceTestCase):
     @with_response(200)
     def test_get(self):
 
-        transcription = self.client.transcriptions.get_tanscription(
-            'e12d05fe-6979-485c-83dc-9276114dba3b')
+        transcription = self.client.transcriptions.get_tanscription('e12d05fe-6979-485c-83dc-9276114dba3b')
 
         self.assertResponseMatches(transcription)
 

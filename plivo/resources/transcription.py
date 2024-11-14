@@ -30,7 +30,11 @@ class Transcriptions(PlivoResourceInterface):
     @validate_args(transcription_id=[of_type(six.text_type)]
                    )
     def get_tanscription(self, transcription_id, type=None):
-        return self.client.request(
+        if not type:
+            return self.client.request(
+                'GET', ('Transcription', transcription_id), is_voice_request=True)
+        else:
+            return self.client.request(
                 'GET', ('Transcription', transcription_id), to_param_dict(self.get_tanscription, locals()), is_voice_request=True)
 
     def create_tanscription(self, recording_id, transcription_callback_url=None):
