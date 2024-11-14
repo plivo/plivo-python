@@ -11,7 +11,7 @@ class TranscriptionTest(PlivoResourceTestCase):
     @with_response(200)
     def test_get(self):
 
-        transcription = self.client.transcriptions.get_tanscription('e12d05fe-6979-485c-83dc-9276114dba3b')
+        transcription = self.client.transcriptions.get_transcription('e12d05fe-6979-485c-83dc-9276114dba3b')
 
         self.assertResponseMatches(transcription)
 
@@ -27,7 +27,7 @@ class TranscriptionTest(PlivoResourceTestCase):
 
     @with_response(201)
     def test_create(self):
-        self.client.transcriptions.create_tanscription(
+        self.client.transcriptions.create_transcription(
             recording_id='8605287e-1e1a-4341-8235-23574357d6f1')
 
         # self.assertResponseMatches(transcription)
@@ -46,7 +46,7 @@ class TranscriptionTest(PlivoResourceTestCase):
 
     @with_response(202)
     def test_delete(self):
-        transcription = self.client.transcriptions.delete_tanscription(
+        transcription = self.client.transcriptions.delete_transcription(
             '8605287e-1e1a-4341-8235-23574357d6f1')
 
         self.assertResponseMatches(transcription)
