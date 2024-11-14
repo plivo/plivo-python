@@ -213,7 +213,7 @@ class Client(object):
                 '{url}'.format(url=response.url))
 
         if method == 'DELETE':
-            if response.status_code not in [200, 204]:
+            if response.status_code not in [200, 202, 204]:
                 raise PlivoRestError('Resource at {url} could not be '
                                      'deleted'.format(url=response.url))
 
