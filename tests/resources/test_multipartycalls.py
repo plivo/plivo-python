@@ -190,7 +190,8 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             'start_recording_audio_method': 'GET',
             'stop_recording_audio_method': 'GET',
             'create_mpc_with_single_participant': True,
-            'send_on_preanswer': False
+            'send_on_preanswer': False,
+            'transcript': False,
         }
 
         add_participant_response = self.client.multi_party_calls.add_participant(friendly_name='Voice', role='agent',
@@ -431,7 +432,8 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
                                expected_method='POST',
                                expected_request_body={'file_format': 'wav',
                                                       'recording_callback_url': recording_callback_url,
-                                                      'recording_callback_method': 'POST'},
+                                                      'recording_callback_method': 'POST',
+                                                      'transcript': False},
                                actual_response=start_recording_response)
 
     def test_stop_recording(self):
@@ -489,7 +491,8 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
                                expected_request_body={'file_format': 'wav',
                                                       'recording_callback_url': recording_callback_url,
                                                       'recording_callback_method': 'POST',
-                                                      'record_track_type': 'all'},
+                                                      'record_track_type': 'all',
+                                                      'transcript': False},
                                actual_response=start_participant_recording_response)
 
     def test_stop_participant_recording(self):
