@@ -36,7 +36,7 @@ class MultiPartyCallElementTest(TestCase, PlivoXmlTestCase):
                             'statusCallbackEvents="mpc-state-changes,participant-state-changes" ' \
                             'statusCallbackMethod="POST" stayAlone="false" ' \
                             'stopRecordingAudioMethod="GET" ' \
-                            'waitMusicMethod="GET">Tokyo</MultiPartyCall>'
+                            'waitMusicMethod="GET" transcript="false">Tokyo</MultiPartyCall>'
 
         element = plivoxml.MultiPartyCallElement(content='Tokyo', role='supervisor', exit_sound='beep:1')
         self.assertXmlEqual(element.to_string(False), expected_response)

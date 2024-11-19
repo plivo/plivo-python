@@ -554,6 +554,32 @@ class MultiPartyCallElement(PlivoXMLElement):
         self.relay_dtmf_inputs = relay_dtmf_inputs
         return self
 
+    @property
+    def transcript(self):
+        return self.__transcript
+
+    @transcript.setter
+    @validate_args(transcript=[optional(of_type_exact(bool))])
+    def transcript(self, transcript):
+        self.__transcript = transcript
+
+    def set_transcript(self, transcript):
+        self.transcript = transcript
+        return self
+
+    @property
+    def transcription_url(self):
+        return self.__transcription_url
+
+    @transcription_url.setter
+    @validate_args(transcription_url=[optional(of_type_exact(str), is_url())])
+    def transcription_url(self, transcription_url):
+        self.__transcription_url = transcription_url
+
+    def set_transcription_url(self, transcription_url):
+        self.transcription_url = transcription_url
+        return self
+
     def __init__(
             self,
             content,
@@ -592,7 +618,9 @@ class MultiPartyCallElement(PlivoXMLElement):
             start_recording_audio=None,
             start_recording_audio_method='GET',
             stop_recording_audio=None,
-            stop_recording_audio_method='GET'
+            stop_recording_audio_method='GET',
+            transcript=False,
+            transcription_url=None
     ):
         super(MultiPartyCallElement, self).__init__()
         self.stop_recording_audio_method = stop_recording_audio_method
@@ -632,6 +660,9 @@ class MultiPartyCallElement(PlivoXMLElement):
         self.on_exit_action_url = on_exit_action_url
         self.on_exit_action_method = on_exit_action_method
         self.relay_dtmf_inputs = relay_dtmf_inputs
+        self.transcript = transcript
+        self.transcription_url = transcription_url
+
 
     def to_dict(self):
         d = {
@@ -670,7 +701,9 @@ class MultiPartyCallElement(PlivoXMLElement):
             'startRecordingAudio': self.start_recording_audio,
             'startRecordingAudioMethod': self.start_recording_audio_method,
             'stopRecordingAudio': self.stop_recording_audio,
-            'stopRecordingAudioMethod': self.stop_recording_audio_method
+            'stopRecordingAudioMethod': self.stop_recording_audio_method,
+            'transcript': self.transcript,
+            'transcriptionUrl': self.transcription_url
         }
         return {
             k: six.text_type(map_type(v))
