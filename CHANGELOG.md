@@ -1,6 +1,10 @@
 # Change Log
 
-## [4.57.0](https://github.com/plivo/plivo-go/tree/v4.57.0) (2024-11-15)
+## [4.58.0](https://github.com/plivo/plivo-python/tree/v4.58.0) (2024-11-19)
+**Feature - Transcription params  added in  MPC XML Element**
+- Support for the `transcriptionUrl`, `transcript`  parameter in MPC XML Element.
+
+## [4.57.0](https://github.com/plivo/plivo-python/tree/v4.57.0) (2024-11-15)
 **Feature - CreateRecordingTranscription, GetRecordingTranscription and DeleteRecordingTranscription feature added**
 - Support added to create transcription for recorded calls for which transcription is not available  and get API to retrieve and delete API to delete.
 - Support for the `type` filter parameter, supported filters are transcription, raw and diarized

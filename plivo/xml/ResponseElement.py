@@ -361,8 +361,9 @@ class ResponseElement(PlivoXMLElement):
                              start_recording_audio=None,
                              start_recording_audio_method='GET',
                              stop_recording_audio=None,
-                             stop_recording_audio_method='GET'
-
+                             stop_recording_audio_method='GET',
+                             transcript=False,
+                             transcription_url=None
                              ):
         self.add(
             MultiPartyCallElement(
@@ -400,7 +401,9 @@ class ResponseElement(PlivoXMLElement):
                 start_recording_audio=start_recording_audio,
                 start_recording_audio_method=start_recording_audio_method,
                 stop_recording_audio=stop_recording_audio,
-                stop_recording_audio_method=stop_recording_audio_method
+                stop_recording_audio_method=stop_recording_audio_method,
+                transcript=transcript,
+                transcription_url=transcription_url
             )
         )
         return self
