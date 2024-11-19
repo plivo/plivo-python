@@ -119,9 +119,11 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
                        'statusCallbackMethod="GET" stayAlone="false" ' \
                        'stopRecordingAudio="https://plivo.com/plivoTone.mp3" ' \
                        'stopRecordingAudioMethod="GET" ' \
+                       'transcript="true" ' \
+                       'transcriptionUrl="https://plivo.com/plivoTone.mp3" ' \
                        'waitMusicMethod="POST" ' \
-                       'waitTime="5" ' \
-                       'waitMusicUrl="https://plivo.com/plivoTone.mp3">multi party conference</MultiPartyCall>' \
+                       'waitMusicUrl = "https://plivo.com/plivoTone.mp3" ' \
+                       'waitTime="5">multi party conference</MultiPartyCall> ' \
                        '</Response>'
 
         elem = plivoxml.ResponseElement().add_multi_party_call(content='multi party conference', role='customer',
@@ -132,5 +134,7 @@ class ResponseElementTest(TestCase, PlivoXmlTestCase):
                                                                enter_sound='beep:2', exit_sound='beep:1', hold=True,
                                                                on_exit_action_url='https://plivo.com/exitAction',
                                                                start_recording_audio='https://plivo.com/plivoTone.mp3',
-                                                               stop_recording_audio='https://plivo.com/plivoTone.mp3')
+                                                               stop_recording_audio='https://plivo.com/plivoTone.mp3',
+                                                               transcript=True,
+                                                               transcription_url="https://plivo.com/plivoTone.mp3")
         self.assertXmlEqual(expected_xml, elem.to_string(False))
