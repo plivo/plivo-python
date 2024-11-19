@@ -2,6 +2,7 @@ from plivo import exceptions
 from tests.base import PlivoResourceTestCase
 from tests.decorators import with_response
 
+
 class CampaignTest(PlivoResourceTestCase):
     @with_response(200)
     def test_create(self):
