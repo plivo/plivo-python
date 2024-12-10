@@ -34,6 +34,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.13',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Communications :: Telephony',
     ],
@@ -41,7 +42,7 @@ setup(
         'requests >= 2, < 3',
         'six >= 1, < 2',
         'decorator >= 5',
-        'lxml >= 3, < 5',
+        'lxml >= 3, < 5.4',
         'PyJWT'
     ],
     keywords=['plivo', 'plivo xml', 'voice calls', 'sms'],
