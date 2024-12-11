@@ -42,7 +42,7 @@ setup(
         'requests >= 2, < 3',
         'six >= 1, < 2',
         'decorator >= 5',
-        'lxml >= 3, < 5.4',
+        'lxml >= 3',
         'PyJWT'
     ],
     keywords=['plivo', 'plivo xml', 'voice calls', 'sms'],
