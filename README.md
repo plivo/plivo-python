@@ -468,7 +468,7 @@ print(response)
 ```
 
 ### More examples
-Refer to the [Plivo API Reference](https://api-reference.plivo.com/latest/python/introduction/overview) for more examples. Also refer to the [guide to setting up dev environment](https://developers.plivo.com/getting-started/setting-up-dev-environment/) on [Plivo Developers Portal](https://developers.plivo.com) to setup a Flask server & use it to test out your integration in under 5 minutes. to get started with Plivo.
+Refer to the [Plivo API Reference](https://www.plivo.com/docs/messaging/api/overview/) for more examples. Also refer to the [guide to setting up dev environment](https://www.plivo.com/docs/messaging/quickstart/python-flask/) on [Plivo Developers Portal](https://www.plivo.com/docs/) to setup a Flask server & use it to test out your integration in under 5 minutes. to get started with Plivo.
 
 ## Reporting issues
 Report any feedback or problems with this version by [opening an issue on Github](https://github.com/plivo/plivo-python/issues).

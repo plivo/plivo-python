@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.58.1](https://github.com/plivo/plivo-python/tree/v4.58.1) (2024-12-16)
+- Fixed broken link in README.md
+
 ## [4.58.0](https://github.com/plivo/plivo-python/tree/v4.58.0) (2024-11-19)
 **Feature - Transcription params  added in  MPC XML Element**
 - Support for the `transcriptionUrl`, `transcript`  parameter in MPC XML Element.
