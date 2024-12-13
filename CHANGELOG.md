@@ -1,5 +1,8 @@
 # Change Log
 
+## [4.58.2](https://github.com/plivo/plivo-python/tree/v4.58.2) (2024-12-16)
+- Fixed broken link in README.md
+
 ## [4.58.1](https://github.com/plivo/plivo-python/tree/v4.58.1) (2024-12-19)
 **Compatibility - Extended support for Python 3.13**
 - Updated dependencies to ensure compatibility with Python 3.13.
