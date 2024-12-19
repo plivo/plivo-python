@@ -1,5 +1,9 @@
 # Change Log
 
+## [4.58.1](https://github.com/plivo/plivo-python/tree/v4.58.1) (2024-12-19)
+**Compatibility - Extended support for Python 3.13**
+- Updated dependencies to ensure compatibility with Python 3.13.
+
 ## [4.58.0](https://github.com/plivo/plivo-python/tree/v4.58.0) (2024-11-19)
 **Feature - Transcription params  added in  MPC XML Element**
 - Support for the `transcriptionUrl`, `transcript`  parameter in MPC XML Element.
@@ -22,7 +26,7 @@
 - Added support for `dtmf` in GET and LIST verify session.
 
 ## [4.56.0](https://github.com/plivo/plivo-python/tree/v4.56.0) (2024-09-30)
-**Feature - Adding new param support for Number Masking session with single party **
+**Feature - Adding new param support for Number Masking session with single party**
 - Added `create_session_with_single_party`, `virtual_number_cooloff_period` and `force_pin_authentication` attributes in Masking Session
 
 ## [4.55.5](https://github.com/plivo/plivo-python/tree/v4.55.5) (2024-09-10)
