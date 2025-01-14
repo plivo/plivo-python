@@ -154,6 +154,8 @@ class Messages(PlivoResourceInterface):
              message_type=None,
              conversation_id=None,
              conversation_origin=None,
+             from_number=None,
+             to_number=None,
              ):
         return self.client.request(
             'GET', ('Message', ),
