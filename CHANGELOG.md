@@ -1,5 +1,7 @@
 # Change Log
-
+## [4.58.3](https://github.com/plivo/plivo-python/tree/v4.58.3) (2025-01-14)
+- Added `from_number` and `to_number` filter support for `list messages` API
+- 
 ## [4.58.2](https://github.com/plivo/plivo-python/tree/v4.58.2) (2024-12-16)
 - Fixed broken link in README.md
 
