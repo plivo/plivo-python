@@ -1,4 +1,8 @@
 # Change Log
+
+## [4.58.4](https://github.com/plivo/plivo-python/tree/v4.58.4) (2025-01-27)
+- Added `ai-agent` as new role in Multiparty Add Participant API and XML creation
+
 ## [4.58.3](https://github.com/plivo/plivo-python/tree/v4.58.3) (2025-01-14)
 - Added `from_number` and `to_number` filter support for `list messages` API
 - 
