@@ -2,6 +2,7 @@
 
 ## [4.58.4](https://github.com/plivo/plivo-python/tree/v4.58.4) (2025-01-27)
 - Role param validation enhancement in Multiparty Add Participant API and XML creation
+- Added new param `cx_bot` in Start Stream API
 
 ## [4.58.3](https://github.com/plivo/plivo-python/tree/v4.58.3) (2025-01-14)
 - Added `from_number` and `to_number` filter support for `list messages` API
