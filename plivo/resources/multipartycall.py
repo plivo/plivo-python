@@ -268,7 +268,7 @@ class MultiPartyCalls(PlivoResourceInterface):
                                        is_voice_request=True, response_type=MultiPartyCall)
 
     @validate_args(
-        role=[of_type_exact(str), is_in(('agent', 'supervisor', 'customer'), case_sensitive=False, case_type='lower')],
+        role=[of_type_exact(str), is_in(('ai-agent', 'agent', 'supervisor', 'customer'), case_sensitive=False, case_type='lower')],
         friendly_name=[optional(of_type_exact(str))],
         uuid=[optional(of_type_exact(str))],
         from_=[optional(is_phonenumber())],

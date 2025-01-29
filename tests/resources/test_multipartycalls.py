@@ -65,7 +65,7 @@ class MultiPartyCallsTest(PlivoResourceTestCase):
             self.client.multi_party_calls.add_participant(role='manager')
         except ValidationError as e:
             error_message = str(e)
-        self.assertEqual(error_message, "[\"role should be in ('agent', 'supervisor', "
+        self.assertEqual(error_message, "[\"role should be in ('ai-agent', 'agent', 'supervisor', "
                                         "'customer') (actual value: manager)\"]")
 
         try:

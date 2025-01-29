@@ -510,7 +510,8 @@ class Calls(PlivoResourceInterface):
                      status_callback_url=None,
                      status_callback_method=None,
                      content_type=None,
-                     extra_headers=None):
+                     extra_headers=None,
+                     cx_bot=None):
         return self.client.request('POST', ('Call', call_uuid, 'Stream'),
                                    to_param_dict(self.start_stream,
                                                  locals()), is_voice_request=True)

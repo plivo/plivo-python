@@ -367,7 +367,7 @@ class MultiPartyCallElement(PlivoXMLElement):
     @validate_args(
         role=[
             of_type_exact(str),
-            is_in(('agent', 'supervisor', 'customer'), case_sensitive=False, case_type='lower')
+            is_in(('ai-agent', 'agent', 'supervisor', 'customer'), case_sensitive=False, case_type='lower')
         ]
     )
     def role(self, role):
