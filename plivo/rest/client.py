@@ -10,7 +10,7 @@ from collections import namedtuple
 from plivo.base import ResponseObject
 from plivo.exceptions import (AuthenticationError, InvalidRequestError,
                               PlivoRestError, PlivoServerError,
-                              ResourceNotFoundError, ValidationError, ForbiddenError)
+                              ResourceNotFoundError, ValidationError, ForbiddenError, TooManyRequestsError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls, Token,
                              Conferences, Endpoints, Identities,
                              Messages, Powerpacks, Media, Lookup, Brand, Campaign, Profile,
@@ -204,6 +204,11 @@ class Client(object):
             raise InvalidRequestError(
                 'Unprocessable Entity: '
                 '{url}'.format(url=response.url))
+
+        if response.status_code == 429:
+            raise TooManyRequestsError(
+                'Too Many Requests: '
+                '"{method}" {url}'.format(method=method,url=response.url))
 
         if response.status_code == 500:
             if response_json and 'error' in response_json:
