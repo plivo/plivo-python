@@ -9,7 +9,7 @@ from collections import namedtuple
 
 from plivo.base import ResponseObject
 from plivo.exceptions import (AuthenticationError, InvalidRequestError,
-                              PlivoRestError, PlivoServerError,
+                              PlivoRestError, PlivoServerError, GeoPermissionError,
                               ResourceNotFoundError, ValidationError, ForbiddenError)
 from plivo.resources import (Accounts, Addresses, Applications, Calls, Token,
                              Conferences, Endpoints, Identities,
@@ -43,6 +43,8 @@ API_VOICE_BASE_URI_FALLBACK_1 = '/'.join([API_VOICE_FALLBACK_1, 'v1/Account'])
 API_VOICE_BASE_URI_FALLBACK_2 = '/'.join([API_VOICE_FALLBACK_2, 'v1/Account'])
 
 CALLINSIGHTS_BASE_URL = 'https://stats.plivo.com'
+
+GEO_PERMISSION_ENDPOINTS = ['/Message/', '/Call/', '/Session/']
 
 
 def get_user_agent():
@@ -172,9 +174,12 @@ class Client(object):
                 '{url}'.format(url=response.url))
 
         if response.status_code == 403:
+            error = ForbiddenError
+            if method == "POST" and any(response.url.endswith(endpoint) for endpoint in GEO_PERMISSION_ENDPOINTS):
+                error = GeoPermissionError
             if response_json and 'error' in response_json:
-                raise ForbiddenError(response_json.error)
-            raise ForbiddenError(
+                raise error(response_json.error)
+            raise error(
                 'Request Failed : '
                 '{url}'.format(url=response.url))
 

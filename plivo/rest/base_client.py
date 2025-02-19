@@ -9,7 +9,7 @@ from collections import namedtuple
 
 from plivo.base import ResponseObject
 from plivo.exceptions import (AuthenticationError, InvalidRequestError,
-                              PlivoRestError, PlivoServerError,
+                              PlivoRestError, PlivoServerError, GeoPermissionError,
                               ResourceNotFoundError, ValidationError)
 from plivo.utils import is_valid_mainaccount, is_valid_subaccount
 from plivo.version import __version__
@@ -20,6 +20,8 @@ AuthenticationCredentials = namedtuple('AuthenticationCredentials',
 
 PLIVO_API = 'https://api.plivo.com'
 PLIVO_API_BASE_URI = '/'.join([PLIVO_API, 'v1/Account'])
+
+GEO_PERMISSION_ENDPOINTS = ['/Message/', '/Call/', '/Session/']
 
 
 def get_user_agent():
@@ -113,6 +115,16 @@ class BaseClient(object):
                 raise AuthenticationError(response_json.error)
             raise AuthenticationError(
                 'Failed to authenticate while accessing resource at: '
+                '{url}'.format(url=response.url))
+        
+        if \
+        response.status_code == 403 and \
+        method == "POST" and \
+        any(response.url.endswith(endpoint) for endpoint in GEO_PERMISSION_ENDPOINTS):
+            if response_json and 'error' in response_json:
+                raise GeoPermissionError(response_json.error)
+            raise GeoPermissionError(
+                'Request Failed : '
                 '{url}'.format(url=response.url))
 
         if response.status_code == 404:

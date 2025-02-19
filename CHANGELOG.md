@@ -1,4 +1,6 @@
 # Change Log
+## [4.58.5](https://github.com/plivo/plivo-python/tree/v4.58.5) (2025-02-18)
+**Feature - Throw GeoPermissionError on synchronous geopermissions error**
 
 ## [4.58.4](https://github.com/plivo/plivo-python/tree/v4.58.4) (2025-01-27)
 - Role param validation enhancement in Multiparty Add Participant API and XML creation
