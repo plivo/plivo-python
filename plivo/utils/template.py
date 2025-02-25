@@ -9,9 +9,10 @@ class Parameter:
         payload=[optional(of_type_exact(str))],
         currency=[optional(of_type_exact(dict))],
         date_time=[optional(of_type_exact(dict))],
-        location=[optional(validate_dict_items(Location))]
+        location=[optional(validate_dict_items(Location))],
+        parameter_name=[optional(of_type_exact(str))],
     )
-    def __init__(self, type, text=None, media=None, payload=None, currency=None, date_time=None, location=None):
+    def __init__(self, type, text=None, media=None, payload=None, currency=None, date_time=None, location=None, parameter_name=None):
         self.type = type
         self.text = text
         self.media = media
@@ -19,6 +20,7 @@ class Parameter:
         self.currency = Currency(**currency) if currency else None
         self.date_time = DateTime(**date_time) if date_time else None
         self.location = location
+        self.parameter_name = parameter_name
 
 class Component:
     @validate_args(
