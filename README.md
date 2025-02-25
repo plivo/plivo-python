@@ -467,6 +467,52 @@ response= client.messages.create(
 print(response)
 ```
 
+#### Templated WhatsApp Messages With Named Parameter
+This guide shows how to send templated WhatsApp messages with named parameters.
+
+Example:
+```python
+import plivo
+from plivo.utils.template import Template
+
+client = plivo.RestClient('<auth_id>','<auth_token>')
+
+template=Template(**{
+        "name": "template_name",
+        "language": "en_US",
+        "components": [
+            {
+                "type": "header",
+                "parameters": [
+                    {
+                        "type": "text",
+                        "parameter_name": "header_title",
+                        "text": "WA-header"
+                    }
+                ]
+            },
+            {
+                    "type": "body",
+                    "parameters": [
+                        {
+                            "type": "text",
+                            "parameter_name": "user_name",
+                            "text": "Saurabh"
+                        }
+                    ]
+            }
+        ]
+    })
+
+response= client.messages.create(
+    src="the_from_number",
+    dst="the_to_number",
+    type_="whatsapp",
+    template=template
+)
+print(response)
+```
+
 ### More examples
 Refer to the [Plivo API Reference](https://www.plivo.com/docs/messaging/api/overview/) for more examples. Also refer to the [guide to setting up dev environment](https://www.plivo.com/docs/messaging/quickstart/python-flask/) on [Plivo Developers Portal](https://www.plivo.com/docs/) to setup a Flask server & use it to test out your integration in under 5 minutes. to get started with Plivo.
 
