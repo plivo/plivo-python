@@ -478,23 +478,28 @@ from plivo.utils.template import Template
 client = plivo.RestClient('<auth_id>','<auth_token>')
 
 template=Template(**{
-        "name": "plivo_order_pickup_named_param",
+        "name": "template_name",
         "language": "en_US",
         "components": [
             {
                 "type": "header",
                 "parameters": [
                     {
-                        "type": "location",
-                        "parameter_name": "named_param_in_header",
-                        "location": {
-                            "longitude": "122.148981",
-                            "latitude": "37.483307",
-                            "name": "Pablo Morales",
-                            "address": "1 Hacker Way, Menlo Park, CA 94025"
-                        }
+                        "type": "text",
+                        "parameter_name": "header_title",
+                        "text": "WA-header"
                     }
                 ]
+            },
+            {
+                    "type": "body",
+                    "parameters": [
+                        {
+                            "type": "text",
+                            "parameter_name": "user_name",
+                            "text": "Saurabh"
+                        }
+                    ]
             }
         ]
     })
