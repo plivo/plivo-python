@@ -239,6 +239,22 @@ class RecordElement(PlivoXMLElement):
         self.callback_method = value
         return self
 
+    @property
+    def record_channel_type(self):
+        return self.__record_channel_type
+
+    @record_channel_type.setter
+    def record_channel_type(self, value):
+        self.__record_channel_type = six.text_type(
+            value) if value is not None else None
+
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
+    def set_record_channel_type(self, value):
+        self.record_channel_type = value
+        return self
+
     def __init__(
             self,
             action=None,
@@ -256,6 +272,7 @@ class RecordElement(PlivoXMLElement):
             transcription_method=None,
             callback_url=None,
             callback_method=None,
+            record_channel_type=None
     ):
         super(RecordElement, self).__init__()
 
@@ -274,6 +291,7 @@ class RecordElement(PlivoXMLElement):
         self.transcription_method = transcription_method
         self.callback_url = callback_url
         self.callback_method = callback_method
+        self.record_channel_type = record_channel_type
 
     def to_dict(self):
         d = {
@@ -292,6 +310,7 @@ class RecordElement(PlivoXMLElement):
             'transcriptionMethod': self.transcription_method,
             'callbackUrl': self.callback_url,
             'callbackMethod': self.callback_method,
+            'recordChannelType': self.record_channel_type
         }
         return {
             k: six.text_type(map_type(v))

@@ -1,4 +1,8 @@
 # Change Log
+## [4.59.0](https://github.com/plivo/plivo-python/tree/v4.59.0) (2025-04-30)
+**Feature - New Param added for Start Recording API.**
+- Support `record_channel_type` in Start Recording API and `recordChannelType` in Record XML.
+
 ## [4.58.6](https://github.com/plivo/plivo-python/tree/v4.58.6) (2025-02-25)
 **Enhancement - Supporting parameter_name in WhatsApp Template .**
 - Supporting parameter_name in WhatsApp Template .
