@@ -115,6 +115,6 @@ def validate_v3_signature(method, uri, nonce, auth_token, v3_signature, params=N
     auth_token = bytes(auth_token.encode('utf-8'))
     nonce = bytes(nonce.encode('utf-8'))
     v3_signature = bytes(v3_signature.encode('utf-8'))
-    base_url = construct_get_url(uri, params) if method == 'GET' else construct_post_url(uri, params)
+    base_url = construct_get_url(uri, params).decode('utf-8') if method == 'GET' else construct_post_url(uri, params).decode('utf-8')
     signature = get_signature_v3(auth_token, base_url, nonce)
     return signature in v3_signature.split(b',')
