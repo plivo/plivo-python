@@ -24,19 +24,29 @@ class Media(PlivoResourceInterface):
             fileList = []
             for media_url in media_file:
                 file_extension = media_url.strip().split('.')[-1].lower()
-                if file_extension not in ['jpeg', 'jpg', 'png', 'xcf', 'plain', 'pdf', 'mpeg', 'mp4']:
+                if file_extension not in ['jpeg', 'jpg', 'png', 'gif', 'mp3', 'mp4', 'mpeg', 'wav', 'ogg', '3gpp', '3gpp2', 'vcard', 'csv', 'pdf', 'xls', 'xlsx', 'xcf', 'plain']:
                     raise ValidationError(
-                        'File format of the file to be uploaded should be one of JPG, JPEG, PNG or PDF'
+                        'File format of the file to be uploaded should be one of JPG, JPEG, PNG, GIF, MP3, MP4, MPEG, WAV, OGG, 3GPP, 3GPP2, VCARD, CSV, PDF, XLS, XLSX, XCF, or TEXT'
                     )
                 content_types = {
                     'jpeg': 'image/jpeg',
                     'jpg': 'image/jpeg',
                     'png': 'image/png',
+                    'gif': 'image/gif',
+                    'mp3': 'audio/mp3',
+                    'mp4': 'video/mp4',
+                    'mpeg': 'audio/mpeg',
+                    'wav': 'audio/wav',
+                    'ogg': 'audio/ogg',
+                    '3gpp': 'video/3gpp',
+                    '3gpp2': 'video/3gpp2',
+                    'vcard': 'text/vcard',
+                    'csv': 'text/csv',
                     'pdf': 'application/pdf',
+                    'xls': 'application/vnd.ms-excel',
+                    'xlsx': 'application/vnd.ms-excel',
                     'xcf': 'image/xcf',
-                    'text': 'text/plain',
-                    'mpeg': 'video/mpeg',
-                    'mp4': 'video/mp4'
+                    'plain': 'text/plain'
                 }
                 print(media_url)
                 import os
