@@ -1,5 +1,5 @@
 # Change Log
-## [4.59.2](https://github.com/plivo/plivo-ruby/tree/v4.62.1) (2025-08-06)
+## [4.59.2](https://github.com/plivo/plivo-python/tree/v4.59.2) (2025-08-06)
 **Feature - Expanded Media Type Support for Media Upload**
 - Added support for additional media file formats: GIF, MP3, WAV, OGG, 3GPP, 3GPP2, VCARD, CSV, XLS, XLSX, and PLAIN text files
 
