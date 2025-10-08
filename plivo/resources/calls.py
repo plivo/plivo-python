@@ -31,6 +31,7 @@ class Call(PlivoResource):
                transcription_type=None,
                transcription_url=None,
                transcription_method=None,
+               transcription_report_type=None,
                callback_url=None,
                callback_method=None,
                record_channel_type=None):
@@ -43,6 +44,7 @@ class Call(PlivoResource):
                         transcription_type=None,
                         transcription_url=None,
                         transcription_method=None,
+                        transcription_report_type=None,
                         callback_url=None,
                         callback_method=None):
         return self.client.calls.start_recording(self.id,
@@ -345,6 +347,7 @@ class Calls(PlivoResourceInterface):
                transcription_type=None,
                transcription_url=None,
                transcription_method=None,
+               transcription_report_type=None,
                callback_url=None,
                callback_method=None,
                record_channel_type=None):
@@ -359,6 +362,7 @@ class Calls(PlivoResourceInterface):
                         transcription_type=None,
                         transcription_url=None,
                         transcription_method=None,
+                        transcription_report_type=None,
                         callback_url=None,
                         callback_method=None,
                         record_channel_type=None):

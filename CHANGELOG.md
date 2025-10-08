@@ -1,4 +1,8 @@
 # Change Log
+## [4.59.3](https://github.com/plivo/plivo-python/tree/v4.59.3) (2025-10-08)
+**Feature - New Param added for Start Recording API.**
+- Support `transcription_report_type` in Start Recording API and `transcription_report_type` in Record XML.
+
 ## [4.59.2](https://github.com/plivo/plivo-python/tree/v4.59.2) (2025-08-06)
 **Feature - Expanded Media Type Support for Media Upload**
 - Added support for additional media file formats: GIF, MP3, WAV, OGG, 3GPP, 3GPP2, VCARD, CSV, XLS, XLSX, and PLAIN text files
