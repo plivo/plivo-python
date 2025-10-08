@@ -206,6 +206,22 @@ class RecordElement(PlivoXMLElement):
     def set_transcription_method(self, value):
         self.transcription_method = value
         return self
+    
+    @property
+    def transcription_report_type(self):
+        return self.__transcription_report_type
+
+    @transcription_report_type.setter
+    def transcription_report_type(self, value):
+        self.__transcription_report_type = six.text_type(
+            value) if value is not None else None
+
+    @validate_args(
+        value=[of_type(six.text_type)],
+    )
+    def set_transcription_report_type(self, value):
+        self.transcription_report_type = value
+        return self
 
     @property
     def callback_url(self):
@@ -270,6 +286,7 @@ class RecordElement(PlivoXMLElement):
             transcription_type=None,
             transcription_url=None,
             transcription_method=None,
+            transcription_report_type=None,
             callback_url=None,
             callback_method=None,
             record_channel_type=None
@@ -288,6 +305,7 @@ class RecordElement(PlivoXMLElement):
         self.start_on_dial_answer = start_on_dial_answer
         self.transcription_type = transcription_type
         self.transcription_url = transcription_url
+        self.transcription_report_type = transcription_report_type
         self.transcription_method = transcription_method
         self.callback_url = callback_url
         self.callback_method = callback_method
@@ -308,6 +326,7 @@ class RecordElement(PlivoXMLElement):
             'transcriptionType': self.transcription_type,
             'transcriptionUrl': self.transcription_url,
             'transcriptionMethod': self.transcription_method,
+            'transcriptionReportType': self.transcription_report_type,
             'callbackUrl': self.callback_url,
             'callbackMethod': self.callback_method,
             'recordChannelType': self.record_channel_type
