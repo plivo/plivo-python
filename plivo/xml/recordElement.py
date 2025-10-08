@@ -326,7 +326,7 @@ class RecordElement(PlivoXMLElement):
             'transcriptionType': self.transcription_type,
             'transcriptionUrl': self.transcription_url,
             'transcriptionMethod': self.transcription_method,
-            'transcription_report_type': self.transcription_report_type,
+            'transcriptionReportType': self.transcription_report_type,
             'callbackUrl': self.callback_url,
             'callbackMethod': self.callback_method,
             'recordChannelType': self.record_channel_type
