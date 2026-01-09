@@ -1,4 +1,8 @@
 # Change Log
+## [4.59.4](https://github.com/plivo/plivo-python/tree/v4.59.4) (2026-01-09)
+**Feature - Profile API business_contact_email support**
+- Added `business_contact_email` parameter support to Profile `create` and `update` methods for PUBLIC entity types
+
 ## [4.59.3](https://github.com/plivo/plivo-python/tree/v4.59.3) (2025-10-08)
 **Feature - New Param added for Start Recording API.**
 - Support `transcription_report_type` in Start Recording API and `transcriptionReportType` in Record XML.
