@@ -6,34 +6,35 @@ class ProfileTest(PlivoResourceTestCase):
     @with_response(200)
     def test_create(self):
         response = self.client.profile.create( 
-                profile_alias="profile name sample",
+                profile_alias="Test Profile",
                 customer_type="DIRECT",
-                entity_type="PRIVATE",
-                company_name="ABC Inc.",
-                ein="123456789",
+                entity_type="PUBLIC",
+                company_name="Test Company Inc",
+                ein="12-3456789",
                 ein_issuing_country="US",
-                stock_symbol="ABC",
-                stock_exchange="NSE",
-                website="www.example.com",
-                vertical="REAL_ESTATE",
+                stock_symbol="TEST",
+                stock_exchange="NASDAQ",
+                website="https://testcompany.com",
+                vertical="TECHNOLOGY",
                 alt_business_id="",
                 alt_business_id_type="NONE",
-                plivo_subaccount="123433566",
+                plivo_subaccount="",
                 address={
-                    "street": "123",
-                    "city": "New York",
-                    "state": "NY",
-                    "postal_code": "10001",
+                    "street": "123 Main Street",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "postal_code": "94105",
                     "country": "US"
                 },
                 authorized_contact={
-                    "first_name": "john",
-                    "last_name": "con",
-                    "phone": "1876865565",
-                    "email": "xyz@plivo.com",
-                    "title": "con",
-                    "seniority": "admin"
-                }
+                    "first_name": "John",
+                    "last_name": "Doe",
+                    "phone": "+14155551234",
+                    "email": "test@example.com",
+                    "title": "CEO",
+                    "seniority": "C_LEVEL"
+                },
+                business_contact_email="employee@company.com"
         )
         self.assertEqual('POST', self.client.current_request.method)
         self.assertUrlEqual(
