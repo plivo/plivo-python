@@ -1,7 +1,7 @@
 # Change Log
 ## [4.59.5](https://github.com/plivo/plivo-python/tree/v4.59.5) (2026-01-21)
 **Feature - HA Number support**
-- Added `ha_enabled` optional parameter to PhoneNumber `buy` method for enabling High Availability Number functionality
+- Added `ha_enable` optional parameter to PhoneNumber `buy` method for enabling High Availability Number functionality
 - Added `fallback_number` field in PhoneNumber buy response
 
 ## [4.59.4](https://github.com/plivo/plivo-python/tree/v4.59.4) (2026-01-13)

@@ -81,8 +81,8 @@ class PhoneNumberTest(PlivoResourceTestCase):
         self.assertEqual(self.client.current_request.method, 'POST')
 
     @with_response(202)
-    def test_create_with_ha_enabled(self):
-        self.client.numbers.buy(number_id, app_id='test', ha_enabled=True)
+    def test_create_with_ha_enable(self):
+        self.client.numbers.buy(number_id, app_id='test', ha_enable=True)
         self.assertUrlEqual(self.client.current_request.url,
                             self.get_url('PhoneNumber', number_id))
         self.assertEqual(self.client.current_request.method, 'POST')
