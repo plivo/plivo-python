@@ -34,8 +34,9 @@ class Numbers(PlivoResourceInterface):
         number=[is_phonenumber()],
         app_id=[optional(of_type(six.text_type))],
         verification_info=[optional(of_type_exact(dict))],
-        cnam_lookup=[optional(of_type(six.text_type))],)
-    def buy(self, number, app_id=None, verification_info=None, cnam_lookup=None):
+        cnam_lookup=[optional(of_type(six.text_type))],
+        ha_enable=[optional(of_type(bool))],)
+    def buy(self, number, app_id=None, verification_info=None, cnam_lookup=None, ha_enable=None):
         return self.client.request('POST', ('PhoneNumber', number),
                                    to_param_dict(self.buy, locals()))
 
