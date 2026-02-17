@@ -35,8 +35,13 @@ class Campaign(PlivoResourceInterface):
         optout_keywords=[optional(of_type(six.text_type))],
         optout_message=[optional(of_type(six.text_type))],
         help_keywords=[optional(of_type(six.text_type))],
+        sample3=[optional(of_type(six.text_type))],
+        sample4=[optional(of_type(six.text_type))],
+        sample5=[optional(of_type(six.text_type))],
+        terms_and_conditions_link=[optional(of_type(six.text_type))],
+        privacy_policy_link=[optional(of_type(six.text_type))],
         )
-    def update(self, campaign_id, reseller_id='', description='', sample1='', sample2='', help_message='', message_flow='', optin_keywords='', optin_message='', optout_keywords='', optout_message='', help_keywords=''):
+    def update(self, campaign_id, reseller_id='', description='', sample1='', sample2='', sample3='', sample4='', sample5='', help_message='', message_flow='', optin_keywords='', optin_message='', optout_keywords='', optout_message='', help_keywords='', terms_and_conditions_link='', privacy_policy_link=''):
         
         payload = locals()
         payload.pop("campaign_id")
@@ -90,7 +95,9 @@ class Campaign(PlivoResourceInterface):
         optout_message=[optional(of_type(six.text_type))],
         help_keywords=[optional(of_type(six.text_type))],
         url=[optional(of_type(six.text_type))],
-        method=[optional(of_type(six.text_type))])
+        method=[optional(of_type(six.text_type))],
+        terms_and_conditions_link=[optional(of_type(six.text_type))],
+        privacy_policy_link=[optional(of_type(six.text_type))])
     def create(self,
                brand_id,
                vertical,
@@ -119,7 +126,9 @@ class Campaign(PlivoResourceInterface):
                subscriber_help=False,
                affiliate_marketing=False,
                campaign_alias=None,
-               sub_usecases=[]):
+               sub_usecases=[],
+               terms_and_conditions_link='',
+               privacy_policy_link=''):
         return self.client.request('POST', ('10dlc', 'Campaign'),
                                    to_param_dict(self.create, locals()))
 
