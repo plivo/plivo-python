@@ -1,4 +1,9 @@
 # Change Log
+## [4.59.6](https://github.com/plivo/plivo-python/tree/v4.59.6) (2026-02-18)
+**Feature - Campaign API optional fields support**
+- Added `sample3`, `sample4`, `sample5` optional sample message fields to Campaign `create` and `update` methods
+- Added `terms_and_conditions_link` and `privacy_policy_link` optional fields to Campaign `create` and `update` methods
+
 ## [4.59.5](https://github.com/plivo/plivo-python/tree/v4.59.5) (2026-01-21)
 **Feature - HA Number support**
 - Added `ha_enable` optional parameter to PhoneNumber `buy` method for enabling High Availability Number functionality
