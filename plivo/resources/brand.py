@@ -40,6 +40,7 @@ class Brand(PlivoResourceInterface):
         brand_type=[optional(of_type(six.text_type), is_in(('STANDARD','STARTER')))],
         profile_uuid=[required(of_type(six.text_type))],
         secondary_vetting=[optional(of_type_exact(bool))],
+        business_contact_email=[optional(of_type(six.text_type))],
         url=[optional(of_type(six.text_type))],
         method=[optional(of_type(six.text_type))])
     def create(self,
@@ -47,6 +48,7 @@ class Brand(PlivoResourceInterface):
                brand_type,
                profile_uuid,
                secondary_vetting=False,
+               business_contact_email='',
                url='',
                method='POST'
         ):
