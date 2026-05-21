@@ -35,7 +35,7 @@ class ProfileTest(PlivoResourceTestCase):
                     "seniority": "C_LEVEL"
                 },
                 business_contact_email="employee@company.com",
-                dba="Test DBA"
+                doing_business_as="Test DBA"
         )
         self.assertEqual('POST', self.client.current_request.method)
         self.assertUrlEqual(
@@ -74,7 +74,7 @@ class ProfileTest(PlivoResourceTestCase):
 
     @with_response(200)
     def test_update(self):
-        param = {'company_name': 'google', 'dba': 'Updated DBA'}
+        param = {'company_name': 'google', 'doing_business_as': 'Updated DBA'}
         response = self.client.profile.update(profile_uuid='09322f43-fe16-4525-b8e4-4229c867795d', params=param)
         # Verifying the endpoint hit
         print(self.client.current_request.url)
