@@ -20,6 +20,21 @@ class MessageTest(PlivoResourceTestCase):
         self.assertEqual(test_message.message_uuid,
                          expected_response['message_uuid'])
 
+    def test_send_message_with_allow_dtmf(self):
+        expected_response = {'message_uuid': 'adsdafkjadshf123123'}
+        self.client.set_expected_response(
+            status_code=202, data_to_return=expected_response)
+
+        test_message = self.client.messages.create(
+            src='1234', dst='12345', text='Abcd', allow_dtmf=True)
+
+        self.assertEqual(
+            self.client.current_request.url,
+            'https://api.plivo.com/v1/Account/MAXXXXXXXXXXXXXXXXXX/Message/')
+        self.assertEqual(self.client.current_request.method, 'POST')
+        self.assertEqual(test_message.message_uuid,
+                         expected_response['message_uuid'])
+
     def test_send_message_same_src_dst(self):
         self.assertRaises(
             exceptions.ValidationError,
