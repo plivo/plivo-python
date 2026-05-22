@@ -59,6 +59,22 @@ class MessageTest(PlivoResourceTestCase):
             dst='1234',
             text='Abcd')
 
+    @with_response(202)
+    def test_send_message_with_allow_dtmf(self):
+        expected_response = {'message_uuid': 'newmessageuuid'}
+        self.client.set_expected_response(
+            status_code=202, data_to_return=expected_response)
+
+        test_message = self.client.messages.create(
+            src='1234', dst='12345', text='Test message', allow_dtmf=True)
+
+        self.assertResponseMatches(test_message)
+        self.assertUrlEqual(self.client.current_request.url,
+                            self.get_url('Message'))
+        self.assertEqual(self.client.current_request.method, 'POST')
+        self.assertEqual(test_message.message_uuid,
+                         expected_response['message_uuid'])
+
     @with_response(200)
     def test_get(self):
         message_uuid = 'message_uuid'

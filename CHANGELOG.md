@@ -1,4 +1,10 @@
 # Change Log
+## [4.60.2](https://github.com/plivo/plivo-python/tree/v4.60.2) (2026-05-22)
+**Feature - Messages API parameter update**
+- Added `allow_dtmf` optional parameter to messages.create (POST /v1/Account/{auth_id}/Message/)
+
+_Source: plivo/api-messaging#624_
+
 ## [4.60.1](https://github.com/plivo/plivo-python/tree/v4.60.1) (2026-04-17)
 **Bug Fix - PhoneNumber Compliance API**
 - Fixed Requirements.get() sending None values as query params when not provided
