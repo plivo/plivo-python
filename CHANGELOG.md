@@ -1,4 +1,10 @@
 # Change Log
+## [4.61.0](https://github.com/plivo/plivo-python/tree/v4.61.0) (2026-05-23)
+**Major - bulk_messages.create**
+- Added `src`, `dst`, `text`, `type`, `url`, `method`, `log`, `powerpack_uuid` parameters to bulk_messages.create (POST /v1/Account/{auth_id}/Message/Bulk/)
+
+_Source: plivo/api-messaging#9001_
+
 ## [4.60.1](https://github.com/plivo/plivo-python/tree/v4.60.1) (2026-04-17)
 **Bug Fix - PhoneNumber Compliance API**
 - Fixed Requirements.get() sending None values as query params when not provided
