@@ -32,7 +32,7 @@ class Messages(PlivoResourceInterface):
         dst=[is_iterable(of_type(six.text_type), '<')],
         text=[optional(of_type(six.text_type))],
         type_=[
-            optional(all_of(of_type(six.text_type), is_in(('sms', 'mms', 'whatsapp'))))],
+            optional(all_of(of_type(six.text_type), is_in(('sms', 'mms', 'whatsapp', 'rcs'))))],
         url=[optional(is_url())],
         method=[optional(of_type(six.text_type))],
         log=[optional(of_type_exact(str))],
@@ -46,7 +46,8 @@ class Messages(PlivoResourceInterface):
         location=[optional(is_location())],
         dlt_entity_id=[optional(of_type(six.text_type))],
         dlt_template_id=[optional(of_type(six.text_type))],
-        dlt_template_category=[optional(of_type(six.text_type))]
+        dlt_template_category=[optional(of_type(six.text_type))],
+        content_message=[optional(of_type_exact(dict))],
     )
     def create(self,
                dst,
@@ -60,13 +61,14 @@ class Messages(PlivoResourceInterface):
                powerpack_uuid=None,
                media_urls=None,
                media_ids=None,
-               message_expiry=None, 
+               message_expiry=None,
                template=None,
                interactive=None,
                location=None,
                dlt_entity_id=None,
                dlt_template_id=None,
-               dlt_template_category=None):
+               dlt_template_category=None,
+               content_message=None):
         if src in dst.split('<'):
             raise ValidationError(
                 'destination number cannot be same as source number')
@@ -87,7 +89,7 @@ class Messages(PlivoResourceInterface):
                 'src parameter not present'
             )
         if template is not None:
-            template =  template.__dict__
+            template = template.__dict__
         if interactive is not None:
             interactive = interactive.__dict__
         if location is not None:
