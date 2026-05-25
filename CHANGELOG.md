@@ -1,4 +1,8 @@
 # Change Log
+## [4.61.0](https://github.com/plivo/plivo-python/tree/v4.61.0) (2026-05-25)
+**Feature - Profile API DBA field support**
+- Added Doing Business As (DBA) field support to Profile API
+
 ## [4.60.1](https://github.com/plivo/plivo-python/tree/v4.60.1) (2026-04-17)
 **Bug Fix - PhoneNumber Compliance API**
 - Fixed Requirements.get() sending None values as query params when not provided
