@@ -1,7 +1,10 @@
 # Change Log
-## [4.61.0](https://github.com/plivo/plivo-python/tree/v4.61.0) (2026-05-25)
+## [4.60.2](https://github.com/plivo/plivo-python/tree/v4.60.2) (2026-05-26)
 **Feature - Profile API DBA field support**
 - Added Doing Business As (DBA) field support to Profile API
+
+**Feature - Expose sub_account_name on Number resource**
+- `Number` resource now surfaces `sub_account_name` alongside the existing `sub_account` (auth_id) on rented number listing and get APIs (dynamic attribute, already worked at runtime; this release adds explicit test coverage)
 
 ## [4.60.1](https://github.com/plivo/plivo-python/tree/v4.60.1) (2026-04-17)
 **Bug Fix - PhoneNumber Compliance API**
