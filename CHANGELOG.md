@@ -1,5 +1,5 @@
 # Change Log
-## [4.60.2](https://github.com/plivo/plivo-python/tree/v4.60.2) (2026-05-25)
+## [4.60.2](https://github.com/plivo/plivo-python/tree/v4.60.2) (2026-05-26)
 **Feature - Expose sub_account_name on Number resource**
 - `Number` resource now surfaces `sub_account_name` alongside the existing `sub_account` (auth_id) on rented number listing and get APIs (dynamic attribute, already worked at runtime; this release adds explicit test coverage)
 
