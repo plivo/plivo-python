@@ -36,6 +36,8 @@ class NumberTest(PlivoResourceTestCase):
     def test_get(self):
         number = self.client.numbers.get(number_id)
         self.assertResponseMatches(number)
+        self.assertEqual('SAXXXXXXXXXXXXXXXXXX', number.sub_account)
+        self.assertEqual('Marketing', number.sub_account_name)
         self.assertUrlEqual(self.client.current_request.url,
                             self.get_url('Number', number_id))
         self.assertEqual(self.client.current_request.method, 'GET')
