@@ -60,7 +60,8 @@ class Profile(PlivoResourceInterface):
         plivo_subaccount=[optional(of_type(six.text_type))],
         address=[optional(of_type_exact(dict))],
         authorized_contact=[optional(of_type_exact(dict))],
-        business_contact_email=[optional(of_type(six.text_type))])
+        business_contact_email=[optional(of_type(six.text_type))],
+        doing_business_as=[optional(of_type(six.text_type))])
     def create(self,
                profile_alias,
                customer_type,
@@ -77,13 +78,14 @@ class Profile(PlivoResourceInterface):
                website='',
                address={},
                authorized_contact={},
-               business_contact_email=''):
+               business_contact_email='',
+               doing_business_as=''):
         return self.client.request('POST', ('Profile', ),
                                    to_param_dict(self.create, locals()))
 
 
-    # params values should be dictionary like 
-    # {'address': {}, 'authorized_contact': {}, 'entity_type':'', 'vertical': '', 'company_name': '', 'website':'', 'business_contact_email':''} 
+    # params values should be dictionary like
+    # {'address': {}, 'authorized_contact': {}, 'entity_type':'', 'vertical': '', 'company_name': '', 'website':'', 'business_contact_email':'', 'doing_business_as':''}
     def update(self,profile_uuid, params=None):
         if params == None:
             raise ValidationError(
