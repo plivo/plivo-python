@@ -61,7 +61,11 @@ class Profile(PlivoResourceInterface):
         address=[optional(of_type_exact(dict))],
         authorized_contact=[optional(of_type_exact(dict))],
         business_contact_email=[optional(of_type(six.text_type))],
-        doing_business_as=[optional(of_type(six.text_type))])
+        doing_business_as=[optional(of_type(six.text_type))],
+        # Optional string. Server validates allowed values; no client-side enum check.
+        # Allowed values: BETWEEN_1_AND_10, BETWEEN_11_AND_50, BETWEEN_51_AND_200,
+        # BETWEEN_201_AND_500, BETWEEN_501_AND_2000, BETWEEN_2001_AND_10000, MORE_THAN_10001
+        number_of_employees=[optional(of_type(six.text_type))])
     def create(self,
                profile_alias,
                customer_type,
@@ -79,13 +83,14 @@ class Profile(PlivoResourceInterface):
                address={},
                authorized_contact={},
                business_contact_email='',
-               doing_business_as=''):
+               doing_business_as='',
+               number_of_employees=''):
         return self.client.request('POST', ('Profile', ),
                                    to_param_dict(self.create, locals()))
 
 
     # params values should be dictionary like
-    # {'address': {}, 'authorized_contact': {}, 'entity_type':'', 'vertical': '', 'company_name': '', 'website':'', 'business_contact_email':'', 'doing_business_as':''}
+    # {'address': {}, 'authorized_contact': {}, 'entity_type':'', 'vertical': '', 'company_name': '', 'website':'', 'business_contact_email':'', 'doing_business_as':'', 'number_of_employees':''}
     def update(self,profile_uuid, params=None):
         if params == None:
             raise ValidationError(
