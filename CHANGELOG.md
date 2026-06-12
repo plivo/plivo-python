@@ -1,4 +1,8 @@
 # Change Log
+## [4.61.0](https://github.com/plivo/plivo-python/tree/v4.61.0) (2026-06-11)
+**Feature - PhoneNumber buy compliance application support**
+- Added optional `compliance_application_id` parameter to `numbers.buy()`, sent as the `compliance_application_id` wire param. Lets regulated numbers (e.g. India) be purchased with an approved regulatory compliance application linked at purchase time. Backward-compatible trailing optional argument.
+
 ## [4.60.2](https://github.com/plivo/plivo-python/tree/v4.60.2) (2026-05-26)
 **Feature - Profile API DBA field support**
 - Added Doing Business As (DBA) field support to Profile API

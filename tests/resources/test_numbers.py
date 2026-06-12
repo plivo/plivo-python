@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import json
+
 import plivo
 from tests.base import PlivoResourceTestCase
 from tests.decorators import with_response
@@ -88,3 +90,19 @@ class PhoneNumberTest(PlivoResourceTestCase):
         self.assertUrlEqual(self.client.current_request.url,
                             self.get_url('PhoneNumber', number_id))
         self.assertEqual(self.client.current_request.method, 'POST')
+
+    @with_response(202, method_name='create')
+    def test_create_with_compliance_application_id(self):
+        self.client.numbers.buy(
+            number_id,
+            app_id='test',
+            compliance_application_id='compliance123')
+        self.assertUrlEqual(self.client.current_request.url,
+                            self.get_url('PhoneNumber', number_id))
+        self.assertEqual(self.client.current_request.method, 'POST')
+        body = self.client.current_request.body
+        if isinstance(body, bytes):
+            body = body.decode('utf-8')
+        self.assertEqual(
+            json.loads(body).get('compliance_application_id'),
+            'compliance123')
