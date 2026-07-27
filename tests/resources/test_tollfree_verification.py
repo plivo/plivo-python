@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import json
+
 import plivo
 from tests.base import PlivoResourceTestCase
 from tests.decorators import with_response
@@ -49,7 +51,11 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
     def test_update(self):
         updated_app = self.client.tollfree_verification.update(
             tollfree_verification_uuid="312b3119-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-            extra_data='Testing the update of extra data in python-SDK')
+            extra_data='Testing the update of extra data in python-SDK',
+            terms_and_conditions_link="https://example.com/terms",
+            privacy_policy_link="https://example.com/privacy",
+            optin_message="Reply YES to opt in",
+            help_message="Reply HELP for help")
 
         # Verifying the endpoint hit
         self.assertEqual(
@@ -58,6 +64,13 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
 
         # Verifying the method used
         self.assertEqual('POST', self.client.current_request.method)
+
+        # Verifying the new optional params are in the request body
+        request_body = json.loads(self.client.current_request.body)
+        self.assertEqual("https://example.com/terms", request_body['terms_and_conditions_link'])
+        self.assertEqual("https://example.com/privacy", request_body['privacy_policy_link'])
+        self.assertEqual("Reply YES to opt in", request_body['optin_message'])
+        self.assertEqual("Reply HELP for help", request_body['help_message'])
 
     def test_delete(self):
         expected_response = {}
@@ -91,6 +104,10 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
             optin_image_url="http://aaa.com",
             additional_information="this is additional_information",
             extra_data="this is extra_data",
+            terms_and_conditions_link="https://example.com/terms",
+            privacy_policy_link="https://example.com/privacy",
+            optin_message="Reply YES to opt in",
+            help_message="Reply HELP for help",
         )
 
         # Verifying the endpoint hit
@@ -100,3 +117,10 @@ class TollfreeVerificationTest(PlivoResourceTestCase):
 
         # Verifying the method used
         self.assertEqual('POST', self.client.current_request.method)
+
+        # Verifying the new optional params are in the request body
+        request_body = json.loads(self.client.current_request.body)
+        self.assertEqual("https://example.com/terms", request_body['terms_and_conditions_link'])
+        self.assertEqual("https://example.com/privacy", request_body['privacy_policy_link'])
+        self.assertEqual("Reply YES to opt in", request_body['optin_message'])
+        self.assertEqual("Reply HELP for help", request_body['help_message'])
