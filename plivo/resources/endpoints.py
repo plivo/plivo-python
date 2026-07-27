@@ -32,8 +32,9 @@ class Endpoints(PlivoResourceInterface):
         app_id=[optional(of_type(six.text_type))],
         callback_url=[optional(is_url())],
         callback_method=[optional(of_type(six.text_type))],
+        internal=[optional(of_type(bool))],
     )
-    def create(self, username, password, alias, app_id=None, callback_url=None, callback_method=None):
+    def create(self, username, password, alias, app_id=None, callback_url=None, callback_method=None, internal=None):
         return self.client.request('POST', ('Endpoint', ),
                                    to_param_dict(self.create, locals()), is_voice_request=True)
 
