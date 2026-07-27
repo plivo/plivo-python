@@ -23,13 +23,20 @@ class TollfreeVerification(PlivoResource):
                extra_data=None,
                optin_type=None,
                callback_url=None,
-               callback_method=None):
+               callback_method=None,
+               terms_and_conditions_link=None,
+               privacy_policy_link=None,
+               optin_message=None,
+               help_message=None):
         return self.client.tollfree_verification.update(self.uuid, profile_uuid=profile_uuid, usecase=usecase,
                                                         usecase_summary=usecase_summary, message_sample=message_sample,
                                                         optin_image_url=optin_image_url, volume=volume,
                                                         additional_information=additional_information,
                                                         extra_data=extra_data, optin_type=optin_type,
-                                                        callback_url=callback_url, callback_method=callback_method)
+                                                        callback_url=callback_url, callback_method=callback_method,
+                                                        terms_and_conditions_link=terms_and_conditions_link,
+                                                        privacy_policy_link=privacy_policy_link,
+                                                        optin_message=optin_message, help_message=help_message)
 
 class TollfreeVerifications(PlivoResourceInterface):
     def __init__(self, client):
@@ -48,7 +55,11 @@ class TollfreeVerifications(PlivoResourceInterface):
                extra_data=None,
                optin_type=None,
                callback_url=None,
-               callback_method=None):
+               callback_method=None,
+               terms_and_conditions_link=None,
+               privacy_policy_link=None,
+               optin_message=None,
+               help_message=None):
         return self.client.request(
             'POST', ('TollfreeVerification',), to_param_dict(self.create, locals()))
 
@@ -82,7 +93,11 @@ class TollfreeVerifications(PlivoResourceInterface):
                extra_data=None,
                optin_type=None,
                callback_url=None,
-               callback_method=None):
+               callback_method=None,
+               terms_and_conditions_link=None,
+               privacy_policy_link=None,
+               optin_message=None,
+               help_message=None):
         return self.client.request(
             'POST', ('TollfreeVerification', tollfree_verification_uuid), to_param_dict(self.update, locals()))
 
