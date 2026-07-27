@@ -1,4 +1,8 @@
 # Change Log
+## [4.62.1](https://github.com/plivo/plivo-python/tree/v4.62.1) (2026-07-27)
+**Feature - Internal flag support on Endpoint create**
+- Added `internal` optional parameter to Endpoint `create` method to mark newly created SIP endpoints as internal at creation time
+
 ## [4.61.0](https://github.com/plivo/plivo-python/tree/v4.61.0) (2026-06-11)
 **Feature - PhoneNumber buy compliance application support**
 - Added optional `compliance_application_id` parameter to `numbers.buy()`, sent as the `compliance_application_id` wire param. Lets regulated numbers (e.g. India) be purchased with an approved regulatory compliance application linked at purchase time. Backward-compatible trailing optional argument.
