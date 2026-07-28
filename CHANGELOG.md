@@ -1,5 +1,5 @@
 # Change Log
-## [4.62.0](https://github.com/plivo/plivo-python/tree/v4.62.0) (2026-07-27)
+## [4.62.0](https://github.com/plivo/plivo-python/tree/v4.62.0) (2026-07-28)
 **Feature - Toll-free verification terms, privacy, opt-in and help fields**
 - Added optional `terms_and_conditions_link`, `privacy_policy_link`, `optin_message` and `help_message` parameters to the toll-free verification create and update methods
 
