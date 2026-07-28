@@ -1,4 +1,8 @@
 # Change Log
+## [4.62.0](https://github.com/plivo/plivo-python/tree/v4.62.0) (2026-07-28)
+**Feature - Toll-free verification terms, privacy, opt-in and help fields**
+- Added optional `terms_and_conditions_link`, `privacy_policy_link`, `optin_message` and `help_message` parameters to the toll-free verification create and update methods
+
 ## [4.61.0](https://github.com/plivo/plivo-python/tree/v4.61.0) (2026-06-11)
 **Feature - PhoneNumber buy compliance application support**
 - Added optional `compliance_application_id` parameter to `numbers.buy()`, sent as the `compliance_application_id` wire param. Lets regulated numbers (e.g. India) be purchased with an approved regulatory compliance application linked at purchase time. Backward-compatible trailing optional argument.
