@@ -176,6 +176,7 @@ class Calls(PlivoResourceInterface):
         ],
         callback_url=[optional(is_url())],
         callback_method=[optional(of_type(six.text_type))],
+        retry_on=[optional(of_type(six.text_type))],
     )
     def create(self,
                from_,
@@ -202,7 +203,8 @@ class Calls(PlivoResourceInterface):
                parent_call_uuid=None,
                error_if_parent_not_found=False,
                callback_url=None,
-               callback_method=None):
+               callback_method=None,
+               retry_on=None):
         if from_ in to_.split('<'):
             raise ValidationError('src and destination cannot overlap')
         return self.client.request('POST', ('Call',), to_param_dict(self.create, locals()), is_voice_request=True)
