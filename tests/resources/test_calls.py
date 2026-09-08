@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import json
+
 from tests.base import PlivoResourceTestCase
 from tests.decorators import with_response
 
@@ -18,6 +20,19 @@ class CallTest(PlivoResourceTestCase):
         self.assertEqual(self.client.current_request.method, 'POST')
         self.assertUrlEqual(
             self.get_voice_url('Call'), self.client.current_request.url)
+
+    @with_response(201, method_name='create')
+    def test_create_with_retry_on(self):
+        self.client.calls.create(
+            from_='1231231230',
+            to_='3213213210',
+            answer_url='http://www.example.com',
+            retry_on='busy_line,no_answer')
+        self.assertEqual(self.client.current_request.method, 'POST')
+        self.assertUrlEqual(
+            self.get_voice_url('Call'), self.client.current_request.url)
+        request_body = json.loads(self.client.current_request.body)
+        self.assertEqual('busy_line,no_answer', request_body['retry_on'])
 
     @with_response(200)
     def test_list(self):
