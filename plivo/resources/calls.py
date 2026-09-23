@@ -239,6 +239,7 @@ class Calls(PlivoResourceInterface):
         ],
         callback_url=[optional(is_url())],
         callback_method=[optional(of_type(six.text_type))],
+        cursor=[optional(of_type(six.text_type))],
     )
     def list(self,
              subaccount=None,
@@ -262,7 +263,8 @@ class Calls(PlivoResourceInterface):
              hangup_cause_code=None,
              hangup_source=None,
              callback_url=None,
-             callback_method=None
+             callback_method=None,
+             cursor=None
              ):
         # Adding if else block because if we are fetching response without callback_url then response will be of type
         # ListResponseObject, if passing callback_url then will be of type
