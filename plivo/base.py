@@ -7,6 +7,76 @@ import pprint
 
 from plivo.exceptions import InvalidRequestError
 
+try:
+    from urllib.parse import parse_qs, urlparse
+except ImportError:
+    from urlparse import parse_qs, urlparse
+
+DEFAULT_PAGE_LIMIT = 20
+
+# Outcomes of _next_page_params() that aren't a params dict.
+_END_OF_PAGES = object()  # meta says there is no next page
+_NO_PAGE_HINT = object()  # response carried no meta to follow
+
+
+def _attr(obj, key):
+    """Read a key off a response fragment, dict or ResponseObject alike."""
+    if isinstance(obj, dict):
+        return obj.get(key)
+    # getattr, not []: ResponseObject.__getitem__ falls back to
+    # self.objects on a miss, which is not what we want here.
+    return getattr(obj, key, None)
+
+
+def _next_page_params(response, limit):
+    """Derive the next page's request params from a list response's meta.
+
+    meta.next is a relative URL whose query string carries either an
+    opaque cursor or a plain offset, depending on which pagination mode
+    the deployment happens to be serving:
+
+        '/v1/.../Call/?limit=20&cursor=<opaque>'   cursor / hybrid
+        '/v1/.../Call/?limit=20&offset=20'         offset (legacy)
+
+    Reading whichever param is present is what lets one walk stay correct
+    in all three modes without the SDK knowing which one is live.
+
+    Returns a params dict, or _END_OF_PAGES / _NO_PAGE_HINT.
+    """
+    meta = _attr(response, 'meta')
+    if meta is None:
+        return _NO_PAGE_HINT
+
+    next_url = _attr(meta, 'next')
+    if not next_url:
+        return _END_OF_PAGES
+
+    query = parse_qs(urlparse(str(next_url)).query)
+
+    next_limit = query.get('limit', [None])[0]
+    if next_limit is not None:
+        try:
+            limit = int(next_limit)
+        except ValueError:
+            pass
+
+    cursor = query.get('cursor', [None])[0]
+    if cursor:
+        # A cursor supersedes offset, and offset must not ride along with
+        # it: under hybrid the server still applies a supplied offset,
+        # which would pin the walk to page 1 forever.
+        return {'limit': limit, 'cursor': cursor, 'offset': None}
+
+    offset = query.get('offset', [None])[0]
+    if offset is not None:
+        try:
+            return {'limit': limit, 'offset': int(offset)}
+        except ValueError:
+            return _END_OF_PAGES
+
+    # meta.next is there but carries neither param we understand.
+    return _NO_PAGE_HINT
+
 
 class Meta:
     def __init__(self):
@@ -338,20 +408,50 @@ class PlivoResourceInterface(object):
         self.client = client
 
     def __iter__(self):
-        if not getattr(self, 'list') or not self.__class__._iterable:
+        """Walks every page of this resource, one record at a time.
+
+        Follows meta.next rather than computing its own offsets, so the
+        walk stays correct whether the deployment applies offset, ignores
+        it in favour of cursors, or serves the hybrid of the two. Falls
+        back to incrementing offset only for responses that carry no meta.
+        """
+        if not getattr(self, 'list', None) or not self.__class__._iterable:
             raise NotImplementedError(
                 'list is not supported for this resource')
 
         def gen():
-            limit = 20
-            offset = 0
+            limit = DEFAULT_PAGE_LIMIT
+            params = {'limit': limit, 'offset': 0}
+
             while True:
-                response = self.list(limit=limit, offset=offset)
-                if not response.objects:
+                response = self.list(**params)
+                if not _attr(response, 'objects'):
                     return
 
                 for item in response:
                     yield item
-                offset += limit
+
+                next_params = _next_page_params(response, limit)
+
+                if next_params is _END_OF_PAGES:
+                    return
+
+                if next_params is _NO_PAGE_HINT:
+                    # No usable meta. If we were walking by offset we can
+                    # carry on and stop on the first empty page; if we
+                    # were following a cursor there is nothing to follow.
+                    if params.get('offset') is None:
+                        return
+                    next_params = dict(params)
+                    next_params['offset'] += limit
+
+                if next_params == params:
+                    # Never re-request the page we just consumed. A server
+                    # that ignores our paging params would otherwise hand
+                    # back page 1 forever.
+                    return
+
+                params = next_params
+                limit = params.get('limit') or limit
 
         return gen()

@@ -1,4 +1,9 @@
 # Change Log
+## [4.63.0](https://github.com/plivo/plivo-python/tree/v4.63.0) (2026-09-23)
+**Bug Fix - Auto-pagination under cursor pagination**
+- Fixed `__iter__` looping forever on Call and Recording list endpoints when the API ignores a client-supplied `offset`. Iteration now follows `meta.next`, reading whichever of `cursor=` or `offset=` it carries, and falls back to the offset walk for responses without `meta`.
+- Added optional `cursor` parameter to `calls.list()` and `recordings.list()`. Appended as a trailing optional argument; existing `offset` callers are unaffected.
+
 ## [4.62.0](https://github.com/plivo/plivo-python/tree/v4.62.0) (2026-07-28)
 **Feature - Toll-free verification terms, privacy, opt-in and help fields**
 - Added optional `terms_and_conditions_link`, `privacy_policy_link`, `optin_message` and `help_message` parameters to the toll-free verification create and update methods

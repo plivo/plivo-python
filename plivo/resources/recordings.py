@@ -49,6 +49,7 @@ class Recordings(PlivoResourceInterface):
         ],
         callback_url=[optional(is_url())],
         callback_method=[optional(of_type(six.text_type))],
+        cursor=[optional(of_type(six.text_type))],
     )
     def list(self,
              subaccount=None,
@@ -71,7 +72,8 @@ class Recordings(PlivoResourceInterface):
              conference_name=None,
              mpc_name=None,
              conference_uuid=None,
-             mpc_uuid=None):
+             mpc_uuid=None,
+             cursor=None):
 
         if subaccount:
             if isinstance(subaccount, Subaccount):
