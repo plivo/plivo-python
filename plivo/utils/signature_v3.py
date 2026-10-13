@@ -1,5 +1,5 @@
 import sys
-from hmac import new as sign
+from hmac import new as sign, compare_digest
 from hashlib import sha256
 from .validators import *
 
@@ -118,3 +118,43 @@ def validate_v3_signature(method, uri, nonce, auth_token, v3_signature, params=N
     base_url = construct_get_url(uri, params).decode('utf-8') if method == 'GET' else construct_post_url(uri, params).decode('utf-8')
     signature = get_signature_v3(auth_token, base_url, nonce)
     return signature in v3_signature.split(b',')
+
+
+def derive_signing_key(scoped_token):
+    """
+        Derives the 32-byte HMAC-SHA256 key Plivo uses to sign V3 webhooks
+        for requests made with a scoped API token (HKDF-SHA256, RFC 5869).
+
+        :param scoped_token: Scoped API token, including the PLV prefix
+        :return: Raw 32-byte signing key
+    """
+    prk = sign(b'plivo-scoped-token-v1', scoped_token.encode('utf-8'), sha256).digest()
+    return sign(prk, b'plivo-webhook-signing-v1\x01', sha256).digest()
+
+
+@validate_args(
+    method=[all_of(of_type(six.text_type), is_in(('POST', 'GET'), case_sensitive=False))],
+    uri=[is_url()],
+    params=[optional(of_type(dict))],
+    nonce=[of_type(six.text_type)],
+    scoped_token=[of_type(six.text_type)],
+    v3_signature=[of_type(six.text_type)],
+)
+def validate_v3_signature_scoped(method, uri, nonce, scoped_token, v3_signature, params=None):
+    """
+        Validates V3 Signature received from Plivo for requests made with a scoped API token
+
+        :param method: Your callback method
+        :param uri: Your callback URL
+        :param params: Params received in callback from Plivo
+        :param nonce: X-Plivo-Signature-V3-Nonce header
+        :param v3_signature: X-Plivo-Signature-V3 header
+        :param scoped_token: Scoped API token (PLV...) used for the API call
+
+        :return: True if the request matches signature, False otherwise
+    """
+    if params is None:
+        params = dict()
+    base_url = construct_get_url(uri, params).decode('utf-8') if method == 'GET' else construct_post_url(uri, params).decode('utf-8')
+    signature = get_signature_v3(derive_signing_key(scoped_token), base_url, bytes(nonce.encode('utf-8')))
+    return any(compare_digest(signature, candidate) for candidate in bytes(v3_signature.encode('utf-8')).split(b','))

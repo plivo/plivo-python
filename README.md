@@ -513,6 +513,24 @@ response= client.messages.create(
 print(response)
 ```
 
+### Validating webhooks for scoped API tokens
+Webhooks triggered by an API call made with a scoped API token (`PLV...`) are signed with a key derived from that token. Validate them with `validate_v3_signature_scoped`, which takes the same arguments as `validate_v3_signature` but with the scoped token in place of the auth token:
+
+```python
+from plivo.utils import validate_v3_signature_scoped
+
+is_valid = validate_v3_signature_scoped(
+    request.method,
+    request.url,
+    request.headers['X-Plivo-Signature-V3-Nonce'],
+    scoped_token,
+    request.headers['X-Plivo-Signature-V3'],
+    params,
+)
+```
+
+`plivo.utils.derive_signing_key(scoped_token)` returns the raw 32-byte HMAC-SHA256 key if you need a custom validator.
+
 ### More examples
 Refer to the [Plivo API Reference](https://www.plivo.com/docs/messaging/api/overview/) for more examples. Also refer to the [guide to setting up dev environment](https://www.plivo.com/docs/messaging/quickstart/python-flask/) on [Plivo Developers Portal](https://www.plivo.com/docs/) to setup a Flask server & use it to test out your integration in under 5 minutes. to get started with Plivo.
 

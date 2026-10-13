@@ -5,7 +5,7 @@ from datetime import datetime
 
 from hmac import new as hnew
 from hashlib import sha256
-from .signature_v3 import validate_v3_signature
+from .signature_v3 import validate_v3_signature, validate_v3_signature_scoped, derive_signing_key
 
 try:
     from urllib.parse import urlparse, urlunparse
