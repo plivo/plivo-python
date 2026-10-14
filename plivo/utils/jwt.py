@@ -60,6 +60,10 @@ class AccessToken:
                     "validity of %s seconds is out of permitted range [180, 86400]" %
                     self.lifetime)
 
+        if auth_token and len(auth_token) == 46 and auth_token.startswith('PLV'):
+            raise ValidationError(
+                "AccessToken must be signed with the account auth token; scoped API tokens (PLV...) can't sign JWTs. "
+                "Use the auth token, or create a token with the JWT API (POST /Account/{auth_id}/JWT/Token/).")
         self.key = auth_token
 
         if uid:

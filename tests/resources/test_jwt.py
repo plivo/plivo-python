@@ -24,6 +24,14 @@ class AccessTokenTest(PlivoResourceTestCase):
                                jwt.AccessToken,
                                'ADADADADADADADADADA', 'qwerty', 'username')
 
+    def test_jwt_constructor_rejects_scoped_token(self):
+        self.assertRaisesRegex(plivo.exceptions.ValidationError,
+                               "scoped API tokens",
+                               jwt.AccessToken,
+                               'MADADADADADADADADADA', 'PLV' + 'A' * 43, 'username')
+        token = jwt.AccessToken('MADADADADADADADADADA', 'qwerty', 'username')
+        self.assertEqual(token.key, 'qwerty')
+
     def test_jwt_constructor_lifetime(self):
         self.assertRaisesRegexp(plivo.exceptions.ValidationError,
                                ".* lifetime .*",
