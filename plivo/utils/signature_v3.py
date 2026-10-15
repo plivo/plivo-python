@@ -137,24 +137,34 @@ def derive_signing_key(scoped_token):
     uri=[is_url()],
     params=[optional(of_type(dict))],
     nonce=[of_type(six.text_type)],
-    scoped_token=[of_type(six.text_type)],
+    scoped_token=[one_of(of_type_exact(list, tuple), of_type(six.text_type))],
     v3_signature=[of_type(six.text_type)],
 )
 def validate_v3_signature_scoped(method, uri, nonce, scoped_token, v3_signature, params=None):
     """
-        Validates V3 Signature received from Plivo for requests made with a scoped API token
+        Validates V3 Signature received from Plivo against one or more keys
 
         :param method: Your callback method
         :param uri: Your callback URL
         :param params: Params received in callback from Plivo
         :param nonce: X-Plivo-Signature-V3-Nonce header
         :param v3_signature: X-Plivo-Signature-V3 header
-        :param scoped_token: Scoped API token (PLV...) used for the API call
+        :param scoped_token: A key or a list of keys. Keys that are scoped API tokens (PLV..., 46 chars) are
+            verified with the derived signing key; any other key is treated as an auth token. Empty entries
+            are skipped.
 
-        :return: True if the request matches signature, False otherwise
+        :return: True if the request matches a signature for any key, False otherwise
     """
     if params is None:
         params = dict()
+    keys = [scoped_token] if isinstance(scoped_token, six.text_type) else scoped_token
     base_url = construct_get_url(uri, params).decode('utf-8') if method == 'GET' else construct_post_url(uri, params).decode('utf-8')
-    signature = get_signature_v3(derive_signing_key(scoped_token), base_url, bytes(nonce.encode('utf-8')))
-    return any(compare_digest(signature, candidate) for candidate in bytes(v3_signature.encode('utf-8')).split(b','))
+    candidates = bytes(v3_signature.encode('utf-8')).split(b',')
+    for key in keys:
+        if not key:
+            continue
+        hmac_key = derive_signing_key(key) if len(key) == 46 and key.startswith('PLV') else key.encode('utf-8')
+        signature = get_signature_v3(hmac_key, base_url, bytes(nonce.encode('utf-8')))
+        if any(compare_digest(signature, candidate) for candidate in candidates):
+            return True
+    return False

@@ -3,6 +3,7 @@
 import binascii
 
 import plivo
+from plivo.utils.signature_v3 import construct_post_url, get_signature_v3
 from tests.base import PlivoResourceTestCase
 
 
@@ -54,3 +55,20 @@ class ScopedSignatureV3Test(PlivoResourceTestCase):
                                   scoped_post_params('failed')))
         self.assertFalse(plivo.utils.validate_v3_signature('POST', SCOPED_POST_URL, SCOPED_NONCE, SCOPED_TOKEN_1,
                                                            SCOPED_POST_SIG, scoped_post_params()))
+
+    def test_validate_v3_signature_scoped_multiple_keys(self):
+        validate = plivo.utils.validate_v3_signature_scoped
+        auth_token = 'test-auth-token'
+        base_url = construct_post_url(SCOPED_POST_URL, scoped_post_params()).decode('utf-8')
+        auth_sig = get_signature_v3(auth_token.encode('utf-8'), base_url, SCOPED_NONCE.encode('utf-8')).decode('ascii')
+        keys = [SCOPED_TOKEN_1, auth_token]
+        self.assertTrue(validate('POST', SCOPED_POST_URL, SCOPED_NONCE, keys, SCOPED_POST_SIG, scoped_post_params()))
+        self.assertTrue(validate('POST', SCOPED_POST_URL, SCOPED_NONCE, keys, auth_sig, scoped_post_params()))
+        self.assertTrue(validate('POST', SCOPED_POST_URL, SCOPED_NONCE, [SCOPED_TOKEN_2, auth_token],
+                                 SCOPED_POST_SIG + ',' + auth_sig, scoped_post_params()))
+        self.assertFalse(validate('POST', SCOPED_POST_URL, SCOPED_NONCE, [SCOPED_TOKEN_2], SCOPED_POST_SIG,
+                                  scoped_post_params()))
+        self.assertFalse(validate('POST', SCOPED_POST_URL, SCOPED_NONCE, [], SCOPED_POST_SIG, scoped_post_params()))
+        self.assertTrue(validate('POST', SCOPED_POST_URL, SCOPED_NONCE, [None, '', SCOPED_TOKEN_1], SCOPED_POST_SIG,
+                                 scoped_post_params()))
+        self.assertTrue(validate('POST', SCOPED_POST_URL, SCOPED_NONCE, auth_token, auth_sig, scoped_post_params()))
