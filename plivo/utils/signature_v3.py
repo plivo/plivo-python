@@ -106,13 +106,13 @@ def validate_v3_signature(method, uri, nonce, auth_token, v3_signature, params=N
         :param params: Params received in callback from Plivo
         :param nonce: X-Plivo-Signature-V3-Nonce header
         :param v3_signature: X-Plivo-Signature-V3 header
-        :param auth_token: (Sub)Account auth token
+        :param auth_token: (Sub)Account auth token, or a scoped API token (PLV..., 46 chars) verified with its derived signing key
 
         :return: True if the request matches signature, False otherwise
     """
     if params is None:
         params = dict()
-    auth_token = bytes(auth_token.encode('utf-8'))
+    auth_token = derive_signing_key(auth_token) if len(auth_token) == 46 and auth_token.startswith('PLV') else bytes(auth_token.encode('utf-8'))
     nonce = bytes(nonce.encode('utf-8'))
     v3_signature = bytes(v3_signature.encode('utf-8'))
     base_url = construct_get_url(uri, params).decode('utf-8') if method == 'GET' else construct_post_url(uri, params).decode('utf-8')
