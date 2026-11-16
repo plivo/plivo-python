@@ -27,6 +27,10 @@ def string_format(value):
 
 def get_map_from_query(query):
     res_map = dict()
+    if not PY2:
+        # Parse as text so percent-encoded UTF-8 (e.g. %C3%A9) decodes to the
+        # character Plivo signs, not one character per byte.
+        query = query.decode('utf-8')
     for key, value in parse_qs(query, keep_blank_values=True).items():
         res_map[string_format(key)] = string_format(value)
     return res_map
@@ -91,7 +95,9 @@ def get_signature_v3(auth_token, base_url, nonce):
 
 @validate_args(
     method=[all_of(of_type(six.text_type), is_in(('POST', 'GET'), case_sensitive=False))],
-    uri=[is_url()],
+    uri=[all_of(
+        of_type(six.text_type),
+        regex(r'((?:http[s]?|ws[s]?)://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+|None)'))],
     params=[optional(of_type(dict))],
     nonce=[of_type(six.text_type)],
     auth_token=[of_type(six.text_type)],
@@ -102,7 +108,7 @@ def validate_v3_signature(method, uri, nonce, auth_token, v3_signature, params=N
         Validates V3 Signature received from Plivo to your server
 
         :param method: Your callback method
-        :param uri: Your callback URL
+        :param uri: Your callback URL, or your audio stream ws:// / wss:// URL
         :param params: Params received in callback from Plivo
         :param nonce: X-Plivo-Signature-V3-Nonce header
         :param v3_signature: X-Plivo-Signature-V3 header
