@@ -1,5 +1,5 @@
 # Change Log
-## [4.63.1](https://github.com/plivo/plivo-python/tree/v4.63.1) (2026-11-16)
+## [4.63.1](https://github.com/plivo/plivo-python/tree/v4.63.1) (2026-11-19)
 **Bug Fix - V3 signature validation for audio stream WebSocket URLs**
 - `validate_v3_signature` now accepts `ws://` and `wss://` URLs, so the V3 signature Plivo sends on audio stream WebSocket connections can be validated by passing the full stream URL.
 - Fixed validation failing for URLs whose query string contains percent-encoded non-ASCII characters (e.g. `?name=Jos%C3%A9`).
