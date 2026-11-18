@@ -91,3 +91,29 @@ class SignatureV3Test(PlivoResourceTestCase):
             plivo.utils.validate_v3_signature(
                 'GET', 'ftp://example.com/media/stream', V3_NONCE, V3_AUTH_TOKEN,
                 'paNuAIW+AAlyCT4lFH8ZrCvzj3gkNuvrX0r877mN3nM=')
+
+    def test_v3_signature_repeated_query_key_signs_first_value(self):
+        for uri in ('wss://example.com/s?a=2&a=1', 'wss://example.com/s?a=2&a=3'):
+            self.assertEqual(True,
+                             plivo.utils.validate_v3_signature(
+                                 'GET', uri, V3_NONCE, V3_AUTH_TOKEN,
+                                 'L3nTXJ+EYdX1+hp/Zmyki567JbD+y0J4G3FyU24D0nM='))
+
+    def test_v3_signature_post_repeated_query_key_signs_first_value(self):
+        self.assertEqual(True,
+                         plivo.utils.validate_v3_signature(
+                             'POST', 'https://example.com/answer?a=2&a=1', V3_NONCE, V3_AUTH_TOKEN,
+                             't1DwgD2WYK82ZVMDyYtajnAuGvefKL6IYWnlK8Ry5jI=',
+                             {'CallUUID': 'abc', 'From': '14155550100'}))
+
+    def test_v3_signature_percent_encoded_path(self):
+        self.assertEqual(True,
+                         plivo.utils.validate_v3_signature(
+                             'GET', 'wss://example.com/my%20stream/ws?id=1', V3_NONCE, V3_AUTH_TOKEN,
+                             '5hGH/IknEopkorKviPg1OTVLJvkZ/oqs3GBHF9Si4mw='))
+
+    def test_v3_signature_percent_encoded_utf8_path(self):
+        self.assertEqual(True,
+                         plivo.utils.validate_v3_signature(
+                             'GET', 'wss://example.com/caf%C3%A9', V3_NONCE, V3_AUTH_TOKEN,
+                             'mispoT1dAorWDPXcJvWI5ogE/6nWutLBytMtzXAwP28='))
